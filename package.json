@@ -1,7 +1,7 @@
 {
-  "name": "@seamapi/makenew-tsmodule",
-  "version": "1.1.2",
-  "description": "Package skeleton for a TypeScript module.",
+  "name": "@seamapi/fake-seam-connect",
+  "version": "0.0.0",
+  "description": "Fake for Seam Connect.",
   "type": "module",
   "main": "index.js",
   "typings": "index.d.ts",
@@ -13,9 +13,9 @@
   "keywords": [
     "node"
   ],
-  "homepage": "https://github.com/seamapi/makenew-tsmodule",
-  "bugs": "https://github.com/seamapi/makenew-tsmodule/issues",
-  "repository": "seamapi/makenew-tsmodule",
+  "homepage": "https://github.com/seamapi/fake-seam-connect",
+  "bugs": "https://github.com/seamapi/fake-seam-connect/issues",
+  "repository": "seamapi/fake-seam-connect",
   "license": "MIT",
   "author": {
     "name": "Seam Labs, Inc.",
