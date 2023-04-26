@@ -1,8 +1,8 @@
-import { z } from "zod"
+import { z } from 'zod'
 import {
   ALL_LOCK_DEVICE_TYPES,
   ALL_NOISE_SENSOR_TYPES,
-} from "lib/locks/constants"
+} from 'lib/locks/constants'
 
 export const deviceType = z.enum([
   ...ALL_LOCK_DEVICE_TYPES,
