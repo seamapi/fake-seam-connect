@@ -1,6 +1,6 @@
 {
   "root": true,
-  "extends": ["standard-with-typescript", "prettier"],
+  "extends": ["prettier"],
   "plugins": ["simple-import-sort", "unused-imports"],
   "parserOptions": {
     "project": "./tsconfig.json"
