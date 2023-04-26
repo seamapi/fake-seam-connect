@@ -11,6 +11,18 @@ export type Routes = {
       ok: boolean
     }
   }
+  '/internal/client_session_tokens/create': {
+    route: '/internal/client_session_tokens/create'
+    method: 'GET'
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      note: string
+      ok: boolean
+    }
+  }
 }
 
 export type RouteResponse<Path extends keyof Routes> =

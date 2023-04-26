@@ -28,6 +28,31 @@
         },
         "tags": []
       }
+    },
+    "/internal/client_session_tokens/create": {
+      "get": {
+        "summary": "/internal/client_session_tokens/create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "note": { "type": "string" },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["note", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "tags": []
+      }
     }
   },
   "components": { "securitySchemes": { "api_key": { "type": "apiKey" } } }
