@@ -1,16 +1,18 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@tsconfig/next/tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
     "strict": true,
-    "module": "nodenext",
     "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "allowJs": false,
     "target": "es2021",
-    "jsx": "react-jsx",
     "declaration": true,
     "sourceMap": true,
     "newLine": "lf",
-    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": false,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "exactOptionalPropertyTypes": true,
@@ -24,10 +26,20 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "index.js": ["./src/index.ts"],
-      "lib/*": ["./src/lib/*"]
+      "index.ts": ["./src/index.ts"],
+      "fixtures/*": ["./test/fixtures/*"],
+      "lib/*": ["./src/lib/*"],
+      "nsm/*": ["./.nsm/*"],
+      "pages/*": ["./src/pages/*"]
     }
   },
   "files": ["src/index.ts"],
-  "include": ["src/**/*", "test/**/*", "examples/**/*"]
+  "include": [
+    "src/**/*",
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "test/**/*",
+    "examples/**/*",
+    "tsup.config.ts"
+  ]
 }

@@ -1,0 +1,34 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Fake Template", "version": "1.0.0" },
+  "servers": [{ "url": "https://example.com" }],
+  "tags": [],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "/health",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "note": { "type": "string" },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["note", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "tags": []
+      }
+    }
+  },
+  "components": { "securitySchemes": { "api_key": { "type": "apiKey" } } }
+}

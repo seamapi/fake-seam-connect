@@ -1,0 +1,33 @@
+---
+name: Size
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  size:
+    name: Report bundle size
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          node_auth_token: ${{ secrets.GH_TOKEN }}
+      - name: Build
+        run: npm run build
+      - name: Get bundle size
+        id: size
+        run: |
+          echo "dist=$(du -sh dist | cut -f1)" >> $GITHUB_OUTPUT
+      - name: Update comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          header: Bundle Size
+          message: |
+            Bundle `dist` size: ${{ steps.size.outputs.dist }}

@@ -5,6 +5,22 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "overrides": [
+    {
+      "files": ["src/route-types.ts"],
+      "rules": {
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "simple-import-sort/imports": "off"
+      }
+    },
+    {
+      "files": ["next-env.d.ts"],
+      "rules": {
+        "@typescript-eslint/triple-slash-reference": "off"
+      }
+    }
+  ],
   "rules": {
     "no-console": "warn",
     "@typescript-eslint/consistent-type-imports": [
@@ -34,8 +50,8 @@
           ["^\\u0000"],
           ["^node:"],
           ["^@?\\w"],
-          ["index.js"],
-          ["^lib/"],
+          ["index.ts"],
+          ["^fixtures/", "^lib/", "^nsm", "^pages"],
           ["^"],
           ["^\\."]
         ]

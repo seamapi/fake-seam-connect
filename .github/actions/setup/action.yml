@@ -36,3 +36,16 @@ runs:
       if: inputs.install_dependencies == 'true'
       shell: bash
       run: npm ci
+    - name: Next.js cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.npm
+          ${{ github.workspace }}/.next/cache
+        key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+        restore-keys: |
+          ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+    - name: Build NSM
+      if: inputs.install_dependencies == 'true'
+      shell: bash
+      run: npm run build:nsm
