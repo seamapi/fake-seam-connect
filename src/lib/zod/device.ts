@@ -44,3 +44,6 @@ export const unmanaged_device = device.pick({
   warnings: true,
   created_at: true,
 })
+
+export type Device = z.infer<typeof device>
+export type UnmanagedDevice = z.infer<typeof unmanaged_device>

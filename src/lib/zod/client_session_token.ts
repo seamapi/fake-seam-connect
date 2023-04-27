@@ -8,3 +8,5 @@ export const client_session_token = z.object({
   user_id: z.string(),
   created_at: z.string().datetime(),
 })
+
+export type ClientSessionToken = z.infer<typeof client_session_token>
