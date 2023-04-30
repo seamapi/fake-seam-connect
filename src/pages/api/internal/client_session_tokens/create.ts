@@ -8,10 +8,11 @@ const jsonResponse = z.object({
 })
 
 export default withRouteSpec({
-  auth: 'none',
+  auth: 'cst_ak_pk',
   methods: ['GET'],
   middlewares: [],
   jsonResponse,
 } as const)(async (req, res) => {
+  req.db.addClientSessionToken({})
   // req.db.
 })
