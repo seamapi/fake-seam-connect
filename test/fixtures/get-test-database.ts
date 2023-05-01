@@ -19,14 +19,7 @@ export const getTestDatabase = async (
 ): Promise<DatabaseFixture> => {
   const db = createDatabase()
 
-  const thing = db.addThing({
-    type: 'superthing',
-  })
-
-  const seed = {
-    thing,
-    apiKey: '1234',
-  }
+  db.addWorkspace()
 
   return { db, seed }
 }

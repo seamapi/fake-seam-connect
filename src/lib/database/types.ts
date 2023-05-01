@@ -5,11 +5,13 @@ export type WorkspaceId = string
 
 export interface DatabaseState {
   workspaces: Array<Workspace>
+  connect_webviews: Array<ConnectWebview>
   client_session_tokens: Array<ClientSessionToken>
   devices: Array<Device>
 }
 
 export interface DatabaseMethods {
+  addWorkspace(params: { name: string }): Workspace
   addClientSessionToken(params: {
     workspace_id: WorkspaceId
     connected_account_ids: string[]

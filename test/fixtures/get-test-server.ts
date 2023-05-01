@@ -7,7 +7,7 @@ import { type Database, type Routes } from 'index.ts'
 import nsm from 'nsm/get-server-fixture.ts'
 import { type NextApiHandler, type NextApiResponse } from 'nsm/types/nextjs.ts'
 
-import { type DatabaseFixture, getTestDatabase } from './get-test-database.ts'
+import { type DatabaseFixture, getTestDatabase } from './get-test-database.js'
 
 export { type SimpleAxiosError } from 'nsm/get-server-fixture.ts'
 
