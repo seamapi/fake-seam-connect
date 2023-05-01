@@ -1,16 +1,12 @@
 import type { HoistedMethodStoreApi } from 'zustand-hoist'
-import type { Device, ClientSessionToken } from 'lib/zod/index.ts'
+import type { Device, ClientSessionToken, Workspace } from 'lib/zod/index.ts'
 
 export type WorkspaceId = string
 
 export interface DatabaseState {
-  workspaces: Record<
-    WorkspaceId,
-    {
-      client_session_tokens: Array<ClientSessionToken>
-      devices: Array<Device>
-    }
-  >
+  workspaces: Array<Workspace>
+  client_session_tokens: Array<ClientSessionToken>
+  devices: Array<Device>
 }
 
 export interface DatabaseMethods {
@@ -22,6 +18,4 @@ export interface DatabaseMethods {
   update: (t?: number) => void
 }
 
-export type State = DatabaseState & DatabaseMethods
-
-export type Database = HoistedMethodStoreApi<State>
+export type Database = DatabaseState & DatabaseMethods
