@@ -1,41 +1,45 @@
 import { immer } from 'zustand/middleware/immer'
 import { createStore, type StoreApi } from 'zustand/vanilla'
-import { hoistMethods } from 'zustand-hoist'
+import { hoist } from 'zustand-hoist'
 
-import { type Database, type State } from './types.ts'
+import { type Database } from './types.ts'
 
 export const createDatabase = (): Database => {
-  return hoistMethods<StoreApi<State>>(createStore(initializer))
+  return hoist<StoreApi<Database>>(createStore(initializer))
 }
 
-const initializer = immer<State>((set, get) => ({
-  thingCount: 0,
-  things: [],
+const initializer = immer<Database>((set, get) => ({
+  _counters: {},
 
-  addThing(thing) {
-    set((state) => {
-      state.thingCount++
-      state.things.push({
-        ...thing,
-        status: 'online',
-        thing_id: `thing_${state.thingCount}`,
-      })
-    })
-    const newThing = get().things[get().things.length - 1]
-    if (newThing == null) {
-      throw new Error('Failed to find new thing in state')
+  client_session_tokens: [],
+  workspaces: [],
+  connect_webviews: [],
+  connected_accounts: [],
+  devices: [],
+
+  _getNextId(type) {
+    const count = (get()._counters[type] ?? 0) + 1
+    set({ _counters: { ...get()._counters, [type]: count } })
+    return `${type}_${count}`
+  },
+
+  addWorkspace(params) {
+    const pkid = get()._getNextId('pk')
+    const new_workspace = {
+      workspace_id: get()._getNextId('workspace'),
+      name: params.name,
+      publishable_key: `seam_${pkid}_${Math.random().toString(16).slice(2)}`,
+      created_at: new Date().toISOString(),
     }
-    return newThing
+    set({
+      workspaces: [...get().workspaces, new_workspace],
+    })
+    return new_workspace
   },
 
-  simulatePowerFailure(thingId) {
-    set((state) => {
-      const thing = state.things.find((t) => t.thing_id === thingId)
-      if (thing == null) {
-        throw new Error(`Thing "${thingId}" not found`)
-      }
-      thing.status = 'offline'
-    })
+  addClientSessionToken(params) {
+    const new_cst = {}
   },
+
   update() {},
 }))
