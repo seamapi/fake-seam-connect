@@ -1,6 +1,6 @@
 {
   "openapi": "3.0.0",
-  "info": { "title": "Fake Template", "version": "1.0.0" },
+  "info": { "title": "Fake Seam Connect", "version": "1.0.0" },
   "servers": [{ "url": "https://example.com" }],
   "tags": [],
   "paths": {
@@ -51,9 +51,15 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
+        "security": [{ "cst_ak_pk": [] }],
         "tags": []
       }
     }
   },
-  "components": { "securitySchemes": { "api_key": { "type": "apiKey" } } }
+  "components": {
+    "securitySchemes": {
+      "api_key": { "type": "apiKey" },
+      "cst_ak_pk": { "type": "apiKey" }
+    }
+  }
 }
