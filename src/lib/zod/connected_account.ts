@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 export const connected_account = z.object({
   connected_account_id: z.string(),

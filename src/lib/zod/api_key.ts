@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 export const api_key = z.object({
   api_key_id: z.string().uuid(),

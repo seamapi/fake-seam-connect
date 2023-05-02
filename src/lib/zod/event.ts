@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 export const event = z.object({
   event_id: z.string().uuid(),

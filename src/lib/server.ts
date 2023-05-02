@@ -1,12 +1,12 @@
-import { type Server as HttpServer } from 'node:http'
+import { type Server as HttpServer } from "node:http"
 
-import getPort from 'get-port'
-import { type NextApiRequest } from 'next'
+import getPort from "get-port"
+import { type NextApiRequest } from "next"
 
-import { createDatabase, type Database } from 'lib/database/index.ts'
-import * as nsm from 'nsm/index.ts'
+import { createDatabase, type Database } from "lib/database/index.ts"
+import * as nsm from "nsm/index.ts"
 
-import logger from 'lib/logger.ts'
+import logger from "lib/logger.ts"
 
 const { runServer } = nsm
 

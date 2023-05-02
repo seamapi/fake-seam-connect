@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 export const timestamp = z.union([
   z.string().refine((payload) => {
@@ -8,7 +8,7 @@ export const timestamp = z.union([
     }
 
     return true
-  }, 'Must be parsable date string if defined'),
+  }, "Must be parsable date string if defined"),
   z.date(),
 ])
 
@@ -18,4 +18,4 @@ export const between_timestamps = z
   .max(2)
   .refine((arr) => {
     return arr[0] < arr[1]
-  }, 'second value must be greater than first value')
+  }, "second value must be greater than first value")

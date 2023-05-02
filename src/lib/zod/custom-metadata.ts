@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 export const custom_metadata = z
   .record(
@@ -6,7 +6,7 @@ export const custom_metadata = z
     z.union([z.string().max(500), z.number(), z.null(), z.boolean()])
   )
   .refine((val) => Object.keys(val).length <= 50, {
-    message: 'Custom metadata is limited to a maximum of 50 keys',
+    message: "Custom metadata is limited to a maximum of 50 keys",
   })
 
 export type CustomMetadata = z.infer<typeof custom_metadata>

@@ -1,20 +1,20 @@
-import { type ExecutionContext } from 'ava'
-import { type NextApiRequest } from 'next'
-import { type TypedAxios } from 'typed-axios-instance'
+import { type ExecutionContext } from "ava"
+import { type NextApiRequest } from "next"
+import { type TypedAxios } from "typed-axios-instance"
 
-import { type Database, type Routes } from 'index.ts'
+import { type Database, type Routes } from "index.ts"
 
-import nsm from 'nsm/get-server-fixture.ts'
-import { type NextApiHandler, type NextApiResponse } from 'nsm/types/nextjs.ts'
+import nsm from "nsm/get-server-fixture.ts"
+import { type NextApiHandler, type NextApiResponse } from "nsm/types/nextjs.ts"
 
-import { type DatabaseFixture, getTestDatabase } from './get-test-database.js'
+import { type DatabaseFixture, getTestDatabase } from "./get-test-database.js"
 
-export { type SimpleAxiosError } from 'nsm/get-server-fixture.ts'
+export { type SimpleAxiosError } from "nsm/get-server-fixture.ts"
 
 const { default: getServerFixture } = nsm
 
 type ServerFixture = DatabaseFixture &
-  Omit<Awaited<ReturnType<typeof getServerFixture>>, 'axios'> & {
+  Omit<Awaited<ReturnType<typeof getServerFixture>>, "axios"> & {
     axios: TypedAxios<Routes>
   }
 
