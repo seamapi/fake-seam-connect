@@ -48,7 +48,7 @@ const initializer = immer<Database>((set, get) => ({
       workspace_id: params.workspace_id,
       connected_account_ids: params.connected_account_ids ?? [],
       connect_webview_ids: params.connect_webview_ids ?? [],
-      client_session_token_id: cst_id,
+      client_session_id: cst_id,
       long_token: simpleHash(cst_id),
       short_token: cst_id,
       token: `seam_${cst_id}_${simpleHash(cst_id)}`,

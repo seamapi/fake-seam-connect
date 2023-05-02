@@ -9,6 +9,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
       | {
           auth_mode: "client_session_token"
           workspace_id: string
+          client_session_id: string
           connected_account_ids: string[]
           connect_webview_ids: string[]
         }
@@ -62,6 +63,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
     req.auth = {
       auth_mode: "client_session_token",
       workspace_id: cst.workspace_id,
+      client_session_id: cst.client_session_id,
       connected_account_ids: cst.connected_account_ids ?? [],
       connect_webview_ids: cst.connect_webview_ids ?? [],
     }

@@ -833,7 +833,7 @@
                     "client_session": {
                       "type": "object",
                       "properties": {
-                        "client_session_token_id": { "type": "string" },
+                        "client_session_id": { "type": "string" },
                         "workspace_id": { "type": "string" },
                         "token": { "type": "string" },
                         "short_token": { "type": "string" },
@@ -850,7 +850,7 @@
                         "created_at": { "type": "string" }
                       },
                       "required": [
-                        "client_session_token_id",
+                        "client_session_id",
                         "workspace_id",
                         "token",
                         "short_token",
@@ -907,7 +907,7 @@
                     "client_session": {
                       "type": "object",
                       "properties": {
-                        "client_session_token_id": { "type": "string" },
+                        "client_session_id": { "type": "string" },
                         "workspace_id": { "type": "string" },
                         "token": { "type": "string" },
                         "short_token": { "type": "string" },
@@ -924,7 +924,7 @@
                         "created_at": { "type": "string" }
                       },
                       "required": [
-                        "client_session_token_id",
+                        "client_session_id",
                         "workspace_id",
                         "token",
                         "short_token",

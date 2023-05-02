@@ -1,7 +1,7 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 export const client_session = z.object({
-  client_session_token_id: z.string(),
+  client_session_id: z.string(),
   workspace_id: z.string(),
   token: z.string(),
   short_token: z.string(),

@@ -24,6 +24,19 @@ export default withRouteSpec({
   const connected_account = req.db.addConnectedAccount({
     provider: "august",
   })
+
+  const relevant_cs = req.db.client_sessions.find((cs) =>
+    cs.connect_webview_ids.includes(connect_webview.connect_webview_id)
+  )
+  if (relevant_cs) {
+    req.db.updateClientSession({
+      client_session_id: relevant_cs.client_session_id,
+      connected_account_ids: relevant_cs.connected_account_ids.concat([
+        connected_account.connected_account_id,
+      ]),
+    })
+  }
+
   req.db.addDevice({
     device_type: "august_lock",
     connected_account_id: connected_account.connected_account_id,

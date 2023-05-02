@@ -29,7 +29,7 @@ export interface DatabaseMethods {
   updateClientSession(params: {
     client_session_id: string
     connected_account_ids?: string[]
-    connect_webviews_id?: string[]
+    connect_webview_ids?: string[]
   }): void
 
   addConnectWebview(params: { workspace_id: WorkspaceId }): ConnectWebview
