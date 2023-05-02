@@ -29,9 +29,9 @@
         "tags": []
       }
     },
-    "/internal/client_session_tokens/create": {
-      "post": {
-        "summary": "/internal/client_session_tokens/create",
+    "/internal/client_sessions/create": {
+      "put": {
+        "summary": "/internal/client_sessions/create",
         "responses": {
           "200": {
             "description": "OK",
@@ -40,10 +40,40 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "note": { "type": "string" },
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_token_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "short_token": { "type": "string" },
+                        "long_token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": { "type": "string" }
+                      },
+                      "required": [
+                        "client_session_token_id",
+                        "workspace_id",
+                        "token",
+                        "short_token",
+                        "long_token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
                     "ok": { "type": "boolean" }
                   },
-                  "required": ["note", "ok"]
+                  "required": ["client_session", "ok"]
                 }
               }
             }
@@ -52,6 +82,100 @@
           "401": { "description": "Unauthorized" }
         },
         "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "connected_account_ids": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "connect_webview_ids": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "user_identifier_key": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "tags": []
+      },
+      "post": {
+        "summary": "/internal/client_sessions/create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_token_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "short_token": { "type": "string" },
+                        "long_token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": { "type": "string" }
+                      },
+                      "required": [
+                        "client_session_token_id",
+                        "workspace_id",
+                        "token",
+                        "short_token",
+                        "long_token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["client_session", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "connected_account_ids": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "connect_webview_ids": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "user_identifier_key": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
         "tags": []
       }
     }

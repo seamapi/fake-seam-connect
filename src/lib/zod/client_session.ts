@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const client_session_token = z.object({
+export const client_session = z.object({
   client_session_token_id: z.string(),
   workspace_id: z.string(),
   token: z.string(),
@@ -12,4 +12,4 @@ export const client_session_token = z.object({
   created_at: z.string().datetime(),
 })
 
-export type ClientSessionToken = z.infer<typeof client_session_token>
+export type ClientSession = z.infer<typeof client_session>

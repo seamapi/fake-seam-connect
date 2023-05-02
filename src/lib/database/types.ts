@@ -1,6 +1,6 @@
 import type {
   Device,
-  ClientSessionToken,
+  ClientSession,
   Workspace,
   ConnectWebview,
   ConnectedAccount,
@@ -12,7 +12,7 @@ export interface DatabaseState {
   _counters: Record<string, number>
   workspaces: Workspace[]
   connect_webviews: ConnectWebview[]
-  client_session_tokens: ClientSessionToken[]
+  client_sessions: ClientSession[]
   connected_accounts: ConnectedAccount[]
   devices: Device[]
 }
@@ -25,7 +25,7 @@ export interface DatabaseMethods {
     connected_account_ids?: string[]
     connect_webview_ids?: string[]
     user_identifier_key?: string
-  }): ClientSessionToken
+  }): ClientSession
   update: (t?: number) => void
 }
 

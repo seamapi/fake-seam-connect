@@ -1,5 +1,5 @@
 export * from './access_token.ts'
-export * from './client_session_token.ts'
+export * from './client_session.ts'
 export * from './action_attempt.ts'
 export * from './common.ts'
 export * from './device.ts'
