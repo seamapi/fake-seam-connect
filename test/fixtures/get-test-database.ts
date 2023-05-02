@@ -10,8 +10,17 @@ export interface DatabaseFixture {
 }
 
 interface Seed {
-  thing: Thing
-  apiKey: string
+  ws1: {
+    workspace_id: string
+    publishable_key: string
+  }
+  ws2: {
+    workspace_id: string
+    publishable_key: string
+    // TODO
+    // connected_account1_id: string
+    // device1_id: string
+  }
 }
 
 export const getTestDatabase = async (
@@ -19,7 +28,19 @@ export const getTestDatabase = async (
 ): Promise<DatabaseFixture> => {
   const db = createDatabase()
 
-  db.addWorkspace()
+  const ws1 = db.addWorkspace({ name: 'Seed Workspace 1 (starts empty)' })
+  const ws2 = db.addWorkspace({ name: 'Seed Workspace 2 (starts populated)' })
+
+  const seed = {
+    ws1: {
+      workspace_id: ws1.workspace_id,
+      publishable_key: ws1.publishable_key,
+    },
+    ws2: {
+      workspace_id: ws2.workspace_id,
+      publishable_key: ws2.publishable_key,
+    },
+  } as Seed
 
   return { db, seed }
 }

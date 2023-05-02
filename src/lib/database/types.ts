@@ -24,6 +24,7 @@ export interface DatabaseMethods {
     workspace_id: WorkspaceId
     connected_account_ids?: string[]
     connect_webview_ids?: string[]
+    user_identifier_key?: string
   }): ClientSessionToken
   update: (t?: number) => void
 }

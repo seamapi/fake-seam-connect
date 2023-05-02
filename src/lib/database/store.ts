@@ -3,6 +3,8 @@ import { createStore, type StoreApi } from 'zustand/vanilla'
 import { hoist } from 'zustand-hoist'
 
 import { type Database } from './types.ts'
+import { ClientSessionToken } from 'lib/zod/client_session_token.ts'
+import { simpleHash } from 'lib/util/simple-hash.ts'
 
 export const createDatabase = (): Database => {
   return hoist<StoreApi<Database>>(createStore(initializer))
@@ -24,11 +26,11 @@ const initializer = immer<Database>((set, get) => ({
   },
 
   addWorkspace(params) {
-    const pkid = get()._getNextId('pk')
+    const pk_id = get()._getNextId('pk')
     const new_workspace = {
       workspace_id: get()._getNextId('workspace'),
       name: params.name,
-      publishable_key: `seam_${pkid}_${Math.random().toString(16).slice(2)}`,
+      publishable_key: `seam_${pk_id}_${simpleHash(pk_id)}`,
       created_at: new Date().toISOString(),
     }
     set({
@@ -38,7 +40,24 @@ const initializer = immer<Database>((set, get) => ({
   },
 
   addClientSessionToken(params) {
-    const new_cst = {}
+    const cst_id = get()._getNextId('cst')
+    const new_cst: ClientSessionToken = {
+      workspace_id: params.workspace_id,
+      connected_account_ids: params.connected_account_ids ?? [],
+      connect_webview_ids: params.connect_webview_ids ?? [],
+      client_session_token_id: cst_id,
+      long_token: simpleHash(cst_id),
+      short_token: cst_id,
+      token: `seam_${cst_id}_${simpleHash(cst_id)})}`,
+      user_identifier_key: params.user_identifier_key as string,
+      created_at: new Date().toISOString(),
+    }
+
+    set({
+      client_session_tokens: [...get().client_session_tokens, new_cst],
+    })
+
+    return new_cst
   },
 
   update() {},
