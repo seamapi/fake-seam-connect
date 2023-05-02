@@ -10,8 +10,12 @@ export default withRouteSpec({
   }),
 } as const)(async (req, res) => {
   res.status(200).json({
-    connected_accounts: req.db.connected_accounts.filter(
-      (ca) => ca.workspace_id === req.auth.workspace_id
-    ),
+    connected_accounts: req.db.connected_accounts
+      .filter((ca) =>
+        req.auth.auth_mode === "client_session_token"
+          ? req.auth.connected_account_ids.includes(ca.connected_account_id)
+          : true
+      )
+      .filter((ca) => ca.workspace_id === req.auth.workspace_id),
   })
 })

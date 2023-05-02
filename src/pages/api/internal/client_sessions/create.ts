@@ -52,7 +52,7 @@ export default withRouteSpec({
   }
 
   const { workspace_id } = req.auth
-  const client_session = req.db.addClientSessionToken({
+  const client_session = req.db.addClientSession({
     workspace_id,
     connect_webview_ids: req.body.connect_webview_ids,
     connected_account_ids: req.body.connected_account_ids,

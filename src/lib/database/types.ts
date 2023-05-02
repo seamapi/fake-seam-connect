@@ -4,6 +4,7 @@ import type {
   Workspace,
   ConnectWebview,
   ConnectedAccount,
+  AccessCode,
 } from "lib/zod/index.ts"
 
 export type WorkspaceId = string
@@ -11,6 +12,7 @@ export type WorkspaceId = string
 export interface DatabaseState {
   _counters: Record<string, number>
   workspaces: Workspace[]
+  access_codes: AccessCode[]
   connect_webviews: ConnectWebview[]
   client_sessions: ClientSession[]
   connected_accounts: ConnectedAccount[]
@@ -39,13 +41,22 @@ export interface DatabaseMethods {
     status: "pending" | "authorized" | "failed"
   }): void
 
-  addConnectedAccount(params: { provider: string }): ConnectedAccount
+  addConnectedAccount(params: {
+    provider: string
+    workspace_id: string
+  }): ConnectedAccount
   addDevice(params: {
     device_type: string
     connected_account_id: string
     workspace_id: string
     name: string
   }): Device
+  addAccessCode(params: {
+    workspace_id: string
+    name: string
+    code: string
+    device_id: string
+  }): AccessCode
 
   update: (t?: number) => void
 }

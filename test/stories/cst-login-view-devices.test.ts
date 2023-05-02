@@ -93,4 +93,31 @@ test("Login via a CST and view devices", async (t) => {
   })
 
   t.is(device.device_type, "august_lock")
+
+  const {
+    data: { access_code },
+  } = await axios.post(
+    "/access_codes/create",
+    {
+      device_id: device.device_id,
+      code: "1234",
+      name: "My Test Code",
+    },
+    {
+      headers: cst_headers,
+    }
+  )
+
+  t.is(access_code.code, "1234")
+
+  const {
+    data: { access_codes },
+  } = await axios.get("/access_codes/list", {
+    params: {
+      device_id: device.device_id,
+    },
+    headers: cst_headers,
+  })
+
+  t.is(access_codes.length, 1)
 })

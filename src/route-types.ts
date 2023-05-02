@@ -1,4 +1,44 @@
 export type Routes = {
+  "/access_codes/create": {
+    route: "/access_codes/create"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      name?: string | undefined
+      code?: string | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      access_code: {
+        access_code_id: string
+        device_id: string
+        name: string
+        code: string
+        created_at: string
+      }
+    }
+  }
+  "/access_codes/list": {
+    route: "/access_codes/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      access_codes: {
+        access_code_id: string
+        device_id: string
+        name: string
+        code: string
+        created_at: string
+      }[]
+    }
+  }
   "/connect_webviews/create": {
     route: "/connect_webviews/create"
     method: "POST"
@@ -184,7 +224,7 @@ export type Routes = {
     formData: {}
     jsonResponse: {
       client_session: {
-        client_session_token_id: string
+        client_session_id: string
         workspace_id: string
         token: string
         short_token: string

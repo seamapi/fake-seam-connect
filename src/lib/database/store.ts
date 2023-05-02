@@ -8,6 +8,7 @@ import { simpleHash } from "lib/util/simple-hash.ts"
 import { ConnectWebview } from "lib/zod/connect_webview.ts"
 import { Device } from "lib/zod/device.ts"
 import { ConnectedAccount } from "lib/zod/connected_account.ts"
+import { AccessCode } from "lib/zod/access_code.ts"
 
 export const createDatabase = (): Database => {
   return hoist<StoreApi<Database>>(createStore(initializer))
@@ -21,6 +22,7 @@ const initializer = immer<Database>((set, get) => ({
   connect_webviews: [],
   connected_accounts: [],
   devices: [],
+  access_codes: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -63,7 +65,22 @@ const initializer = immer<Database>((set, get) => ({
     return new_cst
   },
 
-  updateClientSession(params) {},
+  updateClientSession(params) {
+    set({
+      client_sessions: get().client_sessions.map((cst) => {
+        if (cst.client_session_id === params.client_session_id) {
+          return {
+            ...cst,
+            connected_account_ids:
+              params.connected_account_ids ?? cst.connected_account_ids,
+            connect_webview_ids:
+              params.connect_webview_ids ?? cst.connect_webview_ids,
+          }
+        }
+        return cst
+      }),
+    })
+  },
 
   addConnectWebview(params) {
     const new_connect_webview = {
@@ -104,6 +121,7 @@ const initializer = immer<Database>((set, get) => ({
     const new_connected_account = {
       connected_account_id: get()._getNextId("connected_account"),
       provider: params.provider,
+      workspace_id: params.workspace_id,
       created_at: new Date().toISOString(),
     } as ConnectedAccount
 
@@ -126,6 +144,22 @@ const initializer = immer<Database>((set, get) => ({
         return cw
       }),
     })
+  },
+
+  addAccessCode(params) {
+    const new_access_code = {
+      access_code_id: get()._getNextId("access_code"),
+      device_id: params.device_id,
+      name: params.name,
+      code: params.code,
+      created_at: new Date().toISOString(),
+    } as AccessCode
+
+    set({
+      access_codes: [...get().access_codes, new_access_code],
+    })
+
+    return new_access_code
   },
 
   update() {},

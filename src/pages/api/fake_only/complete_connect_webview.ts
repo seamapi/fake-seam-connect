@@ -23,6 +23,7 @@ export default withRouteSpec({
 
   const connected_account = req.db.addConnectedAccount({
     provider: "august",
+    workspace_id: connect_webview.workspace_id,
   })
 
   const relevant_cs = req.db.client_sessions.find((cs) =>
