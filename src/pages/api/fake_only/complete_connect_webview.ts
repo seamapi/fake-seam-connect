@@ -1,6 +1,5 @@
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { connect_webview } from "lib/zod/index.ts"
-import { BadRequestException, NotFoundException } from "nextlove"
+import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 export default withRouteSpec({
@@ -28,11 +27,13 @@ export default withRouteSpec({
   const device1 = req.db.addDevice({
     device_type: "august_lock",
     connected_account_id: connected_account.connected_account_id,
+    name: "Front Door",
+    workspace_id: connect_webview.workspace_id,
   })
 
   req.db.updateConnectWebview({
     connect_webview_id: connect_webview.connect_webview_id,
-    status: "complete",
+    status: "authorized",
     connected_account_id: connected_account.connected_account_id,
   })
 
