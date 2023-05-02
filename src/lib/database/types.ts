@@ -29,11 +29,17 @@ export interface DatabaseMethods {
   addConnectWebview(params: { workspace_id: WorkspaceId }): ConnectWebview
   updateConnectWebview(params: {
     connect_webview_id: string
-    status: string
+    connected_account_id: string
+    status: "pending" | "authorized" | "failed"
   }): void
 
   addConnectedAccount(params: { provider: string }): ConnectedAccount
-  addDevice(params: { device_type: string }): Device
+  addDevice(params: {
+    device_type: string
+    connected_account_id: string
+    workspace_id: string
+    name: string
+  }): Device
 
   update: (t?: number) => void
 }

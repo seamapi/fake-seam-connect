@@ -27,15 +27,14 @@ export default withRouteSpec({
   })
   const device1 = req.db.addDevice({
     device_type: "august_lock",
+    connected_account_id: connected_account.connected_account_id,
   })
 
   req.db.updateConnectWebview({
     connect_webview_id: connect_webview.connect_webview_id,
     status: "complete",
+    connected_account_id: connected_account.connected_account_id,
   })
 
-  // const connect_webview = req.db.addConnectWebview({
-  //   workspace_id: req.auth.workspace_id,
-  // })
-  // res.status(200).json({ connect_webview })
+  res.status(200).json({})
 })

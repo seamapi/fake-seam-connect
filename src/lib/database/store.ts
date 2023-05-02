@@ -6,6 +6,8 @@ import { type Database } from "./types.ts"
 import { ClientSession } from "lib/zod/client_session.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
 import { ConnectWebview } from "lib/zod/connect_webview.ts"
+import { Device } from "lib/zod/device.ts"
+import { ConnectedAccount } from "lib/zod/connected_account.ts"
 
 export const createDatabase = (): Database => {
   return hoist<StoreApi<Database>>(createStore(initializer))
@@ -73,6 +75,41 @@ const initializer = immer<Database>((set, get) => ({
       connect_webviews: [...get().connect_webviews, new_connect_webview],
     })
     return new_connect_webview
+  },
+
+  addDevice(params) {
+    const new_device = {
+      device_id: get()._getNextId("device"),
+      device_type: params.device_type ?? "august_lock",
+      connected_account_id: params.connected_account_id,
+      capabilities_supported: ["lock", "access_code"],
+      created_at: new Date().toISOString(),
+      properties: {
+        name: params.name,
+        online: true,
+      },
+      workspace_id: params.workspace_id,
+    } as Device
+
+    set({
+      devices: [...get().devices, new_device],
+    })
+
+    return new_device
+  },
+
+  addConnectedAccount(params) {
+    const new_connected_account = {
+      connected_account_id: get()._getNextId("connected_account"),
+      provider: params.provider,
+      created_at: new Date().toISOString(),
+    } as ConnectedAccount
+
+    set({
+      connected_accounts: [...get().connected_accounts, new_connected_account],
+    })
+
+    return new_connected_account
   },
 
   updateConnectWebview(params) {
