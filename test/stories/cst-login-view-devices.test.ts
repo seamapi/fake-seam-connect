@@ -11,7 +11,7 @@ test("Login via a CST and view devices", async (t) => {
   const {
     data: { client_session },
   } = await axios.post(
-    "/internal/client_sessions/create",
+    "/client_sessions/create",
     {
       user_identifier_key: "my_test_user",
     },

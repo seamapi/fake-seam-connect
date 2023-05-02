@@ -1,7 +1,7 @@
 export type Routes = {
   "/access_codes/create": {
     route: "/access_codes/create"
-    method: "GET" | "POST"
+    method: "POST"
     queryParams: {}
     jsonBody: {
       device_id: string
@@ -24,10 +24,10 @@ export type Routes = {
     route: "/access_codes/list"
     method: "GET" | "POST"
     queryParams: {}
-    jsonBody: {
+    jsonBody: {}
+    commonParams: {
       device_id: string
     }
-    commonParams: {}
     formData: {}
     jsonResponse: {
       access_codes: {
@@ -37,6 +37,32 @@ export type Routes = {
         code: string
         created_at: string
       }[]
+    }
+  }
+  "/client_sessions/create": {
+    route: "/client_sessions/create"
+    method: "POST" | "PUT"
+    queryParams: {}
+    jsonBody: {
+      connected_account_ids?: string[] | undefined
+      connect_webview_ids?: string[] | undefined
+      user_identifier_key?: string | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      client_session: {
+        client_session_id: string
+        workspace_id: string
+        token: string
+        short_token: string
+        long_token: string
+        user_identifier_key: string
+        connect_webview_ids: string[]
+        connected_account_ids: string[]
+        created_at: string
+      }
+      ok: true
     }
   }
   "/connect_webviews/create": {
@@ -209,32 +235,6 @@ export type Routes = {
     jsonResponse: {
       note: string
       ok: boolean
-    }
-  }
-  "/internal/client_sessions/create": {
-    route: "/internal/client_sessions/create"
-    method: "POST" | "PUT"
-    queryParams: {}
-    jsonBody: {
-      connected_account_ids?: string[] | undefined
-      connect_webview_ids?: string[] | undefined
-      user_identifier_key?: string | undefined
-    }
-    commonParams: {}
-    formData: {}
-    jsonResponse: {
-      client_session: {
-        client_session_id: string
-        workspace_id: string
-        token: string
-        short_token: string
-        long_token: string
-        user_identifier_key: string
-        connect_webview_ids: string[]
-        connected_account_ids: string[]
-        created_at: string
-      }
-      ok: true
     }
   }
 }
