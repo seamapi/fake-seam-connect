@@ -4,7 +4,7 @@ import type {
   Workspace,
   ConnectWebview,
   ConnectedAccount,
-} from 'lib/zod/index.ts'
+} from "lib/zod/index.ts"
 
 export type WorkspaceId = string
 
@@ -26,6 +26,15 @@ export interface DatabaseMethods {
     connect_webview_ids?: string[]
     user_identifier_key?: string
   }): ClientSession
+  addConnectWebview(params: { workspace_id: WorkspaceId }): ConnectWebview
+  updateConnectWebview(params: {
+    connect_webview_id: string
+    status: string
+  }): void
+
+  addConnectedAccount(params: { provider: string }): ConnectedAccount
+  addDevice(params: { device_type: string }): Device
+
   update: (t?: number) => void
 }
 

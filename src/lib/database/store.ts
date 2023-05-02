@@ -5,6 +5,7 @@ import { hoist } from "zustand-hoist"
 import { type Database } from "./types.ts"
 import { ClientSession } from "lib/zod/client_session.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
+import { ConnectWebview } from "lib/zod/connect_webview.ts"
 
 export const createDatabase = (): Database => {
   return hoist<StoreApi<Database>>(createStore(initializer))
@@ -58,6 +59,34 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_cst
+  },
+
+  addConnectWebview(params) {
+    const new_connect_webview = {
+      connect_webview_id: get()._getNextId("connect_webview"),
+      workspace_id: params.workspace_id,
+      status: "pending",
+      accepted_providers: ["august"],
+      created_at: new Date().toISOString(),
+    } as ConnectWebview
+    set({
+      connect_webviews: [...get().connect_webviews, new_connect_webview],
+    })
+    return new_connect_webview
+  },
+
+  updateConnectWebview(params) {
+    set({
+      connect_webviews: get().connect_webviews.map((cw) => {
+        if (cw.connect_webview_id === params.connect_webview_id) {
+          return {
+            ...cw,
+            ...params,
+          }
+        }
+        return cw
+      }),
+    })
   },
 
   update() {},
