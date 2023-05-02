@@ -125,6 +125,62 @@
         "tags": []
       }
     },
+    "/connect_webviews/get": {
+      "get": {
+        "summary": "/connect_webviews/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "connect_webview": {
+                      "type": "object",
+                      "properties": {
+                        "connect_webview_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "status": {
+                          "type": "string",
+                          "enum": ["pending", "authorized", "failed"]
+                        },
+                        "accepted_providers": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_id": { "type": "string" },
+                        "created_at": { "type": "string" }
+                      },
+                      "required": [
+                        "connect_webview_id",
+                        "workspace_id",
+                        "status",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["connect_webview", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "parameters": [
+          {
+            "name": "connect_webview_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "tags": []
+      }
+    },
     "/connect_webviews/view": {
       "get": {
         "summary": "/connect_webviews/view",
