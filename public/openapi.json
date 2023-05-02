@@ -30,7 +30,7 @@
       }
     },
     "/internal/client_session_tokens/create": {
-      "get": {
+      "post": {
         "summary": "/internal/client_session_tokens/create",
         "responses": {
           "200": {

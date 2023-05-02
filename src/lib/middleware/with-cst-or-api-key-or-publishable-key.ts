@@ -20,7 +20,8 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
 > = (next) => async (req, res) => {
   const token =
     req.headers.authorization?.split('Bearer ')?.[1] ??
-    (req.headers['client-session-token'] as string | null)
+    (req.headers['client-session-token'] as string | null) ??
+    (req.headers['seam-publishable-key'] as string | null)
   if (!token) return res.status(401).end('Unauthorized')
 
   const is_cst = token.includes('seam_cst')

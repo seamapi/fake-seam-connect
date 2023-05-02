@@ -13,7 +13,7 @@ export type Routes = {
   }
   '/internal/client_session_tokens/create': {
     route: '/internal/client_session_tokens/create'
-    method: 'GET'
+    method: 'POST'
     queryParams: {}
     jsonBody: {}
     commonParams: {}
