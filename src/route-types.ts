@@ -1,7 +1,7 @@
 export type Routes = {
-  '/health': {
-    route: '/health'
-    method: 'GET'
+  "/health": {
+    route: "/health"
+    method: "GET"
     queryParams: {}
     jsonBody: {}
     commonParams: {}
@@ -11,9 +11,9 @@ export type Routes = {
       ok: boolean
     }
   }
-  '/internal/client_sessions/create': {
-    route: '/internal/client_sessions/create'
-    method: 'POST' | 'PUT'
+  "/internal/client_sessions/create": {
+    route: "/internal/client_sessions/create"
+    method: "POST" | "PUT"
     queryParams: {}
     jsonBody: {
       connected_account_ids?: string[] | undefined
@@ -40,10 +40,10 @@ export type Routes = {
 }
 
 export type RouteResponse<Path extends keyof Routes> =
-  Routes[Path]['jsonResponse']
+  Routes[Path]["jsonResponse"]
 
 export type RouteRequestBody<Path extends keyof Routes> =
-  Routes[Path]['jsonBody'] & Routes[Path]['commonParams']
+  Routes[Path]["jsonBody"] & Routes[Path]["commonParams"]
 
 export type RouteRequestParams<Path extends keyof Routes> =
-  Routes[Path]['queryParams'] & Routes[Path]['commonParams']
+  Routes[Path]["queryParams"] & Routes[Path]["commonParams"]
