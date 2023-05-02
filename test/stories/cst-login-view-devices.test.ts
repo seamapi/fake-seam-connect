@@ -3,6 +3,11 @@ import { getTestServer } from "fixtures/get-test-server.ts"
 
 test("Login via a CST and view devices", async (t) => {
   const { axios, seed } = await getTestServer(t)
+
+  const pk_headers = {
+    "Seam-Publishable-Key": seed.ws1.publishable_key,
+  }
+
   const {
     data: { client_session },
   } = await axios.post(
@@ -10,12 +15,12 @@ test("Login via a CST and view devices", async (t) => {
     {
       user_identifier_key: "my_test_user",
     },
-    {
-      headers: {
-        "Seam-Publishable-Key": seed.ws1.publishable_key,
-      },
-    }
+    { headers: pk_headers }
   )
+
+  const cst_headers = {
+    Authorization: `Bearer ${client_session.token}`,
+  }
 
   t.is(client_session.user_identifier_key, "my_test_user")
   t.truthy(client_session.token)
@@ -27,11 +32,7 @@ test("Login via a CST and view devices", async (t) => {
     {
       accepted_providers: ["august"],
     },
-    {
-      headers: {
-        Authorization: `Bearer ${client_session.token}`,
-      },
-    }
+    { headers: cst_headers }
   )
 
   t.is(pending_connect_webview.status, "pending")
@@ -42,15 +43,12 @@ test("Login via a CST and view devices", async (t) => {
 
   const {
     data: { connect_webview: authorized_connect_webview },
-  } = await axios.post(
-    "/connect_webviews/get",
-    {
-      accepted_providers: ["august"],
+  } = await axios.get("/connect_webviews/get", {
+    params: {
+      connect_webview_id: pending_connect_webview.connect_webview_id,
     },
-    {
-      headers: {
-        Authorization: `Bearer ${client_session.token}`,
-      },
-    }
-  )
+    headers: cst_headers,
+  })
+
+  t.is(authorized_connect_webview.status, "authorized")
 })
