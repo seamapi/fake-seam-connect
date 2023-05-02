@@ -24,7 +24,7 @@ export default withRouteSpec({
   const connected_account = req.db.addConnectedAccount({
     provider: "august",
   })
-  const device1 = req.db.addDevice({
+  req.db.addDevice({
     device_type: "august_lock",
     connected_account_id: connected_account.connected_account_id,
     name: "Front Door",
