@@ -62,8 +62,8 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
     req.auth = {
       auth_mode: "client_session_token",
       workspace_id: cst.workspace_id,
-      connected_account_ids: cst.connected_account_ids,
-      connect_webview_ids: cst.connect_webview_ids,
+      connected_account_ids: cst.connected_account_ids ?? [],
+      connect_webview_ids: cst.connect_webview_ids ?? [],
     }
     return next(req, res)
   }

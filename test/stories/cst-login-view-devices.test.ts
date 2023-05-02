@@ -51,4 +51,46 @@ test("Login via a CST and view devices", async (t) => {
   })
 
   t.is(authorized_connect_webview.status, "authorized")
+
+  const {
+    data: { connected_account },
+  } = await axios.get("/connected_accounts/get", {
+    params: {
+      connected_account_id:
+        authorized_connect_webview.connected_account_id as string,
+    },
+    headers: cst_headers,
+  })
+
+  t.is(connected_account.provider, "august")
+
+  const {
+    data: { connected_accounts },
+  } = await axios.get("/connected_accounts/list", {
+    params: {
+      connected_account_id: connected_account.connected_account_id,
+    },
+    headers: cst_headers,
+  })
+
+  t.is(connected_accounts.length, 1)
+
+  const {
+    data: { devices },
+  } = await axios.get("/devices/list", {
+    headers: cst_headers,
+  })
+
+  t.is(devices.length, 1)
+
+  const {
+    data: { device },
+  } = await axios.get("/devices/get", {
+    params: {
+      device_id: devices?.[0]?.device_id as string,
+    },
+    headers: cst_headers,
+  })
+
+  t.is(device.device_type, "august_lock")
 })

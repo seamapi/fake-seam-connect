@@ -15,5 +15,13 @@ export default withRouteSpec({
   const connect_webview = req.db.addConnectWebview({
     workspace_id: req.auth.workspace_id,
   })
+  if (req.auth.auth_mode === "client_session_token") {
+    req.db.updateClientSession({
+      client_session_id: req.auth.client_session_id,
+      connect_webview_ids: req.auth.connect_webview_ids.concat(
+        connect_webview.connect_webview_id
+      ),
+    })
+  }
   res.status(200).json({ connect_webview })
 })

@@ -20,12 +20,18 @@ export interface DatabaseState {
 export interface DatabaseMethods {
   _getNextId(type: string): string
   addWorkspace(params: { name: string }): Workspace
-  addClientSessionToken(params: {
+  addClientSession(params: {
     workspace_id: WorkspaceId
     connected_account_ids?: string[]
     connect_webview_ids?: string[]
     user_identifier_key?: string
   }): ClientSession
+  updateClientSession(params: {
+    client_session_id: string
+    connected_account_ids?: string[]
+    connect_webviews_id?: string[]
+  }): void
+
   addConnectWebview(params: { workspace_id: WorkspaceId }): ConnectWebview
   updateConnectWebview(params: {
     connect_webview_id: string

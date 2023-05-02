@@ -21,12 +21,12 @@ export type Routes = {
   }
   "/connect_webviews/get": {
     route: "/connect_webviews/get"
-    method: "GET"
-    queryParams: {
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
       connect_webview_id: string
     }
-    jsonBody: {}
-    commonParams: {}
     formData: {}
     jsonResponse: {
       connect_webview: {
@@ -47,6 +47,106 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: {}
+  }
+  "/connected_accounts/get": {
+    route: "/connected_accounts/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      connected_account_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      connected_account: {
+        connected_account_id: string
+        workspace_id: string
+        connect_webview_id: string
+        provider: string
+        created_at: string
+      }
+    }
+  }
+  "/connected_accounts/list": {
+    route: "/connected_accounts/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      connected_accounts: {
+        connected_account_id: string
+        workspace_id: string
+        connect_webview_id: string
+        provider: string
+        created_at: string
+      }[]
+    }
+  }
+  "/devices/get": {
+    route: "/devices/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      device: {
+        device_id: string
+        device_type: "august_lock"
+        capabilities_supported: string[]
+        properties: {
+          online: boolean
+          name: string
+        }
+        location?: any
+        connected_account_id: string
+        workspace_id: string
+        errors: {
+          error_code: string
+          message: string
+        }[]
+        warnings: {
+          warning_code: string
+          message: string
+        }[]
+        created_at: string
+      }
+    }
+  }
+  "/devices/list": {
+    route: "/devices/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      devices: {
+        device_id: string
+        device_type: "august_lock"
+        capabilities_supported: string[]
+        properties: {
+          online: boolean
+          name: string
+        }
+        location?: any
+        connected_account_id: string
+        workspace_id: string
+        errors: {
+          error_code: string
+          message: string
+        }[]
+        warnings: {
+          warning_code: string
+          message: string
+        }[]
+        created_at: string
+      }[]
+    }
   }
   "/fake_only/complete_connect_webview": {
     route: "/fake_only/complete_connect_webview"

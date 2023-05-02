@@ -42,7 +42,7 @@ const initializer = immer<Database>((set, get) => ({
     return new_workspace
   },
 
-  addClientSessionToken(params) {
+  addClientSession(params) {
     const cst_id = get()._getNextId("cst")
     const new_cst: ClientSession = {
       workspace_id: params.workspace_id,
@@ -62,6 +62,8 @@ const initializer = immer<Database>((set, get) => ({
 
     return new_cst
   },
+
+  updateClientSession(params) {},
 
   addConnectWebview(params) {
     const new_connect_webview = {

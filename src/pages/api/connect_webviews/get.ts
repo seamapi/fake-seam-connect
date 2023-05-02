@@ -5,8 +5,8 @@ import { z } from "zod"
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
-  methods: ["GET"],
-  queryParams: z.object({
+  methods: ["GET", "POST"],
+  commonParams: z.object({
     connect_webview_id: z.string(),
   }),
   jsonResponse: z.object({
@@ -14,7 +14,7 @@ export default withRouteSpec({
   }),
 } as const)(async (req, res) => {
   const connect_webview = req.db.connect_webviews.find(
-    (cw) => cw.connect_webview_id === req.query.connect_webview_id
+    (cw) => cw.connect_webview_id === req.commonParams.connect_webview_id
   )
   if (!connect_webview) {
     throw new NotFoundException({
