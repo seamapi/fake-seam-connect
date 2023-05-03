@@ -29,6 +29,7 @@ export interface DatabaseMethods {
     connected_account_ids?: string[]
     connect_webview_ids?: string[]
     user_identifier_key?: string
+    token?: string
   }): ClientSession
   updateClientSession(params: {
     client_session_id: string
