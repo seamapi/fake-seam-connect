@@ -1,6 +1,6 @@
 import { type ExecutionContext } from "ava"
 
-import { createDatabase, type Thing } from "index.ts"
+import { createDatabase } from "index.ts"
 
 import { type Database } from "lib/database/types.ts"
 

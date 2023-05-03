@@ -6,6 +6,7 @@ import type {
   ConnectedAccount,
   AccessCode,
 } from "lib/zod/index.ts"
+import { StoreApi } from "zustand/vanilla"
 
 export type WorkspaceId = string
 
@@ -61,4 +62,6 @@ export interface DatabaseMethods {
   update: (t?: number) => void
 }
 
-export type Database = DatabaseState & DatabaseMethods
+export type Database = DatabaseState &
+  DatabaseMethods &
+  StoreApi<DatabaseState & DatabaseMethods>

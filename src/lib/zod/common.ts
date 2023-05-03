@@ -16,6 +16,6 @@ export const between_timestamps = z
   .array(timestamp)
   .min(2)
   .max(2)
-  .refine((arr) => {
+  .refine((arr: any) => {
     return arr[0] < arr[1]
   }, "second value must be greater than first value")

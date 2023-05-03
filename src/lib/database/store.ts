@@ -2,7 +2,7 @@ import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
 import { hoist } from "zustand-hoist"
 
-import { type Database } from "./types.ts"
+import { DatabaseMethods, type Database, DatabaseState } from "./types.ts"
 import { ClientSession } from "lib/zod/client_session.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
 import { ConnectWebview } from "lib/zod/connect_webview.ts"
@@ -11,10 +11,12 @@ import { ConnectedAccount } from "lib/zod/connected_account.ts"
 import { AccessCode } from "lib/zod/access_code.ts"
 
 export const createDatabase = (): Database => {
-  return hoist<StoreApi<Database>>(createStore(initializer))
+  return hoist<StoreApi<DatabaseState & DatabaseMethods>>(
+    createStore(initializer)
+  )
 }
 
-const initializer = immer<Database>((set, get) => ({
+const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
   _counters: {},
 
   client_sessions: [],
