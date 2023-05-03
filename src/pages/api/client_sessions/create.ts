@@ -9,13 +9,16 @@ export default withRouteSpec({
   auth: "cst_ak_pk",
   methods: ["POST", "PUT"],
   middlewares: [],
-  jsonBody: z
-    .object({
-      connected_account_ids: z.array(z.string()).optional(),
-      connect_webview_ids: z.array(z.string()).optional(),
-      user_identifier_key: z.string().optional(),
-    })
-    .optional(),
+  jsonBody: z.union([
+    z.any(),
+    z
+      .object({
+        connected_account_ids: z.array(z.string()).optional(),
+        connect_webview_ids: z.array(z.string()).optional(),
+        user_identifier_key: z.string().optional(),
+      })
+      .optional(),
+  ]),
   jsonResponse: z.object({
     client_session,
     ok: z.literal(true),
