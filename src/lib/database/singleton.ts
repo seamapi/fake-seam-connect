@@ -1,5 +1,5 @@
-import { createDatabase } from './store.ts'
-import { type Database } from './types.ts'
+import { createDatabase } from "./store.ts"
+import { type Database } from "./types.ts"
 
 let singletonDatabase
 

@@ -1,18 +1,68 @@
-import type { HoistedMethodStoreApi } from 'zustand-hoist'
+import { type StoreApi } from "zustand/vanilla"
 
-import type { Thing, ThingInitializer } from 'lib/thing.ts'
+import type {
+  AccessCode,
+  ClientSession,
+  ConnectedAccount,
+  ConnectWebview,
+  Device,
+  Workspace,
+} from "lib/zod/index.ts"
+
+export type WorkspaceId = string
 
 export interface DatabaseState {
-  thingCount: number
-  things: Thing[]
+  _counters: Record<string, number>
+  workspaces: Workspace[]
+  access_codes: AccessCode[]
+  connect_webviews: ConnectWebview[]
+  client_sessions: ClientSession[]
+  connected_accounts: ConnectedAccount[]
+  devices: Device[]
 }
 
 export interface DatabaseMethods {
-  addThing: (door: ThingInitializer) => Thing
-  simulatePowerFailure: (thing_id: string) => void
+  _getNextId(type: string): string
+  addWorkspace(params: { name: string }): Workspace
+  addClientSession(params: {
+    workspace_id: WorkspaceId
+    connected_account_ids?: string[]
+    connect_webview_ids?: string[]
+    user_identifier_key?: string
+  }): ClientSession
+  updateClientSession(params: {
+    client_session_id: string
+    connected_account_ids?: string[]
+    connect_webview_ids?: string[]
+  }): void
+
+  addConnectWebview(params: { workspace_id: WorkspaceId }): ConnectWebview
+  updateConnectWebview(params: {
+    connect_webview_id: string
+    connected_account_id: string
+    status: "pending" | "authorized" | "failed"
+  }): void
+
+  addConnectedAccount(params: {
+    provider: string
+    workspace_id: string
+  }): ConnectedAccount
+  addDevice(params: {
+    device_type: string
+    connected_account_id: string
+    workspace_id: string
+    name: string
+  }): Device
+  addAccessCode(params: {
+    workspace_id: string
+    name: string
+    code: string
+    device_id: string
+  }): AccessCode
+
   update: (t?: number) => void
 }
 
-export type State = DatabaseState & DatabaseMethods
-
-export type Database = HoistedMethodStoreApi<State>
+export type Database = DatabaseState &
+  DatabaseMethods &
+  StoreApi<DatabaseState & DatabaseMethods>

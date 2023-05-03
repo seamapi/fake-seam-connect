@@ -1,3 +1,3 @@
-import { getLogger } from '@seamapi/logger'
+import { getLogger } from "@seamapi/logger"
 
-export default getLogger('fake-seam-connect')
+export default getLogger("fake-seam-connect")
