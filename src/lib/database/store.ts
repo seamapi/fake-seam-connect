@@ -42,7 +42,8 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
     const new_workspace = {
       workspace_id: get()._getNextId("workspace"),
       name: params.name,
-      publishable_key: `seam_${pk_id}_${simpleHash(pk_id)}`,
+      publishable_key:
+        params.publishable_key ?? `seam_${pk_id}_${simpleHash(pk_id)}`,
       created_at: new Date().toISOString(),
     }
     set({

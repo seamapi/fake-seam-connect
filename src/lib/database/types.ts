@@ -23,7 +23,7 @@ export interface DatabaseState {
 
 export interface DatabaseMethods {
   _getNextId(type: string): string
-  addWorkspace(params: { name: string }): Workspace
+  addWorkspace(params: { name: string; publishable_key?: string }): Workspace
   addClientSession(params: {
     workspace_id: WorkspaceId
     connected_account_ids?: string[]
