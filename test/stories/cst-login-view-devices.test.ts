@@ -1,4 +1,5 @@
 import test from "ava"
+
 import { getTestServer } from "fixtures/get-test-server.ts"
 
 test("Login via a CST and view devices", async (t) => {

@@ -1,12 +1,13 @@
+import { type StoreApi } from "zustand/vanilla"
+
 import type {
-  Device,
-  ClientSession,
-  Workspace,
-  ConnectWebview,
-  ConnectedAccount,
   AccessCode,
+  ClientSession,
+  ConnectedAccount,
+  ConnectWebview,
+  Device,
+  Workspace,
 } from "lib/zod/index.ts"
-import { StoreApi } from "zustand/vanilla"
 
 export type WorkspaceId = string
 

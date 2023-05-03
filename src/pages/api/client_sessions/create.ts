@@ -1,7 +1,8 @@
+import { BadRequestException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
-import { BadRequestException } from "nextlove"
+
 import { client_session } from "lib/zod/client_session.ts"
 
 export default withRouteSpec({

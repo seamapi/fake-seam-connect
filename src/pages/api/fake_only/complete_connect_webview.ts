@@ -1,6 +1,7 @@
-import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
+
+import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
   auth: "none",
