@@ -7,7 +7,8 @@ Fake for Seam Connect. Simulate the behavior of Seam COnnect in an easy-to-use t
 
 ## Description
 
-TODO
+This module allows you to spin up an in-memory server
+for Seam Connect.
 
 ## Installation
 
