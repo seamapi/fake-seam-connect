@@ -60,7 +60,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
       client_session_id: cst_id,
       long_token: simpleHash(cst_id),
       short_token: cst_id,
-      token: `seam_${cst_id}_${simpleHash(cst_id)}`,
+      token: params.token ?? `seam_${cst_id}_${simpleHash(cst_id)}`,
       user_identifier_key: params.user_identifier_key as string,
       created_at: new Date().toISOString(),
     }
