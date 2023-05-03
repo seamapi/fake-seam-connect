@@ -9,7 +9,11 @@ import { type ConnectWebview } from "lib/zod/connect_webview.ts"
 import { type ConnectedAccount } from "lib/zod/connected_account.ts"
 import { type Device } from "lib/zod/device.ts"
 
-import { type Database, type DatabaseMethods, type DatabaseState } from "./types.ts"
+import {
+  type Database,
+  type DatabaseMethods,
+  type DatabaseState,
+} from "./types.ts"
 
 export const createDatabase = (): Database => {
   return hoist<StoreApi<DatabaseState & DatabaseMethods>>(

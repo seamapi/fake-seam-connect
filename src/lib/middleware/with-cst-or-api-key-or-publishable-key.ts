@@ -1,4 +1,4 @@
-import { HttpException,type Middleware, NotFoundException } from "nextlove"
+import { HttpException, type Middleware, NotFoundException } from "nextlove"
 
 import { type Database } from "lib/database/index.ts"
 
