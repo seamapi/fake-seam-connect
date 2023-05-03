@@ -43,11 +43,13 @@ export type Routes = {
     route: "/client_sessions/create"
     method: "POST" | "PUT"
     queryParams: {}
-    jsonBody: {
-      connected_account_ids?: string[] | undefined
-      connect_webview_ids?: string[] | undefined
-      user_identifier_key?: string | undefined
-    }
+    jsonBody:
+      | {
+          connected_account_ids?: string[] | undefined
+          connect_webview_ids?: string[] | undefined
+          user_identifier_key?: string | undefined
+        }
+      | undefined
     commonParams: {}
     formData: {}
     jsonResponse: {
@@ -241,11 +243,13 @@ export type Routes = {
     route: "/internal/client_sessions/create"
     method: "POST" | "PUT"
     queryParams: {}
-    jsonBody: {
-      connected_account_ids?: string[] | undefined
-      connect_webview_ids?: string[] | undefined
-      user_identifier_key?: string | undefined
-    }
+    jsonBody:
+      | {
+          connected_account_ids?: string[] | undefined
+          connect_webview_ids?: string[] | undefined
+          user_identifier_key?: string | undefined
+        }
+      | undefined
     commonParams: {}
     formData: {}
     jsonResponse: {
