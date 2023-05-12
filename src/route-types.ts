@@ -20,6 +20,25 @@ export type Routes = {
       }
     }
   }
+  "/access_codes/get": {
+    route: "/access_codes/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      access_code_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      access_code: {
+        access_code_id: string
+        device_id: string
+        name: string
+        code: string
+        created_at: string
+      }
+    }
+  }
   "/access_codes/list": {
     route: "/access_codes/list"
     method: "GET" | "POST"
