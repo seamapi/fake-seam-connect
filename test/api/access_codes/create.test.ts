@@ -21,4 +21,15 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
   )
 
   t.is(access_code.code, "1234")
+
+  const res = await axios.get("/access_codes/get", {
+    params: {
+      access_code_id: access_code.access_code_id,
+    },
+    headers: {
+      Authorization: `Bearer ${seed.ws2.cst}`,
+    },
+  })
+
+  t.is(res.data.access_code.code, "1234")
 })
