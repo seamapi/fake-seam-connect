@@ -1,8 +1,8 @@
 #!/usr/bin/env tsx
 
-import landlubber from 'landlubber'
+import landlubber from "landlubber"
 
-import * as databaseSample from './database-sample.ts'
+import * as databaseSample from "./database-sample.ts"
 
 const commands = [databaseSample]
 

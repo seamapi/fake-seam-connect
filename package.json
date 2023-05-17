@@ -1,14 +1,15 @@
 {
   "name": "@seamapi/fake-seam-connect",
-  "version": "0.2.0",
+  "version": "0.3.0-alpha.1",
   "description": "Fake for Seam Connect.",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "exports": {
-    "import": "./dist/index.js"
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
   },
-  "module": "dist/index.js",
   "sideEffects": false,
   "keywords": [
     "node"
@@ -91,9 +92,9 @@
     "tsx": "^3.12.1",
     "type-fest": "^3.8.0",
     "typed-axios-instance": "^1.0.12",
-    "typescript": "^5.0.2",
+    "typescript": "^5.0.4",
     "zod": "^3.21.4",
     "zustand": "^4.3.7",
-    "zustand-hoist": "^0.4.1"
+    "zustand-hoist": "^0.6.0"
   }
 }

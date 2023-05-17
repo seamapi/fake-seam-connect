@@ -10,8 +10,8 @@ export default {
         {
           // Only allow API Routes and serve those from the root.
           // https://nextjs.org/docs/api-routes/introduction
-          source: '/:path*',
-          destination: '/api/:path*',
+          source: "/:path*",
+          destination: "/api/:path*",
         },
       ],
     }

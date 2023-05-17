@@ -3,11 +3,12 @@
 [![npm](https://img.shields.io/npm/v/@seamapi/fake-seam-connect.svg)](https://www.npmjs.com/package/@seamapi/fake-seam-connect)
 [![GitHub Actions](https://github.com/seamapi/fake-seam-connect/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/fake-seam-connect/actions/workflows/check.yml)
 
-Fake for Seam Connect.
+Fake for Seam Connect. Simulate the behavior of Seam Connect in an easy-to-use typescript module.
 
 ## Description
 
-TODO
+This module allows you to spin up an in-memory server
+for Seam Connect.
 
 ## Installation
 
