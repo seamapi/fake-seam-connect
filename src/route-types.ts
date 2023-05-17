@@ -79,8 +79,6 @@ export type Routes = {
         client_session_id: string
         workspace_id: string
         token: string
-        short_token: string
-        long_token: string
         user_identifier_key: string
         connect_webview_ids: string[]
         connected_account_ids: string[]
@@ -282,8 +280,6 @@ export type Routes = {
         client_session_id: string
         workspace_id: string
         token: string
-        short_token: string
-        long_token: string
         user_identifier_key: string
         connect_webview_ids: string[]
         connected_account_ids: string[]

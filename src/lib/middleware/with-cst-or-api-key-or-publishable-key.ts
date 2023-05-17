@@ -52,9 +52,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
   }
 
   if (is_cst) {
-    const cst = req.db.client_sessions.find(
-      (cst) => cst.long_token === long_token
-    )
+    const cst = req.db.client_sessions.find((cst) => cst.token === token)
     if (!cst)
       throw new NotFoundException({
         type: "client_session_token_not_found",
