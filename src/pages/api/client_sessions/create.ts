@@ -24,7 +24,7 @@ export default withRouteSpec({
     ok: z.literal(true),
   }),
 } as const)(async (req, res) => {
-  // TODO if pubkey, cannot accept uuids for ownership
+  // TODO if pubkey, fail if connect_webview_ids or connected_account_ids are provided
 
   const user_identifier_key =
     req.body?.user_identifier_key ??
