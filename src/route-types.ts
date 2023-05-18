@@ -11,13 +11,81 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: {
-      access_code: {
-        access_code_id: string
-        device_id: string
-        name: string
-        code: string
-        created_at: string
-      }
+      access_code:
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            common_code_key?: (string | null) | undefined
+            type: "ongoing"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            common_code_key?: (string | null) | undefined
+            type: "time_bound"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+            starts_at: string
+            ends_at: string
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            status: "set"
+            created_at: string
+            type: "ongoing"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            status: "set"
+            created_at: string
+            type: "time_bound"
+            starts_at: string
+            ends_at: string
+          }
     }
   }
   "/access_codes/get": {
@@ -30,13 +98,81 @@ export type Routes = {
     }
     formData: {}
     jsonResponse: {
-      access_code: {
-        access_code_id: string
-        device_id: string
-        name: string
-        code: string
-        created_at: string
-      }
+      access_code:
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            common_code_key?: (string | null) | undefined
+            type: "ongoing"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            common_code_key?: (string | null) | undefined
+            type: "time_bound"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+            starts_at: string
+            ends_at: string
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            status: "set"
+            created_at: string
+            type: "ongoing"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            status: "set"
+            created_at: string
+            type: "time_bound"
+            starts_at: string
+            ends_at: string
+          }
     }
   }
   "/access_codes/list": {
@@ -49,13 +185,82 @@ export type Routes = {
     }
     formData: {}
     jsonResponse: {
-      access_codes: {
-        access_code_id: string
-        device_id: string
-        name: string
-        code: string
-        created_at: string
-      }[]
+      access_codes: (
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            common_code_key?: (string | null) | undefined
+            type: "ongoing"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            common_code_key?: (string | null) | undefined
+            type: "time_bound"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+            starts_at: string
+            ends_at: string
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            status: "set"
+            created_at: string
+            type: "ongoing"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            status: "set"
+            created_at: string
+            type: "time_bound"
+            starts_at: string
+            ends_at: string
+          }
+      )[]
     }
   }
   "/client_sessions/create": {
@@ -184,12 +389,68 @@ export type Routes = {
     jsonResponse: {
       device: {
         device_id: string
-        device_type: "august_lock"
+        device_type:
+          | "august_lock"
+          | "schlage_lock"
+          | "yale_lock"
+          | "smartthings_lock"
         capabilities_supported: string[]
-        properties: {
-          online: boolean
-          name: string
-        }
+        properties:
+          | {
+              online: boolean
+              name: string
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+            }
+          | {
+              online: boolean
+              name: string
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              locked: boolean
+              door_open?: boolean | undefined
+              battery_level?: number | undefined
+              has_direct_power?: boolean | undefined
+              manufacturer?: string | undefined
+              supported_code_lengths?: number[] | undefined
+              max_active_codes_supported?: number | undefined
+              serial_number?: string | undefined
+              schlage_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    access_code_length: number
+                    model?: string | undefined
+                    location_id?: string | undefined
+                  }
+                | undefined
+              august_metadata?:
+                | {
+                    lock_id: string
+                    lock_name: string
+                    house_name: string
+                    has_keypad?: boolean | undefined
+                    model?: string | undefined
+                    keypad_battery_level?: string | undefined
+                  }
+                | undefined
+              nuki_metadata?:
+                | {
+                    keypad_battery_critical?: boolean | undefined
+                  }
+                | undefined
+              smartthings_metadata?: any | undefined
+            }
         location?: any
         connected_account_id: string
         workspace_id: string
@@ -215,12 +476,68 @@ export type Routes = {
     jsonResponse: {
       devices: {
         device_id: string
-        device_type: "august_lock"
+        device_type:
+          | "august_lock"
+          | "schlage_lock"
+          | "yale_lock"
+          | "smartthings_lock"
         capabilities_supported: string[]
-        properties: {
-          online: boolean
-          name: string
-        }
+        properties:
+          | {
+              online: boolean
+              name: string
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+            }
+          | {
+              online: boolean
+              name: string
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              locked: boolean
+              door_open?: boolean | undefined
+              battery_level?: number | undefined
+              has_direct_power?: boolean | undefined
+              manufacturer?: string | undefined
+              supported_code_lengths?: number[] | undefined
+              max_active_codes_supported?: number | undefined
+              serial_number?: string | undefined
+              schlage_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    access_code_length: number
+                    model?: string | undefined
+                    location_id?: string | undefined
+                  }
+                | undefined
+              august_metadata?:
+                | {
+                    lock_id: string
+                    lock_name: string
+                    house_name: string
+                    has_keypad?: boolean | undefined
+                    model?: string | undefined
+                    keypad_battery_level?: string | undefined
+                  }
+                | undefined
+              nuki_metadata?:
+                | {
+                    keypad_battery_critical?: boolean | undefined
+                  }
+                | undefined
+              smartthings_metadata?: any | undefined
+            }
         location?: any
         connected_account_id: string
         workspace_id: string
