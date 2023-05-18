@@ -1275,9 +1275,9 @@
         "tags": []
       }
     },
-    "/connected_accounts/get": {
-      "post": {
-        "summary": "/connected_accounts/get",
+    "/client_sessions/create": {
+      "put": {
+        "summary": "/client_sessions/create",
         "responses": {
           "200": {
             "description": "OK",
@@ -1286,26 +1286,36 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "connected_account": {
+                    "client_session": {
                       "type": "object",
                       "properties": {
-                        "connected_account_id": { "type": "string" },
+                        "client_session_id": { "type": "string" },
                         "workspace_id": { "type": "string" },
-                        "connect_webview_id": { "type": "string" },
-                        "provider": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
                         "created_at": { "type": "string" }
                       },
                       "required": [
-                        "connected_account_id",
+                        "client_session_id",
                         "workspace_id",
-                        "connect_webview_id",
-                        "provider",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
                         "created_at"
                       ]
                     },
                     "ok": { "type": "boolean" }
                   },
-                  "required": ["connected_account", "ok"]
+                  "required": ["client_session", "ok"]
                 }
               }
             }
@@ -1318,17 +1328,32 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": { "connected_account_id": { "type": "string" } },
-                "required": ["connected_account_id"]
+                "oneOf": [
+                  { "nullable": true },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "connected_account_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "connect_webview_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "user_identifier_key": { "type": "string" }
+                    }
+                  }
+                ],
+                "nullable": true
               }
             }
           }
         },
         "tags": []
       },
-      "get": {
-        "summary": "/connected_accounts/get",
+      "post": {
+        "summary": "/client_sessions/create",
         "responses": {
           "200": {
             "description": "OK",
@@ -1337,26 +1362,36 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "connected_account": {
+                    "client_session": {
                       "type": "object",
                       "properties": {
-                        "connected_account_id": { "type": "string" },
+                        "client_session_id": { "type": "string" },
                         "workspace_id": { "type": "string" },
-                        "connect_webview_id": { "type": "string" },
-                        "provider": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
                         "created_at": { "type": "string" }
                       },
                       "required": [
-                        "connected_account_id",
+                        "client_session_id",
                         "workspace_id",
-                        "connect_webview_id",
-                        "provider",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
                         "created_at"
                       ]
                     },
                     "ok": { "type": "boolean" }
                   },
-                  "required": ["connected_account", "ok"]
+                  "required": ["client_session", "ok"]
                 }
               }
             }
@@ -1369,101 +1404,28 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": { "connected_account_id": { "type": "string" } },
-                "required": ["connected_account_id"]
+                "oneOf": [
+                  { "nullable": true },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "connected_account_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "connect_webview_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "user_identifier_key": { "type": "string" }
+                    }
+                  }
+                ],
+                "nullable": true
               }
             }
           }
         },
-        "tags": []
-      }
-    },
-    "/connected_accounts/list": {
-      "post": {
-        "summary": "/connected_accounts/list",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "connected_accounts": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "connected_account_id": { "type": "string" },
-                          "workspace_id": { "type": "string" },
-                          "connect_webview_id": { "type": "string" },
-                          "provider": { "type": "string" },
-                          "created_at": { "type": "string" }
-                        },
-                        "required": [
-                          "connected_account_id",
-                          "workspace_id",
-                          "connect_webview_id",
-                          "provider",
-                          "created_at"
-                        ]
-                      }
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["connected_accounts", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "tags": []
-      },
-      "get": {
-        "summary": "/connected_accounts/list",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "connected_accounts": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "connected_account_id": { "type": "string" },
-                          "workspace_id": { "type": "string" },
-                          "connect_webview_id": { "type": "string" },
-                          "provider": { "type": "string" },
-                          "created_at": { "type": "string" }
-                        },
-                        "required": [
-                          "connected_account_id",
-                          "workspace_id",
-                          "connect_webview_id",
-                          "provider",
-                          "created_at"
-                        ]
-                      }
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["connected_accounts", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
         "tags": []
       }
     },
@@ -1658,9 +1620,9 @@
         "tags": []
       }
     },
-    "/client_sessions/create": {
-      "put": {
-        "summary": "/client_sessions/create",
+    "/connected_accounts/get": {
+      "post": {
+        "summary": "/connected_accounts/get",
         "responses": {
           "200": {
             "description": "OK",
@@ -1669,36 +1631,26 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "client_session": {
+                    "connected_account": {
                       "type": "object",
                       "properties": {
-                        "client_session_id": { "type": "string" },
+                        "connected_account_id": { "type": "string" },
                         "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
+                        "connect_webview_id": { "type": "string" },
+                        "provider": { "type": "string" },
                         "created_at": { "type": "string" }
                       },
                       "required": [
-                        "client_session_id",
+                        "connected_account_id",
                         "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
+                        "connect_webview_id",
+                        "provider",
                         "created_at"
                       ]
                     },
                     "ok": { "type": "boolean" }
                   },
-                  "required": ["client_session", "ok"]
+                  "required": ["connected_account", "ok"]
                 }
               }
             }
@@ -1711,32 +1663,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "oneOf": [
-                  { "nullable": true },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "connected_account_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "connect_webview_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "user_identifier_key": { "type": "string" }
-                    }
-                  }
-                ],
-                "nullable": true
+                "type": "object",
+                "properties": { "connected_account_id": { "type": "string" } },
+                "required": ["connected_account_id"]
               }
             }
           }
         },
         "tags": []
       },
-      "post": {
-        "summary": "/client_sessions/create",
+      "get": {
+        "summary": "/connected_accounts/get",
         "responses": {
           "200": {
             "description": "OK",
@@ -1745,36 +1682,26 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "client_session": {
+                    "connected_account": {
                       "type": "object",
                       "properties": {
-                        "client_session_id": { "type": "string" },
+                        "connected_account_id": { "type": "string" },
                         "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
+                        "connect_webview_id": { "type": "string" },
+                        "provider": { "type": "string" },
                         "created_at": { "type": "string" }
                       },
                       "required": [
-                        "client_session_id",
+                        "connected_account_id",
                         "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
+                        "connect_webview_id",
+                        "provider",
                         "created_at"
                       ]
                     },
                     "ok": { "type": "boolean" }
                   },
-                  "required": ["client_session", "ok"]
+                  "required": ["connected_account", "ok"]
                 }
               }
             }
@@ -1787,24 +1714,9 @@
           "content": {
             "application/json": {
               "schema": {
-                "oneOf": [
-                  { "nullable": true },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "connected_account_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "connect_webview_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "user_identifier_key": { "type": "string" }
-                    }
-                  }
-                ],
-                "nullable": true
+                "type": "object",
+                "properties": { "connected_account_id": { "type": "string" } },
+                "required": ["connected_account_id"]
               }
             }
           }
@@ -1812,9 +1724,9 @@
         "tags": []
       }
     },
-    "/fake_only/complete_connect_webview": {
+    "/connected_accounts/list": {
       "post": {
-        "summary": "/fake_only/complete_connect_webview",
+        "summary": "/connected_accounts/list",
         "responses": {
           "200": {
             "description": "OK",
@@ -1822,8 +1734,30 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": { "ok": { "type": "boolean" } },
-                  "required": ["ok"]
+                  "properties": {
+                    "connected_accounts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "connected_account_id": { "type": "string" },
+                          "workspace_id": { "type": "string" },
+                          "connect_webview_id": { "type": "string" },
+                          "provider": { "type": "string" },
+                          "created_at": { "type": "string" }
+                        },
+                        "required": [
+                          "connected_account_id",
+                          "workspace_id",
+                          "connect_webview_id",
+                          "provider",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["connected_accounts", "ok"]
                 }
               }
             }
@@ -1831,17 +1765,50 @@
           "400": { "description": "Bad Request" },
           "401": { "description": "Unauthorized" }
         },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": { "connect_webview_id": { "type": "string" } },
-                "required": ["connect_webview_id"]
+        "security": [{ "cst_ak_pk": [] }],
+        "tags": []
+      },
+      "get": {
+        "summary": "/connected_accounts/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "connected_accounts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "connected_account_id": { "type": "string" },
+                          "workspace_id": { "type": "string" },
+                          "connect_webview_id": { "type": "string" },
+                          "provider": { "type": "string" },
+                          "created_at": { "type": "string" }
+                        },
+                        "required": [
+                          "connected_account_id",
+                          "workspace_id",
+                          "connect_webview_id",
+                          "provider",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["connected_accounts", "ok"]
+                }
               }
             }
-          }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
         },
+        "security": [{ "cst_ak_pk": [] }],
         "tags": []
       }
     },
@@ -2637,6 +2604,39 @@
           "content": {
             "application/json": {
               "schema": { "type": "object", "properties": {} }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "/fake_only/complete_connect_webview": {
+      "post": {
+        "summary": "/fake_only/complete_connect_webview",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "connect_webview_id": { "type": "string" } },
+                "required": ["connect_webview_id"]
+              }
             }
           }
         },
