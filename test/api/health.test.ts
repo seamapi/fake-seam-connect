@@ -21,3 +21,9 @@ test("GET /", async (t: ExecutionContext) => {
   )
   t.is(err?.status, 404)
 })
+
+test("GET /health with CORS", async (t: ExecutionContext) => {
+  const { axios } = await getTestServer(t)
+  const health_res = await axios.options("/health" as never)
+  t.is(health_res.status, 200)
+})
