@@ -60,7 +60,7 @@ export interface DatabaseMethods {
     name: string
     code: string
     device_id: string
-  }): AccessCode
+  } & Partial<AccessCode>): AccessCode
 
   update: (t?: number) => void
 }
