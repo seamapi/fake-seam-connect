@@ -55,12 +55,14 @@ export interface DatabaseMethods {
     name: string
     properties?: Partial<Device["properties"]>
   }): Device
-  addAccessCode(params: {
-    workspace_id: string
-    name: string
-    code: string
-    device_id: string
-  } & Partial<AccessCode>): AccessCode
+  addAccessCode(
+    params: {
+      workspace_id: string
+      name: string
+      code: string
+      device_id: string
+    } & Partial<AccessCode>
+  ): AccessCode
 
   update: (t?: number) => void
 }
