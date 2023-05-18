@@ -105,13 +105,14 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
   addDevice(params) {
     const new_device = {
       device_id: get()._getNextId("device"),
-      device_type: params.device_type ?? "august_lock",
+      device_type: params.device_type,
       connected_account_id: params.connected_account_id,
       capabilities_supported: ["lock", "access_code"],
       created_at: new Date().toISOString(),
       properties: {
         name: params.name,
         online: true,
+        ...params.properties,
       },
       workspace_id: params.workspace_id,
     } as Device
