@@ -8,7 +8,10 @@ const withCors: Middleware<{}> =
       "Access-Control-Allow-Methods",
       "GET, POST, PUT, PATCH, DELETE, OPTIONS"
     )
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization")
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Seam-Workspace, Authorization, User-Agent, Seam-Sdk-Version, Seam-Publishable-Key, Seam-Client-Session-Token, Client-Session-Token, Seam-Api-Key, Seam-User-Identifier-Key"
+    )
     res.setHeader("Access-Control-Allow-Credentials", "true")
 
     if (req.method === "OPTIONS") {

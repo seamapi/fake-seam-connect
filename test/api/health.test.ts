@@ -25,5 +25,7 @@ test("GET /", async (t: ExecutionContext) => {
 test("GET /health with CORS", async (t: ExecutionContext) => {
   const { axios } = await getTestServer(t)
   const health_res = await axios.options("/health" as never)
+
   t.is(health_res.status, 200)
+  t.is(health_res.headers["access-control-allow-origin"], "*")
 })
