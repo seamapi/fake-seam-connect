@@ -115,6 +115,8 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
         ...params.properties,
       },
       workspace_id: params.workspace_id,
+      errors: params.errors ?? [],
+      warnings: params.warnings ?? [],
     } as Device
 
     set({
