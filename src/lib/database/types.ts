@@ -54,6 +54,8 @@ export interface DatabaseMethods {
     workspace_id: string
     name: string
     properties?: Partial<Device["properties"]>
+    errors?: Device["errors"]
+    warnings?: Device["warnings"]
   }): Device
   addAccessCode(
     params: {
