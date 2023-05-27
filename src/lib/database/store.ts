@@ -89,13 +89,13 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
   },
 
   addConnectWebview(params) {
-    const new_connect_webview = {
+    const new_connect_webview: ConnectWebview = {
       connect_webview_id: get()._getNextId("connect_webview"),
       workspace_id: params.workspace_id,
       status: "pending",
       accepted_providers: ["august"],
       created_at: new Date().toISOString(),
-    } as ConnectWebview
+    }
     set({
       connect_webviews: [...get().connect_webviews, new_connect_webview],
     })
@@ -103,7 +103,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
   },
 
   addDevice(params) {
-    const new_device = {
+    const new_device: Device = {
       device_id: get()._getNextId("device"),
       device_type: params.device_type,
       connected_account_id: params.connected_account_id,
@@ -117,7 +117,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
       workspace_id: params.workspace_id,
       errors: params.errors ?? [],
       warnings: params.warnings ?? [],
-    } as Device
+    }
 
     set({
       devices: [...get().devices, new_device],
