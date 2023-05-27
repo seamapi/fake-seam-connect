@@ -68,7 +68,7 @@ export const getTestDatabase = async (
     user_identifier_key: "seed_client_session_user",
   })
 
-  const seed = {
+  const seed: Seed = {
     ws1: {
       workspace_id: ws1.workspace_id,
       publishable_key: ws1.publishable_key,
@@ -81,7 +81,7 @@ export const getTestDatabase = async (
       device1_id: device1.device_id,
       device2_id: device2.device_id,
     },
-  } as Seed
+  }
 
   return { db, seed }
 }
