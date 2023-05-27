@@ -44,7 +44,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
       name: params.name,
       publishable_key:
         params.publishable_key ?? `seam_${pk_id}_${simpleHash(pk_id)}`,
-      created_at: new Date().toISOString(),
+      created_at: params.created_at ?? new Date().toISOString(),
     }
     set({
       workspaces: [...get().workspaces, new_workspace],
@@ -61,7 +61,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
       client_session_id: cst_id,
       token: params.token ?? `seam_${cst_id}_${simpleHash(cst_id)}`,
       user_identifier_key: params.user_identifier_key as string,
-      created_at: new Date().toISOString(),
+      created_at: params.created_at ?? new Date().toISOString(),
     }
 
     set({
@@ -94,7 +94,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
       workspace_id: params.workspace_id,
       status: "pending",
       accepted_providers: ["august"],
-      created_at: new Date().toISOString(),
+      created_at: params.created_at ?? new Date().toISOString(),
     }
     set({
       connect_webviews: [...get().connect_webviews, new_connect_webview],
@@ -108,7 +108,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
       device_type: params.device_type,
       connected_account_id: params.connected_account_id,
       capabilities_supported: ["lock", "access_code"],
-      created_at: new Date().toISOString(),
+      created_at: params.created_at ?? new Date().toISOString(),
       properties: {
         name: params.name,
         online: true,
@@ -131,7 +131,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
       connected_account_id: get()._getNextId("connected_account"),
       provider: params.provider,
       workspace_id: params.workspace_id,
-      created_at: new Date().toISOString(),
+      created_at: params.created_at ?? new Date().toISOString(),
     } as ConnectedAccount
 
     set({
@@ -158,7 +158,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
   addAccessCode(params) {
     const new_access_code = {
       access_code_id: get()._getNextId("access_code"),
-      created_at: new Date().toISOString(),
+      created_at: params.created_at ?? new Date().toISOString(),
       ...params,
     } as AccessCode
 
