@@ -83,6 +83,7 @@
     "get-port": "^5.1.1",
     "immer": "^9.0.21",
     "landlubber": "^1.0.0",
+    "minisearch": "^6.1.0",
     "mkdirp": "^3.0.0",
     "next": "^12.3.4",
     "nextjs-server-modules": "^4.1.1",
