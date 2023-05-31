@@ -605,6 +605,31 @@ export type Routes = {
       ok: true
     }
   }
+  "/internal/device_models/list": {
+    route: "/internal/device_models/list"
+    method: "GET"
+    queryParams: {
+      main_category?: string | undefined
+      support_level?: string | undefined
+      brand?: string | undefined
+      text_search?: string | undefined
+    }
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      device_models: {
+        main_category: string
+        model_name: string
+        manufacturer_model_id: string
+        connection_type: "wifi" | "zwave" | "zigbee" | "unknown"
+        support_level: "live" | "beta" | "unsupported"
+        brand: string
+        icon_url: string
+        seam_device_model_page_url: string
+      }[]
+    }
+  }
 }
 
 export type RouteResponse<Path extends keyof Routes> =
