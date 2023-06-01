@@ -27,6 +27,7 @@ export default withRouteSpec({
   const minisearch = new MiniSearch({
     fields: searchFields,
     storeFields: searchFields,
+    idField: "manufacturer_model_id",
   })
   minisearch.addAll(fake_device_models)
 
