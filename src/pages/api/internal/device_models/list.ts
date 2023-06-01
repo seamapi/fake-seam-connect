@@ -60,8 +60,7 @@ const fake_device_models: Array<z.infer<typeof device_model>> = [
     model_name: "Smart Lock 2nd Generation",
     manufacturer_model_id: "AUG-SL02-M02-S02-C",
     support_level: "live",
-    icon_url:
-      "https://seam.co/_next/image?url=%2Fimg%2Fdevice-db%2Faugust%2Fsmartlocks%2F&w=96&q=75",
+    icon_url: "https://connect.getseam.com/images/devices/unknown-lock.png",
     seam_device_model_page_url: "https://seam.co",
     connection_type: "wifi",
   },
@@ -82,8 +81,7 @@ const fake_device_models: Array<z.infer<typeof device_model>> = [
     model_name: "Secure Pro Smart Lock",
     manufacturer_model_id: "PGD728WMB",
     support_level: "live",
-    icon_url:
-      "https://seam.co/_next/image?url=%2Fimg%2Fdevice-db%2Flockly%2Fsmartlocks%2F&w=96&q=75",
+    icon_url: "https://connect.getseam.com/images/devices/unknown-lock.png",
     seam_device_model_page_url: "https://seam.co",
     connection_type: "wifi",
   },
