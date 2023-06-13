@@ -399,6 +399,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              model: {
+                display_name: string
+              }
               battery?:
                 | {
                     level: number
@@ -410,6 +413,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              model: {
+                display_name: string
+              }
               battery?:
                 | {
                     level: number
@@ -486,6 +492,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              model: {
+                display_name: string
+              }
               battery?:
                 | {
                     level: number
@@ -497,6 +506,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              model: {
+                display_name: string
+              }
               battery?:
                 | {
                     level: number
