@@ -10,6 +10,9 @@ export const deviceType = z.enum([
 export const common_device_properties = z.object({
   online: z.boolean(),
   name: z.string(),
+  model: z.object({
+    display_name: z.string(),
+  }),
   battery: z
     .object({
       level: z.number(),
@@ -78,15 +81,27 @@ export const device = z.object({
   created_at: z.string(),
 })
 
-export const unmanaged_device = device.pick({
-  device_id: true,
-  device_type: true,
-  connected_account_id: true,
-  workspace_id: true,
-  errors: true,
-  warnings: true,
-  created_at: true,
-})
+export const unmanaged_device = device
+  .pick({
+    device_id: true,
+    device_type: true,
+    connected_account_id: true,
+    workspace_id: true,
+    errors: true,
+    warnings: true,
+    created_at: true,
+  })
+  .extend({
+    properties: z.object({
+      name: z.string().optional(),
+      manufacturer: z.string().optional(),
+      image_url: z.string().optional(),
+      image_alt_text: z.string().optional(),
+      model: z.object({
+        display_name: z.string(),
+      }),
+    }),
+  })
 
 export type Device = z.infer<typeof device>
 export type UnmanagedDevice = z.infer<typeof unmanaged_device>

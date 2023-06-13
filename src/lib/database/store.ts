@@ -112,6 +112,10 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
       properties: {
         name: params.name,
         online: true,
+        model: {
+          display_name: "Unknown",
+          ...params.properties?.model,
+        },
         ...params.properties,
       },
       workspace_id: params.workspace_id,
