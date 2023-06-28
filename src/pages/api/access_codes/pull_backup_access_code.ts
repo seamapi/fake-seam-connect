@@ -43,10 +43,11 @@ export default withRouteSpec({
     )
 
     if (!backup_access_code) {
+      const code = Math.random().toString().slice(-4)
       backup_access_code = req.db.addAccessCode({
-        code: Math.random().toString().slice(-4),
+        code,
         device_id: access_code.device_id,
-        name: "New Backup Access Code",
+        name: `New Backup Access Code ${code}`,
         workspace_id: req.auth.workspace_id,
         is_backup: true,
         starts_at: access_code.starts_at,

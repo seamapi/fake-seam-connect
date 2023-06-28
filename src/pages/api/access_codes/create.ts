@@ -52,17 +52,29 @@ export default withRouteSpec({
 
   const access_code = req.db.addAccessCode({
     code: code ?? Math.random().toString().slice(-4),
-    device_id: device_id,
+    device_id,
     name: name ?? "New Access Code",
     workspace_id: req.auth.workspace_id,
     ...(starts_at && ends_at
       ? {
-          starts_at,
-          ends_at,
+          starts_at: new Date(starts_at).toISOString(),
+          ends_at: new Date(ends_at).toISOString(),
           type: "time_bound",
-          is_backup: use_backup_access_code_pool ? true : false,
         }
-      : { type: "ongoing", is_backup: false }),
+      : { type: "ongoing" }),
   })
+
+  if (use_backup_access_code_pool) {
+    const code = Math.random().toString().slice(-4)
+    req.db.addAccessCode({
+      code,
+      device_id,
+      name: `New Backup Access Code ${code}`,
+      workspace_id: req.auth.workspace_id,
+      type: "ongoing",
+      is_backup: true,
+    })
+  }
+
   res.status(200).json({ access_code })
 })
