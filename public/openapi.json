@@ -304,8 +304,18 @@
                   "device_id": { "type": "string" },
                   "name": { "type": "string" },
                   "code": { "type": "string" },
-                  "starts_at": { "type": "string" },
-                  "ends_at": { "type": "string" },
+                  "starts_at": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "string", "format": "date-time" }
+                    ]
+                  },
+                  "ends_at": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "string", "format": "date-time" }
+                    ]
+                  },
                   "use_backup_access_code_pool": { "type": "boolean" }
                 },
                 "required": ["device_id"]

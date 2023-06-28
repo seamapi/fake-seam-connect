@@ -7,8 +7,8 @@ export type Routes = {
       device_id: string
       name?: string | undefined
       code?: string | undefined
-      starts_at?: Date | undefined
-      ends_at?: Date | undefined
+      starts_at?: (string | Date) | undefined
+      ends_at?: (string | Date) | undefined
       use_backup_access_code_pool?: boolean | undefined
     }
     commonParams: {}
