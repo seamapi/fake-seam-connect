@@ -1,7 +1,7 @@
 import test, { type ExecutionContext } from "ava"
+import ms from "ms"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
-import ms from "ms"
 
 test("POST /access_codes/create", async (t: ExecutionContext) => {
   const { axios, seed } = await getTestServer(t)
