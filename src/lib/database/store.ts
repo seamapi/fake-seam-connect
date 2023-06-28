@@ -163,6 +163,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
     const new_access_code = {
       access_code_id: get()._getNextId("access_code"),
       created_at: params.created_at ?? new Date().toISOString(),
+      is_backup: false,
       ...params,
     } as AccessCode
 

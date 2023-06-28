@@ -7,6 +7,7 @@ export type Routes = {
       device_id: string
       name?: string | undefined
       code?: string | undefined
+      use_backup_access_code_pool?: boolean | undefined
     }
     commonParams: {}
     formData: {}
@@ -25,6 +26,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
@@ -43,6 +45,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
@@ -63,6 +66,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             status: "set"
             created_at: string
             type: "ongoing"
@@ -80,6 +84,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             status: "set"
             created_at: string
             type: "time_bound"
@@ -112,6 +117,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
@@ -130,6 +136,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
@@ -150,6 +157,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             status: "set"
             created_at: string
             type: "ongoing"
@@ -167,6 +175,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             status: "set"
             created_at: string
             type: "time_bound"
@@ -199,6 +208,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
@@ -217,6 +227,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
@@ -237,6 +248,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             status: "set"
             created_at: string
             type: "ongoing"
@@ -254,6 +266,7 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_backup: boolean
             status: "set"
             created_at: string
             type: "time_bound"

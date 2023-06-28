@@ -32,4 +32,38 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
   })
 
   t.is(res.data.access_code.code, "1234")
+
+  const {
+    data: { access_code: backup_access_code },
+  } = await axios.post(
+    "/access_codes/create",
+    {
+      device_id: seed.ws2.device1_id,
+      name: "Test Access Code",
+      code: "1234",
+      use_backup_access_code_pool: true,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${seed.ws2.cst}`,
+      },
+    }
+  )
+  t.is(backup_access_code.is_backup, true)
+
+  const {
+    data: { access_codes: access_code_list },
+  } = await axios.post(
+    "/access_codes/list",
+    {
+      device_id: seed.ws2.device1_id,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${seed.ws2.cst}`,
+      },
+    }
+  )
+  // backup codes are not included
+  t.is(access_code_list.length, 1)
 })
