@@ -4,10 +4,6 @@ import { z } from "zod"
 import { access_code } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-<<<<<<< HEAD
-import { NotFoundException } from "nextlove"
-=======
->>>>>>> 97b8ed080739a91456a09c50124f507ef18b256d
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
@@ -31,6 +27,12 @@ export default withRouteSpec({
       data: { access_code_id },
     })
   }
+  if (access_code.type !== "time_bound") {
+    throw new BadRequestException({
+      type: "access_code_not_time_bound",
+      message: "Backups can only be used for time_bound access codes.",
+    })
+  }
 
   let { pulled_backup_access_code_id } = access_code
   let backup_access_code
@@ -47,6 +49,8 @@ export default withRouteSpec({
         name: "New Backup Access Code",
         workspace_id: req.auth.workspace_id,
         is_backup: true,
+        starts_at: access_code.starts_at,
+        ends_at: access_code.ends_at,
       })
     }
 

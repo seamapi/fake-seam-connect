@@ -53,7 +53,7 @@ export default withRouteSpec({
           type: "time_bound",
           is_backup: use_backup_access_code_pool ? true : false,
         }
-      : { type: "ongoing" }),
+      : { type: "ongoing", is_backup: false }),
   })
   res.status(200).json({ access_code })
 })
