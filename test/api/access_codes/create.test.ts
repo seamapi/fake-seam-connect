@@ -4,13 +4,14 @@ import ms from "ms"
 import { getTestServer } from "fixtures/get-test-server.ts"
 
 test("POST /access_codes/create", async (t: ExecutionContext) => {
-  const { axios, seed } = await getTestServer(t)
+  const { axios, seed, db } = await getTestServer(t)
+  const device_id = seed.ws2.device1_id
   const {
     data: { access_code },
   } = await axios.post(
     "/access_codes/create",
     {
-      device_id: seed.ws2.device1_id,
+      device_id,
       name: "Test Access Code",
       code: "1234",
     },
@@ -34,12 +35,10 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
 
   t.is(res.data.access_code.code, "1234")
 
-  const {
-    data: { access_code: backup_access_code },
-  } = await axios.post(
+  await axios.post(
     "/access_codes/create",
     {
-      device_id: seed.ws2.device1_id,
+      device_id,
       name: "Test Access Code",
       code: "1234",
       starts_at: new Date(),
@@ -52,14 +51,17 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
       },
     }
   )
-  t.is(backup_access_code.is_backup, true)
+  const backup_codes = db.access_codes.filter(
+    (ac) => ac.is_backup && ac.device_id === device_id
+  )
+  t.is(backup_codes.length, 1)
 
   const {
     data: { access_codes: access_code_list },
   } = await axios.post(
     "/access_codes/list",
     {
-      device_id: seed.ws2.device1_id,
+      device_id,
     },
     {
       headers: {
@@ -68,5 +70,5 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
     }
   )
   // backup codes are not included
-  t.is(access_code_list.length, 1)
+  t.is(access_code_list.length, 2)
 })
