@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { access_code } from "lib/zod/index.ts"
+import { access_code, timestamp } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
@@ -9,10 +9,19 @@ const json_body = z
     device_id: z.string(),
     name: z.string().optional(),
     code: z.string().optional(),
-    starts_at: z.string().optional(),
-    ends_at: z.string().optional(),
+    starts_at: timestamp.optional(),
+    ends_at: timestamp.optional(),
     use_backup_access_code_pool: z.boolean().optional(),
   })
+  .refine((value) => {
+    if (
+      (value.starts_at && !value.ends_at) ||
+      (value.ends_at && !value.starts_at)
+    ) {
+      return false
+    }
+    return true
+  }, "Both starts_at and ends_at must be provided if one is")
   .refine((value) => {
     if (
       !(value.starts_at || value.ends_at) &&

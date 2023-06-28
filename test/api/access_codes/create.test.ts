@@ -1,6 +1,7 @@
 import test, { type ExecutionContext } from "ava"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
+import ms from "ms"
 
 test("POST /access_codes/create", async (t: ExecutionContext) => {
   const { axios, seed } = await getTestServer(t)
@@ -41,6 +42,8 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
       device_id: seed.ws2.device1_id,
       name: "Test Access Code",
       code: "1234",
+      starts_at: new Date(),
+      ends_at: new Date(Date.now() + ms("1d")),
       use_backup_access_code_pool: true,
     },
     {
