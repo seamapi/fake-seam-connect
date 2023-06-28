@@ -1,6 +1,5 @@
 import test, { type ExecutionContext } from "ava"
 import ms from "ms"
-
 import { getTestServer } from "fixtures/get-test-server.ts"
 
 test("POST /access_codes/create", async (t: ExecutionContext) => {
