@@ -6,8 +6,8 @@ import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
-  methods: ["GET", "POST"],
-  commonParams: z.object({
+  methods: ["GET"],
+  queryParams: z.object({
     device_id: z.string(),
   }),
   jsonResponse: z.object({
@@ -16,8 +16,7 @@ export default withRouteSpec({
 } as const)(async (req, res) => {
   res.status(200).json({
     access_codes: req.db.access_codes.filter(
-      (ac) =>
-        ac.device_id === req.commonParams.device_id && !ac.is_backup
+      (ac) => ac.device_id === req.query.device_id && ac.is_managed === false
     ),
   })
 })

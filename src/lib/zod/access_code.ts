@@ -17,6 +17,7 @@ export const access_code_base = z.object({
       message: z.string(),
     })
   ),
+  is_managed: z.boolean(),
   is_backup: z.boolean(),
   pulled_backup_access_code_id: z.string().nullable().optional(),
 })

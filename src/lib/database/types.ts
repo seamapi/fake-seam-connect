@@ -76,6 +76,10 @@ export interface DatabaseMethods {
       created_at?: string
     } & Partial<AccessCode>
   ): AccessCode
+  setPulledAccessCodeId(params: {
+    original_access_code_id: string
+    pulled_backup_access_code_id: string
+  }): void
 
   update: (t?: number) => void
 }

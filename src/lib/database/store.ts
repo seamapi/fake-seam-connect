@@ -163,6 +163,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
     const new_access_code = {
       access_code_id: get()._getNextId("access_code"),
       created_at: params.created_at ?? new Date().toISOString(),
+      is_managed: true,
       is_backup: false,
       ...params,
     } as AccessCode
@@ -172,6 +173,20 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
     })
 
     return new_access_code
+  },
+
+  setPulledAccessCodeId(params) {
+    set({
+      access_codes: get().access_codes.map((ac) => {
+        if (ac.access_code_id === params.original_access_code_id) {
+          return {
+            ...ac,
+            pulled_backup_access_code_id: params.pulled_backup_access_code_id,
+          }
+        }
+        return ac
+      }),
+    })
   },
 
   update() {},

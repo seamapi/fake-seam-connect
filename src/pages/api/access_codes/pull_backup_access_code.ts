@@ -3,7 +3,7 @@ import { z } from "zod"
 import { access_code } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { BadRequestException, NotFoundException } from "nextlove"
+import { NotFoundException } from "nextlove"
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
@@ -23,7 +23,7 @@ export default withRouteSpec({
   if (!access_code) {
     throw new NotFoundException({
       type: "access_code_not_found",
-      message: "Could not find an access_code with device_id or access_code_id",
+      message: "Could not find an access_code with access_code_id",
       data: { access_code_id },
     })
   }
@@ -37,13 +37,20 @@ export default withRouteSpec({
     )
 
     if (!backup_access_code) {
-      throw new BadRequestException({
-        type: "empty_backup_access_code_pool",
-        message: "Backup access code pool is empty.",
+      backup_access_code = req.db.addAccessCode({
+        code: Math.random().toString().slice(-4),
+        device_id: access_code.device_id,
+        name: "New Backup Access Code",
+        workspace_id: req.auth.workspace_id,
+        is_backup: true,
       })
     }
 
     pulled_backup_access_code_id = backup_access_code.access_code_id
+    req.db.setPulledAccessCodeId({
+      original_access_code_id: access_code_id,
+      pulled_backup_access_code_id,
+    })
   }
 
   backup_access_code = req.db.access_codes.find(
