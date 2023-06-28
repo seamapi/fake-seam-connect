@@ -13,17 +13,12 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
   })
   const {
     data: { access_codes: unmanaged_access_code_list },
-  } = await axios.post(
-    "/access_codes/unmanaged/list",
-    {
-      device_id: seed.ws2.device1_id,
+  } = await axios.get("/access_codes/unmanaged/list", {
+    params: { device_id: seed.ws2.device1_id },
+    headers: {
+      Authorization: `Bearer ${seed.ws2.cst}`,
     },
-    {
-      headers: {
-        Authorization: `Bearer ${seed.ws2.cst}`,
-      },
-    }
-  )
+  })
 
   t.is(unmanaged_access_code_list.length, 1)
 })
