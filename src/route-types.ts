@@ -7,8 +7,8 @@ export type Routes = {
       device_id: string
       name?: string | undefined
       code?: string | undefined
-      starts_at?: Date | undefined
-      ends_at?: Date | undefined
+      starts_at?: (string | Date) | undefined
+      ends_at?: (string | Date) | undefined
       use_backup_access_code_pool?: boolean | undefined
     }
     commonParams: {}
@@ -29,7 +29,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "ongoing"
@@ -50,7 +50,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "time_bound"
@@ -73,7 +73,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
@@ -93,7 +93,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
@@ -128,7 +128,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "ongoing"
@@ -149,7 +149,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "time_bound"
@@ -172,7 +172,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
@@ -192,7 +192,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
@@ -227,7 +227,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "ongoing"
@@ -248,7 +248,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "time_bound"
@@ -271,7 +271,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
@@ -291,7 +291,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
@@ -327,7 +327,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "ongoing"
@@ -348,7 +348,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "time_bound"
@@ -371,7 +371,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
@@ -391,7 +391,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
@@ -426,7 +426,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "ongoing"
@@ -447,7 +447,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "time_bound"
@@ -470,7 +470,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
@@ -490,7 +490,7 @@ export type Routes = {
               message: string
             }[]
             is_managed: boolean
-            is_backup: boolean
+            is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
