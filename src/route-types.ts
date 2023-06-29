@@ -565,6 +565,22 @@ export type Routes = {
       }[]
     }
   }
+  "/devices/list_device_providers": {
+    route: "/devices/list_device_providers"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      device_providers: {
+        device_provider_name: string
+        display_name: string
+        image_url: string
+        provider_categories: ("stable" | "internal_beta")[]
+      }[]
+    }
+  }
   "/fake_only/complete_connect_webview": {
     route: "/fake_only/complete_connect_webview"
     method: "POST"

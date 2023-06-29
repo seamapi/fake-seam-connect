@@ -2676,6 +2676,120 @@
         "tags": []
       }
     },
+    "/devices/list_device_providers": {
+      "post": {
+        "summary": "/devices/list_device_providers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "device_providers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "device_provider_name": { "type": "string" },
+                          "display_name": { "type": "string" },
+                          "image_url": { "type": "string" },
+                          "provider_categories": {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                { "type": "string", "enum": ["stable"] },
+                                { "type": "string", "enum": ["internal_beta"] }
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "device_provider_name",
+                          "display_name",
+                          "image_url",
+                          "provider_categories"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["device_providers", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "properties": {} }
+            }
+          }
+        },
+        "tags": []
+      },
+      "get": {
+        "summary": "/devices/list_device_providers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "device_providers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "device_provider_name": { "type": "string" },
+                          "display_name": { "type": "string" },
+                          "image_url": { "type": "string" },
+                          "provider_categories": {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                { "type": "string", "enum": ["stable"] },
+                                { "type": "string", "enum": ["internal_beta"] }
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "device_provider_name",
+                          "display_name",
+                          "image_url",
+                          "provider_categories"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["device_providers", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "properties": {} }
+            }
+          }
+        },
+        "tags": []
+      }
+    },
     "/fake_only/complete_connect_webview": {
       "post": {
         "summary": "/fake_only/complete_connect_webview",
