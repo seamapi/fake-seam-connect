@@ -41,6 +41,6 @@ export default withRouteSpec({
   jsonResponse: z.object({
     device_providers: z.array(device_provider),
   }),
-} as const)(async (req, res) => {
+} as const)(async (_req, res) => {
   res.status(200).json({ device_providers })
 })
