@@ -1,7 +1,5 @@
 import { z } from "zod"
 
-import { device } from "lib/zod/index.ts"
-
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 const device_provider = z.object({
