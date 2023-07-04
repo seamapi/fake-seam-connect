@@ -174,7 +174,7 @@ const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
     return new_access_code
   },
 
-  setPulledAccessCodeId(params) {
+  setPulledBackupAccessCodeId(params) {
     set({
       access_codes: get().access_codes.map((ac) => {
         if (ac.access_code_id === params.original_access_code_id) {

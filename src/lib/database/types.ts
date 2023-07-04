@@ -76,7 +76,7 @@ export interface DatabaseMethods {
       created_at?: string
     } & Partial<AccessCode>
   ): AccessCode
-  setPulledAccessCodeId(params: {
+  setPulledBackupAccessCodeId(params: {
     original_access_code_id: string
     pulled_backup_access_code_id: string
   }): void

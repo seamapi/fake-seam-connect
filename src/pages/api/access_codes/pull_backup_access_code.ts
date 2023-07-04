@@ -56,7 +56,7 @@ export default withRouteSpec({
     }
 
     pulled_backup_access_code_id = backup_access_code.access_code_id
-    req.db.setPulledAccessCodeId({
+    req.db.setPulledBackupAccessCodeId({
       original_access_code_id: access_code_id,
       pulled_backup_access_code_id,
     })
