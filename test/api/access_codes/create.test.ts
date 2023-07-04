@@ -1,15 +1,17 @@
 import test, { type ExecutionContext } from "ava"
+import ms from "ms"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
 
 test("POST /access_codes/create", async (t: ExecutionContext) => {
-  const { axios, seed } = await getTestServer(t)
+  const { axios, seed, db } = await getTestServer(t)
+  const device_id = seed.ws2.device1_id
   const {
     data: { access_code },
   } = await axios.post(
     "/access_codes/create",
     {
-      device_id: seed.ws2.device1_id,
+      device_id,
       name: "Test Access Code",
       code: "1234",
     },
@@ -32,4 +34,41 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
   })
 
   t.is(res.data.access_code.code, "1234")
+
+  await axios.post(
+    "/access_codes/create",
+    {
+      device_id,
+      name: "Test Access Code",
+      code: "1234",
+      starts_at: new Date(),
+      ends_at: new Date(Date.now() + ms("1d")),
+      use_backup_access_code_pool: true,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${seed.ws2.cst}`,
+      },
+    }
+  )
+  const backup_codes = db.access_codes.filter(
+    (ac) => ac.is_backup && ac.device_id === device_id
+  )
+  t.is(backup_codes.length, 1)
+
+  const {
+    data: { access_codes: access_code_list },
+  } = await axios.post(
+    "/access_codes/list",
+    {
+      device_id,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${seed.ws2.cst}`,
+      },
+    }
+  )
+  // backup codes are not included
+  t.is(access_code_list.length, 2)
 })

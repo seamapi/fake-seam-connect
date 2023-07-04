@@ -7,6 +7,9 @@ export type Routes = {
       device_id: string
       name?: string | undefined
       code?: string | undefined
+      starts_at?: (string | Date) | undefined
+      ends_at?: (string | Date) | undefined
+      use_backup_access_code_pool?: boolean | undefined
     }
     commonParams: {}
     formData: {}
@@ -25,6 +28,9 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
@@ -43,6 +49,9 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
@@ -63,6 +72,9 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
             type: "ongoing"
@@ -80,6 +92,9 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
             type: "time_bound"
@@ -112,6 +127,9 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
@@ -130,6 +148,9 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
@@ -150,6 +171,9 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
             type: "ongoing"
@@ -167,6 +191,9 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
             type: "time_bound"
@@ -199,6 +226,9 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
@@ -217,6 +247,9 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
@@ -237,6 +270,9 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
             type: "ongoing"
@@ -254,6 +290,208 @@ export type Routes = {
               warning_code: string
               message: string
             }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            status: "set"
+            created_at: string
+            type: "time_bound"
+            starts_at: string
+            ends_at: string
+          }
+      )[]
+    }
+  }
+  "/access_codes/pull_backup_access_code": {
+    route: "/access_codes/pull_backup_access_code"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      access_code_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      backup_access_code:
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            common_code_key?: (string | null) | undefined
+            type: "ongoing"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            common_code_key?: (string | null) | undefined
+            type: "time_bound"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+            starts_at: string
+            ends_at: string
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            status: "set"
+            created_at: string
+            type: "ongoing"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            status: "set"
+            created_at: string
+            type: "time_bound"
+            starts_at: string
+            ends_at: string
+          }
+    }
+  }
+  "/access_codes/unmanaged/list": {
+    route: "/access_codes/unmanaged/list"
+    method: "GET"
+    queryParams: {
+      device_id: string
+    }
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      access_codes: (
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            common_code_key?: (string | null) | undefined
+            type: "ongoing"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            common_code_key?: (string | null) | undefined
+            type: "time_bound"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+            starts_at: string
+            ends_at: string
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            status: "set"
+            created_at: string
+            type: "ongoing"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
             status: "set"
             created_at: string
             type: "time_bound"
