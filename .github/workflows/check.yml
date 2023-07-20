@@ -4,6 +4,9 @@ name: Check
 on:
   push:
     branches:
+      - main
+  pull_request:
+    branches:
       - "**"
 
 jobs:
@@ -137,7 +140,7 @@ jobs:
         uses: ./.github/actions/setup
         with:
           node_version: ${{ matrix.node }}
-      - name: Check types
+      - name: Typecheck
         run: npm run typecheck
   dependencies:
     name: Dependencies

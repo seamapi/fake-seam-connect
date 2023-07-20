@@ -6,40 +6,49 @@ import {
 
 import { type Server, startServer } from "lib/server.ts"
 
-export const create = async (): Promise<Fake> => {
+export const createFake = async (): Promise<Fake> => {
   const database = createDatabase()
   return new Fake(database)
 }
 
-class Fake {
+export class Fake {
   public server: Server | null
-  public database: Database
+
+  public database: Omit<
+    Database,
+    "getState" | "setState" | "destroy" | "subscribe"
+  >
+
+  #database: Database
 
   constructor(database: Database) {
     this.server = null
+    this.#database = database
     this.database = database
   }
 
-  async startServer(port?: number): Promise<Server> {
-    this.server = await startServer({ port, database: this.database })
+  async startServer({ port }: { port?: number } = {}): Promise<Server> {
+    this.server = await startServer({ port, database: this.#database })
     return this.server
   }
 
-  stopServer(): void {
+  async stopServer(): Promise<void> {
     this.server?.close()
   }
 
-  loadJSON(state: DatabaseState): void {
-    this.database.setState(state)
+  get serverUrl(): string | null | undefined {
+    return this.server?.serverUrl
   }
 
-  toJSON(): DatabaseState {
-    return this.database.getState()
+  async loadJSON(state: DatabaseState): Promise<void> {
+    this.#database.setState(state)
   }
 
-  update(): void {
-    this.database.getState().update()
+  async toJSON(): Promise<DatabaseState> {
+    return this.#database.getState()
+  }
+
+  async update(): Promise<void> {
+    this.#database.getState().update()
   }
 }
-
-export default create

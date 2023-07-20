@@ -17,6 +17,10 @@
 # ESLint
 src/route-types.ts
 
+# Yalc
+.yalc
+yalc.lock
+
 # NextJS Server Modules
 .nsm
 
@@ -31,7 +35,7 @@ package
 .tern-port
 
 # npm config
-.npmrc
+# .npmrc
 
 # Temporary development files
 tmp
@@ -225,3 +229,17 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# VisualStudioCode
+.vscode/*
+# !.vscode/settings.json
+# !.vscode/tasks.json
+# !.vscode/launch.json
+# !.vscode/extensions.json
+# !.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix

@@ -8,10 +8,18 @@ export default {
     return {
       beforeFiles: [
         {
-          // Only allow API Routes and serve those from the root.
-          // https://nextjs.org/docs/api-routes/introduction
           source: "/:path*",
           destination: "/api/:path*",
+        },
+      ],
+      fallback: [
+        {
+          source: "/api/:path*",
+          destination: "/:path*",
+        },
+        {
+          source: "/api",
+          destination: "/",
         },
       ],
     }

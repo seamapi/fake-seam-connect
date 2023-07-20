@@ -1,4 +1,4 @@
-import { type Middleware } from "nextlove"
+import type { Middleware } from "nextlove"
 
 import { type Database, getSingletonDatabase } from "lib/database/index.ts"
 
