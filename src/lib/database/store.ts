@@ -34,7 +34,7 @@ const initializer = immer<State>((set, get) => ({
   addWorkspace(params) {
     const pk_id = get()._getNextId("pk")
     const new_workspace = {
-      workspace_id: get()._getNextId("workspace"),
+      workspace_id: params.workspace_id ?? get()._getNextId("workspace"),
       name: params.name,
       publishable_key:
         params.publishable_key ?? `seam_${pk_id}_${simpleHash(pk_id)}`,

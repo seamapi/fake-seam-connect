@@ -27,6 +27,7 @@ export interface DatabaseMethods {
     name: string
     publishable_key?: string
     created_at?: string
+    workspace_id?: string
   }): Workspace
   addClientSession(params: {
     workspace_id: WorkspaceId
@@ -44,6 +45,7 @@ export interface DatabaseMethods {
 
   addConnectWebview(params: {
     workspace_id: WorkspaceId
+    connect_webview_id?: string
     created_at?: string
   }): ConnectWebview
   updateConnectWebview(params: {
@@ -55,6 +57,8 @@ export interface DatabaseMethods {
   addConnectedAccount(params: {
     provider: string
     workspace_id: string
+    user_identifier: ConnectedAccount["user_identifier"]
+    connected_account_id?: string
     created_at?: string
   }): ConnectedAccount
   addDevice(params: {
