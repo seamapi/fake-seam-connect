@@ -90,7 +90,7 @@
     "ms": "^2.1.3",
     "next": "^12.3.4",
     "nextjs-server-modules": "^4.1.1",
-    "nextlove": "^1.3.0",
+    "nextlove": "^2.1.1",
     "prettier": "^2.3.0",
     "tsup": "^7.1.0",
     "tsx": "^3.12.1",
