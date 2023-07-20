@@ -1,6 +1,6 @@
 import type { ExecutionContext } from "ava"
 
-import { createDatabase, type Database, type Thing } from "index.ts"
+import { createDatabase, type Database } from "index.ts"
 
 export interface DatabaseFixture {
   db: Database
