@@ -8,6 +8,7 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   clean: true,
+  // UPSTREAM: https://github.com/evanw/esbuild/issues/1921#issuecomment-1491470829
   banner: {
     js: `
       import { fileURLToPath } from 'node:url';
