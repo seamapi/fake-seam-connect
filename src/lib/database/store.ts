@@ -13,7 +13,7 @@ import {
   type Database,
   type DatabaseMethods,
   type DatabaseState,
-} from "./types.ts"
+} from "./schema.ts"
 
 export const createDatabase = (): Database => {
   return hoist<StoreApi<DatabaseState & DatabaseMethods>>(
