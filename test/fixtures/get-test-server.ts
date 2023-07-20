@@ -1,21 +1,23 @@
-import { type ExecutionContext } from "ava"
-import { type NextApiRequest } from "next"
-import { type TypedAxios } from "typed-axios-instance"
+import type { ExecutionContext } from "ava"
+import type { Axios } from "axios"
+import type { NextApiRequest } from "next"
+import type { TypedAxios } from "typed-axios-instance"
 
-import { type Database, type Routes } from "index.ts"
+import type { Database, Routes } from "index.ts"
 
 import nsm from "nsm/get-server-fixture.ts"
-import { type NextApiHandler, type NextApiResponse } from "nsm/types/nextjs.ts"
+import type { NextApiHandler, NextApiResponse } from "nsm/types/nextjs.ts"
 
-import { type DatabaseFixture, getTestDatabase } from "./get-test-database.js"
+import { type DatabaseFixture, getTestDatabase } from "./get-test-database.ts"
 
-export { type SimpleAxiosError } from "nsm/get-server-fixture.ts"
+export type { SimpleAxiosError } from "nsm/get-server-fixture.ts"
 
 const { default: getServerFixture } = nsm
 
 type ServerFixture = DatabaseFixture &
   Omit<Awaited<ReturnType<typeof getServerFixture>>, "axios"> & {
     axios: TypedAxios<Routes>
+    get: Axios["get"]
   }
 
 interface ApiRequest extends NextApiRequest {
@@ -36,11 +38,9 @@ export const getTestServer = async (
     ],
   })
 
-  // Here's how you might put an authorization header on every request
-  // fixture.axios.defaults.headers.common['authorization'] = `Bearer ${seed.apiKey}
-
   return {
     ...fixture,
+    get: fixture.axios.get.bind(fixture.axios),
     db,
     seed,
   }
