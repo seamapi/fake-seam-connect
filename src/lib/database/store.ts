@@ -125,12 +125,12 @@ const initializer = immer<State>((set, get) => ({
   },
 
   addConnectedAccount(params) {
-    const new_connected_account = {
+    const new_connected_account: ConnectedAccount = {
       connected_account_id: get()._getNextId("connected_account"),
       provider: params.provider,
       workspace_id: params.workspace_id,
       created_at: params.created_at ?? new Date().toISOString(),
-    } as ConnectedAccount
+    }
 
     set({
       connected_accounts: [...get().connected_accounts, new_connected_account],
@@ -154,14 +154,14 @@ const initializer = immer<State>((set, get) => ({
   },
 
   addAccessCode(params) {
-    const new_access_code = {
+    const new_access_code: AccessCode = {
       access_code_id: get()._getNextId("access_code"),
       created_at: params.created_at ?? new Date().toISOString(),
       is_managed: true,
       errors: [],
       warnings: [],
       ...params,
-    } as AccessCode
+    }
 
     set({
       access_codes: [...get().access_codes, new_access_code],

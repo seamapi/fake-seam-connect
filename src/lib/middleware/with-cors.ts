@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import type { Middleware } from "nextlove"
 
-const withCors: Middleware<{}> =
+const withCors: Middleware<Record<string, unknown>> =
   (next) => (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader("Access-Control-Allow-Origin", req.headers.origin ?? "*")
     res.setHeader(

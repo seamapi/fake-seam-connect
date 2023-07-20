@@ -1,5 +1,5 @@
 // https://stackoverflow.com/questions/6122571/simple-non-secure-hash-function-for-javascript
-export const simpleHash = (str: string) => {
+export const simpleHash = (str: string): string => {
   let hash = 0
   for (let i = 0; i < str.length; i++) {
     const char = str.charCodeAt(i)
