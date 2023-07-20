@@ -1,1 +1,0 @@
-Use the "pages/api/_fake" directory!

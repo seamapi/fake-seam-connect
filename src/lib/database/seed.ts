@@ -72,4 +72,9 @@ export const seed = async (db: Database) => {
     connected_account_ids: ["john_connected_account_id"],
     user_identifier_key: "seed_client_session_user",
   })
+
+  return {
+    john_connected_account_id: "john_connected_account_id",
+    jane_connected_account_id: "jane_connected_account_id",
+  } as const
 }
