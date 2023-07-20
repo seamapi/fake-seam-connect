@@ -1,4 +1,4 @@
-import { type StoreApi } from "zustand/vanilla"
+import type { HoistedStoreApi } from "zustand-hoist"
 
 import type {
   AccessCode,
@@ -84,6 +84,6 @@ export interface DatabaseMethods {
   update: (t?: number) => void
 }
 
-export type Database = DatabaseState &
-  DatabaseMethods &
-  StoreApi<DatabaseState & DatabaseMethods>
+export type State = DatabaseState & DatabaseMethods
+
+export type Database = HoistedStoreApi<State>

@@ -9,19 +9,13 @@ import { type ConnectWebview } from "lib/zod/connect_webview.ts"
 import { type ConnectedAccount } from "lib/zod/connected_account.ts"
 import { type Device } from "lib/zod/device.ts"
 
-import {
-  type Database,
-  type DatabaseMethods,
-  type DatabaseState,
-} from "./schema.ts"
+import type { Database, State } from "./schema.ts"
 
 export const createDatabase = (): Database => {
-  return hoist<StoreApi<DatabaseState & DatabaseMethods>>(
-    createStore(initializer)
-  )
+  return hoist<StoreApi<State>>(createStore(initializer))
 }
 
-const initializer = immer<DatabaseState & DatabaseMethods>((set, get) => ({
+const initializer = immer<State>((set, get) => ({
   _counters: {},
 
   client_sessions: [],
