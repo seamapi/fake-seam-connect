@@ -26,7 +26,7 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "@seamapi/fake-seam-connect": ["./src/index.ts"],
+      "index.ts": ["./src/index.ts"],
       "fixtures/*": ["./test/fixtures/*"],
       "lib/*": ["./src/lib/*"],
       "nsm/*": ["./.nsm/*"],
