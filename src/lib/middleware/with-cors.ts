@@ -1,5 +1,5 @@
-import { type NextApiRequest, type NextApiResponse } from "next"
-import { type Middleware } from "nextlove"
+import type { NextApiRequest, NextApiResponse } from "next"
+import type { Middleware } from "nextlove"
 
 const withCors: Middleware<{}> =
   (next) => (req: NextApiRequest, res: NextApiResponse) => {

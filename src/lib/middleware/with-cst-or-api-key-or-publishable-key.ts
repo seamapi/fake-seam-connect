@@ -1,6 +1,6 @@
 import { HttpException, type Middleware, NotFoundException } from "nextlove"
 
-import { type Database } from "lib/database/index.ts"
+import type { Database } from "lib/database/index.ts"
 
 export const withCSTOrApiKeyOrPublishableKey: Middleware<
   {

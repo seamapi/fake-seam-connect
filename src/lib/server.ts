@@ -1,7 +1,7 @@
-import { type Server as HttpServer } from "node:http"
+import type { Server as HttpServer } from "node:http"
 
 import getPort from "get-port"
-import { type NextApiRequest } from "next"
+import type { NextApiRequest } from "next"
 
 import { createDatabase, type Database } from "lib/database/index.ts"
 import * as nsm from "nsm/index.ts"

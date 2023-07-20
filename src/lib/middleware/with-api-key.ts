@@ -1,6 +1,6 @@
-import { type Middleware } from "nextlove"
+import type { Middleware } from "nextlove"
 
-import { type Database } from "lib/database/index.ts"
+import type { Database } from "lib/database/index.ts"
 
 export const withApiKey: Middleware<
   {
