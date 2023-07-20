@@ -20,6 +20,7 @@ const withCors: Middleware<Record<string, unknown>> =
       return
     }
 
+    // @ts-expect-error  Unknown issue
     return next(req, res)
   }
 

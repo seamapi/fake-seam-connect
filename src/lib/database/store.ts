@@ -125,6 +125,7 @@ const initializer = immer<State>((set, get) => ({
   },
 
   addConnectedAccount(params) {
+    // @ts-expect-error  Partially implemented
     const new_connected_account: ConnectedAccount = {
       connected_account_id: get()._getNextId("connected_account"),
       provider: params.provider,
@@ -154,6 +155,7 @@ const initializer = immer<State>((set, get) => ({
   },
 
   addAccessCode(params) {
+    // @ts-expect-error  Partially implemented
     const new_access_code: AccessCode = {
       access_code_id: get()._getNextId("access_code"),
       created_at: params.created_at ?? new Date().toISOString(),

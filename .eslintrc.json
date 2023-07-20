@@ -27,8 +27,8 @@
           ["^\\u0000"],
           ["^node:"],
           ["^@?\\w"],
-          ["@seamapi/makenew-tsmodule"],
-          ["^lib/"],
+          ["index.ts"],
+          ["^fixtures/", "^lib/", "^nsm", "^pages"],
           ["^"],
           ["^\\."]
         ]
