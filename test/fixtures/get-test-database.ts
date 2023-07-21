@@ -37,6 +37,9 @@ export const getTestDatabase = async (
   const ca = db.addConnectedAccount({
     provider: "august",
     workspace_id: ws2.workspace_id,
+    user_identifier: {
+      email: "john@example.com",
+    },
   })
 
   db.updateConnectWebview({

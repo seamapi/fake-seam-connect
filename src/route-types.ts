@@ -1,4 +1,24 @@
 export type Routes = {
+  "/_fake/complete_connect_webview": {
+    route: "/_fake/complete_connect_webview"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      connect_webview_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {}
+  }
+  "/_fake/database": {
+    route: "/_fake/database"
+    method: "GET" | "PUT" | "POST"
+    queryParams: {}
+    jsonBody: any | undefined
+    commonParams: {}
+    formData: {}
+    jsonResponse: {}
+  }
   "/access_codes/create": {
     route: "/access_codes/create"
     method: "POST"
@@ -593,6 +613,9 @@ export type Routes = {
         connected_account_id: string
         workspace_id: string
         connect_webview_id: string
+        user_identifier: {
+          email?: string | undefined
+        }
         provider: string
         created_at: string
       }
@@ -610,6 +633,9 @@ export type Routes = {
         connected_account_id: string
         workspace_id: string
         connect_webview_id: string
+        user_identifier: {
+          email?: string | undefined
+        }
         provider: string
         created_at: string
       }[]
@@ -818,17 +844,6 @@ export type Routes = {
         provider_categories: ("stable" | "internal_beta")[]
       }[]
     }
-  }
-  "/fake_only/complete_connect_webview": {
-    route: "/fake_only/complete_connect_webview"
-    method: "POST"
-    queryParams: {}
-    jsonBody: {
-      connect_webview_id: string
-    }
-    commonParams: {}
-    formData: {}
-    jsonResponse: {}
   }
   "/health": {
     route: "/health"

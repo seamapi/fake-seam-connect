@@ -34,7 +34,7 @@ const initializer = immer<State>((set, get) => ({
   addWorkspace(params) {
     const pk_id = get()._getNextId("pk")
     const new_workspace = {
-      workspace_id: get()._getNextId("workspace"),
+      workspace_id: params.workspace_id ?? get()._getNextId("workspace"),
       name: params.name,
       publishable_key:
         params.publishable_key ?? `seam_${pk_id}_${simpleHash(pk_id)}`,
@@ -98,7 +98,7 @@ const initializer = immer<State>((set, get) => ({
 
   addDevice(params) {
     const new_device: Device = {
-      device_id: get()._getNextId("device"),
+      device_id: params.device_id ?? get()._getNextId("device"),
       device_type: params.device_type,
       connected_account_id: params.connected_account_id,
       capabilities_supported: ["lock", "access_code"],

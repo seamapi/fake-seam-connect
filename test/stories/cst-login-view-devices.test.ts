@@ -38,7 +38,7 @@ test("Login via a CST and view devices", async (t) => {
 
   t.is(pending_connect_webview.status, "pending")
 
-  await axios.post("/fake_only/complete_connect_webview", {
+  await axios.post("/_fake/complete_connect_webview", {
     connect_webview_id: pending_connect_webview.connect_webview_id,
   })
 

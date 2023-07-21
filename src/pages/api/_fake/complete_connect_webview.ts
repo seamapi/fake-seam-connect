@@ -2,6 +2,7 @@ import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
+import { simpleHash } from "lib/util/simple-hash.ts"
 
 export default withRouteSpec({
   auth: "none",
@@ -25,6 +26,9 @@ export default withRouteSpec({
   const connected_account = req.db.addConnectedAccount({
     provider: "august",
     workspace_id: connect_webview.workspace_id,
+    user_identifier: {
+      email: `${simpleHash(connect_webview.connect_webview_id)}@example.com`,
+    },
   })
 
   const relevant_cs = req.db.client_sessions.find((cs) =>
