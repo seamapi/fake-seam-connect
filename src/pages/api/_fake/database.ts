@@ -11,7 +11,7 @@ export default withRouteSpec({
   if (req.method === "GET") {
     res.status(200).json(req.db.getState())
   } else {
-    req.db.setState(req.body as any, true)
+    req.db.setState(req.body, true)
 
     res.status(200).json(req.db.getState())
   }

@@ -38,7 +38,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
     const workspace = req.db.workspaces.find(
       (ws) => ws.publishable_key === token
     )
-    if (!workspace)
+    if (workspace == null)
       throw new NotFoundException({
         type: "workspace_not_found",
         message: "Workspace not found",
@@ -53,7 +53,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
 
   if (is_cst) {
     const cst = req.db.client_sessions.find((cst) => cst.token === token)
-    if (!cst)
+    if (cst == null)
       throw new NotFoundException({
         type: "client_session_token_not_found",
         message: "Client session token not found",

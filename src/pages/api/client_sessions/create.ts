@@ -43,7 +43,7 @@ export default withRouteSpec({
     const existing_cs = req.db.client_sessions.find(
       (cst) => cst.user_identifier_key === user_identifier_key
     )
-    if (existing_cs) {
+    if (existing_cs != null) {
       if (req.method !== "PUT") {
         throw new BadRequestException({
           type: "client_session_token_already_exists",

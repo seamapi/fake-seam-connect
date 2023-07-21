@@ -16,7 +16,7 @@ export default withRouteSpec({
 } as const)(async (req, res) => {
   res.status(200).json({
     access_codes: req.db.access_codes.filter(
-      (ac) => ac.device_id === req.query.device_id && ac.is_managed === false
+      (ac) => ac.device_id === req.query.device_id && !ac.is_managed
     ),
   })
 })
