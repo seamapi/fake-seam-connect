@@ -9,7 +9,7 @@ export default withRouteSpec({
   jsonBody: z.any().optional(),
   jsonResponse: z.object({}),
 } as const)(async (req, res) => {
-  const func = (req.db as any)[req.query.func ]
+  const func = (req.db as any)[req.query.func]
   if (!func || typeof func !== "function") {
     const available_functions = Object.keys(req.db).filter(
       (key) => typeof (req.db as any)[key] === "function"
