@@ -20,9 +20,7 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
-          # UPSTREAM: Paths used by NSM for loading files must be updated to work on Windows.
-          # See also https://github.com/nodejs/node/issues/31710
-          # - windows-latest
+          - windows-latest
         node:
           - "16"
           - "18"
@@ -31,9 +29,8 @@ jobs:
             os_name: Linux
           - os: macos-latest
             os_name: macOS
-          # UPSTREAM: See above comment.
-          # - os: windows-latest
-          #   os_name: Windows
+          - os: windows-latest
+            os_name: Windows
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -76,8 +73,6 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
-          # UPSTREAM: See above comment.
-          # - windows-latest
           - windows-latest
         node:
           - "16"
@@ -87,9 +82,8 @@ jobs:
             os_name: Linux
           - os: macos-latest
             os_name: macOS
-          # UPSTREAM: See above comment.
-          # - os: windows-latest
-          #   os_name: Windows
+          - os: windows-latest
+            os_name: Windows
     steps:
       - name: Setup Node.js
         uses: actions/setup-node@v3
