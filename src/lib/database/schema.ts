@@ -2,6 +2,7 @@ import type { HoistedStoreApi } from "zustand-hoist"
 
 import type {
   AccessCode,
+  APIKey,
   ClientSession,
   ConnectedAccount,
   ConnectWebview,
@@ -14,6 +15,7 @@ export type WorkspaceId = string
 export interface DatabaseState {
   _counters: Record<string, number>
   workspaces: Workspace[]
+  api_keys: APIKey[]
   access_codes: AccessCode[]
   connect_webviews: ConnectWebview[]
   client_sessions: ClientSession[]
@@ -29,6 +31,11 @@ export interface DatabaseMethods {
     created_at?: string
     workspace_id?: string
   }) => Workspace
+  addAPIKey: (params: {
+    name?: string
+    token?: string
+    created_at?: string
+  }) => APIKey
   addClientSession: (params: {
     workspace_id: WorkspaceId
     connected_account_ids?: string[]
