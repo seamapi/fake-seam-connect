@@ -5,6 +5,9 @@ export type Seed = {
   jane_connected_account_id: "jane_connected_account_id"
   seed_workspace_1: "seed_workspace_1"
   seed_workspace_2: "seed_workspace_2"
+  august_device_1: "august_device_1"
+  august_device_2: "august_device_2"
+  schlage_device_1: "schlage_device_id"
 }
 
 export const seed = (db: Database): Seed => {
@@ -88,5 +91,8 @@ export const seed = (db: Database): Seed => {
     jane_connected_account_id: "jane_connected_account_id",
     seed_workspace_1: "seed_workspace_1",
     seed_workspace_2: "seed_workspace_2",
+    august_device_1: "august_device_1",
+    august_device_2: "august_device_2",
+    schlage_device_1: "schlage_device_id",
   }
 }
