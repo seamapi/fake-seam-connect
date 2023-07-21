@@ -2,8 +2,8 @@ import {
   createDatabase,
   type Database,
   type DatabaseState,
+  type Seed,
   seed as seedDatabase,
-  Seed,
 } from "lib/database/index.ts"
 
 import { type Server, startServer } from "lib/server.ts"
