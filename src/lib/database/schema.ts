@@ -62,6 +62,7 @@ export interface DatabaseMethods {
     created_at?: string
   }): ConnectedAccount
   addDevice(params: {
+    device_id?: string
     device_type: Device["device_type"]
     connected_account_id: string
     workspace_id: string

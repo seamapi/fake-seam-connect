@@ -1,6 +1,13 @@
 import type { Database } from "./schema.ts"
 
-export const seed = async (db: Database) => {
+export type Seed = {
+  john_connected_account_id: "john_connected_account_id"
+  jane_connected_account_id: "jane_connected_account_id"
+  some_workspace_1: "some_workspace_1"
+  some_workspace_2: "some_workspace_2"
+}
+
+export const seed = (db: Database): Seed => {
   if (
     db.connected_accounts.some(
       (ca) => ca.user_identifier?.email === "john@example.com"
@@ -37,6 +44,7 @@ export const seed = async (db: Database) => {
   })
 
   db.addDevice({
+    device_id: "august_device_1",
     connected_account_id: "john_connected_account_id",
     device_type: "august_lock",
     name: "Front Door",
@@ -44,6 +52,7 @@ export const seed = async (db: Database) => {
   })
 
   db.addDevice({
+    device_id: "august_device_2",
     connected_account_id: "john_connected_account_id",
     device_type: "august_lock",
     name: "Back Door",
@@ -60,6 +69,7 @@ export const seed = async (db: Database) => {
   })
 
   db.addDevice({
+    device_id: "schlage_device_1",
     connected_account_id: "jane_connected_account_id",
     device_type: "schlage_lock",
     name: "Bathroom Door",
@@ -76,5 +86,7 @@ export const seed = async (db: Database) => {
   return {
     john_connected_account_id: "john_connected_account_id",
     jane_connected_account_id: "jane_connected_account_id",
-  } as const
+    some_workspace_1: "some_workspace_1",
+    some_workspace_2: "some_workspace_2",
+  }
 }
