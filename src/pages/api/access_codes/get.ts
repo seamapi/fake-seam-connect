@@ -12,13 +12,13 @@ export default withRouteSpec({
     access_code_id: z.string(),
   }),
   jsonResponse: z.object({
-    access_code: access_code,
+    access_code,
   }),
 } as const)(async (req, res) => {
   const access_code = req.db.access_codes.find(
     (ac) => ac.access_code_id === req.commonParams.access_code_id
   )
-  if (!access_code) {
+  if (access_code == null) {
     throw new NotFoundException({
       type: "not_found",
       message: "Access Code Not Found",

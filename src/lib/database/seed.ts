@@ -1,6 +1,6 @@
 import type { Database } from "./schema.ts"
 
-export type Seed = {
+export interface Seed {
   john_connected_account_id: "john_connected_account_id"
   jane_connected_account_id: "jane_connected_account_id"
   seed_workspace_1: "seed_workspace_1"

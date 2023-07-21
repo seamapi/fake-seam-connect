@@ -20,7 +20,7 @@ export default withRouteSpec({
   const access_code = req.db.access_codes.find(
     (ac) => ac.access_code_id === access_code_id
   )
-  if (!access_code) {
+  if (access_code == null) {
     throw new NotFoundException({
       type: "access_code_not_found",
       message: "Could not find an access_code with access_code_id",
@@ -42,7 +42,7 @@ export default withRouteSpec({
       (ac) => ac.is_backup && ac.device_id === access_code.device_id
     )
 
-    if (!backup_access_code) {
+    if (backup_access_code == null) {
       const code = Math.random().toString().slice(-4)
       backup_access_code = req.db.addAccessCode({
         code,

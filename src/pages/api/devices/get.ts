@@ -18,7 +18,7 @@ export default withRouteSpec({
   const device = req.db.devices.find(
     (d) => d.device_id === req.commonParams.device_id
   )
-  if (!device) {
+  if (device == null) {
     throw new NotFoundException({
       type: "device_not_found",
       message: "Device not found",

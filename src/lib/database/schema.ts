@@ -22,46 +22,46 @@ export interface DatabaseState {
 }
 
 export interface DatabaseMethods {
-  _getNextId(type: string): string
-  addWorkspace(params: {
+  _getNextId: (type: string) => string
+  addWorkspace: (params: {
     name: string
     publishable_key?: string
     created_at?: string
     workspace_id?: string
-  }): Workspace
-  addClientSession(params: {
+  }) => Workspace
+  addClientSession: (params: {
     workspace_id: WorkspaceId
     connected_account_ids?: string[]
     connect_webview_ids?: string[]
     user_identifier_key?: string
     token?: string
     created_at?: string
-  }): ClientSession
-  updateClientSession(params: {
+  }) => ClientSession
+  updateClientSession: (params: {
     client_session_id: string
     connected_account_ids?: string[]
     connect_webview_ids?: string[]
-  }): void
+  }) => void
 
-  addConnectWebview(params: {
+  addConnectWebview: (params: {
     workspace_id: WorkspaceId
     connect_webview_id?: string
     created_at?: string
-  }): ConnectWebview
-  updateConnectWebview(params: {
+  }) => ConnectWebview
+  updateConnectWebview: (params: {
     connect_webview_id: string
     connected_account_id: string
     status: "pending" | "authorized" | "failed"
-  }): void
+  }) => void
 
-  addConnectedAccount(params: {
+  addConnectedAccount: (params: {
     provider: string
     workspace_id: string
     user_identifier: ConnectedAccount["user_identifier"]
     connected_account_id?: string
     created_at?: string
-  }): ConnectedAccount
-  addDevice(params: {
+  }) => ConnectedAccount
+  addDevice: (params: {
     device_id?: string
     device_type: Device["device_type"]
     connected_account_id: string
@@ -71,8 +71,8 @@ export interface DatabaseMethods {
     errors?: Device["errors"]
     warnings?: Device["warnings"]
     created_at?: string
-  }): Device
-  addAccessCode(
+  }) => Device
+  addAccessCode: (
     params: {
       workspace_id: string
       name: string
@@ -80,11 +80,11 @@ export interface DatabaseMethods {
       device_id: string
       created_at?: string
     } & Partial<AccessCode>
-  ): AccessCode
-  setPulledBackupAccessCodeId(params: {
+  ) => AccessCode
+  setPulledBackupAccessCodeId: (params: {
     original_access_code_id: string
     pulled_backup_access_code_id: string
-  }): void
+  }) => void
 
   update: (t?: number) => void
 }
