@@ -1,4 +1,4 @@
-import type { Database, DatabaseMethods, DatabaseState } from "./schema.ts"
+import type { DatabaseMethods, DatabaseState } from "./schema.ts"
 
 export interface Seed {
   john_connected_account_id: "john_connected_account_id"
@@ -8,6 +8,8 @@ export interface Seed {
   august_device_1: "august_device_1"
   august_device_2: "august_device_2"
   schlage_device_1: "schlage_device_id"
+  seam_seedkey1_seedkey1: "seam_seedkey1_seedkey1"
+  seam_seedkey2_seedkey2: "seam_seedkey2_seedkey2"
 }
 
 export const seed = (db: DatabaseState & DatabaseMethods): Seed => {
@@ -102,5 +104,7 @@ export const seed = (db: DatabaseState & DatabaseMethods): Seed => {
     august_device_1: "august_device_1",
     august_device_2: "august_device_2",
     schlage_device_1: "schlage_device_id",
+    seam_seedkey1_seedkey1: "seam_seedkey1_seedkey1",
+    seam_seedkey2_seedkey2: "seam_seedkey2_seedkey2",
   }
 }
