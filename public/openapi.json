@@ -2260,6 +2260,32 @@
         "operationId": "devicesListDeviceProvidersPost"
       }
     },
+    "/_fake/rpc/[func]": {
+      "post": {
+        "summary": "/_fake/rpc/[func]",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "requestBody": {
+          "content": { "application/json": { "schema": { "nullable": true } } }
+        },
+        "tags": [],
+        "operationId": "fakeRpcByFuncPost"
+      }
+    },
     "/access_codes/unmanaged/list": {
       "get": {
         "summary": "/access_codes/unmanaged/list",

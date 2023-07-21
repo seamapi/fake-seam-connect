@@ -19,6 +19,15 @@ export type Routes = {
     formData: {}
     jsonResponse: {}
   }
+  "/_fake/rpc/[func]": {
+    route: "/_fake/rpc/[func]"
+    method: "GET" | "POST"
+    queryParams: any
+    jsonBody: any | undefined
+    commonParams: {}
+    formData: {}
+    jsonResponse: {}
+  }
   "/access_codes/create": {
     route: "/access_codes/create"
     method: "POST"
