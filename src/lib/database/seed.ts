@@ -1,4 +1,4 @@
-import type { Database } from "./schema.ts"
+import type { Database, DatabaseMethods, DatabaseState } from "./schema.ts"
 
 export interface Seed {
   john_connected_account_id: "john_connected_account_id"
@@ -10,7 +10,7 @@ export interface Seed {
   schlage_device_1: "schlage_device_id"
 }
 
-export const seed = (db: Database): Seed => {
+export const seed = (db: DatabaseState & DatabaseMethods): Seed => {
   if (
     db.connected_accounts.some(
       (ca) => ca.user_identifier?.email === "john@example.com"
@@ -22,9 +22,17 @@ export const seed = (db: Database): Seed => {
   }
 
   db.addWorkspace({ name: "My Workspace", workspace_id: "seed_workspace_1" })
+  db.addAPIKey({
+    name: "Seed API Key 1",
+    token: "seam_seedkey1_seedkey1",
+  })
   db.addWorkspace({
     name: "Empty Workspace",
     workspace_id: "seed_workspace_2",
+  })
+  db.addAPIKey({
+    name: "Seed API Key 2",
+    token: "seam_seedkey2_seedkey2",
   })
 
   const cw = db.addConnectWebview({

@@ -25,9 +25,10 @@ interface ApiRequest extends NextApiRequest {
 }
 
 export const getTestServer = async (
-  t: ExecutionContext
+  t: ExecutionContext,
+  { seed = true }: { seed?: boolean } = {}
 ): Promise<ServerFixture> => {
-  const { db, seed } = await getTestDatabase(t)
+  const { db, seed: seedResult } = await getTestDatabase(t, { seed })
 
   const fixture = await getServerFixture(t, {
     middlewares: [
@@ -42,6 +43,6 @@ export const getTestServer = async (
     ...fixture,
     get: fixture.axios.get.bind(fixture.axios),
     db,
-    seed,
+    seed: seedResult,
   }
 }
