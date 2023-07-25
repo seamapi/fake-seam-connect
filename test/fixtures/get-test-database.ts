@@ -2,9 +2,9 @@ import type { ExecutionContext } from "ava"
 
 import { createDatabase, type Database } from "index.ts"
 
-export interface DatabaseFixture {
+export interface DatabaseFixture<TSeed = true> {
   db: Database
-  seed: Seed
+  seed: TSeed extends true ? Seed : never
 }
 
 interface Seed {
@@ -23,9 +23,12 @@ interface Seed {
 }
 
 export const getTestDatabase = async (
-  _t: ExecutionContext
+  _t: ExecutionContext,
+  { seed: shouldSeed = true }: { seed?: boolean } = {}
 ): Promise<DatabaseFixture> => {
   const db = createDatabase()
+
+  if (!shouldSeed) return { db, seed: {} as any } // NOTE: bad type, but not worth the templating
 
   const ws1 = db.addWorkspace({ name: "Seed Workspace 1 (starts empty)" })
   const ws2 = db.addWorkspace({ name: "Seed Workspace 2 (starts populated)" })

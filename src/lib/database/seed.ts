@@ -8,6 +8,8 @@ export interface Seed {
   august_device_1: "august_device_1"
   august_device_2: "august_device_2"
   schlage_device_1: "schlage_device_id"
+  seam_apikey1_token: "seam_apikey1_token"
+  seam_apikey2_token: "seam_apikey2_token"
 }
 
 export const seed = (db: Database): Seed => {
@@ -22,9 +24,17 @@ export const seed = (db: Database): Seed => {
   }
 
   db.addWorkspace({ name: "My Workspace", workspace_id: "seed_workspace_1" })
+  db.addApiKey({
+    name: "Seed API Key 1",
+    token: "seam_apikey1_token",
+  })
   db.addWorkspace({
     name: "Empty Workspace",
     workspace_id: "seed_workspace_2",
+  })
+  db.addApiKey({
+    name: "Seed API Key 2",
+    token: "seam_apikey2_token",
   })
 
   const cw = db.addConnectWebview({
@@ -94,5 +104,7 @@ export const seed = (db: Database): Seed => {
     august_device_1: "august_device_1",
     august_device_2: "august_device_2",
     schlage_device_1: "schlage_device_id",
+    seam_apikey1_token: "seam_apikey1_token",
+    seam_apikey2_token: "seam_apikey2_token",
   }
 }

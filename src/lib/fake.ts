@@ -1,17 +1,15 @@
 import {
   createDatabase,
-  type Database as DatabaseStore,
+  type Database,
   type DatabaseState,
   type Seed,
   seed as seedDatabase,
+  type ZustandDatabase,
 } from "lib/database/index.ts"
 
 import { type Server, startServer } from "lib/server.ts"
 
-export type Database = Omit<
-  DatabaseStore,
-  "getState" | "setState" | "destroy" | "subscribe"
->
+export type { Database }
 
 export const createFake = async (): Promise<Fake> => {
   const database = createDatabase()
@@ -23,9 +21,9 @@ export class Fake {
 
   public database: Database
 
-  #database: DatabaseStore
+  #database: ZustandDatabase
 
-  constructor(database: DatabaseStore) {
+  constructor(database: ZustandDatabase) {
     this.server = null
     this.#database = database
     this.database = database

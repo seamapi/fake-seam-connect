@@ -4,22 +4,24 @@ import { hoist } from "zustand-hoist"
 
 import { simpleHash } from "lib/util/simple-hash.ts"
 import type { AccessCode } from "lib/zod/access_code.ts"
+import type { ApiKey } from "lib/zod/api_key.ts"
 import type { ClientSession } from "lib/zod/client_session.ts"
 import type { ConnectWebview } from "lib/zod/connect_webview.ts"
 import type { ConnectedAccount } from "lib/zod/connected_account.ts"
 import type { Device } from "lib/zod/device.ts"
 
-import type { Database, State } from "./schema.ts"
+import type { Database, ZustandDatabase } from "./schema.ts"
 
-export const createDatabase = (): Database => {
-  return hoist<StoreApi<State>>(createStore(initializer))
+export const createDatabase = (): ZustandDatabase => {
+  return hoist<StoreApi<Database>>(createStore(initializer))
 }
 
-const initializer = immer<State>((set, get) => ({
+const initializer = immer<Database>((set, get) => ({
   _counters: {},
 
   client_sessions: [],
   workspaces: [],
+  api_keys: [],
   connect_webviews: [],
   connected_accounts: [],
   devices: [],
@@ -44,6 +46,25 @@ const initializer = immer<State>((set, get) => ({
       workspaces: [...get().workspaces, new_workspace],
     })
     return new_workspace
+  },
+
+  addApiKey(params) {
+    const api_key_id = get()._getNextId("api_key")
+    const api_key_num = api_key_id.match(/\d+/)?.[0] ?? "0"
+    const short_token = params.token?.split("_")?.[1] ?? `key${api_key_num}`
+    const new_api_key: ApiKey = {
+      api_key_id,
+      name: params.name ?? `API Key ${api_key_num}`,
+      token: params.token ?? `seam_${short_token}_${simpleHash(api_key_id)}`,
+      short_token,
+      created_at: params.created_at ?? new Date().toISOString(),
+    }
+
+    set({
+      api_keys: [...get().api_keys, new_api_key],
+    })
+
+    return new_api_key
   },
 
   addClientSession(params) {
