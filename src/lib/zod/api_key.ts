@@ -10,4 +10,4 @@ export const api_key = z.object({
   // user_id: z.string().uuid(),
 })
 
-export type APIKey = z.infer<typeof api_key>
+export type ApiKey = z.infer<typeof api_key>
