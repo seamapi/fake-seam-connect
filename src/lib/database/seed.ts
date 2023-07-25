@@ -1,4 +1,4 @@
-import type { DatabaseMethods, DatabaseState } from "./schema.ts"
+import type { Database } from "./schema.ts"
 
 export interface Seed {
   john_connected_account_id: "john_connected_account_id"
@@ -12,7 +12,7 @@ export interface Seed {
   seam_apikey2_token: "seam_apikey2_token"
 }
 
-export const seed = (db: DatabaseState & DatabaseMethods): Seed => {
+export const seed = (db: Database): Seed => {
   if (
     db.connected_accounts.some(
       (ca) => ca.user_identifier?.email === "john@example.com"

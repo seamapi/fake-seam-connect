@@ -96,6 +96,6 @@ export interface DatabaseMethods {
   update: (t?: number) => void
 }
 
-export type State = DatabaseState & DatabaseMethods
+export type Database = DatabaseState & DatabaseMethods
 
-export type Database = HoistedStoreApi<State>
+export type ZustandDatabase = HoistedStoreApi<Database>
