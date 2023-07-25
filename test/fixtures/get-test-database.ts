@@ -2,9 +2,9 @@ import type { ExecutionContext } from "ava"
 
 import { createDatabase, type Database } from "index.ts"
 
-export interface DatabaseFixture {
+export interface DatabaseFixture<TSeed = true> {
   db: Database
-  seed: Seed
+  seed: TSeed extends true ? Seed : never
 }
 
 interface Seed {
