@@ -9,8 +9,6 @@ import {
 
 import { type Server, startServer } from "lib/server.ts"
 
-export type { Database }
-
 export const createFake = async (): Promise<Fake> => {
   const database = createDatabase()
   return new Fake(database)
