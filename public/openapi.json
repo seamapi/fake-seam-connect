@@ -1575,7 +1575,7 @@
                 "type": "object",
                 "properties": {
                   "access_code_id": { "type": "string" },
-                  "device_id": { "type": "string", "format": "uuid" },
+                  "device_id": { "type": "string" },
                   "name": { "type": "string" },
                   "code": { "type": "string" },
                   "starts_at": {
@@ -1610,7 +1610,7 @@
           {
             "name": "device_id",
             "in": "query",
-            "schema": { "type": "string", "format": "uuid" },
+            "schema": { "type": "string" },
             "required": false
           },
           {

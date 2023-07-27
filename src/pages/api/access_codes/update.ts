@@ -8,7 +8,7 @@ import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 const json_body = z
   .object({
     access_code_id: z.string(),
-    device_id: z.string().uuid().optional(),
+    device_id: z.string().optional(),
     name: z.string().optional(),
     code: z.string().optional(),
     starts_at: timestamp.optional(),
