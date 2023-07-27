@@ -20,6 +20,43 @@ $ npm install @seamapi/fake-seam-connect
 
 [npm]: https://www.npmjs.com/
 
+## Usage
+
+### From Docker
+
+The application is distributed as a [Docker container].
+Start the server inside a container with
+
+```
+$ docker run --init --read-only --publish 8080:8080 ghcr.io/seamapi/fake-seam-connect
+```
+
+[Docker container]: https://github.com/seamapi/fake-seam-connect/pkgs/container/fake-seam-connect
+
+### From npx
+
+The server is included in the published [npm package] and may be run using npx with
+
+```
+$ npx @seamapi/fake-seam-connect
+```
+
+[npm package]: https://www.npmjs.com/package/@makenew/nodets-server
+
+### From source
+
+[Download a release][Releases] and extract the source code.
+Then install the production dependencies and start the server with
+
+```
+$ npm ci
+$ npm run:build
+$ npm ci --omit=dev
+$ npm start
+```
+
+[Releases]: https://github.com/makenew/nodets-server/releases
+
 ## Development and Testing
 
 ### Quickstart
