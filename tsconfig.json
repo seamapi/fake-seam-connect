@@ -33,7 +33,7 @@
       "pages/*": ["./src/pages/*"]
     }
   },
-  "files": ["src/index.ts"],
+  "files": ["src/index.ts", "src/server.ts"],
   "include": [
     "src/**/*",
     "next-env.d.ts",

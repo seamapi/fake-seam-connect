@@ -9,6 +9,7 @@
   "extensions": [
     "ms-vsliveshare.vsliveshare",
     "dbaeumer.vscode-eslint",
+    "ms-azuretools.vscode-docker",
     "EditorConfig.EditorConfig",
     "esbenp.prettier-vscode"
   ],
@@ -16,6 +17,8 @@
   "portsAttributes": {
     "3000": { "label": "App" }
   },
+  "runArgs": ["--volume=/var/lib/docker", "--privileged"],
   "postCreateCommand": "npm install",
+  "postAttachCommand": "sudo service docker start",
   "remoteUser": "node"
 }
