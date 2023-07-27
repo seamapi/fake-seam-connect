@@ -15,7 +15,8 @@ jobs:
       - name: Prune smoke test images
         uses: snok/container-retention-policy@v2
         with:
-          image-names: smoke-*
+          image-names: fake-seam-connect
+          filter-tags: smoke-*
           cut-off: One week ago UTC
           keep-at-least: 1
           account-type: org
