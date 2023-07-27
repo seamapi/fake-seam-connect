@@ -46,12 +46,10 @@ $ npx @seamapi/fake-seam-connect
 ### From source
 
 [Download a release][Releases] and extract the source code.
-Then install the production dependencies and start the server with
+Then install the dependencies and start the server with
 
 ```
 $ npm ci
-$ npm run:build
-$ npm ci --omit=dev
 $ npm start
 ```
 
