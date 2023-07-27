@@ -193,6 +193,42 @@ const initializer = immer<Database>((set, get) => ({
     return new_access_code
   },
 
+  findAccessCode(params) {
+    return get().access_codes.find((access_code) => {
+      const is_target_id = access_code.access_code_id === params.access_code_id
+      const is_target_device = access_code.device_id === params.device_id
+
+      return is_target_id || is_target_device
+    })
+  },
+
+  updateAccessCode(params) {
+    const target = get().access_codes.find(
+      (access_code) => access_code.access_code_id === params.access_code_id
+    )
+    if (target == null) {
+      throw new Error("Could not find access_code with access_code_id")
+    }
+
+    const updated: AccessCode = { ...target, ...params } as any
+
+    set({
+      access_codes: [
+        ...get().access_codes.map((access_code) => {
+          const is_target = access_code.access_code_id === target.access_code_id
+
+          if (is_target) {
+            return updated
+          }
+
+          return access_code
+        }),
+      ],
+    })
+
+    return updated
+  },
+
   setPulledBackupAccessCodeId(params) {
     set({
       access_codes: get().access_codes.map((ac) => {

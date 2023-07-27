@@ -88,6 +88,11 @@ export interface DatabaseMethods {
       created_at?: string
     } & Partial<AccessCode>
   ) => AccessCode
+  findAccessCode: (params: {
+    access_code_id: string
+    device_id?: string
+  }) => AccessCode | undefined
+  updateAccessCode: (params: Partial<AccessCode> & {}) => AccessCode
   setPulledBackupAccessCodeId: (params: {
     original_access_code_id: string
     pulled_backup_access_code_id: string
