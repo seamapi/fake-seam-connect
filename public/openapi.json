@@ -1306,6 +1306,358 @@
         "operationId": "accessCodesPullBackupAccessCodePost"
       }
     },
+    "/access_codes/update": {
+      "post": {
+        "summary": "/access_codes/update",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_code": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "access_code_id": { "type": "string" },
+                            "device_id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "code": { "type": "string" },
+                            "errors": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "error_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["error_code", "message"]
+                              }
+                            },
+                            "warnings": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "warning_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["warning_code", "message"]
+                              }
+                            },
+                            "is_managed": { "type": "boolean" },
+                            "is_backup": { "type": "boolean" },
+                            "pulled_backup_access_code_id": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "common_code_key": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "type": { "type": "string", "enum": ["ongoing"] },
+                            "created_at": { "type": "string" },
+                            "status": {
+                              "type": "string",
+                              "enum": ["setting", "set", "removing", "unset"]
+                            }
+                          },
+                          "required": [
+                            "access_code_id",
+                            "device_id",
+                            "name",
+                            "code",
+                            "errors",
+                            "warnings",
+                            "is_managed",
+                            "type",
+                            "created_at",
+                            "status"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "access_code_id": { "type": "string" },
+                            "device_id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "code": { "type": "string" },
+                            "errors": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "error_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["error_code", "message"]
+                              }
+                            },
+                            "warnings": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "warning_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["warning_code", "message"]
+                              }
+                            },
+                            "is_managed": { "type": "boolean" },
+                            "is_backup": { "type": "boolean" },
+                            "pulled_backup_access_code_id": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "common_code_key": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "type": {
+                              "type": "string",
+                              "enum": ["time_bound"]
+                            },
+                            "created_at": { "type": "string" },
+                            "status": {
+                              "type": "string",
+                              "enum": ["setting", "set", "removing", "unset"]
+                            },
+                            "starts_at": { "type": "string" },
+                            "ends_at": { "type": "string" }
+                          },
+                          "required": [
+                            "access_code_id",
+                            "device_id",
+                            "name",
+                            "code",
+                            "errors",
+                            "warnings",
+                            "is_managed",
+                            "type",
+                            "created_at",
+                            "status",
+                            "starts_at",
+                            "ends_at"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "access_code_id": { "type": "string" },
+                            "device_id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "code": { "type": "string" },
+                            "errors": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "error_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["error_code", "message"]
+                              }
+                            },
+                            "warnings": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "warning_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["warning_code", "message"]
+                              }
+                            },
+                            "is_managed": { "type": "boolean" },
+                            "is_backup": { "type": "boolean" },
+                            "pulled_backup_access_code_id": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "status": { "type": "string", "enum": ["set"] },
+                            "created_at": { "type": "string" },
+                            "type": { "type": "string", "enum": ["ongoing"] }
+                          },
+                          "required": [
+                            "access_code_id",
+                            "device_id",
+                            "name",
+                            "code",
+                            "errors",
+                            "warnings",
+                            "is_managed",
+                            "status",
+                            "created_at",
+                            "type"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "access_code_id": { "type": "string" },
+                            "device_id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "code": { "type": "string" },
+                            "errors": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "error_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["error_code", "message"]
+                              }
+                            },
+                            "warnings": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "warning_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["warning_code", "message"]
+                              }
+                            },
+                            "is_managed": { "type": "boolean" },
+                            "is_backup": { "type": "boolean" },
+                            "pulled_backup_access_code_id": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "status": { "type": "string", "enum": ["set"] },
+                            "created_at": { "type": "string" },
+                            "type": {
+                              "type": "string",
+                              "enum": ["time_bound"]
+                            },
+                            "starts_at": { "type": "string" },
+                            "ends_at": { "type": "string" }
+                          },
+                          "required": [
+                            "access_code_id",
+                            "device_id",
+                            "name",
+                            "code",
+                            "errors",
+                            "warnings",
+                            "is_managed",
+                            "status",
+                            "created_at",
+                            "type",
+                            "starts_at",
+                            "ends_at"
+                          ]
+                        }
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["access_code", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "access_code_id": { "type": "string" },
+                  "device_id": { "type": "string", "format": "uuid" },
+                  "name": { "type": "string" },
+                  "code": { "type": "string" },
+                  "starts_at": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "string", "format": "date-time" }
+                    ]
+                  },
+                  "ends_at": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "string", "format": "date-time" }
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": ["ongoing", "time_bound"]
+                  }
+                },
+                "required": ["access_code_id"]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "access_code_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "device_id",
+            "in": "query",
+            "schema": { "type": "string", "format": "uuid" },
+            "required": false
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "starts_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "ends_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": { "type": "string", "enum": ["ongoing", "time_bound"] },
+            "required": false
+          }
+        ],
+        "tags": [],
+        "operationId": "accessCodesUpdatePost"
+      }
+    },
     "/client_sessions/create": {
       "put": {
         "summary": "/client_sessions/create",
