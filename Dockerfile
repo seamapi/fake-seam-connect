@@ -41,6 +41,6 @@ EXPOSE 8080
 
 ENTRYPOINT ["node"]
 
-CMD ["server.js"]
+CMD ["./dist/server.js"]
 
 USER node
