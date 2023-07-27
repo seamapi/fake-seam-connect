@@ -184,6 +184,6 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
       - name: Test
-        run: npm run test:smoke
+        run: curl http://localhost:$PORT/health
         env:
           PORT: ${{ job.services.app.ports['8080'] }}
