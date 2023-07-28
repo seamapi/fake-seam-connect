@@ -31,6 +31,12 @@ Start the server inside a container with
 $ docker run --init --read-only --publish 8080:8080 ghcr.io/seamapi/fake-seam-connect
 ```
 
+Start a pre-seeded instance with
+
+```
+$ docker run --init --read-only --publish 8080:8080 ghcr.io/seamapi/fake-seam-connect --seed
+```
+
 [Docker container]: https://github.com/seamapi/fake-seam-connect/pkgs/container/fake-seam-connect
 
 ### From npx
@@ -41,19 +47,13 @@ The server is included in the published [npm package] and may be run using npx w
 $ npx @seamapi/fake-seam-connect
 ```
 
+Start a pre-seeded instance with
+
+```
+$ npx @seamapi/fake-seam-connect --seed
+```
+
 [npm package]: https://www.npmjs.com/package/@makenew/nodets-server
-
-### From source
-
-[Download a release][Releases] and extract the source code.
-Then install the dependencies and start the server with
-
-```
-$ npm ci
-$ npm start
-```
-
-[Releases]: https://github.com/makenew/nodets-server/releases
 
 ## Development and Testing
 

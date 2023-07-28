@@ -6,7 +6,7 @@ import { createFake } from "./index.ts"
 
 const main = async (): Promise<void> => {
   const port = env["PORT"] == null ? undefined : Number(env["PORT"])
-  const shouldSeed = !argv.includes("--no-seed")
+  const shouldSeed = argv.includes("--seed")
 
   const fake = await createFake()
   if (shouldSeed) await fake.seed()
