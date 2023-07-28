@@ -29,7 +29,6 @@ const main = async (): Promise<void> => {
 }
 
 main().catch((err) => {
-  // eslint-disable-next-line no-console
   logger.error(err)
   exit(1)
 })
