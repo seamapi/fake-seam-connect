@@ -69,6 +69,7 @@
     "zustand-hoist": "^1.0.0"
   },
   "devDependencies": {
+    "@godaddy/terminus": "^4.12.1",
     "@seamapi/logger": "^1.9.2",
     "@tsconfig/next": "^1.0.5",
     "@types/node": "^18.11.18",
