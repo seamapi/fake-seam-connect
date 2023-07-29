@@ -39,8 +39,6 @@ ENV NODE_ENV=production \
 
 EXPOSE 8080
 
-ENTRYPOINT ["node"]
-
-CMD ["./dist/server.js"]
+ENTRYPOINT ["node", "./dist/server.js"]
 
 USER node

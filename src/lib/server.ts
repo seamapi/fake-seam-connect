@@ -1,5 +1,7 @@
 import type { Server as HttpServer } from "node:http"
+import { setImmediate } from "node:timers/promises"
 
+import { createTerminus } from "@godaddy/terminus"
 import getPort from "get-port"
 import type { NextApiRequest } from "next"
 
@@ -20,10 +22,15 @@ interface ApiRequest extends NextApiRequest {
 }
 
 export async function startServer(
-  options: { port?: number | undefined; database?: Database } = {}
+  options: {
+    port?: number | undefined
+    database?: Database
+    signals?: string[]
+  } = {}
 ): Promise<Server> {
   const database = options.database ?? createDatabase()
   const port = options.port ?? (await getPort())
+  const signals = options.signals ?? []
 
   logger.debug(`Starting fake on http://localhost:${port}`)
 
@@ -37,7 +44,19 @@ export async function startServer(
     ],
   })
 
-  return new Server({ server, port })
+  return new Server({
+    server: createTerminus(server, {
+      onShutdown: async () => {
+        logger.info("Shutdown")
+        await setImmediate()
+      },
+      logger: (msg, err) => {
+        logger.error(msg, err)
+      },
+      signals,
+    }),
+    port,
+  })
 }
 
 export class Server {
