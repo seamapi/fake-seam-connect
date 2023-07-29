@@ -2,7 +2,7 @@ import { z } from "zod"
 
 export const timestamp = z.union([
   z.string().refine((payload) => {
-    if (payload) {
+    if (payload != null) {
       const parsed = new Date(payload)
       return parsed instanceof Date && !isNaN(parsed as any)
     }

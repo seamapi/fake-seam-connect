@@ -31,7 +31,7 @@ export default withRouteSpec({
     (req.headers["user-identifier-key"] as string | undefined) ??
     (req.headers["seam-user-identifier-key"] as string | undefined)
 
-  if (req.auth.auth_mode === "publishable_key" && !user_identifier_key) {
+  if (req.auth.auth_mode === "publishable_key" && user_identifier_key == null) {
     throw new BadRequestException({
       type: "missing_user_identifier_key",
       message:
@@ -39,7 +39,7 @@ export default withRouteSpec({
     })
   }
 
-  if (user_identifier_key) {
+  if (user_identifier_key != null) {
     const existing_cs = req.db.client_sessions.find(
       (cst) => cst.user_identifier_key === user_identifier_key
     )
