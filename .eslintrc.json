@@ -57,9 +57,6 @@
       ],
       "rules": {
         "@typescript-eslint/naming-convention": "off",
-        "@typescript-eslint/strict-boolean-expressions": "warn",
-        "@typescript-eslint/prefer-nullish-coalescing": "warn",
-        "@typescript-eslint/no-non-null-assertion": "warn",
         "@typescript-eslint/no-import-type-side-effects": "error",
         "@typescript-eslint/consistent-type-imports": [
           "error",

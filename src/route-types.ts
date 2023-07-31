@@ -29,7 +29,7 @@ export type Routes = {
       code?: string | undefined
       starts_at?: (string | Date) | undefined
       ends_at?: (string | Date) | undefined
-      use_backup_access_code_pool?: boolean | undefined
+      use_backup_access_code_pool?: boolean
     }
     commonParams: {}
     formData: {}

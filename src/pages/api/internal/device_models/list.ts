@@ -32,7 +32,7 @@ export default withRouteSpec({
   minisearch.addAll(fake_device_models)
 
   let device_models = [...fake_device_models]
-  if (req.query.text_search) {
+  if (req.query.text_search != null) {
     device_models = minisearch.search(req.query.text_search) as any
   }
 

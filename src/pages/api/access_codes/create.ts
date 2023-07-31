@@ -11,12 +11,12 @@ const json_body = z
     code: z.string().optional(),
     starts_at: timestamp.optional(),
     ends_at: timestamp.optional(),
-    use_backup_access_code_pool: z.boolean().optional(),
+    use_backup_access_code_pool: z.boolean().optional().default(false),
   })
   .refine((value) => {
     if (
-      (value.starts_at && !value.ends_at) ||
-      (value.ends_at && !value.starts_at)
+      (value.starts_at != null && value.ends_at == null) ||
+      (value.ends_at != null && value.starts_at == null)
     ) {
       return false
     }
@@ -24,8 +24,9 @@ const json_body = z
   }, "Both starts_at and ends_at must be provided if one is")
   .refine((value) => {
     if (
-      !(value.starts_at || value.ends_at) &&
-      value.use_backup_access_code_pool
+      value.use_backup_access_code_pool &&
+      value.starts_at == null &&
+      value.ends_at == null
     ) {
       return false
     }
@@ -55,7 +56,7 @@ export default withRouteSpec({
     device_id,
     name: name ?? "New Access Code",
     workspace_id: req.auth.workspace_id,
-    ...(starts_at && ends_at
+    ...(starts_at != null && ends_at != null
       ? {
           starts_at: new Date(starts_at).toISOString(),
           ends_at: new Date(ends_at).toISOString(),

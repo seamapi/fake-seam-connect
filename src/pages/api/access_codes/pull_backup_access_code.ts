@@ -37,9 +37,9 @@ export default withRouteSpec({
   let { pulled_backup_access_code_id } = access_code
   let backup_access_code
 
-  if (!pulled_backup_access_code_id) {
+  if (pulled_backup_access_code_id == null) {
     backup_access_code = req.db.access_codes.find(
-      (ac) => ac.is_backup && ac.device_id === access_code.device_id
+      (ac) => (ac.is_backup ?? false) && ac.device_id === access_code.device_id
     )
 
     if (backup_access_code == null) {
@@ -64,7 +64,14 @@ export default withRouteSpec({
 
   backup_access_code = req.db.access_codes.find(
     (ac) => ac.access_code_id === pulled_backup_access_code_id
-  )!
+  )
+
+  if (backup_access_code == null) {
+    throw new NotFoundException({
+      type: "backup_access_code_not_found",
+      message: "Backup access code not found",
+    })
+  }
 
   res.status(200).json({ backup_access_code })
 })
