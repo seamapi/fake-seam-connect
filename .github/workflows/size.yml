@@ -30,4 +30,4 @@ jobs:
           header: Bundle Size
           message: |
             Bundle `dist` size: ${{ steps.size.outputs.dist }}
-            Bundle `.next` size: ${{ steps.size.outputs.next }}
+            Bundle `dist/.next` size: ${{ steps.size.outputs.next }}
