@@ -10,4 +10,11 @@ export default defineConfig({
   clean: true,
   // UPSTREAM: Required as nsm imported code relies on __filename  and __dirname.
   shims: true,
+  // UPSTREAM: Required as imported code relies on require.
+  // https://github.com/evanw/esbuild/issues/1921#issuecomment-1623640043
+  banner: {
+    js: `
+      const require = (await import("node:module")).createRequire(import.meta.url);
+    `,
+  },
 })
