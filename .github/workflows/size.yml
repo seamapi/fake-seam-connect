@@ -22,7 +22,7 @@ jobs:
         id: size
         run: |
           echo "dist=$(du -sh dist | cut -f1)" >> $GITHUB_OUTPUT
-          echo ".next=$(du -sh .next | cut -f1)" >> $GITHUB_OUTPUT
+          echo "next=$(du -sh .next | cut -f1)" >> $GITHUB_OUTPUT
       - name: Update comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
@@ -30,3 +30,4 @@ jobs:
           header: Bundle Size
           message: |
             Bundle `dist` size: ${{ steps.size.outputs.dist }}
+            Bundle `.next` size: ${{ steps.size.outputs.next }}
