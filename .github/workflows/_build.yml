@@ -28,8 +28,6 @@ jobs:
           node_version: ${{ inputs.node_version }}
       - name: Build
         run: npm run build
-      - name: Make server.js executable
-        run: chmod u+x ./dist/server.js
       - name: Package
         run: npm pack
       - name: Upload artifact
