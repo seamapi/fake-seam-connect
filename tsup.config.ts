@@ -14,7 +14,8 @@ export default defineConfig({
   // https://github.com/evanw/esbuild/issues/1921#issuecomment-1623640043
   banner: {
     js: `
-      const require = (await import("node:module")).createRequire(import.meta.url);
+    import { createRequire as topLevelCreateRequire } from 'module';
+    const require = topLevelCreateRequire(import.meta.url);
     `,
   },
 })
