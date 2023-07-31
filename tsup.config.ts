@@ -3,11 +3,10 @@ import { defineConfig } from "tsup"
 export default defineConfig({
   tsconfig: "tsconfig.build.json",
   entry: ["src/index.ts", "src/server.ts"],
-  format: ["esm", "cjs"],
+  format: "esm",
   treeshake: true,
   dts: true,
   sourcemap: true,
-  clean: true,
   // UPSTREAM: Required as nsm imported code relies on __filename  and __dirname.
   shims: true,
   // UPSTREAM: Required as imported code relies on require.
