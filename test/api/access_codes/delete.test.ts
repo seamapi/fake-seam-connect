@@ -2,7 +2,7 @@ import test, { type ExecutionContext } from "ava"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
 
-test("POST /access_codes/update", async (t: ExecutionContext) => {
+test("DELETE /access_codes/delete", async (t: ExecutionContext) => {
   const { axios, seed, db } = await getTestServer(t)
   const device_id = seed.ws2.device1_id
 
