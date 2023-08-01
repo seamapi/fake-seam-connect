@@ -24,7 +24,7 @@ test("DELETE /access_codes/delete", async (t: ExecutionContext) => {
 
   t.is(access_code.code, "1234")
 
-  const res = await axios.post(
+  const res = await axios.delete(
     "/access_codes/delete",
     {
       access_code_id: access_code.access_code_id,
