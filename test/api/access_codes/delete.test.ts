@@ -33,7 +33,6 @@ test("DELETE /access_codes/delete", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       }
-      },
     }
   )
 
