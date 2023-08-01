@@ -93,6 +93,7 @@ export interface DatabaseMethods {
     device_id?: string
   }) => AccessCode | undefined
   updateAccessCode: (params: Partial<AccessCode>) => AccessCode
+  deleteAccessCode: (params: AccessCode) => void
   setPulledBackupAccessCodeId: (params: {
     original_access_code_id: string
     pulled_backup_access_code_id: string

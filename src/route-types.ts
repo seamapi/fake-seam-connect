@@ -123,6 +123,45 @@ export type Routes = {
           }
     }
   }
+  "/access_codes/delete": {
+    route: "/access_codes/delete"
+    method: "POST" | "DELETE"
+    queryParams: {}
+    jsonBody: {
+      access_code_id: string
+      device_id?: string | undefined
+      sync?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+    }
+  }
   "/access_codes/get": {
     route: "/access_codes/get"
     method: "GET" | "POST"

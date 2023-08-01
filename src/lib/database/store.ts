@@ -229,6 +229,25 @@ const initializer = immer<Database>((set, get) => ({
     return updated
   },
 
+  deleteAccessCode(params) {
+    const target = get().access_codes.find(
+      (access_code) => access_code.access_code_id === params.access_code_id
+    )
+    if (target == null) {
+      throw new Error("Could not find access_code with access_code_id")
+    }
+
+    set({
+      access_codes: [
+        ...get().access_codes.filter((access_code) => {
+          const is_target = access_code.access_code_id === target.access_code_id
+
+          return !is_target
+        }),
+      ],
+    })
+  },
+
   setPulledBackupAccessCodeId(params) {
     set({
       access_codes: get().access_codes.map((ac) => {
