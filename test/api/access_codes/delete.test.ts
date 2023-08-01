@@ -27,11 +27,12 @@ test("DELETE /access_codes/delete", async (t: ExecutionContext) => {
   const res = await axios.delete(
     "/access_codes/delete",
     {
-      access_code_id: access_code.access_code_id,
-    },
-    {
+      data: {
+        access_code_id: access_code.access_code_id,
+      },
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
+      }
       },
     }
   )
