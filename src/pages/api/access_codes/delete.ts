@@ -12,7 +12,7 @@ const json_body = z.object({
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
-  methods: ["POST"],
+  methods: ["POST", "DELETE"],
   jsonBody: json_body,
   jsonResponse: z.object({
     action_attempt,
