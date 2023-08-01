@@ -16,7 +16,10 @@ const json_body = z
     type: z.enum(["ongoing", "time_bound"]).optional(),
   })
   .refine((value) => {
-    if (value.type === "time_bound" && (!value.starts_at || !value.ends_at)) {
+    if (
+      value.type === "time_bound" &&
+      (value.starts_at == null || value.ends_at == null)
+    ) {
       return false
     }
 
@@ -24,8 +27,8 @@ const json_body = z
   }, "'time_bound' Access codes must include both starts_at and ends_at")
   .refine((value) => {
     if (
-      (value.starts_at && !value.ends_at) ||
-      (value.ends_at && !value.starts_at)
+      (value.starts_at != null && value.ends_at == null) ||
+      (value.ends_at != null && value.starts_at == null)
     ) {
       return false
     }

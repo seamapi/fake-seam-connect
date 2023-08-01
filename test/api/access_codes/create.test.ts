@@ -52,7 +52,7 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
     }
   )
   const backup_codes = db.access_codes.filter(
-    (ac) => ac.is_backup && ac.device_id === device_id
+    (ac) => (ac.is_backup ?? false) && ac.device_id === device_id
   )
   t.is(backup_codes.length, 1)
 

@@ -24,7 +24,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
     (req.headers["client-session-token"] as string | null) ??
     (req.headers["seam-client-session-token"] as string | null) ??
     (req.headers["seam-publishable-key"] as string | null)
-  if (!token) return res.status(401).end("Unauthorized")
+  if (token == null) return res.status(401).end("Unauthorized")
 
   const is_cst = token.includes("seam_cst")
   const is_pub_key = token.includes("seam_pk")
@@ -32,7 +32,8 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
   const long_token = token.split("_")?.[2]
   const short_token = token.split("_")?.[1]
 
-  if (!short_token || !long_token) return res.status(400).end("malformed token")
+  if (short_token == null || long_token == null)
+    return res.status(400).end("malformed token")
 
   if (is_pub_key) {
     const workspace = req.db.workspaces.find(

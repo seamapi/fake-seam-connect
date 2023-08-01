@@ -405,7 +405,10 @@
                       { "type": "string", "format": "date-time" }
                     ]
                   },
-                  "use_backup_access_code_pool": { "type": "boolean" }
+                  "use_backup_access_code_pool": {
+                    "default": false,
+                    "type": "boolean"
+                  }
                 },
                 "required": ["device_id"]
               }
@@ -456,7 +459,7 @@
           {
             "name": "use_backup_access_code_pool",
             "in": "query",
-            "schema": { "type": "boolean" },
+            "schema": { "default": false, "type": "boolean" },
             "required": false
           }
         ],

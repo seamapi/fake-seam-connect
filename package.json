@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/fake-seam-connect",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Fake for Seam Connect.",
   "type": "module",
   "main": "dist/index.js",
@@ -38,7 +38,7 @@
     "postbuild:codegen": "npm run build:openapi",
     "build:ts": "tsup",
     "prebuild:ts": "del dist",
-    "postbuild:ts": "cpy .next dist/.next",
+    "postbuild:ts": "tsup --format cjs src/index.ts",
     "build:nsm": "nsm build",
     "build:route-types": "nextlove generate-route-types --packageDir . --outputFile ./src/route-types.ts --apiPrefix / --pathGlob '/src/pages/api/**/*.ts'",
     "postbuild:route-types": "prettier --write src/route-types.ts",
