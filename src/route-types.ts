@@ -125,7 +125,7 @@ export type Routes = {
   }
   "/access_codes/delete": {
     route: "/access_codes/delete"
-    method: "POST"
+    method: "POST" | "DELETE"
     queryParams: {}
     jsonBody: {
       access_code_id: string
