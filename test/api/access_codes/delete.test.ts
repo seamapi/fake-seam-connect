@@ -24,17 +24,14 @@ test("DELETE /access_codes/delete", async (t: ExecutionContext) => {
 
   t.is(access_code.code, "1234")
 
-  const res = await axios.delete(
-    "/access_codes/delete",
-    {
-      data: {
-        access_code_id: access_code.access_code_id,
-      },
-      headers: {
-        Authorization: `Bearer ${seed.ws2.cst}`,
-      }
-    }
-  )
+  const res = await axios.delete("/access_codes/delete", {
+    data: {
+      access_code_id: access_code.access_code_id,
+    },
+    headers: {
+      Authorization: `Bearer ${seed.ws2.cst}`,
+    },
+  })
 
   t.is(res.status, 200)
 
