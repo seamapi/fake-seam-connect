@@ -22,13 +22,17 @@ interface Seed {
   }
 }
 
+interface SeedMinimal {
+  [key: string]: any
+}
+
 export const getTestDatabase = async (
   _t: ExecutionContext,
   { seed: shouldSeed = true }: { seed?: boolean } = {}
 ): Promise<DatabaseFixture> => {
   const db = createDatabase()
 
-  if (!shouldSeed) return { db, seed: {} as any } // NOTE: bad type, but not worth the templating
+  if (!shouldSeed) return { db, seed: {} as SeedMinimal } // NOTE: bad type, but not worth the templating
 
   const ws1 = db.addWorkspace({ name: "Seed Workspace 1 (starts empty)" })
   const ws2 = db.addWorkspace({ name: "Seed Workspace 2 (starts populated)" })
