@@ -22,7 +22,7 @@ interface Seed {
   }
 }
 
-type SeedMinimal = Record<string, any>;
+type SeedMinimal = Record<string, any>
 
 export const getTestDatabase = async (
   _t: ExecutionContext,
