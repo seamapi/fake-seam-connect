@@ -8,6 +8,7 @@ import type {
   ConnectWebview,
   Device,
   Workspace,
+  ClimateSettingSchedule,
 } from "lib/zod/index.ts"
 
 export type WorkspaceId = string
@@ -21,6 +22,7 @@ export interface DatabaseState {
   client_sessions: ClientSession[]
   connected_accounts: ConnectedAccount[]
   devices: Device[]
+  climate_setting_schedules: ClimateSettingSchedule[]
 }
 
 export interface DatabaseMethods {

@@ -1026,6 +1026,106 @@ export type Routes = {
       }[]
     }
   }
+  "/thermostats/climate_setting_schedules/list": {
+    route: "/thermostats/climate_setting_schedules/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      access_codes: (
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            common_code_key?: (string | null) | undefined
+            type: "ongoing"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            common_code_key?: (string | null) | undefined
+            type: "time_bound"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset"
+            starts_at: string
+            ends_at: string
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            status: "set"
+            created_at: string
+            type: "ongoing"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            status: "set"
+            created_at: string
+            type: "time_bound"
+            starts_at: string
+            ends_at: string
+          }
+      )[]
+    }
+  }
 }
 
 export type RouteResponse<Path extends keyof Routes> =
