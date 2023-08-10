@@ -4,11 +4,11 @@ import type {
   AccessCode,
   ApiKey,
   ClientSession,
+  ClimateSettingSchedule,
   ConnectedAccount,
   ConnectWebview,
   Device,
   Workspace,
-  ClimateSettingSchedule,
 } from "lib/zod/index.ts"
 
 export type WorkspaceId = string
