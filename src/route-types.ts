@@ -1026,6 +1026,47 @@ export type Routes = {
       }[]
     }
   }
+  "/thermostats/climate_setting_schedules/create": {
+    route: "/thermostats/climate_setting_schedules/create"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      schedule_type?: "time_bound"
+      device_id: string
+      name?: string | undefined
+      schedule_starts_at: string | Date
+      schedule_ends_at: string | Date
+      automatic_heating_enabled?: boolean | undefined
+      automatic_cooling_enabled?: boolean | undefined
+      hvac_mode_setting?: ("off" | "heat" | "cool" | "heatcool") | undefined
+      cooling_set_point_celsius?: (number | undefined) | undefined
+      heating_set_point_celsius?: (number | undefined) | undefined
+      cooling_set_point_fahrenheit?: (number | undefined) | undefined
+      heating_set_point_fahrenheit?: (number | undefined) | undefined
+      manual_override_allowed?: boolean | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      climate_setting_schedule: {
+        climate_setting_schedule_id: string
+        schedule_type: "time_bound"
+        device_id: string
+        name?: string | undefined
+        schedule_starts_at: string
+        schedule_ends_at: string
+        created_at: string
+        automatic_heating_enabled?: boolean | undefined
+        automatic_cooling_enabled?: boolean | undefined
+        hvac_mode_setting?: ("off" | "heat" | "cool" | "heatcool") | undefined
+        cooling_set_point_celsius?: (number | undefined) | undefined
+        heating_set_point_celsius?: (number | undefined) | undefined
+        cooling_set_point_fahrenheit?: (number | undefined) | undefined
+        heating_set_point_fahrenheit?: (number | undefined) | undefined
+        manual_override_allowed?: boolean | undefined
+      }
+    }
+  }
   "/thermostats/climate_setting_schedules/list": {
     route: "/thermostats/climate_setting_schedules/list"
     method: "GET" | "POST"
@@ -1036,94 +1077,23 @@ export type Routes = {
     }
     formData: {}
     jsonResponse: {
-      access_codes: (
-        | {
-            access_code_id: string
-            device_id: string
-            name: string
-            code: string
-            errors: {
-              error_code: string
-              message: string
-            }[]
-            warnings: {
-              warning_code: string
-              message: string
-            }[]
-            is_managed: boolean
-            is_backup?: boolean | undefined
-            pulled_backup_access_code_id?: (string | null) | undefined
-            common_code_key?: (string | null) | undefined
-            type: "ongoing"
-            created_at: string
-            status: "setting" | "set" | "removing" | "unset"
-          }
-        | {
-            access_code_id: string
-            device_id: string
-            name: string
-            code: string
-            errors: {
-              error_code: string
-              message: string
-            }[]
-            warnings: {
-              warning_code: string
-              message: string
-            }[]
-            is_managed: boolean
-            is_backup?: boolean | undefined
-            pulled_backup_access_code_id?: (string | null) | undefined
-            common_code_key?: (string | null) | undefined
-            type: "time_bound"
-            created_at: string
-            status: "setting" | "set" | "removing" | "unset"
-            starts_at: string
-            ends_at: string
-          }
-        | {
-            access_code_id: string
-            device_id: string
-            name: string
-            code: string
-            errors: {
-              error_code: string
-              message: string
-            }[]
-            warnings: {
-              warning_code: string
-              message: string
-            }[]
-            is_managed: boolean
-            is_backup?: boolean | undefined
-            pulled_backup_access_code_id?: (string | null) | undefined
-            status: "set"
-            created_at: string
-            type: "ongoing"
-          }
-        | {
-            access_code_id: string
-            device_id: string
-            name: string
-            code: string
-            errors: {
-              error_code: string
-              message: string
-            }[]
-            warnings: {
-              warning_code: string
-              message: string
-            }[]
-            is_managed: boolean
-            is_backup?: boolean | undefined
-            pulled_backup_access_code_id?: (string | null) | undefined
-            status: "set"
-            created_at: string
-            type: "time_bound"
-            starts_at: string
-            ends_at: string
-          }
-      )[]
+      climate_setting_schedules: {
+        climate_setting_schedule_id: string
+        schedule_type: "time_bound"
+        device_id: string
+        name?: string | undefined
+        schedule_starts_at: string
+        schedule_ends_at: string
+        created_at: string
+        automatic_heating_enabled?: boolean | undefined
+        automatic_cooling_enabled?: boolean | undefined
+        hvac_mode_setting?: ("off" | "heat" | "cool" | "heatcool") | undefined
+        cooling_set_point_celsius?: (number | undefined) | undefined
+        heating_set_point_celsius?: (number | undefined) | undefined
+        cooling_set_point_fahrenheit?: (number | undefined) | undefined
+        heating_set_point_fahrenheit?: (number | undefined) | undefined
+        manual_override_allowed?: boolean | undefined
+      }[]
     }
   }
 }
