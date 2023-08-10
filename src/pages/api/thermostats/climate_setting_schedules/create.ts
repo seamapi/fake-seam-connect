@@ -57,5 +57,5 @@ export default withRouteSpec({
 
   res.status(200).json({
     climate_setting_schedule,
-  });
+  })
 })
