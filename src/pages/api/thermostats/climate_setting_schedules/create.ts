@@ -1,10 +1,10 @@
+import { randomUUID } from "crypto"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { climate_setting } from "lib/zod/climate_setting.ts"
 import { climate_setting_schedule } from "lib/zod/climate_setting_schedule.ts"
 import { timestamp } from "lib/zod/common.ts"
-import { randomUUID } from "crypto"
 
 const jsonBody = z
   .object({
