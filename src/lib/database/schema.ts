@@ -10,6 +10,7 @@ import type {
   Device,
   Workspace,
 } from "lib/zod/index.ts"
+import { ClimateSetting } from "lib/zod/climate_setting.ts"
 
 export type WorkspaceId = string
 
@@ -100,6 +101,17 @@ export interface DatabaseMethods {
     original_access_code_id: string
     pulled_backup_access_code_id: string
   }) => void
+  addClimateSettingSchedule: (
+    params: {
+      workspace_id: string
+      device_id: string
+      schedule_type: ClimateSettingSchedule["schedule_type"]
+      schedule_starts_at: string
+      schedule_ends_at: string
+      created_at?: string
+      name: string
+    } & Partial<ClimateSetting>
+  ) => ClimateSettingSchedule
 
   update: (t?: number) => void
 }

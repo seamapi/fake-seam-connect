@@ -8,8 +8,8 @@ export const climate_setting_schedule = z
     schedule_type: z.literal("time_bound"),
     device_id: z.string(),
     name: z.string().optional(),
-    schedule_starts_at: z.string(),
-    schedule_ends_at: z.string(),
+    schedule_starts_at: z.string().datetime(),
+    schedule_ends_at: z.string().datetime(),
     created_at: z.string().datetime(),
   })
   .merge(climate_setting.partial())

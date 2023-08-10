@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { access_code } from "lib/zod/index.ts"
+import { climate_setting_schedule } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
@@ -11,7 +11,7 @@ export default withRouteSpec({
     device_id: z.string(),
   }),
   jsonResponse: z.object({
-    access_codes: z.array(access_code),
+    climate_setting_schedules: z.array(climate_setting_schedule),
   }),
 } as const)(async (req, res) => {
   res.status(200).json({

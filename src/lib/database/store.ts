@@ -11,6 +11,7 @@ import type { ConnectedAccount } from "lib/zod/connected_account.ts"
 import type { Device } from "lib/zod/device.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts"
 
 export const createDatabase = (): ZustandDatabase => {
   return hoist<StoreApi<Database>>(createStore(initializer))
@@ -26,6 +27,7 @@ const initializer = immer<Database>((set, get) => ({
   connected_accounts: [],
   devices: [],
   access_codes: [],
+  climate_setting_schedules: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -260,6 +262,24 @@ const initializer = immer<Database>((set, get) => ({
         return ac
       }),
     })
+  },
+
+  addClimateSettingSchedule(params) {
+    const new_climate_setting_schedule: ClimateSettingSchedule = {
+      climate_setting_schedule_id: get()._getNextId("climate_setting_schedule"),
+      schedule_type: "time_bound",
+      created_at: params.created_at ?? new Date().toISOString(),
+      ...params,
+    }
+
+    set({
+      climate_setting_schedules: [
+        ...get().climate_setting_schedules,
+        new_climate_setting_schedule,
+      ],
+    })
+
+    return new_climate_setting_schedule
   },
 
   update() {},
