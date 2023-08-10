@@ -49,7 +49,7 @@ export default withRouteSpec({
     workspace_id: req.auth.workspace_id,
     schedule_type,
     device_id,
-    name: name ?? "New Climate Setting Schedule",
+    name: name ?? "Schedule ${randomUUID().slice(5)}",
     schedule_starts_at: new Date(schedule_starts_at).toISOString(),
     schedule_ends_at: new Date(schedule_ends_at).toISOString(),
     ...climate_setting_for_schedule,
