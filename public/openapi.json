@@ -3115,6 +3115,212 @@
         "operationId": "internalDeviceModelsListGet"
       }
     },
+    "/thermostats/climate_setting_schedules/create": {
+      "post": {
+        "summary": "/thermostats/climate_setting_schedules/create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "climate_setting_schedule": {
+                      "type": "object",
+                      "properties": {
+                        "climate_setting_schedule_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "schedule_type": {
+                          "type": "string",
+                          "enum": ["time_bound"]
+                        },
+                        "device_id": { "type": "string" },
+                        "name": { "type": "string" },
+                        "schedule_starts_at": { "type": "string" },
+                        "schedule_ends_at": { "type": "string" },
+                        "created_at": { "type": "string" },
+                        "automatic_heating_enabled": { "type": "boolean" },
+                        "automatic_cooling_enabled": { "type": "boolean" },
+                        "hvac_mode_setting": {
+                          "type": "string",
+                          "enum": ["off", "heat", "cool", "heatcool"]
+                        },
+                        "cooling_set_point_celsius": { "type": "number" },
+                        "heating_set_point_celsius": { "type": "number" },
+                        "cooling_set_point_fahrenheit": { "type": "number" },
+                        "heating_set_point_fahrenheit": { "type": "number" },
+                        "manual_override_allowed": { "type": "boolean" }
+                      },
+                      "required": [
+                        "climate_setting_schedule_id",
+                        "schedule_type",
+                        "device_id",
+                        "schedule_starts_at",
+                        "schedule_ends_at",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["climate_setting_schedule", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "schedule_type": {
+                    "default": "time_bound",
+                    "type": "string",
+                    "enum": ["time_bound"]
+                  },
+                  "device_id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "schedule_starts_at": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "string", "format": "date-time" }
+                    ]
+                  },
+                  "schedule_ends_at": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "string", "format": "date-time" }
+                    ]
+                  },
+                  "automatic_heating_enabled": { "type": "boolean" },
+                  "automatic_cooling_enabled": { "type": "boolean" },
+                  "hvac_mode_setting": {
+                    "type": "string",
+                    "enum": ["off", "heat", "cool", "heatcool"]
+                  },
+                  "cooling_set_point_celsius": { "type": "number" },
+                  "heating_set_point_celsius": { "type": "number" },
+                  "cooling_set_point_fahrenheit": { "type": "number" },
+                  "heating_set_point_fahrenheit": { "type": "number" },
+                  "manual_override_allowed": { "type": "boolean" }
+                },
+                "required": [
+                  "device_id",
+                  "schedule_starts_at",
+                  "schedule_ends_at"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "schedule_type",
+            "in": "query",
+            "schema": {
+              "default": "time_bound",
+              "type": "string",
+              "enum": ["time_bound"]
+            },
+            "required": false
+          },
+          {
+            "name": "device_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "schedule_starts_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": true
+          },
+          {
+            "name": "schedule_ends_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": true
+          },
+          {
+            "name": "automatic_heating_enabled",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          },
+          {
+            "name": "automatic_cooling_enabled",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          },
+          {
+            "name": "hvac_mode_setting",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["off", "heat", "cool", "heatcool"]
+            },
+            "required": false
+          },
+          {
+            "name": "cooling_set_point_celsius",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "heating_set_point_celsius",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "cooling_set_point_fahrenheit",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "heating_set_point_fahrenheit",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "manual_override_allowed",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          }
+        ],
+        "tags": [],
+        "operationId": "thermostatsClimateSettingSchedulesCreatePost"
+      }
+    },
     "/thermostats/climate_setting_schedules/list": {
       "post": {
         "summary": "/thermostats/climate_setting_schedules/list",
@@ -3126,252 +3332,49 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "access_codes": {
+                    "climate_setting_schedules": {
                       "type": "array",
                       "items": {
-                        "oneOf": [
-                          {
-                            "type": "object",
-                            "properties": {
-                              "access_code_id": { "type": "string" },
-                              "device_id": { "type": "string" },
-                              "name": { "type": "string" },
-                              "code": { "type": "string" },
-                              "errors": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "error_code": { "type": "string" },
-                                    "message": { "type": "string" }
-                                  },
-                                  "required": ["error_code", "message"]
-                                }
-                              },
-                              "warnings": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "warning_code": { "type": "string" },
-                                    "message": { "type": "string" }
-                                  },
-                                  "required": ["warning_code", "message"]
-                                }
-                              },
-                              "is_managed": { "type": "boolean" },
-                              "is_backup": { "type": "boolean" },
-                              "pulled_backup_access_code_id": {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              "common_code_key": {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              "type": { "type": "string", "enum": ["ongoing"] },
-                              "created_at": { "type": "string" },
-                              "status": {
-                                "type": "string",
-                                "enum": ["setting", "set", "removing", "unset"]
-                              }
-                            },
-                            "required": [
-                              "access_code_id",
-                              "device_id",
-                              "name",
-                              "code",
-                              "errors",
-                              "warnings",
-                              "is_managed",
-                              "type",
-                              "created_at",
-                              "status"
-                            ]
+                        "type": "object",
+                        "properties": {
+                          "climate_setting_schedule_id": {
+                            "type": "string",
+                            "format": "uuid"
                           },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "access_code_id": { "type": "string" },
-                              "device_id": { "type": "string" },
-                              "name": { "type": "string" },
-                              "code": { "type": "string" },
-                              "errors": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "error_code": { "type": "string" },
-                                    "message": { "type": "string" }
-                                  },
-                                  "required": ["error_code", "message"]
-                                }
-                              },
-                              "warnings": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "warning_code": { "type": "string" },
-                                    "message": { "type": "string" }
-                                  },
-                                  "required": ["warning_code", "message"]
-                                }
-                              },
-                              "is_managed": { "type": "boolean" },
-                              "is_backup": { "type": "boolean" },
-                              "pulled_backup_access_code_id": {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              "common_code_key": {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              "type": {
-                                "type": "string",
-                                "enum": ["time_bound"]
-                              },
-                              "created_at": { "type": "string" },
-                              "status": {
-                                "type": "string",
-                                "enum": ["setting", "set", "removing", "unset"]
-                              },
-                              "starts_at": { "type": "string" },
-                              "ends_at": { "type": "string" }
-                            },
-                            "required": [
-                              "access_code_id",
-                              "device_id",
-                              "name",
-                              "code",
-                              "errors",
-                              "warnings",
-                              "is_managed",
-                              "type",
-                              "created_at",
-                              "status",
-                              "starts_at",
-                              "ends_at"
-                            ]
+                          "schedule_type": {
+                            "type": "string",
+                            "enum": ["time_bound"]
                           },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "access_code_id": { "type": "string" },
-                              "device_id": { "type": "string" },
-                              "name": { "type": "string" },
-                              "code": { "type": "string" },
-                              "errors": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "error_code": { "type": "string" },
-                                    "message": { "type": "string" }
-                                  },
-                                  "required": ["error_code", "message"]
-                                }
-                              },
-                              "warnings": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "warning_code": { "type": "string" },
-                                    "message": { "type": "string" }
-                                  },
-                                  "required": ["warning_code", "message"]
-                                }
-                              },
-                              "is_managed": { "type": "boolean" },
-                              "is_backup": { "type": "boolean" },
-                              "pulled_backup_access_code_id": {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              "status": { "type": "string", "enum": ["set"] },
-                              "created_at": { "type": "string" },
-                              "type": { "type": "string", "enum": ["ongoing"] }
-                            },
-                            "required": [
-                              "access_code_id",
-                              "device_id",
-                              "name",
-                              "code",
-                              "errors",
-                              "warnings",
-                              "is_managed",
-                              "status",
-                              "created_at",
-                              "type"
-                            ]
+                          "device_id": { "type": "string" },
+                          "name": { "type": "string" },
+                          "schedule_starts_at": { "type": "string" },
+                          "schedule_ends_at": { "type": "string" },
+                          "created_at": { "type": "string" },
+                          "automatic_heating_enabled": { "type": "boolean" },
+                          "automatic_cooling_enabled": { "type": "boolean" },
+                          "hvac_mode_setting": {
+                            "type": "string",
+                            "enum": ["off", "heat", "cool", "heatcool"]
                           },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "access_code_id": { "type": "string" },
-                              "device_id": { "type": "string" },
-                              "name": { "type": "string" },
-                              "code": { "type": "string" },
-                              "errors": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "error_code": { "type": "string" },
-                                    "message": { "type": "string" }
-                                  },
-                                  "required": ["error_code", "message"]
-                                }
-                              },
-                              "warnings": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "warning_code": { "type": "string" },
-                                    "message": { "type": "string" }
-                                  },
-                                  "required": ["warning_code", "message"]
-                                }
-                              },
-                              "is_managed": { "type": "boolean" },
-                              "is_backup": { "type": "boolean" },
-                              "pulled_backup_access_code_id": {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              "status": { "type": "string", "enum": ["set"] },
-                              "created_at": { "type": "string" },
-                              "type": {
-                                "type": "string",
-                                "enum": ["time_bound"]
-                              },
-                              "starts_at": { "type": "string" },
-                              "ends_at": { "type": "string" }
-                            },
-                            "required": [
-                              "access_code_id",
-                              "device_id",
-                              "name",
-                              "code",
-                              "errors",
-                              "warnings",
-                              "is_managed",
-                              "status",
-                              "created_at",
-                              "type",
-                              "starts_at",
-                              "ends_at"
-                            ]
-                          }
+                          "cooling_set_point_celsius": { "type": "number" },
+                          "heating_set_point_celsius": { "type": "number" },
+                          "cooling_set_point_fahrenheit": { "type": "number" },
+                          "heating_set_point_fahrenheit": { "type": "number" },
+                          "manual_override_allowed": { "type": "boolean" }
+                        },
+                        "required": [
+                          "climate_setting_schedule_id",
+                          "schedule_type",
+                          "device_id",
+                          "schedule_starts_at",
+                          "schedule_ends_at",
+                          "created_at"
                         ]
                       }
                     },
                     "ok": { "type": "boolean" }
                   },
-                  "required": ["access_codes", "ok"]
+                  "required": ["climate_setting_schedules", "ok"]
                 }
               }
             }
