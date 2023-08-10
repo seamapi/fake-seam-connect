@@ -10,7 +10,8 @@ import type {
   Device,
   Workspace,
 } from "lib/zod/index.ts"
-import { ClimateSetting } from "lib/zod/climate_setting.ts"
+
+import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 
 export type WorkspaceId = string
 
