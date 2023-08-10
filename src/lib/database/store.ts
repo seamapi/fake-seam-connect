@@ -267,7 +267,6 @@ const initializer = immer<Database>((set, get) => ({
   addClimateSettingSchedule(params) {
     const new_climate_setting_schedule: ClimateSettingSchedule = {
       climate_setting_schedule_id: get()._getNextId("climate_setting_schedule"),
-      schedule_type: "time_bound",
       created_at: params.created_at ?? new Date().toISOString(),
       ...params,
     }
