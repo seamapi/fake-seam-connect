@@ -129,12 +129,13 @@ const initializer = immer<Database>((set, get) => ({
       properties: {
         name: params.name,
         online: true,
-        model: {
-          display_name: "Device",
-          manufacturer_display_name: "Generic",
-          ...params.properties?.model,
-        },
         ...params.properties,
+        model: {
+          ...params.properties?.model,
+          display_name: params.properties?.model?.display_name ?? "Device",
+          manufacturer_display_name:
+            params.properties?.model?.manufacturer_display_name ?? "Generic",
+        },
       },
       workspace_id: params.workspace_id,
       errors: params.errors ?? [],
