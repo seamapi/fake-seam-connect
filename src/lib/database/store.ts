@@ -130,7 +130,8 @@ const initializer = immer<Database>((set, get) => ({
         name: params.name,
         online: true,
         model: {
-          display_name: "Unknown",
+          display_name: "Device",
+          manufacturer_display_name: "Generic",
           ...params.properties?.model,
         },
         ...params.properties,
