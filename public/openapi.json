@@ -2306,9 +2306,15 @@
                                 "model": {
                                   "type": "object",
                                   "properties": {
-                                    "display_name": { "type": "string" }
+                                    "display_name": { "type": "string" },
+                                    "manufacturer_display_name": {
+                                      "type": "string"
+                                    }
                                   },
-                                  "required": ["display_name"]
+                                  "required": [
+                                    "display_name",
+                                    "manufacturer_display_name"
+                                  ]
                                 },
                                 "battery": {
                                   "type": "object",
@@ -2338,9 +2344,15 @@
                                 "model": {
                                   "type": "object",
                                   "properties": {
-                                    "display_name": { "type": "string" }
+                                    "display_name": { "type": "string" },
+                                    "manufacturer_display_name": {
+                                      "type": "string"
+                                    }
                                   },
-                                  "required": ["display_name"]
+                                  "required": [
+                                    "display_name",
+                                    "manufacturer_display_name"
+                                  ]
                                 },
                                 "battery": {
                                   "type": "object",
@@ -2522,9 +2534,15 @@
                                   "model": {
                                     "type": "object",
                                     "properties": {
-                                      "display_name": { "type": "string" }
+                                      "display_name": { "type": "string" },
+                                      "manufacturer_display_name": {
+                                        "type": "string"
+                                      }
                                     },
-                                    "required": ["display_name"]
+                                    "required": [
+                                      "display_name",
+                                      "manufacturer_display_name"
+                                    ]
                                   },
                                   "battery": {
                                     "type": "object",
@@ -2554,9 +2572,15 @@
                                   "model": {
                                     "type": "object",
                                     "properties": {
-                                      "display_name": { "type": "string" }
+                                      "display_name": { "type": "string" },
+                                      "manufacturer_display_name": {
+                                        "type": "string"
+                                      }
                                     },
-                                    "required": ["display_name"]
+                                    "required": [
+                                      "display_name",
+                                      "manufacturer_display_name"
+                                    ]
                                   },
                                   "battery": {
                                     "type": "object",

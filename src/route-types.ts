@@ -809,6 +809,7 @@ export type Routes = {
               name: string
               model: {
                 display_name: string
+                manufacturer_display_name: string
               }
               battery?:
                 | {
@@ -823,6 +824,7 @@ export type Routes = {
               name: string
               model: {
                 display_name: string
+                manufacturer_display_name: string
               }
               battery?:
                 | {
@@ -902,6 +904,7 @@ export type Routes = {
               name: string
               model: {
                 display_name: string
+                manufacturer_display_name: string
               }
               battery?:
                 | {
@@ -916,6 +919,7 @@ export type Routes = {
               name: string
               model: {
                 display_name: string
+                manufacturer_display_name: string
               }
               battery?:
                 | {
