@@ -78,7 +78,9 @@ export interface DatabaseMethods {
     connected_account_id: string
     workspace_id: string
     name: string
-    properties?: Partial<Device["properties"]>
+    properties?: Omit<Partial<Device["properties"]>, "model"> & {
+      model?: Partial<Device["properties"]["model"]>
+    }
     errors?: Device["errors"]
     warnings?: Device["warnings"]
     created_at?: string
