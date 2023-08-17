@@ -12,6 +12,7 @@ export const common_device_properties = z.object({
   name: z.string(),
   model: z.object({
     display_name: z.string(),
+    manufacturer_display_name: z.string(),
   }),
   battery: z
     .object({
