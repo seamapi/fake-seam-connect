@@ -295,31 +295,64 @@ const initializer = immer<Database>((set, get) => ({
     })
   },
 
-  updateAccessCode(params) {
-    const target = get().access_codes.find(
-      (access_code) => access_code.access_code_id === params.access_code_id
+  updateClimateSettingSchedule(params) {
+    const target = get().climate_setting_schedules.find(
+      (climate_setting_schedule) =>
+        climate_setting_schedule.climate_setting_schedule_id ===
+        params.climate_setting_schedule_id
     )
     if (target == null) {
-      throw new Error("Could not find access_code with access_code_id")
+      throw new Error(
+        "Could not find climate_setting_schedule with climate_setting_schedule_id"
+      )
     }
 
-    const updated: AccessCode = { ...target, ...params } as any
+    const updated: ClimateSettingSchedule = { ...target, ...params } as any
 
     set({
-      access_codes: [
-        ...get().access_codes.map((access_code) => {
-          const is_target = access_code.access_code_id === target.access_code_id
+      climate_setting_schedules: [
+        ...get().climate_setting_schedules.map((climate_setting_schedule) => {
+          const is_target =
+            climate_setting_schedule.climate_setting_schedule_id ===
+            target.climate_setting_schedule_id
 
           if (is_target) {
             return updated
           }
 
-          return access_code
+          return climate_setting_schedule
         }),
       ],
     })
 
     return updated
+  },
+
+  deleteClimateSettingSchedule(params) {
+    const target = get().climate_setting_schedules.find(
+      (climate_setting_schedule) =>
+        climate_setting_schedule.climate_setting_schedule_id ===
+        params.climate_setting_schedule_id
+    )
+    if (target == null) {
+      throw new Error(
+        "Could not find climate_setting_schedule with climate_setting_schedule_id"
+      )
+    }
+
+    set({
+      climate_setting_schedules: [
+        ...get().climate_setting_schedules.filter(
+          (climate_setting_schedule) => {
+            const is_target =
+              climate_setting_schedule.climate_setting_schedule_id ===
+              target.climate_setting_schedule_id
+
+            return !is_target
+          }
+        ),
+      ],
+    })
   },
 
   update() {},
