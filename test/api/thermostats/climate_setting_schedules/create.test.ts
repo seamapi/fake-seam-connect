@@ -56,4 +56,22 @@ test("POST /thermostats/climate_setting_schedules/create", async (t: ExecutionCo
   t.true(schedule_from_list?.automatic_cooling_enabled)
   t.is(schedule_from_list?.heating_set_point_fahrenheit, 40)
   t.is(schedule_from_list?.cooling_set_point_fahrenheit, 80)
+
+  const {
+    data: { climate_setting_schedule: schedule_from_get },
+  } = await axios.get("/thermostats/climate_setting_schedules/get", {
+    params: {
+      climate_setting_schedule_id:
+        climate_setting_schedule.climate_setting_schedule_id,
+    },
+    headers: {
+      Authorization: `Bearer ${seed.ws2.cst}`,
+    },
+  })
+
+  t.true(schedule_from_get?.manual_override_allowed)
+  t.true(schedule_from_get?.automatic_heating_enabled)
+  t.true(schedule_from_get?.automatic_cooling_enabled)
+  t.is(schedule_from_get?.heating_set_point_fahrenheit, 40)
+  t.is(schedule_from_get?.cooling_set_point_fahrenheit, 80)
 })

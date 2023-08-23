@@ -122,6 +122,7 @@ export interface DatabaseMethods {
   updateClimateSettingSchedule: (
     params: Partial<ClimateSettingSchedule>
   ) => ClimateSettingSchedule
+  deleteClimateSettingSchedule: (params: ClimateSettingSchedule) => void
 
   update: (t?: number) => void
 }

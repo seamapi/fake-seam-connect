@@ -3345,6 +3345,135 @@
         "operationId": "thermostatsClimateSettingSchedulesCreatePost"
       }
     },
+    "/thermostats/climate_setting_schedules/delete": {
+      "post": {
+        "summary": "/thermostats/climate_setting_schedules/delete",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "climate_setting_schedule_id": { "type": "string" },
+                  "sync": { "default": false, "type": "boolean" }
+                },
+                "required": ["climate_setting_schedule_id"]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "climate_setting_schedule_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "sync",
+            "in": "query",
+            "schema": { "default": false, "type": "boolean" },
+            "required": false
+          }
+        ],
+        "tags": [],
+        "operationId": "thermostatsClimateSettingSchedulesDeletePost"
+      }
+    },
+    "/thermostats/climate_setting_schedules/get": {
+      "post": {
+        "summary": "/thermostats/climate_setting_schedules/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "climate_setting_schedule": {
+                      "type": "object",
+                      "properties": {
+                        "climate_setting_schedule_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "schedule_type": {
+                          "type": "string",
+                          "enum": ["time_bound"]
+                        },
+                        "device_id": { "type": "string" },
+                        "name": { "type": "string" },
+                        "schedule_starts_at": { "type": "string" },
+                        "schedule_ends_at": { "type": "string" },
+                        "created_at": { "type": "string" },
+                        "automatic_heating_enabled": { "type": "boolean" },
+                        "automatic_cooling_enabled": { "type": "boolean" },
+                        "hvac_mode_setting": {
+                          "type": "string",
+                          "enum": ["off", "heat", "cool", "heatcool"]
+                        },
+                        "cooling_set_point_celsius": { "type": "number" },
+                        "heating_set_point_celsius": { "type": "number" },
+                        "cooling_set_point_fahrenheit": { "type": "number" },
+                        "heating_set_point_fahrenheit": { "type": "number" },
+                        "manual_override_allowed": { "type": "boolean" }
+                      },
+                      "required": [
+                        "climate_setting_schedule_id",
+                        "schedule_type",
+                        "device_id",
+                        "schedule_starts_at",
+                        "schedule_ends_at",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["climate_setting_schedule", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "climate_setting_schedule_id": { "type": "string" },
+                  "device_id": { "type": "string" }
+                },
+                "required": ["climate_setting_schedule_id"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "thermostatsClimateSettingSchedulesGetPost"
+      }
+    },
     "/thermostats/climate_setting_schedules/list": {
       "post": {
         "summary": "/thermostats/climate_setting_schedules/list",
