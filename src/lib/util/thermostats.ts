@@ -1,6 +1,15 @@
 import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 
-export const normalizeClimateSettingMode = (cs: Partial<ClimateSetting>) => {
+export type ClimateSettingMode = Pick<
+  ClimateSetting,
+  | "automatic_cooling_enabled"
+  | "automatic_heating_enabled"
+  | "hvac_mode_setting"
+>
+
+export const normalizeClimateSettingMode = (
+  cs: Partial<ClimateSetting>
+): ClimateSettingMode => {
   return {
     automatic_heating_enabled:
       cs.automatic_heating_enabled ??
@@ -11,8 +20,8 @@ export const normalizeClimateSettingMode = (cs: Partial<ClimateSetting>) => {
     hvac_mode_setting:
       cs.hvac_mode_setting ??
       deriveHvacModeSettingFromFlags({
-        automatic_cooling_enabled: cs.automatic_cooling_enabled!,
-        automatic_heating_enabled: cs.automatic_heating_enabled!,
+        automatic_cooling_enabled: cs.automatic_cooling_enabled ?? false,
+        automatic_heating_enabled: cs.automatic_heating_enabled ?? false,
       }),
   }
 }
@@ -56,11 +65,11 @@ export const normalizeClimateSetting = (
 
 export const deriveAutomaticHeatingEnabledFromHvacModeSetting = (
   hvac_mode_setting?: ClimateSetting["hvac_mode_setting"]
-) => hvac_mode_setting === "heat" || hvac_mode_setting === "heatcool"
+): boolean => hvac_mode_setting === "heat" || hvac_mode_setting === "heatcool"
 
 export const deriveAutomaticCoolingEnabledFromHvacModeSetting = (
   hvac_mode_setting?: ClimateSetting["hvac_mode_setting"]
-) => hvac_mode_setting === "cool" || hvac_mode_setting === "heatcool"
+): boolean => hvac_mode_setting === "cool" || hvac_mode_setting === "heatcool"
 
 export const deriveHvacModeSettingFromFlags = ({
   automatic_cooling_enabled,
@@ -83,7 +92,9 @@ export const deriveHvacModeSettingFromFlags = ({
  * For example, if a request comes in with a cooling_set_point_ceslius, we will set the cooling_set_point_fahrenheit as well.
  *
  */
-const normalizeCoolingSetPoints = (cs: Partial<ClimateSetting>) => {
+const normalizeCoolingSetPoints = (
+  cs: Partial<ClimateSetting>
+): Partial<ClimateSetting> => {
   const setPoints: Partial<ClimateSetting> = {}
 
   if (cs.cooling_set_point_celsius !== undefined) {
@@ -112,7 +123,9 @@ const normalizeCoolingSetPoints = (cs: Partial<ClimateSetting>) => {
  * For example, if a request comes in with a heating_set_point_ceslius, we will set the heating_set_point_fahrenheit as well.
  *
  */
-const normalizeHeatingSetPoints = (cs: Partial<ClimateSetting>) => {
+const normalizeHeatingSetPoints = (
+  cs: Partial<ClimateSetting>
+): Partial<ClimateSetting> => {
   const setPoints: Partial<ClimateSetting> = {}
 
   if (cs.heating_set_point_celsius !== undefined) {
@@ -134,7 +147,8 @@ const normalizeHeatingSetPoints = (cs: Partial<ClimateSetting>) => {
   return setPoints
 }
 
-export const convertToFahrenheit = (celsius: number) => (celsius * 9) / 5 + 32
+export const convertToFahrenheit = (celsius: number): number =>
+  (celsius * 9) / 5 + 32
 
-export const convertToCelsius = (fahrenheit: number) =>
+export const convertToCelsius = (fahrenheit: number): number =>
   (fahrenheit - 32) * (5 / 9)
