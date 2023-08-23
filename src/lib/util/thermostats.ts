@@ -1,4 +1,4 @@
-import { ClimateSetting } from "lib/zod/climate_setting.ts"
+import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 
 export const normalizeClimateSettingMode = (cs: Partial<ClimateSetting>) => {
   return {
