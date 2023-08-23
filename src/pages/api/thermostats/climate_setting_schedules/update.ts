@@ -4,9 +4,9 @@ import { z } from "zod"
 import { timestamp } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
+import { normalizeClimateSetting } from "lib/util/thermostats.ts"
 import { climate_setting } from "lib/zod/climate_setting.ts"
 import { climate_setting_schedule } from "lib/zod/climate_setting_schedule.ts"
-import { normalizeClimateSetting } from "lib/util/thermostats.ts"
 
 const jsonBody = z
   .object({
