@@ -1077,7 +1077,6 @@ export type Routes = {
     queryParams: {}
     jsonBody: {
       climate_setting_schedule_id: string
-      device_id?: string | undefined
       sync?: boolean
     }
     commonParams: {}

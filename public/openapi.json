@@ -3372,7 +3372,6 @@
                 "type": "object",
                 "properties": {
                   "climate_setting_schedule_id": { "type": "string" },
-                  "device_id": { "type": "string" },
                   "sync": { "default": false, "type": "boolean" }
                 },
                 "required": ["climate_setting_schedule_id"]
@@ -3386,12 +3385,6 @@
             "in": "query",
             "schema": { "type": "string" },
             "required": true
-          },
-          {
-            "name": "device_id",
-            "in": "query",
-            "schema": { "type": "string" },
-            "required": false
           },
           {
             "name": "sync",
