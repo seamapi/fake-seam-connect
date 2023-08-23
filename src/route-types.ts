@@ -1071,6 +1071,49 @@ export type Routes = {
       }
     }
   }
+  "/thermostats/climate_setting_schedules/delete": {
+    route: "/thermostats/climate_setting_schedules/delete"
+    method: "POST" | "DELETE"
+    queryParams: {}
+    jsonBody: {
+      climate_setting_schedule_id: string
+      device_id?: string | undefined
+      sync?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {}
+  }
+  "/thermostats/climate_setting_schedules/get": {
+    route: "/thermostats/climate_setting_schedules/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      climate_setting_schedule_id: string
+      device_id?: string | undefined
+    }
+    formData: {}
+    jsonResponse: {
+      climate_setting_schedule: {
+        climate_setting_schedule_id: string
+        schedule_type: "time_bound"
+        device_id: string
+        name?: string | undefined
+        schedule_starts_at: string
+        schedule_ends_at: string
+        created_at: string
+        automatic_heating_enabled?: boolean | undefined
+        automatic_cooling_enabled?: boolean | undefined
+        hvac_mode_setting?: ("off" | "heat" | "cool" | "heatcool") | undefined
+        cooling_set_point_celsius?: (number | undefined) | undefined
+        heating_set_point_celsius?: (number | undefined) | undefined
+        cooling_set_point_fahrenheit?: (number | undefined) | undefined
+        heating_set_point_fahrenheit?: (number | undefined) | undefined
+        manual_override_allowed?: boolean | undefined
+      }
+    }
+  }
   "/thermostats/climate_setting_schedules/list": {
     route: "/thermostats/climate_setting_schedules/list"
     method: "GET" | "POST"

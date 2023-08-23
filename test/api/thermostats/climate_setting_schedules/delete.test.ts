@@ -2,9 +2,10 @@ import test, { type ExecutionContext } from "ava"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
 
-test("POST /thermostats/climate_setting_schedules/create", async (t: ExecutionContext) => {
-  const { axios, seed } = await getTestServer(t)
+test("DELETE /thermostats/climate_setting_schedules/delete", async (t: ExecutionContext) => {
+  const { axios, seed, db } = await getTestServer(t)
   const device_id = seed.ws2.device1_id
+
   const {
     data: { climate_setting_schedule },
   } = await axios.post(
@@ -34,49 +35,25 @@ test("POST /thermostats/climate_setting_schedules/create", async (t: ExecutionCo
   t.is(climate_setting_schedule.heating_set_point_fahrenheit, 40)
   t.is(climate_setting_schedule.cooling_set_point_fahrenheit, 80)
 
-  const {
-    data: { climate_setting_schedules: schedules_list },
-  } = await axios.post(
-    "/thermostats/climate_setting_schedules/list",
+  const res = await axios.delete(
+    "/thermostats/climate_setting_schedules/delete",
     {
-      device_id,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${seed.ws2.cst}`,
-      },
-    }
-  )
-
-  t.is(schedules_list.length, 1)
-  const schedule_from_list = schedules_list[0]
-
-  t.true(schedule_from_list?.manual_override_allowed)
-  t.true(schedule_from_list?.automatic_heating_enabled)
-  t.true(schedule_from_list?.automatic_cooling_enabled)
-  t.is(schedule_from_list?.heating_set_point_fahrenheit, 40)
-  t.is(schedule_from_list?.cooling_set_point_fahrenheit, 80)
-
-  const {
-    data: { climate_setting_schedule: schedule_from_get },
-  } = await axios.post(
-    "/thermostats/climate_setting_schedules/get",
-    {
-      params: {
+      data: {
         climate_setting_schedule_id:
           climate_setting_schedule.climate_setting_schedule_id,
       },
-    },
-    {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
     }
   )
 
-  t.true(schedule_from_get?.manual_override_allowed)
-  t.true(schedule_from_get?.automatic_heating_enabled)
-  t.true(schedule_from_get?.automatic_cooling_enabled)
-  t.is(schedule_from_get?.heating_set_point_fahrenheit, 40)
-  t.is(schedule_from_get?.cooling_set_point_fahrenheit, 80)
+  t.is(res.status, 200)
+
+  const deleted = db.findClimateSettingSchedule({
+    climate_setting_schedule_id:
+      climate_setting_schedule.climate_setting_schedule_id,
+  })
+
+  t.falsy(deleted) // removed from db
 })
