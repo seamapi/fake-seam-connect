@@ -283,5 +283,50 @@ const initializer = immer<Database>((set, get) => ({
     return new_climate_setting_schedule
   },
 
+  findClimateSettingSchedule(params) {
+    return get().climate_setting_schedules.find((climate_setting_schedule) => {
+      const is_target_id =
+        climate_setting_schedule.climate_setting_schedule_id ===
+        params.climate_setting_schedule_id
+      const is_target_device =
+        climate_setting_schedule.device_id === params.device_id
+
+      return is_target_id || is_target_device
+    })
+  },
+
+  updateClimateSettingSchedule(params) {
+    const target = get().climate_setting_schedules.find(
+      (climate_setting_schedule) =>
+        climate_setting_schedule.climate_setting_schedule_id ===
+        params.climate_setting_schedule_id
+    )
+    if (target == null) {
+      throw new Error(
+        "Could not find climate_setting_schedule with climate_setting_schedule_id"
+      )
+    }
+
+    const updated: ClimateSettingSchedule = { ...target, ...params } as any
+
+    set({
+      climate_setting_schedules: [
+        ...get().climate_setting_schedules.map((climate_setting_schedule) => {
+          const is_target =
+            climate_setting_schedule.climate_setting_schedule_id ===
+            target.climate_setting_schedule_id
+
+          if (is_target) {
+            return updated
+          }
+
+          return climate_setting_schedule
+        }),
+      ],
+    })
+
+    return updated
+  },
+
   update() {},
 }))

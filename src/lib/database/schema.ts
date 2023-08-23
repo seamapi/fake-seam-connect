@@ -104,6 +104,10 @@ export interface DatabaseMethods {
     original_access_code_id: string
     pulled_backup_access_code_id: string
   }) => void
+  findClimateSettingSchedule: (params: {
+    climate_setting_schedule_id: string
+    device_id?: string
+  }) => ClimateSettingSchedule | undefined
   addClimateSettingSchedule: (
     params: {
       workspace_id: string
@@ -114,6 +118,9 @@ export interface DatabaseMethods {
       created_at?: string
       name: string
     } & Partial<ClimateSetting>
+  ) => ClimateSettingSchedule
+  updateClimateSettingSchedule: (
+    params: Partial<ClimateSettingSchedule>
   ) => ClimateSettingSchedule
 
   update: (t?: number) => void
