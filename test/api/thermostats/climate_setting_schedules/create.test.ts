@@ -59,20 +59,15 @@ test("POST /thermostats/climate_setting_schedules/create", async (t: ExecutionCo
 
   const {
     data: { climate_setting_schedule: schedule_from_get },
-  } = await axios.post(
-    "/thermostats/climate_setting_schedules/get",
-    {
-      params: {
-        climate_setting_schedule_id:
-          climate_setting_schedule.climate_setting_schedule_id,
-      },
+  } = await axios.get("/thermostats/climate_setting_schedules/get", {
+    params: {
+      climate_setting_schedule_id:
+        climate_setting_schedule.climate_setting_schedule_id,
     },
-    {
-      headers: {
-        Authorization: `Bearer ${seed.ws2.cst}`,
-      },
-    }
-  )
+    headers: {
+      Authorization: `Bearer ${seed.ws2.cst}`,
+    },
+  })
 
   t.true(schedule_from_get?.manual_override_allowed)
   t.true(schedule_from_get?.automatic_heating_enabled)
