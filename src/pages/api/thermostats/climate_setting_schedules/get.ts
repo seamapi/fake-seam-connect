@@ -25,8 +25,9 @@ export default withRouteSpec({
 
   if (climate_setting_schedule == null) {
     throw new NotFoundException({
-      type: "not_found",
-      message: "Climate Setting Schedule Not Found",
+      type: "climate_setting_schedule_not_found",
+      message: `Could not find an climate_setting_schedule with climate_setting_schedule_id`,
+      data: { climate_setting_schedule_id },
     })
   }
   res.status(200).json({ climate_setting_schedule })
