@@ -2,6 +2,7 @@ import { randomUUID } from "crypto"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
+import { normalizeClimateSetting } from "lib/util/thermostats.ts"
 import { climate_setting } from "lib/zod/climate_setting.ts"
 import { climate_setting_schedule } from "lib/zod/climate_setting_schedule.ts"
 import { timestamp } from "lib/zod/common.ts"
@@ -53,7 +54,7 @@ export default withRouteSpec({
     name: name ?? `Schedule ${randomUUID().slice(5)}`,
     schedule_starts_at: new Date(schedule_starts_at).toISOString(),
     schedule_ends_at: new Date(schedule_ends_at).toISOString(),
-    ...climate_setting_for_schedule,
+    ...normalizeClimateSetting(climate_setting_for_schedule),
   })
 
   res.status(200).json({
