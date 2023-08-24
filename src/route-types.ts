@@ -162,6 +162,22 @@ export type Routes = {
           }
     }
   }
+  "/access_codes/generate_code": {
+    route: "/access_codes/generate_code"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      generated_code: {
+        device_id: string
+        code: string
+      }
+    }
+  }
   "/access_codes/get": {
     route: "/access_codes/get"
     method: "GET" | "POST"
