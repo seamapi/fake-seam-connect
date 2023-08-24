@@ -18,7 +18,10 @@ const jsonBody = z
   })
   .merge(climate_setting.partial())
   .refine((value) => {
-    if (value.schedule_starts_at && value.schedule_ends_at) {
+    if (
+      value.schedule_starts_at !== undefined &&
+      value.schedule_ends_at !== undefined
+    ) {
       const schedule_starts_at = new Date(value.schedule_starts_at).getTime()
       const schedule_ends_at = new Date(value.schedule_ends_at).getTime()
 
@@ -61,12 +64,14 @@ export default withRouteSpec({
     climate_setting_schedule_id,
     name: name ?? climate_setting_schedule.name,
     schedule_type: schedule_type ?? climate_setting_schedule.schedule_type,
-    schedule_starts_at: schedule_starts_at
-      ? new Date(schedule_starts_at).toISOString()
-      : climate_setting_schedule.schedule_starts_at,
-    schedule_ends_at: schedule_ends_at
-      ? new Date(schedule_ends_at).toISOString()
-      : climate_setting_schedule.schedule_ends_at,
+    schedule_starts_at:
+      schedule_starts_at !== undefined
+        ? new Date(schedule_starts_at).toISOString()
+        : climate_setting_schedule.schedule_starts_at,
+    schedule_ends_at:
+      schedule_ends_at !== undefined
+        ? new Date(schedule_ends_at).toISOString()
+        : climate_setting_schedule.schedule_ends_at,
   }
 
   if (Object.keys(climate_setting_for_schedule).length > 0) {
