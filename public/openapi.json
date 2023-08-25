@@ -3550,6 +3550,208 @@
         "tags": [],
         "operationId": "thermostatsClimateSettingSchedulesListPost"
       }
+    },
+    "/thermostats/climate_setting_schedules/update": {
+      "post": {
+        "summary": "/thermostats/climate_setting_schedules/update",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "climate_setting_schedule": {
+                      "type": "object",
+                      "properties": {
+                        "climate_setting_schedule_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "schedule_type": {
+                          "type": "string",
+                          "enum": ["time_bound"]
+                        },
+                        "device_id": { "type": "string" },
+                        "name": { "type": "string" },
+                        "schedule_starts_at": { "type": "string" },
+                        "schedule_ends_at": { "type": "string" },
+                        "created_at": { "type": "string" },
+                        "automatic_heating_enabled": { "type": "boolean" },
+                        "automatic_cooling_enabled": { "type": "boolean" },
+                        "hvac_mode_setting": {
+                          "type": "string",
+                          "enum": ["off", "heat", "cool", "heatcool"]
+                        },
+                        "cooling_set_point_celsius": { "type": "number" },
+                        "heating_set_point_celsius": { "type": "number" },
+                        "cooling_set_point_fahrenheit": { "type": "number" },
+                        "heating_set_point_fahrenheit": { "type": "number" },
+                        "manual_override_allowed": { "type": "boolean" }
+                      },
+                      "required": [
+                        "climate_setting_schedule_id",
+                        "schedule_type",
+                        "device_id",
+                        "schedule_starts_at",
+                        "schedule_ends_at",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["climate_setting_schedule", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "climate_setting_schedule_id": { "type": "string" },
+                  "schedule_type": {
+                    "default": "time_bound",
+                    "type": "string",
+                    "enum": ["time_bound"]
+                  },
+                  "name": { "type": "string" },
+                  "schedule_starts_at": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "string", "format": "date-time" }
+                    ]
+                  },
+                  "schedule_ends_at": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "string", "format": "date-time" }
+                    ]
+                  },
+                  "automatic_heating_enabled": { "type": "boolean" },
+                  "automatic_cooling_enabled": { "type": "boolean" },
+                  "hvac_mode_setting": {
+                    "type": "string",
+                    "enum": ["off", "heat", "cool", "heatcool"]
+                  },
+                  "cooling_set_point_celsius": { "type": "number" },
+                  "heating_set_point_celsius": { "type": "number" },
+                  "cooling_set_point_fahrenheit": { "type": "number" },
+                  "heating_set_point_fahrenheit": { "type": "number" },
+                  "manual_override_allowed": { "type": "boolean" }
+                },
+                "required": ["climate_setting_schedule_id"]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "climate_setting_schedule_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "schedule_type",
+            "in": "query",
+            "schema": {
+              "default": "time_bound",
+              "type": "string",
+              "enum": ["time_bound"]
+            },
+            "required": false
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "schedule_starts_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "schedule_ends_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "automatic_heating_enabled",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          },
+          {
+            "name": "automatic_cooling_enabled",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          },
+          {
+            "name": "hvac_mode_setting",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["off", "heat", "cool", "heatcool"]
+            },
+            "required": false
+          },
+          {
+            "name": "cooling_set_point_celsius",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "heating_set_point_celsius",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "cooling_set_point_fahrenheit",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "heating_set_point_fahrenheit",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "manual_override_allowed",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          }
+        ],
+        "tags": [],
+        "operationId": "thermostatsClimateSettingSchedulesUpdatePost"
+      }
     }
   },
   "components": {
