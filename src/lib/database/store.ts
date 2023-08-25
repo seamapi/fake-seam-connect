@@ -307,7 +307,7 @@ const initializer = immer<Database>((set, get) => ({
       )
     }
 
-    const updated: ClimateSettingSchedule = { ...target, ...params } as any
+    const updated = { ...target, ...params } as ClimateSettingSchedule 
 
     set({
       climate_setting_schedules: [
