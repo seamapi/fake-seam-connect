@@ -1,6 +1,7 @@
 import { HttpException, type Middleware, NotFoundException } from "nextlove"
 
 import type { Database } from "lib/database/index.ts"
+import withApiKey from "./with-api-key.ts"
 
 export const withCSTOrApiKeyOrPublishableKey: Middleware<
   {
@@ -71,7 +72,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
   }
 
   if (is_api_key) {
-    throw new Error("Not Implemented")
+    return withApiKey(next as any)(req, res)
   }
 
   throw new HttpException(500, {
