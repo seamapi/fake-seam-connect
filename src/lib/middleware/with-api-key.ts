@@ -4,7 +4,7 @@ import type { Database } from "lib/database/index.ts"
 
 export const withApiKey: Middleware<
   {
-    auth: { auth_mode: "api_key" }
+    auth: { auth_mode: "api_key"; workspace_id: string }
   },
   {
     db: Database
@@ -23,7 +23,14 @@ export const withApiKey: Middleware<
 
   // TODO: Validate authorization.
   // If relevant, add the user or the decoded JWT to the request on req.auth.
-  req.auth = { auth_mode: "api_key" }
+
+  const api_key = req.db.api_keys.find((key) => key.token === token)
+
+  if (api_key == null) {
+    return res.status(401).end("Invalid API Key (not found)")
+  }
+
+  req.auth = { auth_mode: "api_key", workspace_id: api_key.workspace_id }
 
   return next(req, res)
 }

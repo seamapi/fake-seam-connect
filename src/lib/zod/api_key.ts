@@ -6,6 +6,7 @@ export const api_key = z.object({
   token: z.string().optional(),
   short_token: z.string(),
   created_at: z.string().datetime(),
+  workspace_id: z.string(),
   // TODO add when we support users
   // user_id: z.string().uuid(),
 })
