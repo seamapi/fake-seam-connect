@@ -27,6 +27,7 @@ export const seed = (db: Database): Seed => {
   db.addApiKey({
     name: "Seed API Key 1",
     token: "seam_apikey1_token",
+    workspace_id: "seed_workspace_1",
   })
   db.addWorkspace({
     name: "Empty Workspace",
@@ -35,6 +36,7 @@ export const seed = (db: Database): Seed => {
   db.addApiKey({
     name: "Seed API Key 2",
     token: "seam_apikey2_token",
+    workspace_id: "seed_workspace_2",
   })
 
   const cw = db.addConnectWebview({

@@ -58,6 +58,7 @@ const initializer = immer<Database>((set, get) => ({
       api_key_id,
       name: params.name ?? `API Key ${api_key_num}`,
       token: params.token ?? `seam_${short_token}_${simpleHash(api_key_id)}`,
+      workspace_id: params.workspace_id,
       short_token,
       created_at: params.created_at ?? new Date().toISOString(),
     }

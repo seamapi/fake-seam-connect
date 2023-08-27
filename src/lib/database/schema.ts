@@ -39,6 +39,7 @@ export interface DatabaseMethods {
     name?: string
     token?: string
     created_at?: string
+    workspace_id: string
   }) => ApiKey
   addClientSession: (params: {
     workspace_id: WorkspaceId

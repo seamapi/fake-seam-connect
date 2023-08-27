@@ -72,7 +72,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
   }
 
   if (is_api_key) {
-    return withApiKey(next as any)(req, res)
+    return withApiKey(next)(req, res)
   }
 
   throw new HttpException(500, {
