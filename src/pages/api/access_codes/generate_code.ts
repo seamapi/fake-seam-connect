@@ -33,7 +33,7 @@ export default withRouteSpec({
   res.status(200).json({
     generated_code: {
       device_id,
-      code: randomInt(4, 6).toString(),
+      code: randomInt(1000, 999999).toString(),
     },
   })
 })
