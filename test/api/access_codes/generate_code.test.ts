@@ -7,17 +7,14 @@ test("GET /access_codes/generate_code", async (t: ExecutionContext) => {
   const device_id = seed.ws2.device1_id
   const {
     data: { generated_code },
-  } = await axios.post(
-    "/access_codes/generate_code",
-    {
+  } = await axios.get("/access_codes/generate_code", {
+    params: {
       device_id,
     },
-    {
-      headers: {
-        Authorization: `Bearer ${seed.ws2.cst}`,
-      },
-    }
-  )
+    headers: {
+      Authorization: `Bearer ${seed.ws2.cst}`,
+    },
+  })
 
   t.is(generated_code.device_id, seed.ws2.device1_id)
   t.true(generated_code.code.length >= 4)
