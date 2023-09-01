@@ -65,11 +65,11 @@ export const normalizeClimateSetting = (
 
 export const deriveAutomaticHeatingEnabledFromHvacModeSetting = (
   hvac_mode_setting?: ClimateSetting["hvac_mode_setting"]
-): boolean => hvac_mode_setting === "heat" || hvac_mode_setting === "heatcool"
+): boolean => hvac_mode_setting === "heat" || hvac_mode_setting === "heat_cool"
 
 export const deriveAutomaticCoolingEnabledFromHvacModeSetting = (
   hvac_mode_setting?: ClimateSetting["hvac_mode_setting"]
-): boolean => hvac_mode_setting === "cool" || hvac_mode_setting === "heatcool"
+): boolean => hvac_mode_setting === "cool" || hvac_mode_setting === "heat_cool"
 
 export const deriveHvacModeSettingFromFlags = ({
   automatic_cooling_enabled,
@@ -78,7 +78,7 @@ export const deriveHvacModeSettingFromFlags = ({
   automatic_cooling_enabled: boolean
   automatic_heating_enabled: boolean
 }): ClimateSetting["hvac_mode_setting"] => {
-  if (automatic_cooling_enabled && automatic_heating_enabled) return "heatcool"
+  if (automatic_cooling_enabled && automatic_heating_enabled) return "heat_cool"
   if (automatic_cooling_enabled) return "cool"
   if (automatic_heating_enabled) return "heat"
   return "off"

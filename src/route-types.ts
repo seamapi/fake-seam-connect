@@ -1058,7 +1058,7 @@ export type Routes = {
       schedule_ends_at: string | Date
       automatic_heating_enabled?: boolean | undefined
       automatic_cooling_enabled?: boolean | undefined
-      hvac_mode_setting?: ("off" | "heat" | "cool" | "heatcool") | undefined
+      hvac_mode_setting?: ("off" | "heat" | "cool" | "heat_cool") | undefined
       cooling_set_point_celsius?: (number | undefined) | undefined
       heating_set_point_celsius?: (number | undefined) | undefined
       cooling_set_point_fahrenheit?: (number | undefined) | undefined
@@ -1078,7 +1078,7 @@ export type Routes = {
         created_at: string
         automatic_heating_enabled?: boolean | undefined
         automatic_cooling_enabled?: boolean | undefined
-        hvac_mode_setting?: ("off" | "heat" | "cool" | "heatcool") | undefined
+        hvac_mode_setting?: ("off" | "heat" | "cool" | "heat_cool") | undefined
         cooling_set_point_celsius?: (number | undefined) | undefined
         heating_set_point_celsius?: (number | undefined) | undefined
         cooling_set_point_fahrenheit?: (number | undefined) | undefined
@@ -1120,7 +1120,7 @@ export type Routes = {
         created_at: string
         automatic_heating_enabled?: boolean | undefined
         automatic_cooling_enabled?: boolean | undefined
-        hvac_mode_setting?: ("off" | "heat" | "cool" | "heatcool") | undefined
+        hvac_mode_setting?: ("off" | "heat" | "cool" | "heat_cool") | undefined
         cooling_set_point_celsius?: (number | undefined) | undefined
         heating_set_point_celsius?: (number | undefined) | undefined
         cooling_set_point_fahrenheit?: (number | undefined) | undefined
@@ -1149,7 +1149,7 @@ export type Routes = {
         created_at: string
         automatic_heating_enabled?: boolean | undefined
         automatic_cooling_enabled?: boolean | undefined
-        hvac_mode_setting?: ("off" | "heat" | "cool" | "heatcool") | undefined
+        hvac_mode_setting?: ("off" | "heat" | "cool" | "heat_cool") | undefined
         cooling_set_point_celsius?: (number | undefined) | undefined
         heating_set_point_celsius?: (number | undefined) | undefined
         cooling_set_point_fahrenheit?: (number | undefined) | undefined
@@ -1170,7 +1170,7 @@ export type Routes = {
       schedule_ends_at?: (string | Date) | undefined
       automatic_heating_enabled?: boolean | undefined
       automatic_cooling_enabled?: boolean | undefined
-      hvac_mode_setting?: ("off" | "heat" | "cool" | "heatcool") | undefined
+      hvac_mode_setting?: ("off" | "heat" | "cool" | "heat_cool") | undefined
       cooling_set_point_celsius?: (number | undefined) | undefined
       heating_set_point_celsius?: (number | undefined) | undefined
       cooling_set_point_fahrenheit?: (number | undefined) | undefined
@@ -1190,7 +1190,7 @@ export type Routes = {
         created_at: string
         automatic_heating_enabled?: boolean | undefined
         automatic_cooling_enabled?: boolean | undefined
-        hvac_mode_setting?: ("off" | "heat" | "cool" | "heatcool") | undefined
+        hvac_mode_setting?: ("off" | "heat" | "cool" | "heat_cool") | undefined
         cooling_set_point_celsius?: (number | undefined) | undefined
         heating_set_point_celsius?: (number | undefined) | undefined
         cooling_set_point_fahrenheit?: (number | undefined) | undefined

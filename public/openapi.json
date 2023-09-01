@@ -3215,7 +3215,7 @@
                         "automatic_cooling_enabled": { "type": "boolean" },
                         "hvac_mode_setting": {
                           "type": "string",
-                          "enum": ["off", "heat", "cool", "heatcool"]
+                          "enum": ["off", "heat", "cool", "heat_cool"]
                         },
                         "cooling_set_point_celsius": { "type": "number" },
                         "heating_set_point_celsius": { "type": "number" },
@@ -3272,7 +3272,7 @@
                   "automatic_cooling_enabled": { "type": "boolean" },
                   "hvac_mode_setting": {
                     "type": "string",
-                    "enum": ["off", "heat", "cool", "heatcool"]
+                    "enum": ["off", "heat", "cool", "heat_cool"]
                   },
                   "cooling_set_point_celsius": { "type": "number" },
                   "heating_set_point_celsius": { "type": "number" },
@@ -3351,7 +3351,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": ["off", "heat", "cool", "heatcool"]
+              "enum": ["off", "heat", "cool", "heat_cool"]
             },
             "required": false
           },
@@ -3473,7 +3473,7 @@
                         "automatic_cooling_enabled": { "type": "boolean" },
                         "hvac_mode_setting": {
                           "type": "string",
-                          "enum": ["off", "heat", "cool", "heatcool"]
+                          "enum": ["off", "heat", "cool", "heat_cool"]
                         },
                         "cooling_set_point_celsius": { "type": "number" },
                         "heating_set_point_celsius": { "type": "number" },
@@ -3552,7 +3552,7 @@
                           "automatic_cooling_enabled": { "type": "boolean" },
                           "hvac_mode_setting": {
                             "type": "string",
-                            "enum": ["off", "heat", "cool", "heatcool"]
+                            "enum": ["off", "heat", "cool", "heat_cool"]
                           },
                           "cooling_set_point_celsius": { "type": "number" },
                           "heating_set_point_celsius": { "type": "number" },
@@ -3627,7 +3627,7 @@
                         "automatic_cooling_enabled": { "type": "boolean" },
                         "hvac_mode_setting": {
                           "type": "string",
-                          "enum": ["off", "heat", "cool", "heatcool"]
+                          "enum": ["off", "heat", "cool", "heat_cool"]
                         },
                         "cooling_set_point_celsius": { "type": "number" },
                         "heating_set_point_celsius": { "type": "number" },
@@ -3684,7 +3684,7 @@
                   "automatic_cooling_enabled": { "type": "boolean" },
                   "hvac_mode_setting": {
                     "type": "string",
-                    "enum": ["off", "heat", "cool", "heatcool"]
+                    "enum": ["off", "heat", "cool", "heat_cool"]
                   },
                   "cooling_set_point_celsius": { "type": "number" },
                   "heating_set_point_celsius": { "type": "number" },
@@ -3759,7 +3759,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": ["off", "heat", "cool", "heatcool"]
+              "enum": ["off", "heat", "cool", "heat_cool"]
             },
             "required": false
           },
