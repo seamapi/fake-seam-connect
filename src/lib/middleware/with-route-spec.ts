@@ -10,6 +10,7 @@ export const withRouteSpec = createWithRouteSpec({
   productionServerUrl: "https://example.com",
   shouldValidateGetRequestBody: false,
   globalMiddlewares: [withCors, withDb],
+  addOkStatus: true,
   authMiddlewareMap: {
     api_key: withApiKey,
     cst_ak_pk: withCSTOrApiKeyOrPublishableKey,

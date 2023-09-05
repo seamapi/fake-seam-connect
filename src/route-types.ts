@@ -8,7 +8,9 @@ export type Routes = {
     }
     commonParams: {}
     formData: {}
-    jsonResponse: {}
+    jsonResponse: {
+      ok: boolean
+    }
   }
   "/_fake/database": {
     route: "/_fake/database"
@@ -17,7 +19,9 @@ export type Routes = {
     jsonBody: any | undefined
     commonParams: {}
     formData: {}
-    jsonResponse: {}
+    jsonResponse: {
+      ok: boolean
+    }
   }
   "/access_codes/create": {
     route: "/access_codes/create"
@@ -121,6 +125,7 @@ export type Routes = {
             starts_at: string
             ends_at: string
           }
+      ok: boolean
     }
   }
   "/access_codes/delete": {
@@ -160,6 +165,7 @@ export type Routes = {
               message: string
             }
           }
+      ok: boolean
     }
   }
   "/access_codes/generate_code": {
@@ -176,6 +182,7 @@ export type Routes = {
         device_id: string
         code: string
       }
+      ok: boolean
     }
   }
   "/access_codes/get": {
@@ -275,6 +282,7 @@ export type Routes = {
             starts_at: string
             ends_at: string
           }
+      ok: boolean
     }
   }
   "/access_codes/list": {
@@ -375,6 +383,7 @@ export type Routes = {
             ends_at: string
           }
       )[]
+      ok: boolean
     }
   }
   "/access_codes/pull_backup_access_code": {
@@ -474,6 +483,7 @@ export type Routes = {
             starts_at: string
             ends_at: string
           }
+      ok: boolean
     }
   }
   "/access_codes/unmanaged/list": {
@@ -574,6 +584,7 @@ export type Routes = {
             ends_at: string
           }
       )[]
+      ok: boolean
     }
   }
   "/access_codes/update": {
@@ -679,6 +690,7 @@ export type Routes = {
             starts_at: string
             ends_at: string
           }
+      ok: boolean
     }
   }
   "/client_sessions/create": {
@@ -707,7 +719,7 @@ export type Routes = {
         connected_account_ids: string[]
         created_at: string
       }
-      ok: true
+      ok: boolean
     }
   }
   "/connect_webviews/create": {
@@ -728,6 +740,7 @@ export type Routes = {
         connected_account_id?: string | undefined
         created_at: string
       }
+      ok: boolean
     }
   }
   "/connect_webviews/get": {
@@ -748,6 +761,7 @@ export type Routes = {
         connected_account_id?: string | undefined
         created_at: string
       }
+      ok: boolean
     }
   }
   "/connect_webviews/view": {
@@ -779,6 +793,7 @@ export type Routes = {
         provider: string
         created_at: string
       }
+      ok: boolean
     }
   }
   "/connected_accounts/list": {
@@ -799,6 +814,7 @@ export type Routes = {
         provider: string
         created_at: string
       }[]
+      ok: boolean
     }
   }
   "/devices/get": {
@@ -897,6 +913,7 @@ export type Routes = {
         }[]
         created_at: string
       }
+      ok: boolean
     }
   }
   "/devices/list": {
@@ -993,6 +1010,7 @@ export type Routes = {
         }[]
         created_at: string
       }[]
+      ok: boolean
     }
   }
   "/devices/list_device_providers": {
@@ -1009,6 +1027,7 @@ export type Routes = {
         image_url: string
         provider_categories: ("stable" | "internal_beta")[]
       }[]
+      ok: boolean
     }
   }
   "/health": {
@@ -1046,6 +1065,7 @@ export type Routes = {
         icon_url: string
         seam_device_model_page_url: string
       }[]
+      ok: boolean
     }
   }
   "/thermostats/climate_setting_schedules/create": {
@@ -1087,6 +1107,7 @@ export type Routes = {
         heating_set_point_fahrenheit?: (number | undefined) | undefined
         manual_override_allowed?: boolean | undefined
       }
+      ok: boolean
     }
   }
   "/thermostats/climate_setting_schedules/delete": {
@@ -1099,7 +1120,9 @@ export type Routes = {
     }
     commonParams: {}
     formData: {}
-    jsonResponse: {}
+    jsonResponse: {
+      ok: boolean
+    }
   }
   "/thermostats/climate_setting_schedules/get": {
     route: "/thermostats/climate_setting_schedules/get"
@@ -1129,6 +1152,7 @@ export type Routes = {
         heating_set_point_fahrenheit?: (number | undefined) | undefined
         manual_override_allowed?: boolean | undefined
       }
+      ok: boolean
     }
   }
   "/thermostats/climate_setting_schedules/list": {
@@ -1158,6 +1182,7 @@ export type Routes = {
         heating_set_point_fahrenheit?: (number | undefined) | undefined
         manual_override_allowed?: boolean | undefined
       }[]
+      ok: boolean
     }
   }
   "/thermostats/climate_setting_schedules/update": {
@@ -1199,6 +1224,7 @@ export type Routes = {
         heating_set_point_fahrenheit?: (number | undefined) | undefined
         manual_override_allowed?: boolean | undefined
       }
+      ok: boolean
     }
   }
 }
