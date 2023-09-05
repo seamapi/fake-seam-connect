@@ -123,6 +123,7 @@ const initializer = immer<Database>((set, get) => ({
   addDevice(params) {
     const new_device: Device = {
       device_id: params.device_id ?? get()._getNextId("device"),
+      is_managed: true,
       device_type: params.device_type,
       connected_account_id: params.connected_account_id,
       capabilities_supported: ["lock", "access_code"],

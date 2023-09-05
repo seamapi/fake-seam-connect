@@ -66,6 +66,7 @@ export const device = z.object({
   properties: z.union([common_device_properties, lock_device_properties]),
   location: z.any(),
   connected_account_id: z.string(),
+  is_managed: z.boolean(),
   workspace_id: z.string(),
   errors: z.array(
     z.object({
