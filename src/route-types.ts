@@ -885,6 +885,7 @@ export type Routes = {
             }
         location?: any
         connected_account_id: string
+        is_managed: boolean
         workspace_id: string
         errors: {
           error_code: string
@@ -980,6 +981,7 @@ export type Routes = {
             }
         location?: any
         connected_account_id: string
+        is_managed: boolean
         workspace_id: string
         errors: {
           error_code: string
