@@ -2476,6 +2476,7 @@
                         },
                         "location": { "nullable": true },
                         "connected_account_id": { "type": "string" },
+                        "is_managed": { "type": "boolean" },
                         "workspace_id": { "type": "string" },
                         "errors": {
                           "type": "array",
@@ -2507,6 +2508,7 @@
                         "capabilities_supported",
                         "properties",
                         "connected_account_id",
+                        "is_managed",
                         "workspace_id",
                         "errors",
                         "warnings",
@@ -2713,6 +2715,7 @@
                           },
                           "location": { "nullable": true },
                           "connected_account_id": { "type": "string" },
+                          "is_managed": { "type": "boolean" },
                           "workspace_id": { "type": "string" },
                           "errors": {
                             "type": "array",
@@ -2744,6 +2747,7 @@
                           "capabilities_supported",
                           "properties",
                           "connected_account_id",
+                          "is_managed",
                           "workspace_id",
                           "errors",
                           "warnings",
