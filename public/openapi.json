@@ -178,7 +178,13 @@
                             "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
-                              "enum": ["setting", "set", "removing", "unset"]
+                              "enum": [
+                                "setting",
+                                "set",
+                                "removing",
+                                "unset",
+                                "unknown"
+                              ]
                             }
                           },
                           "required": [
@@ -240,7 +246,13 @@
                             "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
-                              "enum": ["setting", "set", "removing", "unset"]
+                              "enum": [
+                                "setting",
+                                "set",
+                                "removing",
+                                "unset",
+                                "unknown"
+                              ]
                             },
                             "starts_at": { "type": "string" },
                             "ends_at": { "type": "string" }
@@ -347,7 +359,10 @@
                               "type": "string",
                               "nullable": true
                             },
-                            "status": { "type": "string", "enum": ["set"] },
+                            "status": {
+                              "type": "string",
+                              "enum": ["set", "unset"]
+                            },
                             "created_at": { "type": "string" },
                             "type": {
                               "type": "string",
@@ -716,7 +731,13 @@
                             "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
-                              "enum": ["setting", "set", "removing", "unset"]
+                              "enum": [
+                                "setting",
+                                "set",
+                                "removing",
+                                "unset",
+                                "unknown"
+                              ]
                             }
                           },
                           "required": [
@@ -778,7 +799,13 @@
                             "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
-                              "enum": ["setting", "set", "removing", "unset"]
+                              "enum": [
+                                "setting",
+                                "set",
+                                "removing",
+                                "unset",
+                                "unknown"
+                              ]
                             },
                             "starts_at": { "type": "string" },
                             "ends_at": { "type": "string" }
@@ -885,7 +912,10 @@
                               "type": "string",
                               "nullable": true
                             },
-                            "status": { "type": "string", "enum": ["set"] },
+                            "status": {
+                              "type": "string",
+                              "enum": ["set", "unset"]
+                            },
                             "created_at": { "type": "string" },
                             "type": {
                               "type": "string",
@@ -995,7 +1025,13 @@
                               "created_at": { "type": "string" },
                               "status": {
                                 "type": "string",
-                                "enum": ["setting", "set", "removing", "unset"]
+                                "enum": [
+                                  "setting",
+                                  "set",
+                                  "removing",
+                                  "unset",
+                                  "unknown"
+                                ]
                               }
                             },
                             "required": [
@@ -1057,7 +1093,13 @@
                               "created_at": { "type": "string" },
                               "status": {
                                 "type": "string",
-                                "enum": ["setting", "set", "removing", "unset"]
+                                "enum": [
+                                  "setting",
+                                  "set",
+                                  "removing",
+                                  "unset",
+                                  "unknown"
+                                ]
                               },
                               "starts_at": { "type": "string" },
                               "ends_at": { "type": "string" }
@@ -1164,7 +1206,10 @@
                                 "type": "string",
                                 "nullable": true
                               },
-                              "status": { "type": "string", "enum": ["set"] },
+                              "status": {
+                                "type": "string",
+                                "enum": ["set", "unset"]
+                              },
                               "created_at": { "type": "string" },
                               "type": {
                                 "type": "string",
@@ -1273,7 +1318,13 @@
                             "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
-                              "enum": ["setting", "set", "removing", "unset"]
+                              "enum": [
+                                "setting",
+                                "set",
+                                "removing",
+                                "unset",
+                                "unknown"
+                              ]
                             }
                           },
                           "required": [
@@ -1335,7 +1386,13 @@
                             "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
-                              "enum": ["setting", "set", "removing", "unset"]
+                              "enum": [
+                                "setting",
+                                "set",
+                                "removing",
+                                "unset",
+                                "unknown"
+                              ]
                             },
                             "starts_at": { "type": "string" },
                             "ends_at": { "type": "string" }
@@ -1442,7 +1499,10 @@
                               "type": "string",
                               "nullable": true
                             },
-                            "status": { "type": "string", "enum": ["set"] },
+                            "status": {
+                              "type": "string",
+                              "enum": ["set", "unset"]
+                            },
                             "created_at": { "type": "string" },
                             "type": {
                               "type": "string",
@@ -1558,7 +1618,13 @@
                             "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
-                              "enum": ["setting", "set", "removing", "unset"]
+                              "enum": [
+                                "setting",
+                                "set",
+                                "removing",
+                                "unset",
+                                "unknown"
+                              ]
                             }
                           },
                           "required": [
@@ -1620,7 +1686,13 @@
                             "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
-                              "enum": ["setting", "set", "removing", "unset"]
+                              "enum": [
+                                "setting",
+                                "set",
+                                "removing",
+                                "unset",
+                                "unknown"
+                              ]
                             },
                             "starts_at": { "type": "string" },
                             "ends_at": { "type": "string" }
@@ -1727,7 +1799,10 @@
                               "type": "string",
                               "nullable": true
                             },
-                            "status": { "type": "string", "enum": ["set"] },
+                            "status": {
+                              "type": "string",
+                              "enum": ["set", "unset"]
+                            },
                             "created_at": { "type": "string" },
                             "type": {
                               "type": "string",
@@ -2894,7 +2969,13 @@
                               "created_at": { "type": "string" },
                               "status": {
                                 "type": "string",
-                                "enum": ["setting", "set", "removing", "unset"]
+                                "enum": [
+                                  "setting",
+                                  "set",
+                                  "removing",
+                                  "unset",
+                                  "unknown"
+                                ]
                               }
                             },
                             "required": [
@@ -2956,7 +3037,13 @@
                               "created_at": { "type": "string" },
                               "status": {
                                 "type": "string",
-                                "enum": ["setting", "set", "removing", "unset"]
+                                "enum": [
+                                  "setting",
+                                  "set",
+                                  "removing",
+                                  "unset",
+                                  "unknown"
+                                ]
                               },
                               "starts_at": { "type": "string" },
                               "ends_at": { "type": "string" }
@@ -3063,7 +3150,10 @@
                                 "type": "string",
                                 "nullable": true
                               },
-                              "status": { "type": "string", "enum": ["set"] },
+                              "status": {
+                                "type": "string",
+                                "enum": ["set", "unset"]
+                              },
                               "created_at": { "type": "string" },
                               "type": {
                                 "type": "string",

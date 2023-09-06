@@ -58,7 +58,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
           }
         | {
             access_code_id: string
@@ -79,7 +79,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
             starts_at: string
             ends_at: string
           }
@@ -119,7 +119,7 @@ export type Routes = {
             is_managed: boolean
             is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
-            status: "set"
+            status: "set" | "unset"
             created_at: string
             type: "time_bound"
             starts_at: string
@@ -215,7 +215,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
           }
         | {
             access_code_id: string
@@ -236,7 +236,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
             starts_at: string
             ends_at: string
           }
@@ -276,7 +276,7 @@ export type Routes = {
             is_managed: boolean
             is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
-            status: "set"
+            status: "set" | "unset"
             created_at: string
             type: "time_bound"
             starts_at: string
@@ -315,7 +315,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
           }
         | {
             access_code_id: string
@@ -336,7 +336,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
             starts_at: string
             ends_at: string
           }
@@ -376,7 +376,7 @@ export type Routes = {
             is_managed: boolean
             is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
-            status: "set"
+            status: "set" | "unset"
             created_at: string
             type: "time_bound"
             starts_at: string
@@ -416,7 +416,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
           }
         | {
             access_code_id: string
@@ -437,7 +437,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
             starts_at: string
             ends_at: string
           }
@@ -477,7 +477,7 @@ export type Routes = {
             is_managed: boolean
             is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
-            status: "set"
+            status: "set" | "unset"
             created_at: string
             type: "time_bound"
             starts_at: string
@@ -516,7 +516,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
           }
         | {
             access_code_id: string
@@ -537,7 +537,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
             starts_at: string
             ends_at: string
           }
@@ -577,7 +577,7 @@ export type Routes = {
             is_managed: boolean
             is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
-            status: "set"
+            status: "set" | "unset"
             created_at: string
             type: "time_bound"
             starts_at: string
@@ -623,7 +623,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "ongoing"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
           }
         | {
             access_code_id: string
@@ -644,7 +644,7 @@ export type Routes = {
             common_code_key?: (string | null) | undefined
             type: "time_bound"
             created_at: string
-            status: "setting" | "set" | "removing" | "unset"
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
             starts_at: string
             ends_at: string
           }
@@ -684,7 +684,7 @@ export type Routes = {
             is_managed: boolean
             is_backup?: boolean | undefined
             pulled_backup_access_code_id?: (string | null) | undefined
-            status: "set"
+            status: "set" | "unset"
             created_at: string
             type: "time_bound"
             starts_at: string
