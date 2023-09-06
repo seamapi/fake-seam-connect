@@ -187,6 +187,7 @@ const initializer = immer<Database>((set, get) => ({
       access_code_id: get()._getNextId("access_code"),
       created_at: params.created_at ?? new Date().toISOString(),
       is_managed: true,
+      status: params.type === "ongoing" ? "setting" : "unset",
       errors: [],
       warnings: [],
       ...params,
