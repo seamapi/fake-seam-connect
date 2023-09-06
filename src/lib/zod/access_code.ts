@@ -29,13 +29,13 @@ export const access_code_managed = access_code_base.extend({
 export const access_code_managed_ongoing = access_code_managed.extend({
   type: z.literal("ongoing"),
   created_at: z.string().datetime(),
-  status: z.enum(["setting", "set", "removing", "unset"]),
+  status: z.enum(["setting", "set", "removing", "unset", "unknown"]),
 })
 
 export const access_code_managed_time_bound = access_code_managed.extend({
   type: z.literal("time_bound"),
   created_at: z.string().datetime(),
-  status: z.enum(["setting", "set", "removing", "unset"]),
+  status: z.enum(["setting", "set", "removing", "unset", "unknown"]),
   starts_at: z.string().datetime(),
   ends_at: z.string().datetime(),
 })
@@ -46,10 +46,12 @@ export const access_code_unmanaged = access_code_base.extend({
 })
 
 export const access_code_unmanaged_ongoing = access_code_unmanaged.extend({
+  status: z.literal("set"),
   type: z.literal("ongoing"),
 })
 
 export const access_code_unmanaged_time_bound = access_code_unmanaged.extend({
+  status: z.enum(["set", "unset"]),
   type: z.literal("time_bound"),
   starts_at: z.string().datetime(),
   ends_at: z.string().datetime(),
