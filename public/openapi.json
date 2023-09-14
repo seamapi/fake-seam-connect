@@ -2911,6 +2911,18 @@
         "operationId": "devicesListDeviceProvidersPost"
       }
     },
+    "/internal/tlmtry": {
+      "post": {
+        "summary": "/internal/tlmtry",
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "tags": [],
+        "operationId": "internalTlmtryPost"
+      }
+    },
     "/access_codes/unmanaged/list": {
       "get": {
         "summary": "/access_codes/unmanaged/list",
