@@ -1068,6 +1068,15 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/internal/tlmtry": {
+    route: "/internal/tlmtry"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {}
+  }
   "/thermostats/climate_setting_schedules/create": {
     route: "/thermostats/climate_setting_schedules/create"
     method: "POST"
