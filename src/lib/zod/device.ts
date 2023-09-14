@@ -1,6 +1,7 @@
+import { z } from "zod"
+
 import { climate_setting } from "lib/zod/climate_setting.ts"
 import { climate_setting_schedule } from "lib/zod/climate_setting_schedule.ts"
-import { z } from "zod"
 
 export const deviceType = z.enum([
   "august_lock",
