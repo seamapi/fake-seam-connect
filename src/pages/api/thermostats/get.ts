@@ -9,11 +9,11 @@ export default withRouteSpec({
   auth: "cst_ak_pk",
   methods: ["GET", "POST"],
   commonParams: z.object({
-    device_id: z.string().uuid().optional(),
+    device_id: z.string().optional(),
     name: z.string().optional(),
   }),
   jsonResponse: z.object({
-    device,
+    thermostat: device,
   }),
 } as const)(async (req, res) => {
   const { device_id, name } = req.commonParams
@@ -37,5 +37,5 @@ export default withRouteSpec({
       data: { device_id, name },
     })
   }
-  res.status(200).json({ device })
+  res.status(200).json({ thermostat: device })
 })

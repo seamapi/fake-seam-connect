@@ -7,6 +7,7 @@ export const deviceType = z.enum([
   "schlage_lock",
   "yale_lock",
   "smartthings_lock",
+  "ecobee_thermostat",
 ])
 
 export const common_device_properties = z.object({
