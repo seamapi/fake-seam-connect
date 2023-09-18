@@ -2409,7 +2409,8 @@
                             "august_lock",
                             "schlage_lock",
                             "yale_lock",
-                            "smartthings_lock"
+                            "smartthings_lock",
+                            "ecobee_thermostat"
                           ]
                         },
                         "capabilities_supported": {
@@ -2639,7 +2640,8 @@
                               "august_lock",
                               "schlage_lock",
                               "yale_lock",
-                              "smartthings_lock"
+                              "smartthings_lock",
+                              "ecobee_thermostat"
                             ]
                           },
                           "capabilities_supported": {
@@ -2934,7 +2936,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "device": {
+                    "thermostat": {
                       "type": "object",
                       "properties": {
                         "device_id": { "type": "string" },
@@ -2944,7 +2946,8 @@
                             "august_lock",
                             "schlage_lock",
                             "yale_lock",
-                            "smartthings_lock"
+                            "smartthings_lock",
+                            "ecobee_thermostat"
                           ]
                         },
                         "capabilities_supported": {
@@ -3127,7 +3130,7 @@
                     },
                     "ok": { "type": "boolean" }
                   },
-                  "required": ["device", "ok"]
+                  "required": ["thermostat", "ok"]
                 }
               }
             }
@@ -3142,7 +3145,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "device_id": { "type": "string", "format": "uuid" },
+                  "device_id": { "type": "string" },
                   "name": { "type": "string" }
                 }
               }
@@ -3518,53 +3521,6 @@
         ],
         "tags": [],
         "operationId": "internalDeviceModelsListGet"
-      }
-    },
-    "/thermostats/get": {
-      "post": {
-        "x-fern-sdk-group-name": ["thermostats"],
-        "x-fern-sdk-method-name": "get",
-        "x-fern-sdk-return-value": "thermostat",
-        "summary": "/thermostats/get",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "thermostat": { "$ref": "#/components/schemas/device" },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["thermostat", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [
-          { "seam_workspace": [], "access_token": [] },
-          { "seam_client_session_token": [] },
-          { "client_session_token": [] }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "device_id": { "type": "string", "format": "uuid" },
-                  "name": { "type": "string" }
-                }
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "thermostatsGetPost"
       }
     },
     "/thermostats/climate_setting_schedules/create": {
