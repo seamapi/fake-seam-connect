@@ -3222,6 +3222,243 @@
         "operationId": "thermostatsGetPost"
       }
     },
+    "/thermostats/list": {
+      "post": {
+        "summary": "/thermostats/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "thermostats": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "device_id": { "type": "string" },
+                          "device_type": {
+                            "type": "string",
+                            "enum": [
+                              "august_lock",
+                              "schlage_lock",
+                              "yale_lock",
+                              "smartthings_lock",
+                              "ecobee_thermostat"
+                            ]
+                          },
+                          "capabilities_supported": {
+                            "type": "array",
+                            "items": { "type": "string" }
+                          },
+                          "properties": {
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "online": { "type": "boolean" },
+                                  "name": { "type": "string" },
+                                  "model": {
+                                    "type": "object",
+                                    "properties": {
+                                      "display_name": { "type": "string" },
+                                      "manufacturer_display_name": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "display_name",
+                                      "manufacturer_display_name"
+                                    ]
+                                  },
+                                  "battery": {
+                                    "type": "object",
+                                    "properties": {
+                                      "level": { "type": "number" },
+                                      "status": {
+                                        "type": "string",
+                                        "enum": [
+                                          "critical",
+                                          "low",
+                                          "good",
+                                          "full"
+                                        ]
+                                      }
+                                    },
+                                    "required": ["level", "status"]
+                                  },
+                                  "image_url": { "type": "string" }
+                                },
+                                "required": ["online", "name", "model"]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "online": { "type": "boolean" },
+                                  "name": { "type": "string" },
+                                  "model": {
+                                    "type": "object",
+                                    "properties": {
+                                      "display_name": { "type": "string" },
+                                      "manufacturer_display_name": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "display_name",
+                                      "manufacturer_display_name"
+                                    ]
+                                  },
+                                  "battery": {
+                                    "type": "object",
+                                    "properties": {
+                                      "level": { "type": "number" },
+                                      "status": {
+                                        "type": "string",
+                                        "enum": [
+                                          "critical",
+                                          "low",
+                                          "good",
+                                          "full"
+                                        ]
+                                      }
+                                    },
+                                    "required": ["level", "status"]
+                                  },
+                                  "image_url": { "type": "string" },
+                                  "locked": { "type": "boolean" },
+                                  "door_open": { "type": "boolean" },
+                                  "battery_level": { "type": "number" },
+                                  "has_direct_power": { "type": "boolean" },
+                                  "manufacturer": { "type": "string" },
+                                  "supported_code_lengths": {
+                                    "type": "array",
+                                    "items": { "type": "number" }
+                                  },
+                                  "max_active_codes_supported": {
+                                    "type": "number"
+                                  },
+                                  "serial_number": { "type": "string" },
+                                  "schlage_metadata": {
+                                    "type": "object",
+                                    "properties": {
+                                      "device_id": { "type": "string" },
+                                      "device_name": { "type": "string" },
+                                      "access_code_length": {
+                                        "type": "number"
+                                      },
+                                      "model": { "type": "string" },
+                                      "location_id": { "type": "string" }
+                                    },
+                                    "required": [
+                                      "device_id",
+                                      "device_name",
+                                      "access_code_length"
+                                    ]
+                                  },
+                                  "august_metadata": {
+                                    "type": "object",
+                                    "properties": {
+                                      "lock_id": { "type": "string" },
+                                      "lock_name": { "type": "string" },
+                                      "house_name": { "type": "string" },
+                                      "has_keypad": { "type": "boolean" },
+                                      "model": { "type": "string" },
+                                      "keypad_battery_level": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "lock_id",
+                                      "lock_name",
+                                      "house_name"
+                                    ]
+                                  },
+                                  "nuki_metadata": {
+                                    "type": "object",
+                                    "properties": {
+                                      "keypad_battery_critical": {
+                                        "type": "boolean"
+                                      }
+                                    }
+                                  },
+                                  "smartthings_metadata": { "nullable": true }
+                                },
+                                "required": [
+                                  "online",
+                                  "name",
+                                  "model",
+                                  "locked"
+                                ]
+                              }
+                            ]
+                          },
+                          "location": { "nullable": true },
+                          "connected_account_id": { "type": "string" },
+                          "is_managed": { "type": "boolean" },
+                          "workspace_id": { "type": "string" },
+                          "errors": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "error_code": { "type": "string" },
+                                "message": { "type": "string" }
+                              },
+                              "required": ["error_code", "message"]
+                            }
+                          },
+                          "warnings": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "warning_code": { "type": "string" },
+                                "message": { "type": "string" }
+                              },
+                              "required": ["warning_code", "message"]
+                            }
+                          },
+                          "created_at": { "type": "string" }
+                        },
+                        "required": [
+                          "device_id",
+                          "device_type",
+                          "capabilities_supported",
+                          "properties",
+                          "connected_account_id",
+                          "is_managed",
+                          "workspace_id",
+                          "errors",
+                          "warnings",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["thermostats", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "properties": {} }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "thermostatsListPost"
+      }
+    },
     "/access_codes/unmanaged/list": {
       "get": {
         "summary": "/access_codes/unmanaged/list",
