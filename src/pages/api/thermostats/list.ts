@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { THERMOSTAT_DEVICE_TYPES, device } from "lib/zod/index.ts"
+import { device, THERMOSTAT_DEVICE_TYPES } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
