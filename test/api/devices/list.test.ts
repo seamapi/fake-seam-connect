@@ -13,5 +13,5 @@ test("POST /devices/list with api key", async (t: ExecutionContext) => {
     data: { devices },
   } = await axios.get("/devices/list")
 
-  t.is(devices.length, 3)
+  t.is(devices.length, 4)
 })
