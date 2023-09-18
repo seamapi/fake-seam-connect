@@ -19,6 +19,16 @@ test("POST /thermostats/get with api key", async (t: ExecutionContext) => {
 
   t.is(thermostat.device_id, seed_result.ecobee_device_1)
 
+  const {
+    data: { thermostat: thermostatByName },
+  } = await axios.get("/thermostats/get", {
+    params: {
+      name: "Thermostat 1",
+    },
+  })
+
+  t.is(thermostatByName.device_id, seed_result.ecobee_device_1)
+
   // Returns `device_not_found` if the device is not a thermostat
   const err: SimpleAxiosError | undefined = await t.throwsAsync(async () => {
     return await axios.get("/thermostats/get", {
