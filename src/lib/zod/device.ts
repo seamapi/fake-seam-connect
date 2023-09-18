@@ -11,6 +11,8 @@ export const deviceType = z.enum([
   "ecobee_thermostat",
 ])
 
+export const THERMOSTAT_DEVICE_TYPES = ["nest_thermostat", "ecobee_thermostat"]
+
 export const common_device_properties = z.object({
   online: z.boolean(),
   name: z.string(),
