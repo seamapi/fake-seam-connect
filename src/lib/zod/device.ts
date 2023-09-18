@@ -1,11 +1,17 @@
 import { z } from "zod"
 
+import { climate_setting } from "lib/zod/climate_setting.ts"
+import { climate_setting_schedule } from "lib/zod/climate_setting_schedule.ts"
+
 export const deviceType = z.enum([
   "august_lock",
   "schlage_lock",
   "yale_lock",
   "smartthings_lock",
+  "ecobee_thermostat",
 ])
+
+export const THERMOSTAT_DEVICE_TYPES = ["nest_thermostat", "ecobee_thermostat"]
 
 export const common_device_properties = z.object({
   online: z.boolean(),
@@ -57,6 +63,38 @@ export const lock_device_properties = common_device_properties.extend({
     })
     .optional(),
   smartthings_metadata: z.any().optional(),
+})
+
+export const thermostat_device_properties = common_device_properties.extend({
+  temperature_fahrenheit: z.number(),
+  temperature_celsius: z.number(),
+  relative_humidity: z.number(),
+  can_enable_automatic_heating: z.boolean(),
+  can_enable_automatic_cooling: z.boolean(),
+  available_hvac_mode_settings: z.enum(["heat", "cool", "heat_cool", "off"]),
+  is_heating: z.boolean(),
+  is_cooling: z.boolean(),
+  is_fan_running: z.boolean(),
+  is_temporary_manual_override_active: z.boolean(),
+  current_climate_setting: climate_setting,
+  default_climate_setting: z.optional(climate_setting),
+  is_climate_setting_schedule_active: z.boolean(),
+  active_climate_setting_schedule: z.optional(climate_setting_schedule),
+
+  is_cooling_available: z.boolean(),
+  min_cooling_set_point_celsius: z.number(),
+  min_cooling_set_point_fahrenheit: z.number(),
+  max_cooling_set_point_celsius: z.number(),
+  max_cooling_set_point_fahrenheit: z.number(),
+
+  is_heating_available: z.boolean(),
+  min_heating_set_point_celsius: z.number(),
+  min_heating_set_point_fahrenheit: z.number(),
+  max_heating_set_point_celsius: z.number(),
+  max_heating_set_point_fahrenheit: z.number(),
+
+  min_heating_cooling_delta_celsius: z.number(),
+  min_heating_cooling_delta_fahrenheit: z.number(),
 })
 
 export const device = z.object({

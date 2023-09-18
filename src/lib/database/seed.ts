@@ -7,6 +7,7 @@ export interface Seed {
   seed_workspace_2: "seed_workspace_2"
   august_device_1: "august_device_1"
   august_device_2: "august_device_2"
+  ecobee_device_1: "ecobee_device_1"
   schlage_device_1: "schlage_device_id"
   seam_apikey1_token: "seam_apikey1_token"
   seam_apikey2_token: "seam_apikey2_token"
@@ -74,6 +75,14 @@ export const seed = (db: Database): Seed => {
     workspace_id: "seed_workspace_1",
   })
 
+  db.addDevice({
+    device_id: "ecobee_device_1",
+    connected_account_id: "john_connected_account_id",
+    device_type: "ecobee_thermostat",
+    name: "Thermostat 1",
+    workspace_id: "seed_workspace_1",
+  })
+
   db.addConnectedAccount({
     provider: "schlage",
     workspace_id: "seed_workspace_1",
@@ -105,6 +114,7 @@ export const seed = (db: Database): Seed => {
     seed_workspace_2: "seed_workspace_2",
     august_device_1: "august_device_1",
     august_device_2: "august_device_2",
+    ecobee_device_1: "ecobee_device_1",
     schlage_device_1: "schlage_device_id",
     seam_apikey1_token: "seam_apikey1_token",
     seam_apikey2_token: "seam_apikey2_token",
