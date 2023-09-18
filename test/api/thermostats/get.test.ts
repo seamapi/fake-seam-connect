@@ -1,6 +1,9 @@
 import test, { type ExecutionContext } from "ava"
 
-import { SimpleAxiosError, getTestServer } from "fixtures/get-test-server.ts"
+import {
+  getTestServer,
+  type SimpleAxiosError,
+} from "fixtures/get-test-server.ts"
 import { seed } from "lib/database/seed.ts"
 
 test("POST /thermostats/get with api key", async (t: ExecutionContext) => {
