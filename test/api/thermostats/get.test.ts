@@ -9,8 +9,6 @@ test("POST /thermostats/get with api key", async (t: ExecutionContext) => {
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
-  console.log(seed_result)
-
   const {
     data: { thermostat },
   } = await axios.get("/thermostats/get", {
@@ -19,5 +17,5 @@ test("POST /thermostats/get with api key", async (t: ExecutionContext) => {
     },
   })
 
-  t.log(thermostat)
+  t.is(thermostat.device_id, seed_result.ecobee_device_1)
 })

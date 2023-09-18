@@ -834,6 +834,7 @@ export type Routes = {
           | "schlage_lock"
           | "yale_lock"
           | "smartthings_lock"
+          | "ecobee_thermostat"
         capabilities_supported: string[]
         properties:
           | {
@@ -931,6 +932,7 @@ export type Routes = {
           | "schlage_lock"
           | "yale_lock"
           | "smartthings_lock"
+          | "ecobee_thermostat"
         capabilities_supported: string[]
         properties:
           | {
@@ -1247,13 +1249,14 @@ export type Routes = {
     }
     formData: {}
     jsonResponse: {
-      device: {
+      thermostat: {
         device_id: string
         device_type:
           | "august_lock"
           | "schlage_lock"
           | "yale_lock"
           | "smartthings_lock"
+          | "ecobee_thermostat"
         capabilities_supported: string[]
         properties:
           | {
