@@ -1236,6 +1236,106 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/thermostats/get": {
+    route: "/thermostats/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id?: string | undefined
+      name?: string | undefined
+    }
+    formData: {}
+    jsonResponse: {
+      device: {
+        device_id: string
+        device_type:
+          | "august_lock"
+          | "schlage_lock"
+          | "yale_lock"
+          | "smartthings_lock"
+        capabilities_supported: string[]
+        properties:
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+            }
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              locked: boolean
+              door_open?: boolean | undefined
+              battery_level?: number | undefined
+              has_direct_power?: boolean | undefined
+              manufacturer?: string | undefined
+              supported_code_lengths?: number[] | undefined
+              max_active_codes_supported?: number | undefined
+              serial_number?: string | undefined
+              schlage_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    access_code_length: number
+                    model?: string | undefined
+                    location_id?: string | undefined
+                  }
+                | undefined
+              august_metadata?:
+                | {
+                    lock_id: string
+                    lock_name: string
+                    house_name: string
+                    has_keypad?: boolean | undefined
+                    model?: string | undefined
+                    keypad_battery_level?: string | undefined
+                  }
+                | undefined
+              nuki_metadata?:
+                | {
+                    keypad_battery_critical?: boolean | undefined
+                  }
+                | undefined
+              smartthings_metadata?: any | undefined
+            }
+        location?: any
+        connected_account_id: string
+        is_managed: boolean
+        workspace_id: string
+        errors: {
+          error_code: string
+          message: string
+        }[]
+        warnings: {
+          warning_code: string
+          message: string
+        }[]
+        created_at: string
+      }
+      ok: boolean
+    }
+  }
 }
 
 export type RouteResponse<Path extends keyof Routes> =
