@@ -10,8 +10,8 @@ import type { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts
 import type { ConnectWebview } from "lib/zod/connect_webview.ts"
 import type { ConnectedAccount } from "lib/zod/connected_account.ts"
 import {
-  THERMOSTAT_DEVICE_TYPES,
   type Device,
+  THERMOSTAT_DEVICE_TYPES,
   type ThermostatDevice,
 } from "lib/zod/device.ts"
 

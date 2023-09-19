@@ -17,7 +17,7 @@ export default withRouteSpec({
 
   const thermostat = req.db.findThermostat({ device_id })
 
-  if (!thermostat) {
+  if (thermostat == null) {
     throw new NotFoundException({
       type: "device_not_found",
       message: `Could not find an device with device_id`,
