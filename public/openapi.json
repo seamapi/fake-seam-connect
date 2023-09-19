@@ -3222,6 +3222,88 @@
         "operationId": "thermostatsGetPost"
       }
     },
+    "/thermostats/update": {
+      "post": {
+        "summary": "/thermostats/update",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device_id": { "type": "string" },
+                  "default_climate_setting": {
+                    "type": "object",
+                    "properties": {
+                      "automatic_heating_enabled": { "type": "boolean" },
+                      "automatic_cooling_enabled": { "type": "boolean" },
+                      "hvac_mode_setting": {
+                        "type": "string",
+                        "enum": ["off", "heat", "cool", "heat_cool"]
+                      },
+                      "cooling_set_point_celsius": { "type": "number" },
+                      "heating_set_point_celsius": { "type": "number" },
+                      "cooling_set_point_fahrenheit": { "type": "number" },
+                      "heating_set_point_fahrenheit": { "type": "number" },
+                      "manual_override_allowed": { "type": "boolean" }
+                    }
+                  }
+                },
+                "required": ["device_id", "default_climate_setting"]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "default_climate_setting",
+            "in": "query",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "automatic_heating_enabled": { "type": "boolean" },
+                "automatic_cooling_enabled": { "type": "boolean" },
+                "hvac_mode_setting": {
+                  "type": "string",
+                  "enum": ["off", "heat", "cool", "heat_cool"]
+                },
+                "cooling_set_point_celsius": { "type": "number" },
+                "heating_set_point_celsius": { "type": "number" },
+                "cooling_set_point_fahrenheit": { "type": "number" },
+                "heating_set_point_fahrenheit": { "type": "number" },
+                "manual_override_allowed": { "type": "boolean" }
+              }
+            },
+            "required": true
+          }
+        ],
+        "tags": [],
+        "operationId": "thermostatsUpdatePost"
+      }
+    },
     "/access_codes/unmanaged/list": {
       "get": {
         "summary": "/access_codes/unmanaged/list",
