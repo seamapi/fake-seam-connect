@@ -1,8 +1,7 @@
 import test, { type ExecutionContext } from "ava"
 
-import { SimpleAxiosError, getTestServer } from "fixtures/get-test-server.ts"
+import { getTestServer,type SimpleAxiosError } from "fixtures/get-test-server.ts"
 import { seed } from "lib/database/seed.ts"
-import { THERMOSTAT_DEVICE_TYPES } from "lib/zod/device.ts"
 
 test("POST /thermostats/update with api key", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
@@ -45,6 +44,4 @@ test("POST /thermostats/update with api key", async (t: ExecutionContext) => {
     missingOverrideError?.response.error.message,
     "manual_override_allowed must be defined"
   )
-
-
 })
