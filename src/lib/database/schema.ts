@@ -8,6 +8,7 @@ import type {
   ConnectedAccount,
   ConnectWebview,
   Device,
+  ThermostatDevice,
   Workspace,
 } from "lib/zod/index.ts"
 
@@ -105,6 +106,10 @@ export interface DatabaseMethods {
     original_access_code_id: string
     pulled_backup_access_code_id: string
   }) => void
+  findThermostat: (params: {
+    device_id: string
+  }) => ThermostatDevice | undefined
+  updateThermostat: (params: Partial<Device>) => Device
   findClimateSettingSchedule: (params: {
     climate_setting_schedule_id: string
     device_id?: string

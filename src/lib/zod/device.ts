@@ -143,5 +143,10 @@ export const unmanaged_device = device
     }),
   })
 
+export const thermostatDevice = device.extend({
+  properties: thermostat_device_properties,
+})
+
 export type Device = z.infer<typeof device>
 export type UnmanagedDevice = z.infer<typeof unmanaged_device>
+export type ThermostatDevice = z.infer<typeof thermostatDevice>

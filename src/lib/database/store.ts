@@ -9,7 +9,11 @@ import type { ClientSession } from "lib/zod/client_session.ts"
 import type { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts"
 import type { ConnectWebview } from "lib/zod/connect_webview.ts"
 import type { ConnectedAccount } from "lib/zod/connected_account.ts"
-import type { Device } from "lib/zod/device.ts"
+import {
+  THERMOSTAT_DEVICE_TYPES,
+  type Device,
+  type ThermostatDevice,
+} from "lib/zod/device.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
 
@@ -267,6 +271,41 @@ const initializer = immer<Database>((set, get) => ({
         return ac
       }),
     })
+  },
+
+  findThermostat(params) {
+    return get().devices.find(
+      (device) =>
+        device.device_id === params.device_id &&
+        THERMOSTAT_DEVICE_TYPES.includes(device.device_type)
+    ) as ThermostatDevice
+  },
+
+  updateThermostat(params) {
+    const target = get().devices.find(
+      (device) => device.device_id === params.device_id
+    )
+    if (target == null) {
+      throw new Error("Could not find device with device_id")
+    }
+
+    const updated: Device = { ...target, ...params }
+
+    set({
+      devices: [
+        ...get().devices.map((device) => {
+          const is_target = device.device_id === target.device_id
+
+          if (is_target) {
+            return updated
+          }
+
+          return device
+        }),
+      ],
+    })
+
+    return updated
   },
 
   addClimateSettingSchedule(params) {
