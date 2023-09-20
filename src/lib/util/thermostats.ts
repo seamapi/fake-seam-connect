@@ -1,6 +1,7 @@
-import type { ClimateSetting } from "lib/zod/climate_setting.ts"
-import { ThermostatDevice } from "lib/zod/device.ts"
 import { BadRequestException } from "nextlove"
+
+import type { ClimateSetting } from "lib/zod/climate_setting.ts"
+import type { ThermostatDevice } from "lib/zod/device.ts"
 
 export type ClimateSettingMode = Pick<
   ClimateSetting,
