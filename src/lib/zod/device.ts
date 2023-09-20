@@ -11,7 +11,10 @@ export const deviceType = z.enum([
   "ecobee_thermostat",
 ])
 
-export const THERMOSTAT_DEVICE_TYPES = ["nest_thermostat", "ecobee_thermostat"]
+export const THERMOSTAT_DEVICE_TYPES = [
+  "nest_thermostat",
+  "ecobee_thermostat",
+] as const
 
 export const common_device_properties = z.object({
   online: z.boolean(),
@@ -20,6 +23,7 @@ export const common_device_properties = z.object({
     display_name: z.string(),
     manufacturer_display_name: z.string(),
   }),
+  manufacturer: z.string().optional(),
   battery: z
     .object({
       level: z.number(),
@@ -34,7 +38,6 @@ export const lock_device_properties = common_device_properties.extend({
   door_open: z.boolean().optional(),
   battery_level: z.number().optional(),
   has_direct_power: z.boolean().optional(),
-  manufacturer: z.string().optional(),
   supported_code_lengths: z.array(z.number()).optional(),
   max_active_codes_supported: z.number().optional(),
   serial_number: z.string().optional(),
@@ -144,6 +147,7 @@ export const unmanaged_device = device
   })
 
 export const thermostatDevice = device.extend({
+  device_type: z.enum(THERMOSTAT_DEVICE_TYPES),
   properties: thermostat_device_properties,
 })
 

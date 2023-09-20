@@ -109,7 +109,10 @@ export interface DatabaseMethods {
   findThermostat: (params: {
     device_id: string
   }) => ThermostatDevice | undefined
-  updateThermostat: (params: Partial<Device>) => Device
+  updateThermostat: (params: {
+    device_id: string
+    default_climate_setting: Partial<ClimateSetting>
+  }) => Device
   findClimateSettingSchedule: (params: {
     climate_setting_schedule_id: string
     device_id?: string

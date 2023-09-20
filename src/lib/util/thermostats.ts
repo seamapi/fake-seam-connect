@@ -1,4 +1,6 @@
 import type { ClimateSetting } from "lib/zod/climate_setting.ts"
+import { ThermostatDevice } from "lib/zod/device.ts"
+import { BadRequestException } from "nextlove"
 
 export type ClimateSettingMode = Pick<
   ClimateSetting,
@@ -152,3 +154,107 @@ export const convertToFahrenheit = (celsius: number): number =>
 
 export const convertToCelsius = (fahrenheit: number): number =>
   (fahrenheit - 32) * (5 / 9)
+
+export const throwIfClimateSettingNotAllowed = (
+  climate_setting: Partial<ClimateSetting>,
+  properties: ThermostatDevice["properties"]
+) => {
+  const {
+    heating_set_point_celsius,
+    cooling_set_point_celsius,
+    automatic_cooling_enabled,
+    automatic_heating_enabled,
+  } = climate_setting
+
+  const { is_heating_available, is_cooling_available, manufacturer } =
+    properties
+
+  // TODO: support nest
+  if (manufacturer === "nest") return
+
+  // check against heating range
+  if (automatic_heating_enabled && heating_set_point_celsius !== undefined) {
+    if (is_heating_available) {
+      const { min_heating_set_point_celsius, max_heating_set_point_celsius } =
+        properties
+
+      if (
+        min_heating_set_point_celsius !== undefined &&
+        max_heating_set_point_celsius !== undefined &&
+        !_.inRange(
+          heating_set_point_celsius,
+          min_heating_set_point_celsius,
+          max_heating_set_point_celsius
+        )
+      ) {
+        throw new BadRequestException({
+          type: "heating_set_point_out_of_range",
+          message: `Heating set point out of range for this thermostat`,
+        })
+      }
+    } else {
+      throw new BadRequestException({
+        type: "heat_mode_not_available",
+        message: `'heat' mode is not available for this thermostat`,
+      })
+    }
+  }
+
+  // check against cooling range
+  if (automatic_cooling_enabled && cooling_set_point_celsius !== undefined) {
+    if (is_cooling_available) {
+      const { min_cooling_set_point_celsius, max_cooling_set_point_celsius } =
+        properties
+
+      if (
+        min_cooling_set_point_celsius !== undefined &&
+        max_cooling_set_point_celsius !== undefined &&
+        !_.inRange(
+          cooling_set_point_celsius,
+          min_cooling_set_point_celsius,
+          max_cooling_set_point_celsius
+        )
+      ) {
+        throw new BadRequestException({
+          type: "cooling_set_point_out_of_range",
+          message: `Cooling set point out of range for this thermostat`,
+        })
+      }
+    } else {
+      throw new BadRequestException({
+        type: "cool_mode_not_available",
+        message: `'cool' mode is not available for this thermostat`,
+      })
+    }
+  }
+
+  // check against heat_cool delta
+  if (
+    automatic_cooling_enabled &&
+    automatic_heating_enabled &&
+    heating_set_point_celsius !== undefined &&
+    cooling_set_point_celsius !== undefined
+  ) {
+    if (is_cooling_available && is_heating_available) {
+      const { min_heating_cooling_delta_celsius } = properties
+
+      if (
+        min_heating_cooling_delta_celsius &&
+        Math.abs(heating_set_point_celsius - cooling_set_point_celsius) <
+          min_heating_cooling_delta_celsius
+      ) {
+        throw new BadRequestException({
+          type: "invalid_heating_cooling_delta",
+          message: `Difference between set points must be more than ${min_heating_cooling_delta_celsius}°C/${convertToFahrenheit(
+            min_heating_cooling_delta_celsius
+          )}°F  for this thermostat`,
+        })
+      }
+    } else {
+      throw new BadRequestException({
+        type: "heat_cool_not_available",
+        message: `'heat_cool' mode is not available for this thermostat`,
+      })
+    }
+  }
+}

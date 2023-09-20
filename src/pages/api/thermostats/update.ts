@@ -31,6 +31,14 @@ export default withRouteSpec({
   if (
     thermostat_original_climate_setting === undefined &&
     default_climate_setting.manual_override_allowed === undefined
-  )
+  ) {
     throw new Error("manual_override_allowed must be defined")
+  }
+
+  const normalized_climate_setting = default_climate_setting
+
+  req.db.updateThermostat({
+    device_id,
+    default_climate_setting: normalized_climate_setting,
+  })
 })
