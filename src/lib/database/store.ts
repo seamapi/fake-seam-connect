@@ -190,6 +190,8 @@ const initializer = immer<Database>((set, get) => ({
       status: params.type === "ongoing" ? "setting" : "unset",
       errors: [],
       warnings: [],
+      is_backup_access_code_available: false,
+      is_external_modification_allowed: false,
       ...params,
     }
 

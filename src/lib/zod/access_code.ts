@@ -20,6 +20,8 @@ export const access_code_base = z.object({
   is_managed: z.boolean(),
   is_backup: z.boolean().optional(),
   pulled_backup_access_code_id: z.string().nullable().optional(),
+  is_backup_access_code_available: z.boolean(),
+  is_external_modification_allowed: z.boolean(),
 })
 
 export const access_code_managed = access_code_base.extend({

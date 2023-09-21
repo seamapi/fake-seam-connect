@@ -21,4 +21,6 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
   })
 
   t.is(unmanaged_access_code_list.length, 1)
+  t.false(unmanaged_access_code_list[0]?.is_backup_access_code_available)
+  t.false(unmanaged_access_code_list[0]?.is_external_modification_allowed)
 })
