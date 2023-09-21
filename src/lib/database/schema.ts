@@ -2,6 +2,7 @@ import type { HoistedStoreApi } from "zustand-hoist"
 
 import type {
   AccessCode,
+  ActionAttempt,
   ApiKey,
   ClientSession,
   ClimateSettingSchedule,
@@ -25,6 +26,7 @@ export interface DatabaseState {
   connected_accounts: ConnectedAccount[]
   devices: Device[]
   climate_setting_schedules: ClimateSettingSchedule[]
+  action_attempts: ActionAttempt[]
 }
 
 export interface DatabaseMethods {
@@ -124,6 +126,14 @@ export interface DatabaseMethods {
     params: Partial<ClimateSettingSchedule>
   ) => ClimateSettingSchedule
   deleteClimateSettingSchedule: (params: ClimateSettingSchedule) => void
+
+  addActionAttempt: (params: Partial<ActionAttempt>) => ActionAttempt
+  findActionAttempt: (
+    params: Pick<ActionAttempt, "action_attempt_id">
+  ) => ActionAttempt | undefined
+  updateActionAttempt: (
+    params: Partial<ActionAttempt> & Pick<ActionAttempt, "action_attempt_id">
+  ) => ActionAttempt
 
   update: (t?: number) => void
 }
