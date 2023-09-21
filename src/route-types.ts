@@ -1102,6 +1102,84 @@ export type Routes = {
     formData: {}
     jsonResponse: {}
   }
+  "/locks/lock_door": {
+    route: "/locks/lock_door"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      sync?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
+  "/locks/unlock_door": {
+    route: "/locks/unlock_door"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      sync?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
   "/thermostats/climate_setting_schedules/create": {
     route: "/thermostats/climate_setting_schedules/create"
     method: "POST"

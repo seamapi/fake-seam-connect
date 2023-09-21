@@ -4,6 +4,7 @@ import { hoist } from "zustand-hoist"
 
 import { simpleHash } from "lib/util/simple-hash.ts"
 import type { AccessCode } from "lib/zod/access_code.ts"
+import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
 import type { ClientSession } from "lib/zod/client_session.ts"
 import type { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts"
@@ -28,6 +29,7 @@ const initializer = immer<Database>((set, get) => ({
   devices: [],
   access_codes: [],
   climate_setting_schedules: [],
+  action_attempts: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -356,6 +358,58 @@ const initializer = immer<Database>((set, get) => ({
         ),
       ],
     })
+  },
+
+  addActionAttempt(params) {
+    // @ts-expect-error  Partially implemented
+    const new_action_attempt: ActionAttempt = {
+      ...params,
+      action_attempt_id: get()._getNextId("action_attempt"),
+      result: null,
+      error: null,
+      status: params.status ?? "pending",
+    }
+
+    set({
+      action_attempts: [...get().action_attempts, new_action_attempt],
+    })
+
+    return new_action_attempt
+  },
+
+  findActionAttempt(params) {
+    return get().action_attempts.find((action_attempt) => {
+      return action_attempt.action_attempt_id === params.action_attempt_id
+    })
+  },
+
+  updateActionAttempt(params) {
+    const target = get().action_attempts.find(
+      (action_attempt) =>
+        action_attempt.action_attempt_id === params.action_attempt_id
+    )
+    if (target == null) {
+      throw new Error("Could not find access_code with access_code_id")
+    }
+
+    const updated: ActionAttempt = { ...target, ...params } as any
+
+    set({
+      action_attempts: [
+        ...get().action_attempts.map((action_attempt) => {
+          const is_target =
+            action_attempt.action_attempt_id === target.action_attempt_id
+
+          if (is_target) {
+            return updated
+          }
+
+          return action_attempt
+        }),
+      ],
+    })
+
+    return updated
   },
 
   update() {},

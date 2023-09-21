@@ -26,3 +26,5 @@ export const action_attempt = z.discriminatedUnion("status", [
     }),
   }),
 ])
+
+export type ActionAttempt = z.infer<typeof action_attempt>
