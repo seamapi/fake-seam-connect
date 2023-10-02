@@ -17,5 +17,3 @@ export const withDb: Middleware<{
   req.db ??= getSingletonDatabase()
   return next(req, res)
 }
-
-export default withDb

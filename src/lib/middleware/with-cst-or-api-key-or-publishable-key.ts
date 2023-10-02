@@ -2,7 +2,7 @@ import { HttpException, type Middleware, NotFoundException } from "nextlove"
 
 import type { Database } from "lib/database/index.ts"
 
-import withApiKey from "./with-api-key.ts"
+import { withApiKey } from "./with-api-key.ts"
 
 export const withCSTOrApiKeyOrPublishableKey: Middleware<
   {
@@ -85,5 +85,3 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
 withCSTOrApiKeyOrPublishableKey.securitySchema = {
   type: "apiKey",
 }
-
-export default withCSTOrApiKeyOrPublishableKey
