@@ -1,3 +1,4 @@
+import { enableMapSet } from "immer"
 import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
 import { hoist } from "zustand-hoist"
@@ -18,9 +19,11 @@ export const createDatabase = (): ZustandDatabase => {
   return hoist<StoreApi<Database>>(createStore(initializer))
 }
 
+enableMapSet()
+
 const initializer = immer<Database>((set, get) => ({
   _counters: {},
-
+  simulatedWorkspaceOutages: new Map(),
   client_sessions: [],
   workspaces: [],
   api_keys: [],
@@ -412,6 +415,18 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return updated
+  },
+
+  simulateWorkspaceOutage(workspace_id) {
+    set((state) => {
+      state.simulatedWorkspaceOutages.set(workspace_id, { workspace_id })
+    })
+  },
+
+  simulateWorkspaceOutageRecovery(workspace_id) {
+    set((state) => {
+      state.simulatedWorkspaceOutages.delete(workspace_id)
+    })
   },
 
   update() {},
