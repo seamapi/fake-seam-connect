@@ -27,7 +27,7 @@ export interface DatabaseState {
   devices: Device[]
   climate_setting_schedules: ClimateSettingSchedule[]
   action_attempts: ActionAttempt[]
-  simulatedWorkspaceOutages: Record<string, { workspace_id: string }>
+  simulatedWorkspaceOutages: Map<string, { workspace_id: string }>
 }
 
 export interface DatabaseMethods {
