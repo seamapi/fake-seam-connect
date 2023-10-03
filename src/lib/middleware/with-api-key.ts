@@ -38,5 +38,3 @@ export const withApiKey: Middleware<
 withApiKey.securitySchema = {
   type: "apiKey",
 }
-
-export default withApiKey

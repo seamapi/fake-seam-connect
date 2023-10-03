@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import type { Middleware } from "nextlove"
 
-const withCors: Middleware<Record<string, unknown>> =
+export const withCors: Middleware<Record<string, unknown>> =
   (next) => (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader("Access-Control-Allow-Origin", req.headers.origin ?? "*")
     res.setHeader(
@@ -23,5 +23,3 @@ const withCors: Middleware<Record<string, unknown>> =
     // @ts-expect-error  Unknown issue
     return next(req, res)
   }
-
-export default withCors
