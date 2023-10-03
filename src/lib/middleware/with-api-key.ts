@@ -2,6 +2,8 @@ import type { Middleware } from "nextlove"
 
 import type { Database } from "lib/database/index.ts"
 
+import { withSimulatedOutage } from "./with-simulated-outage.ts"
+
 export const withApiKey: Middleware<
   {
     auth: { auth_mode: "api_key"; workspace_id: string }
@@ -32,7 +34,9 @@ export const withApiKey: Middleware<
 
   req.auth = { auth_mode: "api_key", workspace_id: api_key.workspace_id }
 
-  return next(req, res)
+  // Cannot run middleware after auth middleware.
+  // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
+  return withSimulatedOutage(next as unknown as any)(req as unknown as any, res)
 }
 
 withApiKey.securitySchema = {

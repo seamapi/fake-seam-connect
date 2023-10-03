@@ -3,6 +3,7 @@ import { HttpException, type Middleware, NotFoundException } from "nextlove"
 import type { Database } from "lib/database/index.ts"
 
 import { withApiKey } from "./with-api-key.ts"
+import { withSimulatedOutage } from "./with-simulated-outage.ts"
 
 export const withCSTOrApiKeyOrPublishableKey: Middleware<
   {
@@ -51,7 +52,12 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
       auth_mode: "publishable_key",
       workspace_id: workspace.workspace_id,
     }
-    return next(req, res)
+    // Cannot run middleware after auth middleware.
+    // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
+    return withSimulatedOutage(next as unknown as any)(
+      req as unknown as any,
+      res
+    )
   }
 
   if (is_cst) {
@@ -69,7 +75,12 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
       connected_account_ids: cst.connected_account_ids ?? [],
       connect_webview_ids: cst.connect_webview_ids ?? [],
     }
-    return next(req, res)
+    // Cannot run middleware after auth middleware.
+    // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
+    return withSimulatedOutage(next as unknown as any)(
+      req as unknown as any,
+      res
+    )
   }
 
   if (is_api_key) {
