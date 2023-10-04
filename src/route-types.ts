@@ -993,7 +993,9 @@ export type Routes = {
     method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
-    commonParams: {}
+    commonParams: {
+      device_ids?: string[] | undefined
+    }
     formData: {}
     jsonResponse: {
       devices: {
