@@ -13,6 +13,7 @@ export interface Seed {
   seam_apikey2_token: "seam_apikey2_token"
   seam_cst1_token: "seam_cst1_token"
   seam_pk1_token: "seam_pk1_token"
+  john_user_identifier_key: "john_user_identifier_key"
 }
 
 export const seed = (db: Database): Seed => {
@@ -110,7 +111,7 @@ export const seed = (db: Database): Seed => {
     workspace_id: "seed_workspace_1",
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: ["john_connected_account_id"],
-    user_identifier_key: "seed_client_session_user",
+    user_identifier_key: "john_user_identifier_key",
     token: "seam_cst1_token",
   })
 
@@ -127,5 +128,6 @@ export const seed = (db: Database): Seed => {
     seam_apikey2_token: "seam_apikey2_token",
     seam_cst1_token: "seam_cst1_token",
     seam_pk1_token: "seam_pk1_token",
+    john_user_identifier_key: "john_user_identifier_key",
   }
 }
