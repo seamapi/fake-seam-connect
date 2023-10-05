@@ -12,6 +12,7 @@ export interface Seed {
   seam_apikey1_token: "seam_apikey1_token"
   seam_apikey2_token: "seam_apikey2_token"
   seam_cst1_token: "seam_cst1_token"
+  seam_pk1_token: "seam_pk1_token"
 }
 
 export const seed = (db: Database): Seed => {
@@ -25,7 +26,11 @@ export const seed = (db: Database): Seed => {
     )
   }
 
-  db.addWorkspace({ name: "My Workspace", workspace_id: "seed_workspace_1" })
+  db.addWorkspace({
+    name: "My Workspace",
+    workspace_id: "seed_workspace_1",
+    publishable_key: "seam_pk1_token",
+  })
   db.addApiKey({
     name: "Seed API Key 1",
     token: "seam_apikey1_token",
@@ -121,5 +126,6 @@ export const seed = (db: Database): Seed => {
     seam_apikey1_token: "seam_apikey1_token",
     seam_apikey2_token: "seam_apikey2_token",
     seam_cst1_token: "seam_cst1_token",
+    seam_pk1_token: "seam_pk1_token",
   }
 }
