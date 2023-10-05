@@ -16,10 +16,9 @@ import type { Device } from "lib/zod/device.ts"
 import type { Database, ZustandDatabase } from "./schema.ts"
 
 export const createDatabase = (): ZustandDatabase => {
+  enableMapSet()
   return hoist<StoreApi<Database>>(createStore(initializer))
 }
-
-enableMapSet()
 
 const initializer = immer<Database>((set, get) => ({
   _counters: {},
