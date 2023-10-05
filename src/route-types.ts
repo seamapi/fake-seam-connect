@@ -793,6 +793,35 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/client_sessions/get_or_create": {
+    route: "/client_sessions/get_or_create"
+    method: "POST" | "PUT"
+    queryParams: {}
+    jsonBody:
+      | any
+      | (
+          | {
+              connected_account_ids?: string[] | undefined
+              connect_webview_ids?: string[] | undefined
+              user_identifier_key?: string | undefined
+            }
+          | undefined
+        )
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      client_session: {
+        client_session_id: string
+        workspace_id: string
+        token: string
+        user_identifier_key: string
+        connect_webview_ids: string[]
+        connected_account_ids: string[]
+        created_at: string
+      }
+      ok: boolean
+    }
+  }
   "/connect_webviews/create": {
     route: "/connect_webviews/create"
     method: "POST"
