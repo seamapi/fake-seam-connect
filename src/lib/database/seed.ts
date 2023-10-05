@@ -11,6 +11,7 @@ export interface Seed {
   schlage_device_1: "schlage_device_id"
   seam_apikey1_token: "seam_apikey1_token"
   seam_apikey2_token: "seam_apikey2_token"
+  seam_cst1_1tnsd: "seam_cst1_1tnsd"
 }
 
 export const seed = (db: Database): Seed => {
@@ -118,5 +119,6 @@ export const seed = (db: Database): Seed => {
     schlage_device_1: "schlage_device_id",
     seam_apikey1_token: "seam_apikey1_token",
     seam_apikey2_token: "seam_apikey2_token",
+    seam_cst1_1tnsd: "seam_cst1_1tnsd",
   }
 }
