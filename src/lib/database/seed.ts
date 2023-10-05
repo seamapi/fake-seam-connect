@@ -11,7 +11,7 @@ export interface Seed {
   schlage_device_1: "schlage_device_id"
   seam_apikey1_token: "seam_apikey1_token"
   seam_apikey2_token: "seam_apikey2_token"
-  seam_cst1_1tnsd: "seam_cst1_1tnsd"
+  seam_cst1_token: "seam_cst1_token"
 }
 
 export const seed = (db: Database): Seed => {
@@ -106,6 +106,7 @@ export const seed = (db: Database): Seed => {
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: ["john_connected_account_id"],
     user_identifier_key: "seed_client_session_user",
+    token: 'seam_cst1_token'
   })
 
   return {
@@ -119,6 +120,6 @@ export const seed = (db: Database): Seed => {
     schlage_device_1: "schlage_device_id",
     seam_apikey1_token: "seam_apikey1_token",
     seam_apikey2_token: "seam_apikey2_token",
-    seam_cst1_1tnsd: "seam_cst1_1tnsd",
+    seam_cst1_token: "seam_cst1_token",
   }
 }
