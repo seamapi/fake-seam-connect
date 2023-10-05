@@ -106,7 +106,7 @@ export const seed = (db: Database): Seed => {
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: ["john_connected_account_id"],
     user_identifier_key: "seed_client_session_user",
-    token: 'seam_cst1_token'
+    token: "seam_cst1_token",
   })
 
   return {
