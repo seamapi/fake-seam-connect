@@ -27,7 +27,10 @@ export interface DatabaseState {
   devices: Device[]
   climate_setting_schedules: ClimateSettingSchedule[]
   action_attempts: ActionAttempt[]
-  simulatedWorkspaceOutages: Map<string, { workspace_id: string }>
+  simulatedWorkspaceOutages: Map<
+    string,
+    { workspace_id: string; routes: string[] }
+  >
 }
 
 export interface DatabaseMethods {
@@ -136,7 +139,12 @@ export interface DatabaseMethods {
     params: Partial<ActionAttempt> & Pick<ActionAttempt, "action_attempt_id">
   ) => ActionAttempt
 
-  simulateWorkspaceOutage: (workspace_id: string) => void
+  simulateWorkspaceOutage: (
+    workspace_id: string,
+    context: {
+      routes: string[]
+    }
+  ) => void
   simulateWorkspaceOutageRecovery: (workspace_id: string) => void
 
   update: (t?: number) => void
