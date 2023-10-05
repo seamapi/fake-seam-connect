@@ -23,9 +23,7 @@ export const withSimulatedOutage: Middleware<
 
   const outage = req.db.simulatedWorkspaceOutages.get(req.auth.workspace_id)
 
-  const { routes = [] } = outage ?? {}
-
-  if (outage != null && req.url != null && routes.includes(req.url)) {
+  if (outage != null && req.url != null && outage?.routes.includes(req.url)) {
     return res.status(503).end()
   }
 
