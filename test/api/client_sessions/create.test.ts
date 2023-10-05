@@ -6,16 +6,18 @@ test("POST /client_sessions/create", async (t: ExecutionContext) => {
   const { axios, seed } = await getTestServer(t)
   const {
     data: { client_session },
-  } = await axios.request({
-    url: "/client_sessions/create",
-    method: "POST",
-    headers: {
-      "Seam-Publishable-Key": seed.ws2.publishable_key,
-    },
-    data: {
+  } = await axios.post(
+    "/client_sessions/get_or_create",
+    {
       user_identifier_key: "hello_world",
     },
-  } as any)
+    {
+      headers: {
+        "Seam-Publishable-Key": seed.ws2.publishable_key,
+      },
+    }
+  )
 
   t.truthy(client_session)
+  t.is(client_session.user_identifier_key, "hello_world")
 })
