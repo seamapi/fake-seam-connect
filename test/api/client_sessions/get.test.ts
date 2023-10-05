@@ -20,7 +20,9 @@ test("GET /client_sessions/get (with client session token)", async (t: Execution
 
 test("GET /client_sessions/get (with workspace outage)", async (t: ExecutionContext) => {
   const { axios, seed, db } = await getTestServer(t)
-  db.simulateWorkspaceOutage(seed.ws2.workspace_id)
+  db.simulateWorkspaceOutage(seed.ws2.workspace_id, {
+    routes: ["/client_sessions/get"],
+  })
 
   const err = await t.throwsAsync<SimpleAxiosError>(
     async () =>

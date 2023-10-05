@@ -416,9 +416,12 @@ const initializer = immer<Database>((set, get) => ({
     return updated
   },
 
-  simulateWorkspaceOutage(workspace_id) {
+  simulateWorkspaceOutage(workspace_id, { routes }) {
     set((state) => {
-      state.simulatedWorkspaceOutages.set(workspace_id, { workspace_id })
+      state.simulatedWorkspaceOutages.set(workspace_id, {
+        workspace_id,
+        routes,
+      })
     })
   },
 

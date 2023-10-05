@@ -41,7 +41,9 @@ test("GET /devices/list with simulated workspace outage", async (t: ExecutionCon
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
-  db.simulateWorkspaceOutage(seed_result.seed_workspace_1)
+  db.simulateWorkspaceOutage(seed_result.seed_workspace_1, {
+    routes: ["/devices/list"],
+  })
 
   const err = await t.throwsAsync<SimpleAxiosError>(
     async () => await axios.get("/devices/list")
