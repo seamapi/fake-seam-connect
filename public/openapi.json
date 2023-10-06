@@ -6,7 +6,6 @@
   "paths": {
     "/health": {
       "get": {
-        "x-fern-ignore": true,
         "summary": "/health",
         "responses": {
           "200": {
@@ -33,8 +32,6 @@
     },
     "/_fake/complete_connect_webview": {
       "post": {
-        "x-fern-sdk-group-name": ["_fake"],
-        "x-fern-sdk-method-name": "complete_connect_webview",
         "summary": "/_fake/complete_connect_webview",
         "responses": {
           "200": {
@@ -63,14 +60,20 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "connect_webview_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
         "tags": [],
         "operationId": "fakeCompleteConnectWebviewPost"
       }
     },
     "/_fake/database": {
       "post": {
-        "x-fern-sdk-group-name": ["_fake"],
-        "x-fern-sdk-method-name": "database",
         "summary": "/_fake/database",
         "responses": {
           "200": {
@@ -95,7 +98,6 @@
         "operationId": "fakeDatabasePost"
       },
       "put": {
-        "x-fern-ignore": true,
         "summary": "/_fake/database",
         "responses": {
           "200": {
@@ -122,8 +124,6 @@
     },
     "/access_codes/create": {
       "post": {
-        "x-fern-sdk-group-name": ["access_codes"],
-        "x-fern-sdk-method-name": "create",
         "summary": "/access_codes/create",
         "responses": {
           "200": {
@@ -181,10 +181,7 @@
                               "nullable": true
                             },
                             "type": { "type": "string", "enum": ["ongoing"] },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
                               "enum": [
@@ -260,10 +257,7 @@
                               "type": "string",
                               "enum": ["time_bound"]
                             },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
                               "enum": [
@@ -274,14 +268,8 @@
                                 "unknown"
                               ]
                             },
-                            "starts_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "ends_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            }
+                            "starts_at": { "type": "string" },
+                            "ends_at": { "type": "string" }
                           },
                           "required": [
                             "access_code_id",
@@ -342,10 +330,7 @@
                               "type": "boolean"
                             },
                             "status": { "type": "string", "enum": ["set"] },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "type": { "type": "string", "enum": ["ongoing"] }
                           },
                           "required": [
@@ -408,22 +393,13 @@
                               "type": "string",
                               "enum": ["set", "unset"]
                             },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "type": {
                               "type": "string",
                               "enum": ["time_bound"]
                             },
-                            "starts_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "ends_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            }
+                            "starts_at": { "type": "string" },
+                            "ends_at": { "type": "string" }
                           },
                           "required": [
                             "access_code_id",
@@ -486,14 +462,60 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "starts_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "ends_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "use_backup_access_code_pool",
+            "in": "query",
+            "schema": { "default": false, "type": "boolean" },
+            "required": false
+          }
+        ],
         "tags": [],
         "operationId": "accessCodesCreatePost"
       }
     },
     "/access_codes/delete": {
       "post": {
-        "x-fern-sdk-group-name": ["access_codes"],
-        "x-fern-sdk-method-name": "delete",
         "summary": "/access_codes/delete",
         "responses": {
           "200": {
@@ -616,14 +638,32 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "access_code_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "device_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "sync",
+            "in": "query",
+            "schema": { "default": false, "type": "boolean" },
+            "required": false
+          }
+        ],
         "tags": [],
         "operationId": "accessCodesDeletePost"
       }
     },
     "/access_codes/generate_code": {
       "post": {
-        "x-fern-sdk-group-name": ["access_codes"],
-        "x-fern-sdk-method-name": "generate_code",
         "summary": "/access_codes/generate_code",
         "responses": {
           "200": {
@@ -669,8 +709,6 @@
     },
     "/access_codes/get": {
       "post": {
-        "x-fern-sdk-group-name": ["access_codes"],
-        "x-fern-sdk-method-name": "get",
         "summary": "/access_codes/get",
         "responses": {
           "200": {
@@ -728,10 +766,7 @@
                               "nullable": true
                             },
                             "type": { "type": "string", "enum": ["ongoing"] },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
                               "enum": [
@@ -807,10 +842,7 @@
                               "type": "string",
                               "enum": ["time_bound"]
                             },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
                               "enum": [
@@ -821,14 +853,8 @@
                                 "unknown"
                               ]
                             },
-                            "starts_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "ends_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            }
+                            "starts_at": { "type": "string" },
+                            "ends_at": { "type": "string" }
                           },
                           "required": [
                             "access_code_id",
@@ -889,10 +915,7 @@
                               "type": "boolean"
                             },
                             "status": { "type": "string", "enum": ["set"] },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "type": { "type": "string", "enum": ["ongoing"] }
                           },
                           "required": [
@@ -955,22 +978,13 @@
                               "type": "string",
                               "enum": ["set", "unset"]
                             },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "type": {
                               "type": "string",
                               "enum": ["time_bound"]
                             },
-                            "starts_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "ends_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            }
+                            "starts_at": { "type": "string" },
+                            "ends_at": { "type": "string" }
                           },
                           "required": [
                             "access_code_id",
@@ -1019,8 +1033,6 @@
     },
     "/access_codes/list": {
       "post": {
-        "x-fern-sdk-group-name": ["access_codes"],
-        "x-fern-sdk-method-name": "list",
         "summary": "/access_codes/list",
         "responses": {
           "200": {
@@ -1080,10 +1092,7 @@
                                 "nullable": true
                               },
                               "type": { "type": "string", "enum": ["ongoing"] },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
+                              "created_at": { "type": "string" },
                               "status": {
                                 "type": "string",
                                 "enum": [
@@ -1159,10 +1168,7 @@
                                 "type": "string",
                                 "enum": ["time_bound"]
                               },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
+                              "created_at": { "type": "string" },
                               "status": {
                                 "type": "string",
                                 "enum": [
@@ -1173,14 +1179,8 @@
                                   "unknown"
                                 ]
                               },
-                              "starts_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
-                              "ends_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              }
+                              "starts_at": { "type": "string" },
+                              "ends_at": { "type": "string" }
                             },
                             "required": [
                               "access_code_id",
@@ -1241,10 +1241,7 @@
                                 "type": "boolean"
                               },
                               "status": { "type": "string", "enum": ["set"] },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
+                              "created_at": { "type": "string" },
                               "type": { "type": "string", "enum": ["ongoing"] }
                             },
                             "required": [
@@ -1307,22 +1304,13 @@
                                 "type": "string",
                                 "enum": ["set", "unset"]
                               },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
+                              "created_at": { "type": "string" },
                               "type": {
                                 "type": "string",
                                 "enum": ["time_bound"]
                               },
-                              "starts_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
-                              "ends_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              }
+                              "starts_at": { "type": "string" },
+                              "ends_at": { "type": "string" }
                             },
                             "required": [
                               "access_code_id",
@@ -1372,8 +1360,6 @@
     },
     "/access_codes/pull_backup_access_code": {
       "post": {
-        "x-fern-sdk-group-name": ["access_codes"],
-        "x-fern-sdk-method-name": "pull_backup_access_code",
         "summary": "/access_codes/pull_backup_access_code",
         "responses": {
           "200": {
@@ -1431,10 +1417,7 @@
                               "nullable": true
                             },
                             "type": { "type": "string", "enum": ["ongoing"] },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
                               "enum": [
@@ -1510,10 +1493,7 @@
                               "type": "string",
                               "enum": ["time_bound"]
                             },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
                               "enum": [
@@ -1524,14 +1504,8 @@
                                 "unknown"
                               ]
                             },
-                            "starts_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "ends_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            }
+                            "starts_at": { "type": "string" },
+                            "ends_at": { "type": "string" }
                           },
                           "required": [
                             "access_code_id",
@@ -1592,10 +1566,7 @@
                               "type": "boolean"
                             },
                             "status": { "type": "string", "enum": ["set"] },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "type": { "type": "string", "enum": ["ongoing"] }
                           },
                           "required": [
@@ -1658,22 +1629,13 @@
                               "type": "string",
                               "enum": ["set", "unset"]
                             },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "type": {
                               "type": "string",
                               "enum": ["time_bound"]
                             },
-                            "starts_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "ends_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            }
+                            "starts_at": { "type": "string" },
+                            "ends_at": { "type": "string" }
                           },
                           "required": [
                             "access_code_id",
@@ -1716,14 +1678,20 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "access_code_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
         "tags": [],
         "operationId": "accessCodesPullBackupAccessCodePost"
       }
     },
     "/access_codes/update": {
       "post": {
-        "x-fern-sdk-group-name": ["access_codes"],
-        "x-fern-sdk-method-name": "update",
         "summary": "/access_codes/update",
         "responses": {
           "200": {
@@ -1781,10 +1749,7 @@
                               "nullable": true
                             },
                             "type": { "type": "string", "enum": ["ongoing"] },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
                               "enum": [
@@ -1860,10 +1825,7 @@
                               "type": "string",
                               "enum": ["time_bound"]
                             },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "status": {
                               "type": "string",
                               "enum": [
@@ -1874,14 +1836,8 @@
                                 "unknown"
                               ]
                             },
-                            "starts_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "ends_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            }
+                            "starts_at": { "type": "string" },
+                            "ends_at": { "type": "string" }
                           },
                           "required": [
                             "access_code_id",
@@ -1942,10 +1898,7 @@
                               "type": "boolean"
                             },
                             "status": { "type": "string", "enum": ["set"] },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "type": { "type": "string", "enum": ["ongoing"] }
                           },
                           "required": [
@@ -2008,22 +1961,13 @@
                               "type": "string",
                               "enum": ["set", "unset"]
                             },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
+                            "created_at": { "type": "string" },
                             "type": {
                               "type": "string",
                               "enum": ["time_bound"]
                             },
-                            "starts_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "ends_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            }
+                            "starts_at": { "type": "string" },
+                            "ends_at": { "type": "string" }
                           },
                           "required": [
                             "access_code_id",
@@ -2087,415 +2031,66 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "access_code_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "device_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "starts_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "ends_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": { "type": "string", "enum": ["ongoing", "time_bound"] },
+            "required": false
+          }
+        ],
         "tags": [],
         "operationId": "accessCodesUpdatePost"
       }
     },
-    "/client_sessions/create": {
-      "put": {
-        "x-fern-ignore": true,
-        "summary": "/client_sessions/create",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "client_session": {
-                      "type": "object",
-                      "properties": {
-                        "client_session_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      },
-                      "required": [
-                        "client_session_id",
-                        "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["client_session", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  { "nullable": true },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "connected_account_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "connect_webview_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "user_identifier_key": { "type": "string" }
-                    }
-                  }
-                ],
-                "nullable": true
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "clientSessionsCreatePut"
-      },
-      "post": {
-        "x-fern-sdk-group-name": ["client_sessions"],
-        "x-fern-sdk-method-name": "create",
-        "summary": "/client_sessions/create",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "client_session": {
-                      "type": "object",
-                      "properties": {
-                        "client_session_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      },
-                      "required": [
-                        "client_session_id",
-                        "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["client_session", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  { "nullable": true },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "connected_account_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "connect_webview_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "user_identifier_key": { "type": "string" }
-                    }
-                  }
-                ],
-                "nullable": true
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "clientSessionsCreatePost"
-      }
-    },
-    "/client_sessions/get": {
-      "post": {
-        "x-fern-sdk-group-name": ["client_sessions"],
-        "x-fern-sdk-method-name": "get",
-        "summary": "/client_sessions/get",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "client_session": {
-                      "type": "object",
-                      "properties": {
-                        "client_session_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      },
-                      "required": [
-                        "client_session_id",
-                        "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["client_session", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "client_session_id": { "type": "string" },
-                  "user_identifier_key": { "type": "string" }
-                }
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "clientSessionsGetPost"
-      }
-    },
-    "/client_sessions/get_or_create": {
-      "put": {
-        "x-fern-ignore": true,
-        "summary": "/client_sessions/get_or_create",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "client_session": {
-                      "type": "object",
-                      "properties": {
-                        "client_session_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      },
-                      "required": [
-                        "client_session_id",
-                        "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["client_session", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  { "nullable": true },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "connected_account_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "connect_webview_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "user_identifier_key": { "type": "string" }
-                    }
-                  }
-                ],
-                "nullable": true
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "clientSessionsGetOrCreatePut"
-      },
-      "post": {
-        "x-fern-sdk-group-name": ["client_sessions"],
-        "x-fern-sdk-method-name": "get_or_create",
-        "summary": "/client_sessions/get_or_create",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "client_session": {
-                      "type": "object",
-                      "properties": {
-                        "client_session_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      },
-                      "required": [
-                        "client_session_id",
-                        "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["client_session", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  { "nullable": true },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "connected_account_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "connect_webview_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "user_identifier_key": { "type": "string" }
-                    }
-                  }
-                ],
-                "nullable": true
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "clientSessionsGetOrCreatePost"
-      }
-    },
     "/connect_webviews/create": {
       "post": {
-        "x-fern-sdk-group-name": ["connect_webviews"],
-        "x-fern-sdk-method-name": "create",
         "summary": "/connect_webviews/create",
         "responses": {
           "200": {
@@ -2554,14 +2149,19 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "accepted_providers",
+            "in": "query",
+            "schema": { "type": "array", "items": { "type": "string" } }
+          }
+        ],
         "tags": [],
         "operationId": "connectWebviewsCreatePost"
       }
     },
     "/connect_webviews/get": {
       "post": {
-        "x-fern-sdk-group-name": ["connect_webviews"],
-        "x-fern-sdk-method-name": "get",
         "summary": "/connect_webviews/get",
         "responses": {
           "200": {
@@ -2622,8 +2222,6 @@
     },
     "/connect_webviews/view": {
       "get": {
-        "x-fern-sdk-group-name": ["connect_webviews"],
-        "x-fern-sdk-method-name": "view",
         "summary": "/connect_webviews/view",
         "responses": {
           "200": { "description": "OK" },
@@ -2635,10 +2233,386 @@
         "operationId": "connectWebviewsViewGet"
       }
     },
+    "/client_sessions/create": {
+      "put": {
+        "summary": "/client_sessions/create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": { "type": "string" }
+                      },
+                      "required": [
+                        "client_session_id",
+                        "workspace_id",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["client_session", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "nullable": true },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "connected_account_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "connect_webview_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "user_identifier_key": { "type": "string" }
+                    }
+                  }
+                ],
+                "nullable": true
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "clientSessionsCreatePut"
+      },
+      "post": {
+        "summary": "/client_sessions/create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": { "type": "string" }
+                      },
+                      "required": [
+                        "client_session_id",
+                        "workspace_id",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["client_session", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "nullable": true },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "connected_account_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "connect_webview_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "user_identifier_key": { "type": "string" }
+                    }
+                  }
+                ],
+                "nullable": true
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "clientSessionsCreatePost"
+      }
+    },
+    "/client_sessions/get": {
+      "post": {
+        "summary": "/client_sessions/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": { "type": "string" }
+                      },
+                      "required": [
+                        "client_session_id",
+                        "workspace_id",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["client_session", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "client_session_id": { "type": "string" },
+                  "user_identifier_key": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "clientSessionsGetPost"
+      }
+    },
+    "/client_sessions/get_or_create": {
+      "put": {
+        "summary": "/client_sessions/get_or_create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": { "type": "string" }
+                      },
+                      "required": [
+                        "client_session_id",
+                        "workspace_id",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["client_session", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "nullable": true },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "connected_account_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "connect_webview_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "user_identifier_key": { "type": "string" }
+                    }
+                  }
+                ],
+                "nullable": true
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "clientSessionsGetOrCreatePut"
+      },
+      "post": {
+        "summary": "/client_sessions/get_or_create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": { "type": "string" }
+                      },
+                      "required": [
+                        "client_session_id",
+                        "workspace_id",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["client_session", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "nullable": true },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "connected_account_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "connect_webview_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "user_identifier_key": { "type": "string" }
+                    }
+                  }
+                ],
+                "nullable": true
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "clientSessionsGetOrCreatePost"
+      }
+    },
     "/connected_accounts/get": {
       "post": {
-        "x-fern-sdk-group-name": ["connected_accounts"],
-        "x-fern-sdk-method-name": "get",
         "summary": "/connected_accounts/get",
         "responses": {
           "200": {
@@ -2698,8 +2672,6 @@
     },
     "/connected_accounts/list": {
       "post": {
-        "x-fern-sdk-group-name": ["connected_accounts"],
-        "x-fern-sdk-method-name": "list",
         "summary": "/connected_accounts/list",
         "responses": {
           "200": {
@@ -2749,7 +2721,6 @@
         "operationId": "connectedAccountsListPost"
       },
       "get": {
-        "x-fern-ignore": true,
         "summary": "/connected_accounts/list",
         "responses": {
           "200": {
@@ -2801,8 +2772,6 @@
     },
     "/devices/get": {
       "post": {
-        "x-fern-sdk-group-name": ["devices"],
-        "x-fern-sdk-method-name": "get",
         "summary": "/devices/get",
         "responses": {
           "200": {
@@ -2960,6 +2929,264 @@
                                 "smartthings_metadata": { "nullable": true }
                               },
                               "required": ["online", "name", "model", "locked"]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "online": { "type": "boolean" },
+                                "name": { "type": "string" },
+                                "model": {
+                                  "type": "object",
+                                  "properties": {
+                                    "display_name": { "type": "string" },
+                                    "manufacturer_display_name": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "display_name",
+                                    "manufacturer_display_name"
+                                  ]
+                                },
+                                "battery": {
+                                  "type": "object",
+                                  "properties": {
+                                    "level": { "type": "number" },
+                                    "status": {
+                                      "type": "string",
+                                      "enum": [
+                                        "critical",
+                                        "low",
+                                        "good",
+                                        "full"
+                                      ]
+                                    }
+                                  },
+                                  "required": ["level", "status"]
+                                },
+                                "image_url": { "type": "string" },
+                                "temperature_fahrenheit": { "type": "number" },
+                                "temperature_celsius": { "type": "number" },
+                                "relative_humidity": { "type": "number" },
+                                "can_enable_automatic_heating": {
+                                  "type": "boolean"
+                                },
+                                "can_enable_automatic_cooling": {
+                                  "type": "boolean"
+                                },
+                                "available_hvac_mode_settings": {
+                                  "type": "string",
+                                  "enum": ["heat", "cool", "heat_cool", "off"]
+                                },
+                                "is_heating": { "type": "boolean" },
+                                "is_cooling": { "type": "boolean" },
+                                "is_fan_running": { "type": "boolean" },
+                                "is_temporary_manual_override_active": {
+                                  "type": "boolean"
+                                },
+                                "current_climate_setting": {
+                                  "type": "object",
+                                  "properties": {
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "automatic_heating_enabled",
+                                    "automatic_cooling_enabled",
+                                    "hvac_mode_setting",
+                                    "manual_override_allowed"
+                                  ]
+                                },
+                                "default_climate_setting": {
+                                  "type": "object",
+                                  "properties": {
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "automatic_heating_enabled",
+                                    "automatic_cooling_enabled",
+                                    "hvac_mode_setting",
+                                    "manual_override_allowed"
+                                  ]
+                                },
+                                "is_climate_setting_schedule_active": {
+                                  "type": "boolean"
+                                },
+                                "active_climate_setting_schedule": {
+                                  "type": "object",
+                                  "properties": {
+                                    "climate_setting_schedule_id": {
+                                      "type": "string",
+                                      "format": "uuid"
+                                    },
+                                    "schedule_type": {
+                                      "type": "string",
+                                      "enum": ["time_bound"]
+                                    },
+                                    "device_id": { "type": "string" },
+                                    "name": { "type": "string" },
+                                    "schedule_starts_at": { "type": "string" },
+                                    "schedule_ends_at": { "type": "string" },
+                                    "created_at": { "type": "string" },
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "climate_setting_schedule_id",
+                                    "schedule_type",
+                                    "device_id",
+                                    "schedule_starts_at",
+                                    "schedule_ends_at",
+                                    "created_at"
+                                  ]
+                                },
+                                "is_cooling_available": { "type": "boolean" },
+                                "min_cooling_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "min_cooling_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "max_cooling_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "max_cooling_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "is_heating_available": { "type": "boolean" },
+                                "min_heating_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "min_heating_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "max_heating_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "max_heating_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "min_heating_cooling_delta_celsius": {
+                                  "type": "number"
+                                },
+                                "min_heating_cooling_delta_fahrenheit": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "online",
+                                "name",
+                                "model",
+                                "temperature_fahrenheit",
+                                "temperature_celsius",
+                                "relative_humidity",
+                                "can_enable_automatic_heating",
+                                "can_enable_automatic_cooling",
+                                "available_hvac_mode_settings",
+                                "is_heating",
+                                "is_cooling",
+                                "is_fan_running",
+                                "is_temporary_manual_override_active",
+                                "current_climate_setting",
+                                "is_climate_setting_schedule_active",
+                                "is_cooling_available",
+                                "min_cooling_set_point_celsius",
+                                "min_cooling_set_point_fahrenheit",
+                                "max_cooling_set_point_celsius",
+                                "max_cooling_set_point_fahrenheit",
+                                "is_heating_available",
+                                "min_heating_set_point_celsius",
+                                "min_heating_set_point_fahrenheit",
+                                "max_heating_set_point_celsius",
+                                "max_heating_set_point_fahrenheit",
+                                "min_heating_cooling_delta_celsius",
+                                "min_heating_cooling_delta_fahrenheit"
+                              ]
                             }
                           ]
                         },
@@ -3032,8 +3259,6 @@
     },
     "/devices/list": {
       "post": {
-        "x-fern-sdk-group-name": ["devices"],
-        "x-fern-sdk-method-name": "list",
         "summary": "/devices/list",
         "responses": {
           "200": {
@@ -3202,6 +3427,268 @@
                                   "model",
                                   "locked"
                                 ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "online": { "type": "boolean" },
+                                  "name": { "type": "string" },
+                                  "model": {
+                                    "type": "object",
+                                    "properties": {
+                                      "display_name": { "type": "string" },
+                                      "manufacturer_display_name": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "display_name",
+                                      "manufacturer_display_name"
+                                    ]
+                                  },
+                                  "battery": {
+                                    "type": "object",
+                                    "properties": {
+                                      "level": { "type": "number" },
+                                      "status": {
+                                        "type": "string",
+                                        "enum": [
+                                          "critical",
+                                          "low",
+                                          "good",
+                                          "full"
+                                        ]
+                                      }
+                                    },
+                                    "required": ["level", "status"]
+                                  },
+                                  "image_url": { "type": "string" },
+                                  "temperature_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "temperature_celsius": { "type": "number" },
+                                  "relative_humidity": { "type": "number" },
+                                  "can_enable_automatic_heating": {
+                                    "type": "boolean"
+                                  },
+                                  "can_enable_automatic_cooling": {
+                                    "type": "boolean"
+                                  },
+                                  "available_hvac_mode_settings": {
+                                    "type": "string",
+                                    "enum": ["heat", "cool", "heat_cool", "off"]
+                                  },
+                                  "is_heating": { "type": "boolean" },
+                                  "is_cooling": { "type": "boolean" },
+                                  "is_fan_running": { "type": "boolean" },
+                                  "is_temporary_manual_override_active": {
+                                    "type": "boolean"
+                                  },
+                                  "current_climate_setting": {
+                                    "type": "object",
+                                    "properties": {
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "automatic_heating_enabled",
+                                      "automatic_cooling_enabled",
+                                      "hvac_mode_setting",
+                                      "manual_override_allowed"
+                                    ]
+                                  },
+                                  "default_climate_setting": {
+                                    "type": "object",
+                                    "properties": {
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "automatic_heating_enabled",
+                                      "automatic_cooling_enabled",
+                                      "hvac_mode_setting",
+                                      "manual_override_allowed"
+                                    ]
+                                  },
+                                  "is_climate_setting_schedule_active": {
+                                    "type": "boolean"
+                                  },
+                                  "active_climate_setting_schedule": {
+                                    "type": "object",
+                                    "properties": {
+                                      "climate_setting_schedule_id": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                      },
+                                      "schedule_type": {
+                                        "type": "string",
+                                        "enum": ["time_bound"]
+                                      },
+                                      "device_id": { "type": "string" },
+                                      "name": { "type": "string" },
+                                      "schedule_starts_at": {
+                                        "type": "string"
+                                      },
+                                      "schedule_ends_at": { "type": "string" },
+                                      "created_at": { "type": "string" },
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "climate_setting_schedule_id",
+                                      "schedule_type",
+                                      "device_id",
+                                      "schedule_starts_at",
+                                      "schedule_ends_at",
+                                      "created_at"
+                                    ]
+                                  },
+                                  "is_cooling_available": { "type": "boolean" },
+                                  "min_cooling_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_cooling_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "max_cooling_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "max_cooling_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "is_heating_available": { "type": "boolean" },
+                                  "min_heating_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "max_heating_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "max_heating_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_cooling_delta_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_cooling_delta_fahrenheit": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "online",
+                                  "name",
+                                  "model",
+                                  "temperature_fahrenheit",
+                                  "temperature_celsius",
+                                  "relative_humidity",
+                                  "can_enable_automatic_heating",
+                                  "can_enable_automatic_cooling",
+                                  "available_hvac_mode_settings",
+                                  "is_heating",
+                                  "is_cooling",
+                                  "is_fan_running",
+                                  "is_temporary_manual_override_active",
+                                  "current_climate_setting",
+                                  "is_climate_setting_schedule_active",
+                                  "is_cooling_available",
+                                  "min_cooling_set_point_celsius",
+                                  "min_cooling_set_point_fahrenheit",
+                                  "max_cooling_set_point_celsius",
+                                  "max_cooling_set_point_fahrenheit",
+                                  "is_heating_available",
+                                  "min_heating_set_point_celsius",
+                                  "min_heating_set_point_fahrenheit",
+                                  "max_heating_set_point_celsius",
+                                  "max_heating_set_point_fahrenheit",
+                                  "min_heating_cooling_delta_celsius",
+                                  "min_heating_cooling_delta_fahrenheit"
+                                ]
                               }
                             ]
                           },
@@ -3279,8 +3766,6 @@
     },
     "/devices/list_device_providers": {
       "post": {
-        "x-fern-sdk-group-name": ["devices"],
-        "x-fern-sdk-method-name": "list_device_providers",
         "summary": "/devices/list_device_providers",
         "responses": {
           "200": {
@@ -3301,8 +3786,10 @@
                           "provider_categories": {
                             "type": "array",
                             "items": {
-                              "type": "string",
-                              "enum": ["stable", "internal_beta"]
+                              "oneOf": [
+                                { "type": "string", "enum": ["stable"] },
+                                { "type": "string", "enum": ["internal_beta"] }
+                              ]
                             }
                           }
                         },
@@ -3338,8 +3825,6 @@
     },
     "/internal/tlmtry": {
       "post": {
-        "x-fern-sdk-group-name": ["internal"],
-        "x-fern-sdk-method-name": "tlmtry",
         "summary": "/internal/tlmtry",
         "responses": {
           "200": { "description": "OK" },
@@ -3352,8 +3837,6 @@
     },
     "/locks/lock_door": {
       "post": {
-        "x-fern-sdk-group-name": ["locks"],
-        "x-fern-sdk-method-name": "lock_door",
         "summary": "/locks/lock_door",
         "responses": {
           "200": {
@@ -3475,14 +3958,26 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "sync",
+            "in": "query",
+            "schema": { "default": false, "type": "boolean" },
+            "required": false
+          }
+        ],
         "tags": [],
         "operationId": "locksLockDoorPost"
       }
     },
     "/locks/unlock_door": {
       "post": {
-        "x-fern-sdk-group-name": ["locks"],
-        "x-fern-sdk-method-name": "unlock_door",
         "summary": "/locks/unlock_door",
         "responses": {
           "200": {
@@ -3604,14 +4099,155 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "sync",
+            "in": "query",
+            "schema": { "default": false, "type": "boolean" },
+            "required": false
+          }
+        ],
         "tags": [],
         "operationId": "locksUnlockDoorPost"
       }
     },
+    "/thermostats/cool": {
+      "post": {
+        "summary": "/thermostats/cool",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "action_attempt": {
+                      "discriminator": { "propertyName": "status" },
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["success"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": { "nullable": true },
+                            "error": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "error"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["pending"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            },
+                            "error": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "result",
+                            "error"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["error"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            },
+                            "error": {
+                              "type": "object",
+                              "properties": {
+                                "type": { "type": "string" },
+                                "message": { "type": "string" }
+                              },
+                              "required": ["type", "message"]
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "result",
+                            "error"
+                          ]
+                        }
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["action_attempt", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device_id": { "type": "string" },
+                  "cooling_set_point_celsius": { "type": "number" },
+                  "cooling_set_point_fahrenheit": { "type": "number" },
+                  "sync": { "default": false, "type": "boolean" }
+                },
+                "required": ["device_id"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "thermostatsCoolPost"
+      }
+    },
     "/thermostats/get": {
       "post": {
-        "x-fern-sdk-group-name": ["thermostats"],
-        "x-fern-sdk-method-name": "get",
         "summary": "/thermostats/get",
         "responses": {
           "200": {
@@ -3769,6 +4405,264 @@
                                 "smartthings_metadata": { "nullable": true }
                               },
                               "required": ["online", "name", "model", "locked"]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "online": { "type": "boolean" },
+                                "name": { "type": "string" },
+                                "model": {
+                                  "type": "object",
+                                  "properties": {
+                                    "display_name": { "type": "string" },
+                                    "manufacturer_display_name": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "display_name",
+                                    "manufacturer_display_name"
+                                  ]
+                                },
+                                "battery": {
+                                  "type": "object",
+                                  "properties": {
+                                    "level": { "type": "number" },
+                                    "status": {
+                                      "type": "string",
+                                      "enum": [
+                                        "critical",
+                                        "low",
+                                        "good",
+                                        "full"
+                                      ]
+                                    }
+                                  },
+                                  "required": ["level", "status"]
+                                },
+                                "image_url": { "type": "string" },
+                                "temperature_fahrenheit": { "type": "number" },
+                                "temperature_celsius": { "type": "number" },
+                                "relative_humidity": { "type": "number" },
+                                "can_enable_automatic_heating": {
+                                  "type": "boolean"
+                                },
+                                "can_enable_automatic_cooling": {
+                                  "type": "boolean"
+                                },
+                                "available_hvac_mode_settings": {
+                                  "type": "string",
+                                  "enum": ["heat", "cool", "heat_cool", "off"]
+                                },
+                                "is_heating": { "type": "boolean" },
+                                "is_cooling": { "type": "boolean" },
+                                "is_fan_running": { "type": "boolean" },
+                                "is_temporary_manual_override_active": {
+                                  "type": "boolean"
+                                },
+                                "current_climate_setting": {
+                                  "type": "object",
+                                  "properties": {
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "automatic_heating_enabled",
+                                    "automatic_cooling_enabled",
+                                    "hvac_mode_setting",
+                                    "manual_override_allowed"
+                                  ]
+                                },
+                                "default_climate_setting": {
+                                  "type": "object",
+                                  "properties": {
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "automatic_heating_enabled",
+                                    "automatic_cooling_enabled",
+                                    "hvac_mode_setting",
+                                    "manual_override_allowed"
+                                  ]
+                                },
+                                "is_climate_setting_schedule_active": {
+                                  "type": "boolean"
+                                },
+                                "active_climate_setting_schedule": {
+                                  "type": "object",
+                                  "properties": {
+                                    "climate_setting_schedule_id": {
+                                      "type": "string",
+                                      "format": "uuid"
+                                    },
+                                    "schedule_type": {
+                                      "type": "string",
+                                      "enum": ["time_bound"]
+                                    },
+                                    "device_id": { "type": "string" },
+                                    "name": { "type": "string" },
+                                    "schedule_starts_at": { "type": "string" },
+                                    "schedule_ends_at": { "type": "string" },
+                                    "created_at": { "type": "string" },
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "climate_setting_schedule_id",
+                                    "schedule_type",
+                                    "device_id",
+                                    "schedule_starts_at",
+                                    "schedule_ends_at",
+                                    "created_at"
+                                  ]
+                                },
+                                "is_cooling_available": { "type": "boolean" },
+                                "min_cooling_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "min_cooling_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "max_cooling_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "max_cooling_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "is_heating_available": { "type": "boolean" },
+                                "min_heating_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "min_heating_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "max_heating_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "max_heating_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "min_heating_cooling_delta_celsius": {
+                                  "type": "number"
+                                },
+                                "min_heating_cooling_delta_fahrenheit": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "online",
+                                "name",
+                                "model",
+                                "temperature_fahrenheit",
+                                "temperature_celsius",
+                                "relative_humidity",
+                                "can_enable_automatic_heating",
+                                "can_enable_automatic_cooling",
+                                "available_hvac_mode_settings",
+                                "is_heating",
+                                "is_cooling",
+                                "is_fan_running",
+                                "is_temporary_manual_override_active",
+                                "current_climate_setting",
+                                "is_climate_setting_schedule_active",
+                                "is_cooling_available",
+                                "min_cooling_set_point_celsius",
+                                "min_cooling_set_point_fahrenheit",
+                                "max_cooling_set_point_celsius",
+                                "max_cooling_set_point_fahrenheit",
+                                "is_heating_available",
+                                "min_heating_set_point_celsius",
+                                "min_heating_set_point_fahrenheit",
+                                "max_heating_set_point_celsius",
+                                "max_heating_set_point_fahrenheit",
+                                "min_heating_cooling_delta_celsius",
+                                "min_heating_cooling_delta_fahrenheit"
+                              ]
                             }
                           ]
                         },
@@ -3843,8 +4737,6 @@
     },
     "/thermostats/list": {
       "post": {
-        "x-fern-sdk-group-name": ["thermostats"],
-        "x-fern-sdk-method-name": "list",
         "summary": "/thermostats/list",
         "responses": {
           "200": {
@@ -4013,6 +4905,268 @@
                                   "model",
                                   "locked"
                                 ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "online": { "type": "boolean" },
+                                  "name": { "type": "string" },
+                                  "model": {
+                                    "type": "object",
+                                    "properties": {
+                                      "display_name": { "type": "string" },
+                                      "manufacturer_display_name": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "display_name",
+                                      "manufacturer_display_name"
+                                    ]
+                                  },
+                                  "battery": {
+                                    "type": "object",
+                                    "properties": {
+                                      "level": { "type": "number" },
+                                      "status": {
+                                        "type": "string",
+                                        "enum": [
+                                          "critical",
+                                          "low",
+                                          "good",
+                                          "full"
+                                        ]
+                                      }
+                                    },
+                                    "required": ["level", "status"]
+                                  },
+                                  "image_url": { "type": "string" },
+                                  "temperature_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "temperature_celsius": { "type": "number" },
+                                  "relative_humidity": { "type": "number" },
+                                  "can_enable_automatic_heating": {
+                                    "type": "boolean"
+                                  },
+                                  "can_enable_automatic_cooling": {
+                                    "type": "boolean"
+                                  },
+                                  "available_hvac_mode_settings": {
+                                    "type": "string",
+                                    "enum": ["heat", "cool", "heat_cool", "off"]
+                                  },
+                                  "is_heating": { "type": "boolean" },
+                                  "is_cooling": { "type": "boolean" },
+                                  "is_fan_running": { "type": "boolean" },
+                                  "is_temporary_manual_override_active": {
+                                    "type": "boolean"
+                                  },
+                                  "current_climate_setting": {
+                                    "type": "object",
+                                    "properties": {
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "automatic_heating_enabled",
+                                      "automatic_cooling_enabled",
+                                      "hvac_mode_setting",
+                                      "manual_override_allowed"
+                                    ]
+                                  },
+                                  "default_climate_setting": {
+                                    "type": "object",
+                                    "properties": {
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "automatic_heating_enabled",
+                                      "automatic_cooling_enabled",
+                                      "hvac_mode_setting",
+                                      "manual_override_allowed"
+                                    ]
+                                  },
+                                  "is_climate_setting_schedule_active": {
+                                    "type": "boolean"
+                                  },
+                                  "active_climate_setting_schedule": {
+                                    "type": "object",
+                                    "properties": {
+                                      "climate_setting_schedule_id": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                      },
+                                      "schedule_type": {
+                                        "type": "string",
+                                        "enum": ["time_bound"]
+                                      },
+                                      "device_id": { "type": "string" },
+                                      "name": { "type": "string" },
+                                      "schedule_starts_at": {
+                                        "type": "string"
+                                      },
+                                      "schedule_ends_at": { "type": "string" },
+                                      "created_at": { "type": "string" },
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "climate_setting_schedule_id",
+                                      "schedule_type",
+                                      "device_id",
+                                      "schedule_starts_at",
+                                      "schedule_ends_at",
+                                      "created_at"
+                                    ]
+                                  },
+                                  "is_cooling_available": { "type": "boolean" },
+                                  "min_cooling_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_cooling_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "max_cooling_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "max_cooling_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "is_heating_available": { "type": "boolean" },
+                                  "min_heating_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "max_heating_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "max_heating_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_cooling_delta_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_cooling_delta_fahrenheit": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "online",
+                                  "name",
+                                  "model",
+                                  "temperature_fahrenheit",
+                                  "temperature_celsius",
+                                  "relative_humidity",
+                                  "can_enable_automatic_heating",
+                                  "can_enable_automatic_cooling",
+                                  "available_hvac_mode_settings",
+                                  "is_heating",
+                                  "is_cooling",
+                                  "is_fan_running",
+                                  "is_temporary_manual_override_active",
+                                  "current_climate_setting",
+                                  "is_climate_setting_schedule_active",
+                                  "is_cooling_available",
+                                  "min_cooling_set_point_celsius",
+                                  "min_cooling_set_point_fahrenheit",
+                                  "max_cooling_set_point_celsius",
+                                  "max_cooling_set_point_fahrenheit",
+                                  "is_heating_available",
+                                  "min_heating_set_point_celsius",
+                                  "min_heating_set_point_fahrenheit",
+                                  "max_heating_set_point_celsius",
+                                  "max_heating_set_point_fahrenheit",
+                                  "min_heating_cooling_delta_celsius",
+                                  "min_heating_cooling_delta_fahrenheit"
+                                ]
                               }
                             ]
                           },
@@ -4082,8 +5236,6 @@
     },
     "/access_codes/unmanaged/list": {
       "get": {
-        "x-fern-sdk-group-name": ["access_codes", "unmanaged"],
-        "x-fern-sdk-method-name": "list",
         "summary": "/access_codes/unmanaged/list",
         "responses": {
           "200": {
@@ -4143,10 +5295,7 @@
                                 "nullable": true
                               },
                               "type": { "type": "string", "enum": ["ongoing"] },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
+                              "created_at": { "type": "string" },
                               "status": {
                                 "type": "string",
                                 "enum": [
@@ -4222,10 +5371,7 @@
                                 "type": "string",
                                 "enum": ["time_bound"]
                               },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
+                              "created_at": { "type": "string" },
                               "status": {
                                 "type": "string",
                                 "enum": [
@@ -4236,14 +5382,8 @@
                                   "unknown"
                                 ]
                               },
-                              "starts_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
-                              "ends_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              }
+                              "starts_at": { "type": "string" },
+                              "ends_at": { "type": "string" }
                             },
                             "required": [
                               "access_code_id",
@@ -4304,10 +5444,7 @@
                                 "type": "boolean"
                               },
                               "status": { "type": "string", "enum": ["set"] },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
+                              "created_at": { "type": "string" },
                               "type": { "type": "string", "enum": ["ongoing"] }
                             },
                             "required": [
@@ -4370,22 +5507,13 @@
                                 "type": "string",
                                 "enum": ["set", "unset"]
                               },
-                              "created_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
+                              "created_at": { "type": "string" },
                               "type": {
                                 "type": "string",
                                 "enum": ["time_bound"]
                               },
-                              "starts_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              },
-                              "ends_at": {
-                                "type": "string",
-                                "format": "date-time"
-                              }
+                              "starts_at": { "type": "string" },
+                              "ends_at": { "type": "string" }
                             },
                             "required": [
                               "access_code_id",
@@ -4432,8 +5560,6 @@
     },
     "/internal/device_models/list": {
       "get": {
-        "x-fern-sdk-group-name": ["internal", "device_models"],
-        "x-fern-sdk-method-name": "list",
         "summary": "/internal/device_models/list",
         "responses": {
           "200": {
@@ -4509,8 +5635,6 @@
     },
     "/thermostats/climate_setting_schedules/create": {
       "post": {
-        "x-fern-sdk-group-name": ["thermostats", "climate_setting_schedules"],
-        "x-fern-sdk-method-name": "create",
         "summary": "/thermostats/climate_setting_schedules/create",
         "responses": {
           "200": {
@@ -4533,18 +5657,9 @@
                         },
                         "device_id": { "type": "string" },
                         "name": { "type": "string" },
-                        "schedule_starts_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "schedule_ends_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
+                        "schedule_starts_at": { "type": "string" },
+                        "schedule_ends_at": { "type": "string" },
+                        "created_at": { "type": "string" },
                         "automatic_heating_enabled": { "type": "boolean" },
                         "automatic_cooling_enabled": { "type": "boolean" },
                         "hvac_mode_setting": {
@@ -4623,14 +5738,109 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "schedule_type",
+            "in": "query",
+            "schema": {
+              "default": "time_bound",
+              "type": "string",
+              "enum": ["time_bound"]
+            },
+            "required": false
+          },
+          {
+            "name": "device_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "schedule_starts_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": true
+          },
+          {
+            "name": "schedule_ends_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": true
+          },
+          {
+            "name": "automatic_heating_enabled",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          },
+          {
+            "name": "automatic_cooling_enabled",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          },
+          {
+            "name": "hvac_mode_setting",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["off", "heat", "cool", "heat_cool"]
+            },
+            "required": false
+          },
+          {
+            "name": "cooling_set_point_celsius",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "heating_set_point_celsius",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "cooling_set_point_fahrenheit",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "heating_set_point_fahrenheit",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "manual_override_allowed",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          }
+        ],
         "tags": [],
         "operationId": "thermostatsClimateSettingSchedulesCreatePost"
       }
     },
     "/thermostats/climate_setting_schedules/delete": {
       "post": {
-        "x-fern-sdk-group-name": ["thermostats", "climate_setting_schedules"],
-        "x-fern-sdk-method-name": "delete",
         "summary": "/thermostats/climate_setting_schedules/delete",
         "responses": {
           "200": {
@@ -4663,14 +5873,26 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "climate_setting_schedule_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "sync",
+            "in": "query",
+            "schema": { "default": false, "type": "boolean" },
+            "required": false
+          }
+        ],
         "tags": [],
         "operationId": "thermostatsClimateSettingSchedulesDeletePost"
       }
     },
     "/thermostats/climate_setting_schedules/get": {
       "post": {
-        "x-fern-sdk-group-name": ["thermostats", "climate_setting_schedules"],
-        "x-fern-sdk-method-name": "get",
         "summary": "/thermostats/climate_setting_schedules/get",
         "responses": {
           "200": {
@@ -4693,18 +5915,9 @@
                         },
                         "device_id": { "type": "string" },
                         "name": { "type": "string" },
-                        "schedule_starts_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "schedule_ends_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
+                        "schedule_starts_at": { "type": "string" },
+                        "schedule_ends_at": { "type": "string" },
+                        "created_at": { "type": "string" },
                         "automatic_heating_enabled": { "type": "boolean" },
                         "automatic_cooling_enabled": { "type": "boolean" },
                         "hvac_mode_setting": {
@@ -4757,8 +5970,6 @@
     },
     "/thermostats/climate_setting_schedules/list": {
       "post": {
-        "x-fern-sdk-group-name": ["thermostats", "climate_setting_schedules"],
-        "x-fern-sdk-method-name": "list",
         "summary": "/thermostats/climate_setting_schedules/list",
         "responses": {
           "200": {
@@ -4783,18 +5994,9 @@
                           },
                           "device_id": { "type": "string" },
                           "name": { "type": "string" },
-                          "schedule_starts_at": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "schedule_ends_at": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "created_at": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
+                          "schedule_starts_at": { "type": "string" },
+                          "schedule_ends_at": { "type": "string" },
+                          "created_at": { "type": "string" },
                           "automatic_heating_enabled": { "type": "boolean" },
                           "automatic_cooling_enabled": { "type": "boolean" },
                           "hvac_mode_setting": {
@@ -4845,8 +6047,6 @@
     },
     "/thermostats/climate_setting_schedules/update": {
       "post": {
-        "x-fern-sdk-group-name": ["thermostats", "climate_setting_schedules"],
-        "x-fern-sdk-method-name": "update",
         "summary": "/thermostats/climate_setting_schedules/update",
         "responses": {
           "200": {
@@ -4869,18 +6069,9 @@
                         },
                         "device_id": { "type": "string" },
                         "name": { "type": "string" },
-                        "schedule_starts_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "schedule_ends_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
+                        "schedule_starts_at": { "type": "string" },
+                        "schedule_ends_at": { "type": "string" },
+                        "created_at": { "type": "string" },
                         "automatic_heating_enabled": { "type": "boolean" },
                         "automatic_cooling_enabled": { "type": "boolean" },
                         "hvac_mode_setting": {
@@ -4955,6 +6146,103 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "climate_setting_schedule_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": true
+          },
+          {
+            "name": "schedule_type",
+            "in": "query",
+            "schema": {
+              "default": "time_bound",
+              "type": "string",
+              "enum": ["time_bound"]
+            },
+            "required": false
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": { "type": "string" },
+            "required": false
+          },
+          {
+            "name": "schedule_starts_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "schedule_ends_at",
+            "in": "query",
+            "schema": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "string", "format": "date-time" }
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "automatic_heating_enabled",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          },
+          {
+            "name": "automatic_cooling_enabled",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          },
+          {
+            "name": "hvac_mode_setting",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["off", "heat", "cool", "heat_cool"]
+            },
+            "required": false
+          },
+          {
+            "name": "cooling_set_point_celsius",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "heating_set_point_celsius",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "cooling_set_point_fahrenheit",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "heating_set_point_fahrenheit",
+            "in": "query",
+            "schema": { "type": "number" },
+            "required": false
+          },
+          {
+            "name": "manual_override_allowed",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "required": false
+          }
+        ],
         "tags": [],
         "operationId": "thermostatsClimateSettingSchedulesUpdatePost"
       }
@@ -4964,7 +6252,6 @@
     "securitySchemes": {
       "api_key": { "type": "apiKey" },
       "cst_ak_pk": { "type": "apiKey" }
-    },
-    "schemas": {}
+    }
   }
 }

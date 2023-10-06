@@ -1000,6 +1000,95 @@ export type Routes = {
                 | undefined
               smartthings_metadata?: any | undefined
             }
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              temperature_fahrenheit: number
+              temperature_celsius: number
+              relative_humidity: number
+              can_enable_automatic_heating: boolean
+              can_enable_automatic_cooling: boolean
+              available_hvac_mode_settings:
+                | "heat"
+                | "cool"
+                | "heat_cool"
+                | "off"
+              is_heating: boolean
+              is_cooling: boolean
+              is_fan_running: boolean
+              is_temporary_manual_override_active: boolean
+              current_climate_setting: {
+                automatic_heating_enabled: boolean
+                automatic_cooling_enabled: boolean
+                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                cooling_set_point_celsius?: number | undefined
+                heating_set_point_celsius?: number | undefined
+                cooling_set_point_fahrenheit?: number | undefined
+                heating_set_point_fahrenheit?: number | undefined
+                manual_override_allowed: boolean
+              }
+              default_climate_setting?:
+                | {
+                    automatic_heating_enabled: boolean
+                    automatic_cooling_enabled: boolean
+                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                    cooling_set_point_celsius?: number | undefined
+                    heating_set_point_celsius?: number | undefined
+                    cooling_set_point_fahrenheit?: number | undefined
+                    heating_set_point_fahrenheit?: number | undefined
+                    manual_override_allowed: boolean
+                  }
+                | undefined
+              is_climate_setting_schedule_active: boolean
+              active_climate_setting_schedule?:
+                | {
+                    climate_setting_schedule_id: string
+                    schedule_type: "time_bound"
+                    device_id: string
+                    name?: string | undefined
+                    schedule_starts_at: string
+                    schedule_ends_at: string
+                    created_at: string
+                    automatic_heating_enabled?: boolean | undefined
+                    automatic_cooling_enabled?: boolean | undefined
+                    hvac_mode_setting?:
+                      | ("off" | "heat" | "cool" | "heat_cool")
+                      | undefined
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    manual_override_allowed?: boolean | undefined
+                  }
+                | undefined
+              is_cooling_available: boolean
+              min_cooling_set_point_celsius: number
+              min_cooling_set_point_fahrenheit: number
+              max_cooling_set_point_celsius: number
+              max_cooling_set_point_fahrenheit: number
+              is_heating_available: boolean
+              min_heating_set_point_celsius: number
+              min_heating_set_point_fahrenheit: number
+              max_heating_set_point_celsius: number
+              max_heating_set_point_fahrenheit: number
+              min_heating_cooling_delta_celsius: number
+              min_heating_cooling_delta_fahrenheit: number
+            }
         location?: any
         connected_account_id: string
         is_managed: boolean
@@ -1099,6 +1188,95 @@ export type Routes = {
                   }
                 | undefined
               smartthings_metadata?: any | undefined
+            }
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              temperature_fahrenheit: number
+              temperature_celsius: number
+              relative_humidity: number
+              can_enable_automatic_heating: boolean
+              can_enable_automatic_cooling: boolean
+              available_hvac_mode_settings:
+                | "heat"
+                | "cool"
+                | "heat_cool"
+                | "off"
+              is_heating: boolean
+              is_cooling: boolean
+              is_fan_running: boolean
+              is_temporary_manual_override_active: boolean
+              current_climate_setting: {
+                automatic_heating_enabled: boolean
+                automatic_cooling_enabled: boolean
+                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                cooling_set_point_celsius?: number | undefined
+                heating_set_point_celsius?: number | undefined
+                cooling_set_point_fahrenheit?: number | undefined
+                heating_set_point_fahrenheit?: number | undefined
+                manual_override_allowed: boolean
+              }
+              default_climate_setting?:
+                | {
+                    automatic_heating_enabled: boolean
+                    automatic_cooling_enabled: boolean
+                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                    cooling_set_point_celsius?: number | undefined
+                    heating_set_point_celsius?: number | undefined
+                    cooling_set_point_fahrenheit?: number | undefined
+                    heating_set_point_fahrenheit?: number | undefined
+                    manual_override_allowed: boolean
+                  }
+                | undefined
+              is_climate_setting_schedule_active: boolean
+              active_climate_setting_schedule?:
+                | {
+                    climate_setting_schedule_id: string
+                    schedule_type: "time_bound"
+                    device_id: string
+                    name?: string | undefined
+                    schedule_starts_at: string
+                    schedule_ends_at: string
+                    created_at: string
+                    automatic_heating_enabled?: boolean | undefined
+                    automatic_cooling_enabled?: boolean | undefined
+                    hvac_mode_setting?:
+                      | ("off" | "heat" | "cool" | "heat_cool")
+                      | undefined
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    manual_override_allowed?: boolean | undefined
+                  }
+                | undefined
+              is_cooling_available: boolean
+              min_cooling_set_point_celsius: number
+              min_cooling_set_point_fahrenheit: number
+              max_cooling_set_point_celsius: number
+              max_cooling_set_point_fahrenheit: number
+              is_heating_available: boolean
+              min_heating_set_point_celsius: number
+              min_heating_set_point_fahrenheit: number
+              max_heating_set_point_celsius: number
+              max_heating_set_point_fahrenheit: number
+              min_heating_cooling_delta_celsius: number
+              min_heating_cooling_delta_fahrenheit: number
             }
         location?: any
         connected_account_id: string
@@ -1418,6 +1596,47 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/thermostats/cool": {
+    route: "/thermostats/cool"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+      cooling_set_point_celsius?: number | undefined
+      cooling_set_point_fahrenheit?: number | undefined
+      sync?: boolean
+    }
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
   "/thermostats/get": {
     route: "/thermostats/get"
     method: "GET" | "POST"
@@ -1501,6 +1720,95 @@ export type Routes = {
                   }
                 | undefined
               smartthings_metadata?: any | undefined
+            }
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              temperature_fahrenheit: number
+              temperature_celsius: number
+              relative_humidity: number
+              can_enable_automatic_heating: boolean
+              can_enable_automatic_cooling: boolean
+              available_hvac_mode_settings:
+                | "heat"
+                | "cool"
+                | "heat_cool"
+                | "off"
+              is_heating: boolean
+              is_cooling: boolean
+              is_fan_running: boolean
+              is_temporary_manual_override_active: boolean
+              current_climate_setting: {
+                automatic_heating_enabled: boolean
+                automatic_cooling_enabled: boolean
+                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                cooling_set_point_celsius?: number | undefined
+                heating_set_point_celsius?: number | undefined
+                cooling_set_point_fahrenheit?: number | undefined
+                heating_set_point_fahrenheit?: number | undefined
+                manual_override_allowed: boolean
+              }
+              default_climate_setting?:
+                | {
+                    automatic_heating_enabled: boolean
+                    automatic_cooling_enabled: boolean
+                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                    cooling_set_point_celsius?: number | undefined
+                    heating_set_point_celsius?: number | undefined
+                    cooling_set_point_fahrenheit?: number | undefined
+                    heating_set_point_fahrenheit?: number | undefined
+                    manual_override_allowed: boolean
+                  }
+                | undefined
+              is_climate_setting_schedule_active: boolean
+              active_climate_setting_schedule?:
+                | {
+                    climate_setting_schedule_id: string
+                    schedule_type: "time_bound"
+                    device_id: string
+                    name?: string | undefined
+                    schedule_starts_at: string
+                    schedule_ends_at: string
+                    created_at: string
+                    automatic_heating_enabled?: boolean | undefined
+                    automatic_cooling_enabled?: boolean | undefined
+                    hvac_mode_setting?:
+                      | ("off" | "heat" | "cool" | "heat_cool")
+                      | undefined
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    manual_override_allowed?: boolean | undefined
+                  }
+                | undefined
+              is_cooling_available: boolean
+              min_cooling_set_point_celsius: number
+              min_cooling_set_point_fahrenheit: number
+              max_cooling_set_point_celsius: number
+              max_cooling_set_point_fahrenheit: number
+              is_heating_available: boolean
+              min_heating_set_point_celsius: number
+              min_heating_set_point_fahrenheit: number
+              max_heating_set_point_celsius: number
+              max_heating_set_point_fahrenheit: number
+              min_heating_cooling_delta_celsius: number
+              min_heating_cooling_delta_fahrenheit: number
             }
         location?: any
         connected_account_id: string
@@ -1599,6 +1907,95 @@ export type Routes = {
                   }
                 | undefined
               smartthings_metadata?: any | undefined
+            }
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              temperature_fahrenheit: number
+              temperature_celsius: number
+              relative_humidity: number
+              can_enable_automatic_heating: boolean
+              can_enable_automatic_cooling: boolean
+              available_hvac_mode_settings:
+                | "heat"
+                | "cool"
+                | "heat_cool"
+                | "off"
+              is_heating: boolean
+              is_cooling: boolean
+              is_fan_running: boolean
+              is_temporary_manual_override_active: boolean
+              current_climate_setting: {
+                automatic_heating_enabled: boolean
+                automatic_cooling_enabled: boolean
+                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                cooling_set_point_celsius?: number | undefined
+                heating_set_point_celsius?: number | undefined
+                cooling_set_point_fahrenheit?: number | undefined
+                heating_set_point_fahrenheit?: number | undefined
+                manual_override_allowed: boolean
+              }
+              default_climate_setting?:
+                | {
+                    automatic_heating_enabled: boolean
+                    automatic_cooling_enabled: boolean
+                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                    cooling_set_point_celsius?: number | undefined
+                    heating_set_point_celsius?: number | undefined
+                    cooling_set_point_fahrenheit?: number | undefined
+                    heating_set_point_fahrenheit?: number | undefined
+                    manual_override_allowed: boolean
+                  }
+                | undefined
+              is_climate_setting_schedule_active: boolean
+              active_climate_setting_schedule?:
+                | {
+                    climate_setting_schedule_id: string
+                    schedule_type: "time_bound"
+                    device_id: string
+                    name?: string | undefined
+                    schedule_starts_at: string
+                    schedule_ends_at: string
+                    created_at: string
+                    automatic_heating_enabled?: boolean | undefined
+                    automatic_cooling_enabled?: boolean | undefined
+                    hvac_mode_setting?:
+                      | ("off" | "heat" | "cool" | "heat_cool")
+                      | undefined
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    manual_override_allowed?: boolean | undefined
+                  }
+                | undefined
+              is_cooling_available: boolean
+              min_cooling_set_point_celsius: number
+              min_cooling_set_point_fahrenheit: number
+              max_cooling_set_point_celsius: number
+              max_cooling_set_point_fahrenheit: number
+              is_heating_available: boolean
+              min_heating_set_point_celsius: number
+              min_heating_set_point_fahrenheit: number
+              max_heating_set_point_celsius: number
+              max_heating_set_point_fahrenheit: number
+              min_heating_cooling_delta_celsius: number
+              min_heating_cooling_delta_fahrenheit: number
             }
         location?: any
         connected_account_id: string
