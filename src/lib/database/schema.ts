@@ -1,5 +1,6 @@
 import type { HoistedStoreApi } from "zustand-hoist"
 
+import type { Routes } from "index.ts"
 import type {
   AccessCode,
   ActionAttempt,
@@ -29,7 +30,7 @@ export interface DatabaseState {
   action_attempts: ActionAttempt[]
   simulatedWorkspaceOutages: Record<
     string,
-    { workspace_id: string; routes: string[] } | undefined
+    { workspace_id: string; routes: Array<keyof Routes> } | undefined
   >
 }
 
@@ -142,7 +143,7 @@ export interface DatabaseMethods {
   simulateWorkspaceOutage: (
     workspace_id: string,
     context: {
-      routes: string[]
+      routes: Array<keyof Routes>
     }
   ) => void
   simulateWorkspaceOutageRecovery: (workspace_id: string) => void
