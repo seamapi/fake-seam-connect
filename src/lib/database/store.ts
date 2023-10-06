@@ -22,7 +22,7 @@ export const createDatabase = (): ZustandDatabase => {
 
 const initializer = immer<Database>((set, get) => ({
   _counters: {},
-  simulatedWorkspaceOutages: new Map(),
+  simulatedWorkspaceOutages: {},
   client_sessions: [],
   workspaces: [],
   api_keys: [],
@@ -418,16 +418,16 @@ const initializer = immer<Database>((set, get) => ({
 
   simulateWorkspaceOutage(workspace_id, { routes }) {
     set((state) => {
-      state.simulatedWorkspaceOutages.set(workspace_id, {
+      state.simulatedWorkspaceOutages[workspace_id] = {
         workspace_id,
         routes,
-      })
+      }
     })
   },
 
   simulateWorkspaceOutageRecovery(workspace_id) {
     set((state) => {
-      state.simulatedWorkspaceOutages.delete(workspace_id)
+      state.simulatedWorkspaceOutages[workspace_id] = undefined
     })
   },
 
