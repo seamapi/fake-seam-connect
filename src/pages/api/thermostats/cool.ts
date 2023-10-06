@@ -45,8 +45,6 @@ export default withRouteSpec({
     sync,
   } = req.commonParams
 
-  console.log("GOT: ", cooling_set_point_celsius)
-
   const device = req.db.devices.find((device) => {
     if (!THERMOSTAT_DEVICE_TYPES.includes(device.device_type)) {
       return false
@@ -81,7 +79,6 @@ export default withRouteSpec({
     !("is_cooling_available" in device.properties) ||
     !device.properties.is_cooling_available
   ) {
-    console.log(device.properties)
     throw new HttpException(500, {
       type: "cool_mode_not_available",
       message: `'cool' mode is not available for this thermostat`,
