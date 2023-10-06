@@ -46,11 +46,14 @@ test("GET /devices/list with simulated workspace outage", async (t: ExecutionCon
   })
 
   const err = await t.throwsAsync<SimpleAxiosError>(
-    async () => await axios.get("/devices/list")
+    async () =>
+      await axios.get("/devices/list", { params: { device_ids: ["123"] } })
   )
   t.is(err?.status, 503)
 
   db.simulateWorkspaceOutageRecovery(seed_result.seed_workspace_1)
-  const { status } = await axios.get("/devices/list")
+  const { status } = await axios.get("/devices/list", {
+    params: { device_ids: ["123"] },
+  })
   t.is(status, 200)
 })
