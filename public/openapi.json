@@ -120,6 +120,550 @@
         "operationId": "fakeDatabasePut"
       }
     },
+    "/client_sessions/create": {
+      "put": {
+        "x-fern-ignore": true,
+        "summary": "/client_sessions/create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "client_session_id",
+                        "workspace_id",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["client_session", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "nullable": true },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "connected_account_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "connect_webview_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "user_identifier_key": { "type": "string" }
+                    }
+                  }
+                ],
+                "nullable": true
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "clientSessionsCreatePut"
+      },
+      "post": {
+        "x-fern-sdk-group-name": ["client_sessions"],
+        "x-fern-sdk-method-name": "create",
+        "summary": "/client_sessions/create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "client_session_id",
+                        "workspace_id",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["client_session", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "nullable": true },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "connected_account_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "connect_webview_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "user_identifier_key": { "type": "string" }
+                    }
+                  }
+                ],
+                "nullable": true
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "clientSessionsCreatePost"
+      }
+    },
+    "/client_sessions/get": {
+      "post": {
+        "x-fern-sdk-group-name": ["client_sessions"],
+        "x-fern-sdk-method-name": "get",
+        "summary": "/client_sessions/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "client_session_id",
+                        "workspace_id",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["client_session", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "client_session_id": { "type": "string" },
+                  "user_identifier_key": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "clientSessionsGetPost"
+      }
+    },
+    "/client_sessions/get_or_create": {
+      "put": {
+        "x-fern-ignore": true,
+        "summary": "/client_sessions/get_or_create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "client_session_id",
+                        "workspace_id",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["client_session", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "nullable": true },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "connected_account_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "connect_webview_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "user_identifier_key": { "type": "string" }
+                    }
+                  }
+                ],
+                "nullable": true
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "clientSessionsGetOrCreatePut"
+      },
+      "post": {
+        "x-fern-sdk-group-name": ["client_sessions"],
+        "x-fern-sdk-method-name": "get_or_create",
+        "summary": "/client_sessions/get_or_create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client_session": {
+                      "type": "object",
+                      "properties": {
+                        "client_session_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "token": { "type": "string" },
+                        "user_identifier_key": { "type": "string" },
+                        "connect_webview_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_ids": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "client_session_id",
+                        "workspace_id",
+                        "token",
+                        "user_identifier_key",
+                        "connect_webview_ids",
+                        "connected_account_ids",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["client_session", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  { "nullable": true },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "connected_account_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "connect_webview_ids": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "user_identifier_key": { "type": "string" }
+                    }
+                  }
+                ],
+                "nullable": true
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "clientSessionsGetOrCreatePost"
+      }
+    },
+    "/connect_webviews/create": {
+      "post": {
+        "x-fern-sdk-group-name": ["connect_webviews"],
+        "x-fern-sdk-method-name": "create",
+        "summary": "/connect_webviews/create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "connect_webview": {
+                      "type": "object",
+                      "properties": {
+                        "connect_webview_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "status": {
+                          "type": "string",
+                          "enum": ["pending", "authorized", "failed"]
+                        },
+                        "accepted_providers": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_id": { "type": "string" },
+                        "created_at": { "type": "string" }
+                      },
+                      "required": [
+                        "connect_webview_id",
+                        "workspace_id",
+                        "status",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["connect_webview", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accepted_providers": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "connectWebviewsCreatePost"
+      }
+    },
+    "/connect_webviews/get": {
+      "post": {
+        "x-fern-sdk-group-name": ["connect_webviews"],
+        "x-fern-sdk-method-name": "get",
+        "summary": "/connect_webviews/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "connect_webview": {
+                      "type": "object",
+                      "properties": {
+                        "connect_webview_id": { "type": "string" },
+                        "workspace_id": { "type": "string" },
+                        "status": {
+                          "type": "string",
+                          "enum": ["pending", "authorized", "failed"]
+                        },
+                        "accepted_providers": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "connected_account_id": { "type": "string" },
+                        "created_at": { "type": "string" }
+                      },
+                      "required": [
+                        "connect_webview_id",
+                        "workspace_id",
+                        "status",
+                        "created_at"
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["connect_webview", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "connect_webview_id": { "type": "string" } },
+                "required": ["connect_webview_id"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "connectWebviewsGetPost"
+      }
+    },
+    "/connect_webviews/view": {
+      "get": {
+        "x-fern-sdk-group-name": ["connect_webviews"],
+        "x-fern-sdk-method-name": "view",
+        "summary": "/connect_webviews/view",
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "parameters": [],
+        "tags": [],
+        "operationId": "connectWebviewsViewGet"
+      }
+    },
     "/access_codes/create": {
       "post": {
         "x-fern-sdk-group-name": ["access_codes"],
@@ -2089,550 +2633,6 @@
         },
         "tags": [],
         "operationId": "accessCodesUpdatePost"
-      }
-    },
-    "/client_sessions/create": {
-      "put": {
-        "x-fern-ignore": true,
-        "summary": "/client_sessions/create",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "client_session": {
-                      "type": "object",
-                      "properties": {
-                        "client_session_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      },
-                      "required": [
-                        "client_session_id",
-                        "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["client_session", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  { "nullable": true },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "connected_account_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "connect_webview_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "user_identifier_key": { "type": "string" }
-                    }
-                  }
-                ],
-                "nullable": true
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "clientSessionsCreatePut"
-      },
-      "post": {
-        "x-fern-sdk-group-name": ["client_sessions"],
-        "x-fern-sdk-method-name": "create",
-        "summary": "/client_sessions/create",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "client_session": {
-                      "type": "object",
-                      "properties": {
-                        "client_session_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      },
-                      "required": [
-                        "client_session_id",
-                        "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["client_session", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  { "nullable": true },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "connected_account_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "connect_webview_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "user_identifier_key": { "type": "string" }
-                    }
-                  }
-                ],
-                "nullable": true
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "clientSessionsCreatePost"
-      }
-    },
-    "/client_sessions/get": {
-      "post": {
-        "x-fern-sdk-group-name": ["client_sessions"],
-        "x-fern-sdk-method-name": "get",
-        "summary": "/client_sessions/get",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "client_session": {
-                      "type": "object",
-                      "properties": {
-                        "client_session_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      },
-                      "required": [
-                        "client_session_id",
-                        "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["client_session", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "client_session_id": { "type": "string" },
-                  "user_identifier_key": { "type": "string" }
-                }
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "clientSessionsGetPost"
-      }
-    },
-    "/client_sessions/get_or_create": {
-      "put": {
-        "x-fern-ignore": true,
-        "summary": "/client_sessions/get_or_create",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "client_session": {
-                      "type": "object",
-                      "properties": {
-                        "client_session_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      },
-                      "required": [
-                        "client_session_id",
-                        "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["client_session", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  { "nullable": true },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "connected_account_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "connect_webview_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "user_identifier_key": { "type": "string" }
-                    }
-                  }
-                ],
-                "nullable": true
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "clientSessionsGetOrCreatePut"
-      },
-      "post": {
-        "x-fern-sdk-group-name": ["client_sessions"],
-        "x-fern-sdk-method-name": "get_or_create",
-        "summary": "/client_sessions/get_or_create",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "client_session": {
-                      "type": "object",
-                      "properties": {
-                        "client_session_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "token": { "type": "string" },
-                        "user_identifier_key": { "type": "string" },
-                        "connect_webview_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_ids": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      },
-                      "required": [
-                        "client_session_id",
-                        "workspace_id",
-                        "token",
-                        "user_identifier_key",
-                        "connect_webview_ids",
-                        "connected_account_ids",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["client_session", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  { "nullable": true },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "connected_account_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "connect_webview_ids": {
-                        "type": "array",
-                        "items": { "type": "string" }
-                      },
-                      "user_identifier_key": { "type": "string" }
-                    }
-                  }
-                ],
-                "nullable": true
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "clientSessionsGetOrCreatePost"
-      }
-    },
-    "/connect_webviews/create": {
-      "post": {
-        "x-fern-sdk-group-name": ["connect_webviews"],
-        "x-fern-sdk-method-name": "create",
-        "summary": "/connect_webviews/create",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "connect_webview": {
-                      "type": "object",
-                      "properties": {
-                        "connect_webview_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "status": {
-                          "type": "string",
-                          "enum": ["pending", "authorized", "failed"]
-                        },
-                        "accepted_providers": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_id": { "type": "string" },
-                        "created_at": { "type": "string" }
-                      },
-                      "required": [
-                        "connect_webview_id",
-                        "workspace_id",
-                        "status",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["connect_webview", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "accepted_providers": {
-                    "type": "array",
-                    "items": { "type": "string" }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "connectWebviewsCreatePost"
-      }
-    },
-    "/connect_webviews/get": {
-      "post": {
-        "x-fern-sdk-group-name": ["connect_webviews"],
-        "x-fern-sdk-method-name": "get",
-        "summary": "/connect_webviews/get",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "connect_webview": {
-                      "type": "object",
-                      "properties": {
-                        "connect_webview_id": { "type": "string" },
-                        "workspace_id": { "type": "string" },
-                        "status": {
-                          "type": "string",
-                          "enum": ["pending", "authorized", "failed"]
-                        },
-                        "accepted_providers": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        },
-                        "connected_account_id": { "type": "string" },
-                        "created_at": { "type": "string" }
-                      },
-                      "required": [
-                        "connect_webview_id",
-                        "workspace_id",
-                        "status",
-                        "created_at"
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["connect_webview", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": { "connect_webview_id": { "type": "string" } },
-                "required": ["connect_webview_id"]
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "connectWebviewsGetPost"
-      }
-    },
-    "/connect_webviews/view": {
-      "get": {
-        "x-fern-sdk-group-name": ["connect_webviews"],
-        "x-fern-sdk-method-name": "view",
-        "summary": "/connect_webviews/view",
-        "responses": {
-          "200": { "description": "OK" },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "parameters": [],
-        "tags": [],
-        "operationId": "connectWebviewsViewGet"
       }
     },
     "/connected_accounts/get": {

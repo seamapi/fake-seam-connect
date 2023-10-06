@@ -39,9 +39,13 @@ export default withRouteSpec({
     })
   }
 
+  const { workspace_id } = req.auth
+
   if (user_identifier_key != null) {
     const existing_cs = req.db.client_sessions.find(
-      (cst) => cst.user_identifier_key === user_identifier_key
+      (cst) =>
+        cst.user_identifier_key === user_identifier_key &&
+        cst.workspace_id === workspace_id
     )
     if (existing_cs != null) {
       if (req.method !== "PUT") {
@@ -59,7 +63,6 @@ export default withRouteSpec({
     }
   }
 
-  const { workspace_id } = req.auth
   const client_session = req.db.addClientSession({
     workspace_id,
     connect_webview_ids: req.body?.connect_webview_ids,
