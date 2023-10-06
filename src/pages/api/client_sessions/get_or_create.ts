@@ -26,6 +26,8 @@ export default withRouteSpec({
 } as const)(async (req, res) => {
   // TODO if pubkey, fail if connect_webview_ids or connected_account_ids are provided
 
+  const { workspace_id } = req.auth
+
   const user_identifier_key =
     req.body?.user_identifier_key ??
     (req.headers["user-identifier-key"] as string | undefined) ??
@@ -40,7 +42,9 @@ export default withRouteSpec({
 
   if (user_identifier_key != null) {
     const existing_cs = req.db.client_sessions.find(
-      (cst) => cst.user_identifier_key === user_identifier_key
+      (cst) =>
+        cst.user_identifier_key === user_identifier_key &&
+        cst.workspace_id === workspace_id
     )
     if (existing_cs != null) {
       res.json({
@@ -51,7 +55,6 @@ export default withRouteSpec({
     }
   }
 
-  const { workspace_id } = req.auth
   const client_session = req.db.addClientSession({
     workspace_id,
     connect_webview_ids: req.body?.connect_webview_ids,
