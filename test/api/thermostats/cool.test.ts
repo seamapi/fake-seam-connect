@@ -12,15 +12,18 @@ test("POST /thermostats/cool with api key", async (t) => {
   const {
     data: { action_attempt },
     status,
-  } = await axios.get("/thermostats/cool", {
-    params: {
+  } = await axios.post(
+    "/thermostats/cool",
+    {
       device_id: seed_result.ecobee_device_1,
       cooling_set_point_celsius: 25,
     },
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
 
   t.is(200, status)
 
