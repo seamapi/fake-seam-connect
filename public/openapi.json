@@ -3731,264 +3731,6 @@
         "operationId": "internalTlmtryPost"
       }
     },
-    "/locks/lock_door": {
-      "post": {
-        "x-fern-sdk-group-name": ["locks"],
-        "x-fern-sdk-method-name": "lock_door",
-        "summary": "/locks/lock_door",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "action_attempt": {
-                      "discriminator": { "propertyName": "status" },
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "status": { "type": "string", "enum": ["success"] },
-                            "action_type": { "type": "string" },
-                            "action_attempt_id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "result": { "nullable": true },
-                            "error": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            }
-                          },
-                          "required": [
-                            "status",
-                            "action_type",
-                            "action_attempt_id",
-                            "error"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "status": { "type": "string", "enum": ["pending"] },
-                            "action_type": { "type": "string" },
-                            "action_attempt_id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "result": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            },
-                            "error": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            }
-                          },
-                          "required": [
-                            "status",
-                            "action_type",
-                            "action_attempt_id",
-                            "result",
-                            "error"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "status": { "type": "string", "enum": ["error"] },
-                            "action_type": { "type": "string" },
-                            "action_attempt_id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "result": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            },
-                            "error": {
-                              "type": "object",
-                              "properties": {
-                                "type": { "type": "string" },
-                                "message": { "type": "string" }
-                              },
-                              "required": ["type", "message"]
-                            }
-                          },
-                          "required": [
-                            "status",
-                            "action_type",
-                            "action_attempt_id",
-                            "result",
-                            "error"
-                          ]
-                        }
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["action_attempt", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "device_id": { "type": "string" },
-                  "sync": { "default": false, "type": "boolean" }
-                },
-                "required": ["device_id"]
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "locksLockDoorPost"
-      }
-    },
-    "/locks/unlock_door": {
-      "post": {
-        "x-fern-sdk-group-name": ["locks"],
-        "x-fern-sdk-method-name": "unlock_door",
-        "summary": "/locks/unlock_door",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "action_attempt": {
-                      "discriminator": { "propertyName": "status" },
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "status": { "type": "string", "enum": ["success"] },
-                            "action_type": { "type": "string" },
-                            "action_attempt_id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "result": { "nullable": true },
-                            "error": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            }
-                          },
-                          "required": [
-                            "status",
-                            "action_type",
-                            "action_attempt_id",
-                            "error"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "status": { "type": "string", "enum": ["pending"] },
-                            "action_type": { "type": "string" },
-                            "action_attempt_id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "result": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            },
-                            "error": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            }
-                          },
-                          "required": [
-                            "status",
-                            "action_type",
-                            "action_attempt_id",
-                            "result",
-                            "error"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "status": { "type": "string", "enum": ["error"] },
-                            "action_type": { "type": "string" },
-                            "action_attempt_id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "result": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            },
-                            "error": {
-                              "type": "object",
-                              "properties": {
-                                "type": { "type": "string" },
-                                "message": { "type": "string" }
-                              },
-                              "required": ["type", "message"]
-                            }
-                          },
-                          "required": [
-                            "status",
-                            "action_type",
-                            "action_attempt_id",
-                            "result",
-                            "error"
-                          ]
-                        }
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["action_attempt", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "device_id": { "type": "string" },
-                  "sync": { "default": false, "type": "boolean" }
-                },
-                "required": ["device_id"]
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "locksUnlockDoorPost"
-      }
-    },
     "/thermostats/get": {
       "post": {
         "x-fern-sdk-group-name": ["thermostats"],
@@ -4459,6 +4201,264 @@
         },
         "tags": [],
         "operationId": "thermostatsListPost"
+      }
+    },
+    "/locks/lock_door": {
+      "post": {
+        "x-fern-sdk-group-name": ["locks"],
+        "x-fern-sdk-method-name": "lock_door",
+        "summary": "/locks/lock_door",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "action_attempt": {
+                      "discriminator": { "propertyName": "status" },
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["success"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": { "nullable": true },
+                            "error": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "error"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["pending"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            },
+                            "error": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "result",
+                            "error"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["error"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            },
+                            "error": {
+                              "type": "object",
+                              "properties": {
+                                "type": { "type": "string" },
+                                "message": { "type": "string" }
+                              },
+                              "required": ["type", "message"]
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "result",
+                            "error"
+                          ]
+                        }
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["action_attempt", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device_id": { "type": "string" },
+                  "sync": { "default": false, "type": "boolean" }
+                },
+                "required": ["device_id"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "locksLockDoorPost"
+      }
+    },
+    "/locks/unlock_door": {
+      "post": {
+        "x-fern-sdk-group-name": ["locks"],
+        "x-fern-sdk-method-name": "unlock_door",
+        "summary": "/locks/unlock_door",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "action_attempt": {
+                      "discriminator": { "propertyName": "status" },
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["success"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": { "nullable": true },
+                            "error": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "error"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["pending"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            },
+                            "error": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "result",
+                            "error"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["error"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            },
+                            "error": {
+                              "type": "object",
+                              "properties": {
+                                "type": { "type": "string" },
+                                "message": { "type": "string" }
+                              },
+                              "required": ["type", "message"]
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "result",
+                            "error"
+                          ]
+                        }
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["action_attempt", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device_id": { "type": "string" },
+                  "sync": { "default": false, "type": "boolean" }
+                },
+                "required": ["device_id"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "locksUnlockDoorPost"
       }
     },
     "/access_codes/simulate/create_unmanaged_access_code": {
