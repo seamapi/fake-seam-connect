@@ -1,8 +1,9 @@
 import { z } from "zod"
 
-import { AccessCode, access_code } from "lib/zod/index.ts"
+import { access_code, type AccessCode } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
+
 import { json_body as create_ac_json_body } from "./create.ts"
 
 const json_body = z

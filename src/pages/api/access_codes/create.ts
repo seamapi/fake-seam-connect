@@ -1,9 +1,9 @@
+import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { access_code, timestamp } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { NotFoundException } from "nextlove"
 
 export const json_body = z.object({
   device_id: z.string(),
