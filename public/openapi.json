@@ -2960,6 +2960,273 @@
                                 "smartthings_metadata": { "nullable": true }
                               },
                               "required": ["online", "name", "model", "locked"]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "online": { "type": "boolean" },
+                                "name": { "type": "string" },
+                                "model": {
+                                  "type": "object",
+                                  "properties": {
+                                    "display_name": { "type": "string" },
+                                    "manufacturer_display_name": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "display_name",
+                                    "manufacturer_display_name"
+                                  ]
+                                },
+                                "battery": {
+                                  "type": "object",
+                                  "properties": {
+                                    "level": { "type": "number" },
+                                    "status": {
+                                      "type": "string",
+                                      "enum": [
+                                        "critical",
+                                        "low",
+                                        "good",
+                                        "full"
+                                      ]
+                                    }
+                                  },
+                                  "required": ["level", "status"]
+                                },
+                                "image_url": { "type": "string" },
+                                "temperature_fahrenheit": { "type": "number" },
+                                "temperature_celsius": { "type": "number" },
+                                "relative_humidity": { "type": "number" },
+                                "can_enable_automatic_heating": {
+                                  "type": "boolean"
+                                },
+                                "can_enable_automatic_cooling": {
+                                  "type": "boolean"
+                                },
+                                "available_hvac_mode_settings": {
+                                  "type": "string",
+                                  "enum": ["heat", "cool", "heat_cool", "off"]
+                                },
+                                "is_heating": { "type": "boolean" },
+                                "is_cooling": { "type": "boolean" },
+                                "is_fan_running": { "type": "boolean" },
+                                "is_temporary_manual_override_active": {
+                                  "type": "boolean"
+                                },
+                                "current_climate_setting": {
+                                  "type": "object",
+                                  "properties": {
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "automatic_heating_enabled",
+                                    "automatic_cooling_enabled",
+                                    "hvac_mode_setting",
+                                    "manual_override_allowed"
+                                  ]
+                                },
+                                "default_climate_setting": {
+                                  "type": "object",
+                                  "properties": {
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "automatic_heating_enabled",
+                                    "automatic_cooling_enabled",
+                                    "hvac_mode_setting",
+                                    "manual_override_allowed"
+                                  ]
+                                },
+                                "is_climate_setting_schedule_active": {
+                                  "type": "boolean"
+                                },
+                                "active_climate_setting_schedule": {
+                                  "type": "object",
+                                  "properties": {
+                                    "climate_setting_schedule_id": {
+                                      "type": "string",
+                                      "format": "uuid"
+                                    },
+                                    "schedule_type": {
+                                      "type": "string",
+                                      "enum": ["time_bound"]
+                                    },
+                                    "device_id": { "type": "string" },
+                                    "name": { "type": "string" },
+                                    "schedule_starts_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "schedule_ends_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "created_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "climate_setting_schedule_id",
+                                    "schedule_type",
+                                    "device_id",
+                                    "schedule_starts_at",
+                                    "schedule_ends_at",
+                                    "created_at"
+                                  ]
+                                },
+                                "is_cooling_available": { "type": "boolean" },
+                                "min_cooling_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "min_cooling_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "max_cooling_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "max_cooling_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "is_heating_available": { "type": "boolean" },
+                                "min_heating_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "min_heating_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "max_heating_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "max_heating_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "min_heating_cooling_delta_celsius": {
+                                  "type": "number"
+                                },
+                                "min_heating_cooling_delta_fahrenheit": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "online",
+                                "name",
+                                "model",
+                                "temperature_fahrenheit",
+                                "temperature_celsius",
+                                "relative_humidity",
+                                "can_enable_automatic_heating",
+                                "can_enable_automatic_cooling",
+                                "available_hvac_mode_settings",
+                                "is_heating",
+                                "is_cooling",
+                                "is_fan_running",
+                                "is_temporary_manual_override_active",
+                                "current_climate_setting",
+                                "is_climate_setting_schedule_active",
+                                "is_cooling_available",
+                                "min_cooling_set_point_celsius",
+                                "min_cooling_set_point_fahrenheit",
+                                "max_cooling_set_point_celsius",
+                                "max_cooling_set_point_fahrenheit",
+                                "is_heating_available",
+                                "min_heating_set_point_celsius",
+                                "min_heating_set_point_fahrenheit",
+                                "max_heating_set_point_celsius",
+                                "max_heating_set_point_fahrenheit",
+                                "min_heating_cooling_delta_celsius",
+                                "min_heating_cooling_delta_fahrenheit"
+                              ]
                             }
                           ]
                         },
@@ -3201,6 +3468,275 @@
                                   "name",
                                   "model",
                                   "locked"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "online": { "type": "boolean" },
+                                  "name": { "type": "string" },
+                                  "model": {
+                                    "type": "object",
+                                    "properties": {
+                                      "display_name": { "type": "string" },
+                                      "manufacturer_display_name": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "display_name",
+                                      "manufacturer_display_name"
+                                    ]
+                                  },
+                                  "battery": {
+                                    "type": "object",
+                                    "properties": {
+                                      "level": { "type": "number" },
+                                      "status": {
+                                        "type": "string",
+                                        "enum": [
+                                          "critical",
+                                          "low",
+                                          "good",
+                                          "full"
+                                        ]
+                                      }
+                                    },
+                                    "required": ["level", "status"]
+                                  },
+                                  "image_url": { "type": "string" },
+                                  "temperature_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "temperature_celsius": { "type": "number" },
+                                  "relative_humidity": { "type": "number" },
+                                  "can_enable_automatic_heating": {
+                                    "type": "boolean"
+                                  },
+                                  "can_enable_automatic_cooling": {
+                                    "type": "boolean"
+                                  },
+                                  "available_hvac_mode_settings": {
+                                    "type": "string",
+                                    "enum": ["heat", "cool", "heat_cool", "off"]
+                                  },
+                                  "is_heating": { "type": "boolean" },
+                                  "is_cooling": { "type": "boolean" },
+                                  "is_fan_running": { "type": "boolean" },
+                                  "is_temporary_manual_override_active": {
+                                    "type": "boolean"
+                                  },
+                                  "current_climate_setting": {
+                                    "type": "object",
+                                    "properties": {
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "automatic_heating_enabled",
+                                      "automatic_cooling_enabled",
+                                      "hvac_mode_setting",
+                                      "manual_override_allowed"
+                                    ]
+                                  },
+                                  "default_climate_setting": {
+                                    "type": "object",
+                                    "properties": {
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "automatic_heating_enabled",
+                                      "automatic_cooling_enabled",
+                                      "hvac_mode_setting",
+                                      "manual_override_allowed"
+                                    ]
+                                  },
+                                  "is_climate_setting_schedule_active": {
+                                    "type": "boolean"
+                                  },
+                                  "active_climate_setting_schedule": {
+                                    "type": "object",
+                                    "properties": {
+                                      "climate_setting_schedule_id": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                      },
+                                      "schedule_type": {
+                                        "type": "string",
+                                        "enum": ["time_bound"]
+                                      },
+                                      "device_id": { "type": "string" },
+                                      "name": { "type": "string" },
+                                      "schedule_starts_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                      },
+                                      "schedule_ends_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                      },
+                                      "created_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                      },
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "climate_setting_schedule_id",
+                                      "schedule_type",
+                                      "device_id",
+                                      "schedule_starts_at",
+                                      "schedule_ends_at",
+                                      "created_at"
+                                    ]
+                                  },
+                                  "is_cooling_available": { "type": "boolean" },
+                                  "min_cooling_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_cooling_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "max_cooling_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "max_cooling_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "is_heating_available": { "type": "boolean" },
+                                  "min_heating_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "max_heating_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "max_heating_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_cooling_delta_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_cooling_delta_fahrenheit": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "online",
+                                  "name",
+                                  "model",
+                                  "temperature_fahrenheit",
+                                  "temperature_celsius",
+                                  "relative_humidity",
+                                  "can_enable_automatic_heating",
+                                  "can_enable_automatic_cooling",
+                                  "available_hvac_mode_settings",
+                                  "is_heating",
+                                  "is_cooling",
+                                  "is_fan_running",
+                                  "is_temporary_manual_override_active",
+                                  "current_climate_setting",
+                                  "is_climate_setting_schedule_active",
+                                  "is_cooling_available",
+                                  "min_cooling_set_point_celsius",
+                                  "min_cooling_set_point_fahrenheit",
+                                  "max_cooling_set_point_celsius",
+                                  "max_cooling_set_point_fahrenheit",
+                                  "is_heating_available",
+                                  "min_heating_set_point_celsius",
+                                  "min_heating_set_point_fahrenheit",
+                                  "max_heating_set_point_celsius",
+                                  "max_heating_set_point_fahrenheit",
+                                  "min_heating_cooling_delta_celsius",
+                                  "min_heating_cooling_delta_fahrenheit"
                                 ]
                               }
                             ]
@@ -3608,6 +4144,137 @@
         "operationId": "locksUnlockDoorPost"
       }
     },
+    "/thermostats/cool": {
+      "post": {
+        "x-fern-sdk-group-name": ["thermostats"],
+        "x-fern-sdk-method-name": "cool",
+        "summary": "/thermostats/cool",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "action_attempt": {
+                      "discriminator": { "propertyName": "status" },
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["success"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": { "nullable": true },
+                            "error": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "error"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["pending"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            },
+                            "error": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "result",
+                            "error"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["error"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            },
+                            "error": {
+                              "type": "object",
+                              "properties": {
+                                "type": { "type": "string" },
+                                "message": { "type": "string" }
+                              },
+                              "required": ["type", "message"]
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "result",
+                            "error"
+                          ]
+                        }
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["action_attempt", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device_id": { "type": "string" },
+                  "cooling_set_point_celsius": { "type": "number" },
+                  "cooling_set_point_fahrenheit": { "type": "number" },
+                  "sync": { "default": false, "type": "boolean" }
+                },
+                "required": ["device_id"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "thermostatsCoolPost"
+      }
+    },
     "/thermostats/get": {
       "post": {
         "x-fern-sdk-group-name": ["thermostats"],
@@ -3769,6 +4436,273 @@
                                 "smartthings_metadata": { "nullable": true }
                               },
                               "required": ["online", "name", "model", "locked"]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "online": { "type": "boolean" },
+                                "name": { "type": "string" },
+                                "model": {
+                                  "type": "object",
+                                  "properties": {
+                                    "display_name": { "type": "string" },
+                                    "manufacturer_display_name": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "display_name",
+                                    "manufacturer_display_name"
+                                  ]
+                                },
+                                "battery": {
+                                  "type": "object",
+                                  "properties": {
+                                    "level": { "type": "number" },
+                                    "status": {
+                                      "type": "string",
+                                      "enum": [
+                                        "critical",
+                                        "low",
+                                        "good",
+                                        "full"
+                                      ]
+                                    }
+                                  },
+                                  "required": ["level", "status"]
+                                },
+                                "image_url": { "type": "string" },
+                                "temperature_fahrenheit": { "type": "number" },
+                                "temperature_celsius": { "type": "number" },
+                                "relative_humidity": { "type": "number" },
+                                "can_enable_automatic_heating": {
+                                  "type": "boolean"
+                                },
+                                "can_enable_automatic_cooling": {
+                                  "type": "boolean"
+                                },
+                                "available_hvac_mode_settings": {
+                                  "type": "string",
+                                  "enum": ["heat", "cool", "heat_cool", "off"]
+                                },
+                                "is_heating": { "type": "boolean" },
+                                "is_cooling": { "type": "boolean" },
+                                "is_fan_running": { "type": "boolean" },
+                                "is_temporary_manual_override_active": {
+                                  "type": "boolean"
+                                },
+                                "current_climate_setting": {
+                                  "type": "object",
+                                  "properties": {
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "automatic_heating_enabled",
+                                    "automatic_cooling_enabled",
+                                    "hvac_mode_setting",
+                                    "manual_override_allowed"
+                                  ]
+                                },
+                                "default_climate_setting": {
+                                  "type": "object",
+                                  "properties": {
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "automatic_heating_enabled",
+                                    "automatic_cooling_enabled",
+                                    "hvac_mode_setting",
+                                    "manual_override_allowed"
+                                  ]
+                                },
+                                "is_climate_setting_schedule_active": {
+                                  "type": "boolean"
+                                },
+                                "active_climate_setting_schedule": {
+                                  "type": "object",
+                                  "properties": {
+                                    "climate_setting_schedule_id": {
+                                      "type": "string",
+                                      "format": "uuid"
+                                    },
+                                    "schedule_type": {
+                                      "type": "string",
+                                      "enum": ["time_bound"]
+                                    },
+                                    "device_id": { "type": "string" },
+                                    "name": { "type": "string" },
+                                    "schedule_starts_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "schedule_ends_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "created_at": {
+                                      "type": "string",
+                                      "format": "date-time"
+                                    },
+                                    "automatic_heating_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "automatic_cooling_enabled": {
+                                      "type": "boolean"
+                                    },
+                                    "hvac_mode_setting": {
+                                      "type": "string",
+                                      "enum": [
+                                        "off",
+                                        "heat",
+                                        "cool",
+                                        "heat_cool"
+                                      ]
+                                    },
+                                    "cooling_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_celsius": {
+                                      "type": "number"
+                                    },
+                                    "cooling_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "heating_set_point_fahrenheit": {
+                                      "type": "number"
+                                    },
+                                    "manual_override_allowed": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "climate_setting_schedule_id",
+                                    "schedule_type",
+                                    "device_id",
+                                    "schedule_starts_at",
+                                    "schedule_ends_at",
+                                    "created_at"
+                                  ]
+                                },
+                                "is_cooling_available": { "type": "boolean" },
+                                "min_cooling_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "min_cooling_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "max_cooling_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "max_cooling_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "is_heating_available": { "type": "boolean" },
+                                "min_heating_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "min_heating_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "max_heating_set_point_celsius": {
+                                  "type": "number"
+                                },
+                                "max_heating_set_point_fahrenheit": {
+                                  "type": "number"
+                                },
+                                "min_heating_cooling_delta_celsius": {
+                                  "type": "number"
+                                },
+                                "min_heating_cooling_delta_fahrenheit": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "online",
+                                "name",
+                                "model",
+                                "temperature_fahrenheit",
+                                "temperature_celsius",
+                                "relative_humidity",
+                                "can_enable_automatic_heating",
+                                "can_enable_automatic_cooling",
+                                "available_hvac_mode_settings",
+                                "is_heating",
+                                "is_cooling",
+                                "is_fan_running",
+                                "is_temporary_manual_override_active",
+                                "current_climate_setting",
+                                "is_climate_setting_schedule_active",
+                                "is_cooling_available",
+                                "min_cooling_set_point_celsius",
+                                "min_cooling_set_point_fahrenheit",
+                                "max_cooling_set_point_celsius",
+                                "max_cooling_set_point_fahrenheit",
+                                "is_heating_available",
+                                "min_heating_set_point_celsius",
+                                "min_heating_set_point_fahrenheit",
+                                "max_heating_set_point_celsius",
+                                "max_heating_set_point_fahrenheit",
+                                "min_heating_cooling_delta_celsius",
+                                "min_heating_cooling_delta_fahrenheit"
+                              ]
                             }
                           ]
                         },
@@ -4012,6 +4946,275 @@
                                   "name",
                                   "model",
                                   "locked"
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "online": { "type": "boolean" },
+                                  "name": { "type": "string" },
+                                  "model": {
+                                    "type": "object",
+                                    "properties": {
+                                      "display_name": { "type": "string" },
+                                      "manufacturer_display_name": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "display_name",
+                                      "manufacturer_display_name"
+                                    ]
+                                  },
+                                  "battery": {
+                                    "type": "object",
+                                    "properties": {
+                                      "level": { "type": "number" },
+                                      "status": {
+                                        "type": "string",
+                                        "enum": [
+                                          "critical",
+                                          "low",
+                                          "good",
+                                          "full"
+                                        ]
+                                      }
+                                    },
+                                    "required": ["level", "status"]
+                                  },
+                                  "image_url": { "type": "string" },
+                                  "temperature_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "temperature_celsius": { "type": "number" },
+                                  "relative_humidity": { "type": "number" },
+                                  "can_enable_automatic_heating": {
+                                    "type": "boolean"
+                                  },
+                                  "can_enable_automatic_cooling": {
+                                    "type": "boolean"
+                                  },
+                                  "available_hvac_mode_settings": {
+                                    "type": "string",
+                                    "enum": ["heat", "cool", "heat_cool", "off"]
+                                  },
+                                  "is_heating": { "type": "boolean" },
+                                  "is_cooling": { "type": "boolean" },
+                                  "is_fan_running": { "type": "boolean" },
+                                  "is_temporary_manual_override_active": {
+                                    "type": "boolean"
+                                  },
+                                  "current_climate_setting": {
+                                    "type": "object",
+                                    "properties": {
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "automatic_heating_enabled",
+                                      "automatic_cooling_enabled",
+                                      "hvac_mode_setting",
+                                      "manual_override_allowed"
+                                    ]
+                                  },
+                                  "default_climate_setting": {
+                                    "type": "object",
+                                    "properties": {
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "automatic_heating_enabled",
+                                      "automatic_cooling_enabled",
+                                      "hvac_mode_setting",
+                                      "manual_override_allowed"
+                                    ]
+                                  },
+                                  "is_climate_setting_schedule_active": {
+                                    "type": "boolean"
+                                  },
+                                  "active_climate_setting_schedule": {
+                                    "type": "object",
+                                    "properties": {
+                                      "climate_setting_schedule_id": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                      },
+                                      "schedule_type": {
+                                        "type": "string",
+                                        "enum": ["time_bound"]
+                                      },
+                                      "device_id": { "type": "string" },
+                                      "name": { "type": "string" },
+                                      "schedule_starts_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                      },
+                                      "schedule_ends_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                      },
+                                      "created_at": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                      },
+                                      "automatic_heating_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "automatic_cooling_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "hvac_mode_setting": {
+                                        "type": "string",
+                                        "enum": [
+                                          "off",
+                                          "heat",
+                                          "cool",
+                                          "heat_cool"
+                                        ]
+                                      },
+                                      "cooling_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_celsius": {
+                                        "type": "number"
+                                      },
+                                      "cooling_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "heating_set_point_fahrenheit": {
+                                        "type": "number"
+                                      },
+                                      "manual_override_allowed": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "climate_setting_schedule_id",
+                                      "schedule_type",
+                                      "device_id",
+                                      "schedule_starts_at",
+                                      "schedule_ends_at",
+                                      "created_at"
+                                    ]
+                                  },
+                                  "is_cooling_available": { "type": "boolean" },
+                                  "min_cooling_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_cooling_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "max_cooling_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "max_cooling_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "is_heating_available": { "type": "boolean" },
+                                  "min_heating_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "max_heating_set_point_celsius": {
+                                    "type": "number"
+                                  },
+                                  "max_heating_set_point_fahrenheit": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_cooling_delta_celsius": {
+                                    "type": "number"
+                                  },
+                                  "min_heating_cooling_delta_fahrenheit": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "online",
+                                  "name",
+                                  "model",
+                                  "temperature_fahrenheit",
+                                  "temperature_celsius",
+                                  "relative_humidity",
+                                  "can_enable_automatic_heating",
+                                  "can_enable_automatic_cooling",
+                                  "available_hvac_mode_settings",
+                                  "is_heating",
+                                  "is_cooling",
+                                  "is_fan_running",
+                                  "is_temporary_manual_override_active",
+                                  "current_climate_setting",
+                                  "is_climate_setting_schedule_active",
+                                  "is_cooling_available",
+                                  "min_cooling_set_point_celsius",
+                                  "min_cooling_set_point_fahrenheit",
+                                  "max_cooling_set_point_celsius",
+                                  "max_cooling_set_point_fahrenheit",
+                                  "is_heating_available",
+                                  "min_heating_set_point_celsius",
+                                  "min_heating_set_point_fahrenheit",
+                                  "max_heating_set_point_celsius",
+                                  "max_heating_set_point_fahrenheit",
+                                  "min_heating_cooling_delta_celsius",
+                                  "min_heating_cooling_delta_fahrenheit"
                                 ]
                               }
                             ]

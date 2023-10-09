@@ -88,6 +88,9 @@ export const seed = (db: Database): Seed => {
     device_type: "ecobee_thermostat",
     name: "Thermostat 1",
     workspace_id: "seed_workspace_1",
+    properties: {
+      is_cooling_available: true,
+    },
   })
 
   db.addConnectedAccount({

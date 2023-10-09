@@ -101,7 +101,11 @@ export const device = z.object({
   device_id: z.string(),
   device_type: deviceType,
   capabilities_supported: z.array(z.string()),
-  properties: z.union([common_device_properties, lock_device_properties]),
+  properties: z.union([
+    common_device_properties,
+    lock_device_properties,
+    thermostat_device_properties,
+  ]),
   location: z.any(),
   connected_account_id: z.string(),
   is_managed: z.boolean(),
