@@ -53,9 +53,9 @@ export default withRouteSpec({
             type: "time_bound",
           }
         : { type: "ongoing" }),
-      common_code_key: req_code
-        ? null
-        : `auto_set_by_fake_create_multiple_${code}`,
+      ...(!req_code
+        ? { common_code_key: `auto_set_by_fake_create_multiple_${code}` }
+        : {}),
     })
 
     created_access_codes.push(access_code)

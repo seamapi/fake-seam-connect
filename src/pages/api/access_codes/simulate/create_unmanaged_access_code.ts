@@ -16,10 +16,18 @@ export default withRouteSpec({
   const { device_id, name, code: req_code } = req.body
 
   const device = req.db.devices.find((d) => d.device_id === device_id)
+
+  if (device == null) {
+    throw new NotFoundException({
+      type: "device_not_found",
+      message: "Device not found",
+    })
+  }
+
   if (device?.device_type !== "august_lock") {
     throw new BadRequestException({
       type: "device_type_not_supported",
-      message: `Device type "${device?.device_type}" is not supported for simulating creation of unmanaged codes`,
+      message: `Device type "${device.device_type}" is not supported for simulating creation of unmanaged codes`,
     })
   }
 
