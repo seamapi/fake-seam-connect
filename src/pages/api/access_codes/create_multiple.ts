@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { access_code,type AccessCode } from "lib/zod/index.ts"
+import { access_code, type AccessCode } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
