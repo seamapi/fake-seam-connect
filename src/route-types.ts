@@ -741,6 +741,83 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/action_attempts/get": {
+    route: "/action_attempts/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      action_attempt_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
+  "/action_attempts/list": {
+    route: "/action_attempts/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      action_attempt_ids: string[]
+    }
+    formData: {}
+    jsonResponse: {
+      action_attempts: (
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      )[]
+      ok: boolean
+    }
+  }
   "/client_sessions/create": {
     route: "/client_sessions/create"
     method: "POST" | "PUT"
