@@ -1,4 +1,4 @@
-import { BadRequestException } from "nextlove"
+import { BadRequestException, NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { access_code } from "lib/zod/index.ts"
