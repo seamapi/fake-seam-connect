@@ -90,6 +90,7 @@ export const seed = (db: Database): Seed => {
     workspace_id: "seed_workspace_1",
     properties: {
       is_cooling_available: true,
+      is_heating_available: true,
     },
   })
 
