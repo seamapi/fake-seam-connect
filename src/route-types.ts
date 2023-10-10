@@ -873,6 +873,20 @@ export type Routes = {
     formData: {}
     jsonResponse: {}
   }
+  "/connected_accounts/delete": {
+    route: "/connected_accounts/delete"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {
+      connected_account_id: string
+      sync?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/connected_accounts/get": {
     route: "/connected_accounts/get"
     method: "GET" | "POST"
