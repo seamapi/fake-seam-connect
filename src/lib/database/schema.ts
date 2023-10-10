@@ -80,6 +80,9 @@ export interface DatabaseMethods {
     connected_account_id?: string
     created_at?: string
   }) => ConnectedAccount
+  deleteConnectedAccount: (
+    params: Pick<ConnectedAccount, "connected_account_id">
+  ) => void
   addDevice: (params: {
     device_id?: string
     device_type: Device["device_type"]
@@ -91,6 +94,9 @@ export interface DatabaseMethods {
     warnings?: Device["warnings"]
     created_at?: string
   }) => Device
+  deleteDevice: (
+    params: Pick<Device, "device_id"> | { device_ids: string[] }
+  ) => void
   addAccessCode: (
     params: {
       workspace_id: string
@@ -105,7 +111,9 @@ export interface DatabaseMethods {
     device_id?: string
   }) => AccessCode | undefined
   updateAccessCode: (params: Partial<AccessCode>) => AccessCode
-  deleteAccessCode: (params: AccessCode) => void
+  deleteAccessCode: (
+    params: Pick<AccessCode, "access_code_id"> | { access_code_ids: string[] }
+  ) => void
   setPulledBackupAccessCodeId: (params: {
     original_access_code_id: string
     pulled_backup_access_code_id: string

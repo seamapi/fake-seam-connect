@@ -155,6 +155,38 @@ const initializer = immer<Database>((set, get) => ({
     return new_device
   },
 
+  deleteDevice(params) {
+    if ("device_ids" in params) {
+      set({
+        devices: [
+          ...get().devices.filter((device) => {
+            const is_target = params.device_ids.includes(device.device_id)
+
+            return !is_target
+          }),
+        ],
+      })
+      return
+    }
+
+    const target = get().devices.find(
+      (device) => device.device_id === params.device_id
+    )
+    if (target == null) {
+      throw new Error("Could not find device with device_id")
+    }
+
+    set({
+      devices: [
+        ...get().devices.filter((device) => {
+          const is_target = device.device_id === target.device_id
+
+          return !is_target
+        }),
+      ],
+    })
+  },
+
   addConnectedAccount(params) {
     // @ts-expect-error  Partially implemented
     const new_connected_account: ConnectedAccount = {
@@ -169,6 +201,30 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_connected_account
+  },
+
+  deleteConnectedAccount(params) {
+    const target = get().connected_accounts.find(
+      (connected_account) =>
+        connected_account.connected_account_id === params.connected_account_id
+    )
+    if (target == null) {
+      throw new Error(
+        "Could not find connected_account with connected_account_id"
+      )
+    }
+
+    set({
+      connected_accounts: [
+        ...get().connected_accounts.filter((connected_account) => {
+          const is_target =
+            connected_account.connected_account_id ===
+            target.connected_account_id
+
+          return !is_target
+        }),
+      ],
+    })
   },
 
   updateConnectWebview(params) {
@@ -243,6 +299,21 @@ const initializer = immer<Database>((set, get) => ({
   },
 
   deleteAccessCode(params) {
+    if ("access_code_ids" in params) {
+      set({
+        access_codes: [
+          ...get().access_codes.filter((access_code) => {
+            const is_target = params.access_code_ids.includes(
+              access_code.access_code_id
+            )
+
+            return !is_target
+          }),
+        ],
+      })
+      return
+    }
+
     const target = get().access_codes.find(
       (access_code) => access_code.access_code_id === params.access_code_id
     )
