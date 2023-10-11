@@ -490,6 +490,387 @@
         "operationId": "accessCodesCreatePost"
       }
     },
+    "/access_codes/create_multiple": {
+      "post": {
+        "x-fern-sdk-group-name": ["access_codes"],
+        "x-fern-sdk-method-name": "create_multiple",
+        "summary": "/access_codes/create_multiple",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_codes": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "access_code_id": { "type": "string" },
+                              "device_id": { "type": "string" },
+                              "name": { "type": "string" },
+                              "code": { "type": "string" },
+                              "errors": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "error_code": { "type": "string" },
+                                    "message": { "type": "string" }
+                                  },
+                                  "required": ["error_code", "message"]
+                                }
+                              },
+                              "warnings": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "warning_code": { "type": "string" },
+                                    "message": { "type": "string" }
+                                  },
+                                  "required": ["warning_code", "message"]
+                                }
+                              },
+                              "is_managed": { "type": "boolean" },
+                              "is_backup": { "type": "boolean" },
+                              "pulled_backup_access_code_id": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "is_backup_access_code_available": {
+                                "type": "boolean"
+                              },
+                              "is_external_modification_allowed": {
+                                "type": "boolean"
+                              },
+                              "common_code_key": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "type": { "type": "string", "enum": ["ongoing"] },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "setting",
+                                  "set",
+                                  "removing",
+                                  "unset",
+                                  "unknown"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "access_code_id",
+                              "device_id",
+                              "name",
+                              "code",
+                              "errors",
+                              "warnings",
+                              "is_managed",
+                              "is_backup_access_code_available",
+                              "is_external_modification_allowed",
+                              "type",
+                              "created_at",
+                              "status"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "access_code_id": { "type": "string" },
+                              "device_id": { "type": "string" },
+                              "name": { "type": "string" },
+                              "code": { "type": "string" },
+                              "errors": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "error_code": { "type": "string" },
+                                    "message": { "type": "string" }
+                                  },
+                                  "required": ["error_code", "message"]
+                                }
+                              },
+                              "warnings": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "warning_code": { "type": "string" },
+                                    "message": { "type": "string" }
+                                  },
+                                  "required": ["warning_code", "message"]
+                                }
+                              },
+                              "is_managed": { "type": "boolean" },
+                              "is_backup": { "type": "boolean" },
+                              "pulled_backup_access_code_id": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "is_backup_access_code_available": {
+                                "type": "boolean"
+                              },
+                              "is_external_modification_allowed": {
+                                "type": "boolean"
+                              },
+                              "common_code_key": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": ["time_bound"]
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "setting",
+                                  "set",
+                                  "removing",
+                                  "unset",
+                                  "unknown"
+                                ]
+                              },
+                              "starts_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "ends_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              }
+                            },
+                            "required": [
+                              "access_code_id",
+                              "device_id",
+                              "name",
+                              "code",
+                              "errors",
+                              "warnings",
+                              "is_managed",
+                              "is_backup_access_code_available",
+                              "is_external_modification_allowed",
+                              "type",
+                              "created_at",
+                              "status",
+                              "starts_at",
+                              "ends_at"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "access_code_id": { "type": "string" },
+                              "device_id": { "type": "string" },
+                              "name": { "type": "string" },
+                              "code": { "type": "string" },
+                              "errors": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "error_code": { "type": "string" },
+                                    "message": { "type": "string" }
+                                  },
+                                  "required": ["error_code", "message"]
+                                }
+                              },
+                              "warnings": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "warning_code": { "type": "string" },
+                                    "message": { "type": "string" }
+                                  },
+                                  "required": ["warning_code", "message"]
+                                }
+                              },
+                              "is_managed": { "type": "boolean" },
+                              "is_backup": { "type": "boolean" },
+                              "pulled_backup_access_code_id": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "is_backup_access_code_available": {
+                                "type": "boolean"
+                              },
+                              "is_external_modification_allowed": {
+                                "type": "boolean"
+                              },
+                              "status": { "type": "string", "enum": ["set"] },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "type": { "type": "string", "enum": ["ongoing"] }
+                            },
+                            "required": [
+                              "access_code_id",
+                              "device_id",
+                              "name",
+                              "code",
+                              "errors",
+                              "warnings",
+                              "is_managed",
+                              "is_backup_access_code_available",
+                              "is_external_modification_allowed",
+                              "status",
+                              "created_at",
+                              "type"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "access_code_id": { "type": "string" },
+                              "device_id": { "type": "string" },
+                              "name": { "type": "string" },
+                              "code": { "type": "string" },
+                              "errors": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "error_code": { "type": "string" },
+                                    "message": { "type": "string" }
+                                  },
+                                  "required": ["error_code", "message"]
+                                }
+                              },
+                              "warnings": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "warning_code": { "type": "string" },
+                                    "message": { "type": "string" }
+                                  },
+                                  "required": ["warning_code", "message"]
+                                }
+                              },
+                              "is_managed": { "type": "boolean" },
+                              "is_backup": { "type": "boolean" },
+                              "pulled_backup_access_code_id": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "is_backup_access_code_available": {
+                                "type": "boolean"
+                              },
+                              "is_external_modification_allowed": {
+                                "type": "boolean"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": ["set", "unset"]
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": ["time_bound"]
+                              },
+                              "starts_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "ends_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              }
+                            },
+                            "required": [
+                              "access_code_id",
+                              "device_id",
+                              "name",
+                              "code",
+                              "errors",
+                              "warnings",
+                              "is_managed",
+                              "is_backup_access_code_available",
+                              "is_external_modification_allowed",
+                              "status",
+                              "created_at",
+                              "type",
+                              "starts_at",
+                              "ends_at"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["access_codes", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device_ids": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "behavior_when_code_cannot_be_shared": {
+                    "default": "throw",
+                    "type": "string",
+                    "enum": ["throw", "create_random_code"]
+                  },
+                  "name": { "type": "string" },
+                  "code": { "type": "string" },
+                  "starts_at": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "string", "format": "date-time" }
+                    ]
+                  },
+                  "ends_at": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "string", "format": "date-time" }
+                    ]
+                  },
+                  "use_backup_access_code_pool": {
+                    "default": false,
+                    "type": "boolean"
+                  }
+                },
+                "required": ["device_ids"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "accessCodesCreateMultiplePost"
+      }
+    },
     "/access_codes/delete": {
       "post": {
         "x-fern-sdk-group-name": ["access_codes"],
@@ -5414,6 +5795,365 @@
         "operationId": "thermostatsListPost"
       }
     },
+    "/access_codes/simulate/create_unmanaged_access_code": {
+      "post": {
+        "x-fern-sdk-group-name": ["access_codes", "simulate"],
+        "x-fern-sdk-method-name": "create_unmanaged_access_code",
+        "summary": "/access_codes/simulate/create_unmanaged_access_code",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_code": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "access_code_id": { "type": "string" },
+                            "device_id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "code": { "type": "string" },
+                            "errors": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "error_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["error_code", "message"]
+                              }
+                            },
+                            "warnings": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "warning_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["warning_code", "message"]
+                              }
+                            },
+                            "is_managed": { "type": "boolean" },
+                            "is_backup": { "type": "boolean" },
+                            "pulled_backup_access_code_id": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "is_backup_access_code_available": {
+                              "type": "boolean"
+                            },
+                            "is_external_modification_allowed": {
+                              "type": "boolean"
+                            },
+                            "common_code_key": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "type": { "type": "string", "enum": ["ongoing"] },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": [
+                                "setting",
+                                "set",
+                                "removing",
+                                "unset",
+                                "unknown"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "access_code_id",
+                            "device_id",
+                            "name",
+                            "code",
+                            "errors",
+                            "warnings",
+                            "is_managed",
+                            "is_backup_access_code_available",
+                            "is_external_modification_allowed",
+                            "type",
+                            "created_at",
+                            "status"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "access_code_id": { "type": "string" },
+                            "device_id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "code": { "type": "string" },
+                            "errors": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "error_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["error_code", "message"]
+                              }
+                            },
+                            "warnings": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "warning_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["warning_code", "message"]
+                              }
+                            },
+                            "is_managed": { "type": "boolean" },
+                            "is_backup": { "type": "boolean" },
+                            "pulled_backup_access_code_id": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "is_backup_access_code_available": {
+                              "type": "boolean"
+                            },
+                            "is_external_modification_allowed": {
+                              "type": "boolean"
+                            },
+                            "common_code_key": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "type": {
+                              "type": "string",
+                              "enum": ["time_bound"]
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": [
+                                "setting",
+                                "set",
+                                "removing",
+                                "unset",
+                                "unknown"
+                              ]
+                            },
+                            "starts_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "ends_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          },
+                          "required": [
+                            "access_code_id",
+                            "device_id",
+                            "name",
+                            "code",
+                            "errors",
+                            "warnings",
+                            "is_managed",
+                            "is_backup_access_code_available",
+                            "is_external_modification_allowed",
+                            "type",
+                            "created_at",
+                            "status",
+                            "starts_at",
+                            "ends_at"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "access_code_id": { "type": "string" },
+                            "device_id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "code": { "type": "string" },
+                            "errors": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "error_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["error_code", "message"]
+                              }
+                            },
+                            "warnings": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "warning_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["warning_code", "message"]
+                              }
+                            },
+                            "is_managed": { "type": "boolean" },
+                            "is_backup": { "type": "boolean" },
+                            "pulled_backup_access_code_id": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "is_backup_access_code_available": {
+                              "type": "boolean"
+                            },
+                            "is_external_modification_allowed": {
+                              "type": "boolean"
+                            },
+                            "status": { "type": "string", "enum": ["set"] },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "type": { "type": "string", "enum": ["ongoing"] }
+                          },
+                          "required": [
+                            "access_code_id",
+                            "device_id",
+                            "name",
+                            "code",
+                            "errors",
+                            "warnings",
+                            "is_managed",
+                            "is_backup_access_code_available",
+                            "is_external_modification_allowed",
+                            "status",
+                            "created_at",
+                            "type"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "access_code_id": { "type": "string" },
+                            "device_id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "code": { "type": "string" },
+                            "errors": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "error_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["error_code", "message"]
+                              }
+                            },
+                            "warnings": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "warning_code": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["warning_code", "message"]
+                              }
+                            },
+                            "is_managed": { "type": "boolean" },
+                            "is_backup": { "type": "boolean" },
+                            "pulled_backup_access_code_id": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "is_backup_access_code_available": {
+                              "type": "boolean"
+                            },
+                            "is_external_modification_allowed": {
+                              "type": "boolean"
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": ["set", "unset"]
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "type": {
+                              "type": "string",
+                              "enum": ["time_bound"]
+                            },
+                            "starts_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "ends_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          },
+                          "required": [
+                            "access_code_id",
+                            "device_id",
+                            "name",
+                            "code",
+                            "errors",
+                            "warnings",
+                            "is_managed",
+                            "is_backup_access_code_available",
+                            "is_external_modification_allowed",
+                            "status",
+                            "created_at",
+                            "type",
+                            "starts_at",
+                            "ends_at"
+                          ]
+                        }
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["access_code", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device_id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "code": {
+                    "type": "string",
+                    "minLength": 4,
+                    "maxLength": 8,
+                    "pattern": "^\\d+$"
+                  }
+                },
+                "required": ["device_id", "name", "code"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "accessCodesSimulateCreateUnmanagedAccessCodePost"
+      }
+    },
     "/access_codes/unmanaged/list": {
       "get": {
         "x-fern-sdk-group-name": ["access_codes", "unmanaged"],
@@ -5762,6 +6502,87 @@
         ],
         "tags": [],
         "operationId": "accessCodesUnmanagedListGet"
+      }
+    },
+    "/access_codes/unmanaged/update": {
+      "patch": {
+        "x-fern-ignore": true,
+        "summary": "/access_codes/unmanaged/update",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "access_code_id": { "type": "string" },
+                  "is_managed": { "type": "boolean" },
+                  "allow_external_modification": { "type": "boolean" },
+                  "force": { "type": "boolean" }
+                },
+                "required": ["access_code_id", "is_managed"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "accessCodesUnmanagedUpdatePatch"
+      },
+      "post": {
+        "x-fern-sdk-group-name": ["access_codes", "unmanaged"],
+        "x-fern-sdk-method-name": "update",
+        "summary": "/access_codes/unmanaged/update",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "access_code_id": { "type": "string" },
+                  "is_managed": { "type": "boolean" },
+                  "allow_external_modification": { "type": "boolean" },
+                  "force": { "type": "boolean" }
+                },
+                "required": ["access_code_id", "is_managed"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "accessCodesUnmanagedUpdatePost"
       }
     },
     "/internal/device_models/list": {
