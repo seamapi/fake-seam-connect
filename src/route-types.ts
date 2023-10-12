@@ -314,7 +314,9 @@ export type Routes = {
     queryParams: {}
     jsonBody: {}
     commonParams: {
-      access_code_id: string
+      device_id?: string | undefined
+      access_code_id?: string | undefined
+      code?: string | undefined
     }
     formData: {}
     jsonResponse: {
@@ -422,7 +424,8 @@ export type Routes = {
     queryParams: {}
     jsonBody: {}
     commonParams: {
-      device_id: string
+      device_id?: string | undefined
+      access_code_ids?: string[] | undefined
     }
     formData: {}
     jsonResponse: {
