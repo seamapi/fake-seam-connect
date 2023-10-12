@@ -66,6 +66,8 @@ export interface DatabaseMethods {
     workspace_id: WorkspaceId
     connect_webview_id?: string
     created_at?: string
+    accepted_providers?: string[]
+    custom_redirect_url?: string
   }) => ConnectWebview
   updateConnectWebview: (params: {
     connect_webview_id: string
