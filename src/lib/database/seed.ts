@@ -75,7 +75,7 @@ export const seed = (db: Database): Seed => {
     properties: {
       name: "Fake August Lock 1",
       manufacturer: "august",
-    }
+    },
   })
 
   db.addDevice({
