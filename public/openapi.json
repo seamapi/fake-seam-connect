@@ -31,95 +31,6 @@
         "operationId": "healthGet"
       }
     },
-    "/_fake/complete_connect_webview": {
-      "post": {
-        "x-fern-sdk-group-name": ["_fake"],
-        "x-fern-sdk-method-name": "complete_connect_webview",
-        "summary": "/_fake/complete_connect_webview",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": { "ok": { "type": "boolean" } },
-                  "required": ["ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": { "connect_webview_id": { "type": "string" } },
-                "required": ["connect_webview_id"]
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "fakeCompleteConnectWebviewPost"
-      }
-    },
-    "/_fake/database": {
-      "post": {
-        "x-fern-sdk-group-name": ["_fake"],
-        "x-fern-sdk-method-name": "database",
-        "summary": "/_fake/database",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": { "ok": { "type": "boolean" } },
-                  "required": ["ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "requestBody": {
-          "content": { "application/json": { "schema": { "nullable": true } } }
-        },
-        "tags": [],
-        "operationId": "fakeDatabasePost"
-      },
-      "put": {
-        "x-fern-ignore": true,
-        "summary": "/_fake/database",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": { "ok": { "type": "boolean" } },
-                  "required": ["ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "requestBody": {
-          "content": { "application/json": { "schema": { "nullable": true } } }
-        },
-        "tags": [],
-        "operationId": "fakeDatabasePut"
-      }
-    },
     "/access_codes/create": {
       "post": {
         "x-fern-sdk-group-name": ["access_codes"],
@@ -2472,6 +2383,95 @@
         "operationId": "accessCodesUpdatePost"
       }
     },
+    "/_fake/complete_connect_webview": {
+      "post": {
+        "x-fern-sdk-group-name": ["_fake"],
+        "x-fern-sdk-method-name": "complete_connect_webview",
+        "summary": "/_fake/complete_connect_webview",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "connect_webview_id": { "type": "string" } },
+                "required": ["connect_webview_id"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "fakeCompleteConnectWebviewPost"
+      }
+    },
+    "/_fake/database": {
+      "post": {
+        "x-fern-sdk-group-name": ["_fake"],
+        "x-fern-sdk-method-name": "database",
+        "summary": "/_fake/database",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "requestBody": {
+          "content": { "application/json": { "schema": { "nullable": true } } }
+        },
+        "tags": [],
+        "operationId": "fakeDatabasePost"
+      },
+      "put": {
+        "x-fern-ignore": true,
+        "summary": "/_fake/database",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "requestBody": {
+          "content": { "application/json": { "schema": { "nullable": true } } }
+        },
+        "tags": [],
+        "operationId": "fakeDatabasePut"
+      }
+    },
     "/action_attempts/get": {
       "post": {
         "x-fern-sdk-group-name": ["action_attempts"],
@@ -3166,13 +3166,18 @@
                           "items": { "type": "string" }
                         },
                         "connected_account_id": { "type": "string" },
-                        "created_at": { "type": "string" }
+                        "created_at": { "type": "string" },
+                        "custom_redirect_url": {
+                          "type": "string",
+                          "nullable": true
+                        }
                       },
                       "required": [
                         "connect_webview_id",
                         "workspace_id",
                         "status",
-                        "created_at"
+                        "created_at",
+                        "custom_redirect_url"
                       ]
                     },
                     "ok": { "type": "boolean" }
@@ -3194,8 +3199,43 @@
                 "properties": {
                   "accepted_providers": {
                     "type": "array",
-                    "items": { "type": "string" }
-                  }
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "akuvox",
+                        "august",
+                        "avigilon_alta",
+                        "brivo",
+                        "butterflymx",
+                        "schlage",
+                        "smartthings",
+                        "yale",
+                        "genie",
+                        "doorking",
+                        "salto",
+                        "lockly",
+                        "ttlock",
+                        "linear",
+                        "noiseaware",
+                        "nuki",
+                        "seam_relay_admin",
+                        "igloo",
+                        "kwikset",
+                        "minut",
+                        "my_2n",
+                        "controlbyweb",
+                        "nest",
+                        "igloohome",
+                        "ecobee",
+                        "hubitat",
+                        "four_suites",
+                        "dormakaba_oracode",
+                        "pti",
+                        "wyze"
+                      ]
+                    }
+                  },
+                  "custom_redirect_url": { "type": "string" }
                 }
               }
             }
@@ -3232,13 +3272,18 @@
                           "items": { "type": "string" }
                         },
                         "connected_account_id": { "type": "string" },
-                        "created_at": { "type": "string" }
+                        "created_at": { "type": "string" },
+                        "custom_redirect_url": {
+                          "type": "string",
+                          "nullable": true
+                        }
                       },
                       "required": [
                         "connect_webview_id",
                         "workspace_id",
                         "status",
-                        "created_at"
+                        "created_at",
+                        "custom_redirect_url"
                       ]
                     },
                     "ok": { "type": "boolean" }
@@ -3296,13 +3341,18 @@
                             "items": { "type": "string" }
                           },
                           "connected_account_id": { "type": "string" },
-                          "created_at": { "type": "string" }
+                          "created_at": { "type": "string" },
+                          "custom_redirect_url": {
+                            "type": "string",
+                            "nullable": true
+                          }
                         },
                         "required": [
                           "connect_webview_id",
                           "workspace_id",
                           "status",
-                          "created_at"
+                          "created_at",
+                          "custom_redirect_url"
                         ]
                       }
                     },
@@ -3347,13 +3397,18 @@
                             "items": { "type": "string" }
                           },
                           "connected_account_id": { "type": "string" },
-                          "created_at": { "type": "string" }
+                          "created_at": { "type": "string" },
+                          "custom_redirect_url": {
+                            "type": "string",
+                            "nullable": true
+                          }
                         },
                         "required": [
                           "connect_webview_id",
                           "workspace_id",
                           "status",
-                          "created_at"
+                          "created_at",
+                          "custom_redirect_url"
                         ]
                       }
                     },
