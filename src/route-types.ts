@@ -2190,8 +2190,7 @@ export type Routes = {
     route: "/thermostats/heat_cool"
     method: "GET" | "POST"
     queryParams: {}
-    jsonBody: {}
-    commonParams: {
+    jsonBody: {
       device_id: string
       heating_set_point_celsius?: number | undefined
       heating_set_point_fahrenheit?: number | undefined
@@ -2199,6 +2198,7 @@ export type Routes = {
       cooling_set_point_fahrenheit?: number | undefined
       sync?: boolean
     }
+    commonParams: {}
     formData: {}
     jsonResponse: {
       action_attempt:
