@@ -2472,272 +2472,6 @@
         "operationId": "accessCodesUpdatePost"
       }
     },
-    "/action_attempts/get": {
-      "post": {
-        "x-fern-sdk-group-name": ["action_attempts"],
-        "x-fern-sdk-method-name": "get",
-        "summary": "/action_attempts/get",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "action_attempt": {
-                      "discriminator": { "propertyName": "status" },
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "status": { "type": "string", "enum": ["success"] },
-                            "action_type": { "type": "string" },
-                            "action_attempt_id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "result": { "nullable": true },
-                            "error": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            }
-                          },
-                          "required": [
-                            "status",
-                            "action_type",
-                            "action_attempt_id",
-                            "error"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "status": { "type": "string", "enum": ["pending"] },
-                            "action_type": { "type": "string" },
-                            "action_attempt_id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "result": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            },
-                            "error": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            }
-                          },
-                          "required": [
-                            "status",
-                            "action_type",
-                            "action_attempt_id",
-                            "result",
-                            "error"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "status": { "type": "string", "enum": ["error"] },
-                            "action_type": { "type": "string" },
-                            "action_attempt_id": {
-                              "type": "string",
-                              "format": "uuid"
-                            },
-                            "result": {
-                              "type": "string",
-                              "format": "null",
-                              "nullable": true
-                            },
-                            "error": {
-                              "type": "object",
-                              "properties": {
-                                "type": { "type": "string" },
-                                "message": { "type": "string" }
-                              },
-                              "required": ["type", "message"]
-                            }
-                          },
-                          "required": [
-                            "status",
-                            "action_type",
-                            "action_attempt_id",
-                            "result",
-                            "error"
-                          ]
-                        }
-                      ]
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["action_attempt", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": { "action_attempt_id": { "type": "string" } },
-                "required": ["action_attempt_id"]
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "actionAttemptsGetPost"
-      }
-    },
-    "/action_attempts/list": {
-      "post": {
-        "x-fern-sdk-group-name": ["action_attempts"],
-        "x-fern-sdk-method-name": "list",
-        "summary": "/action_attempts/list",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "action_attempts": {
-                      "type": "array",
-                      "items": {
-                        "discriminator": { "propertyName": "status" },
-                        "oneOf": [
-                          {
-                            "type": "object",
-                            "properties": {
-                              "status": {
-                                "type": "string",
-                                "enum": ["success"]
-                              },
-                              "action_type": { "type": "string" },
-                              "action_attempt_id": {
-                                "type": "string",
-                                "format": "uuid"
-                              },
-                              "result": { "nullable": true },
-                              "error": {
-                                "type": "string",
-                                "format": "null",
-                                "nullable": true
-                              }
-                            },
-                            "required": [
-                              "status",
-                              "action_type",
-                              "action_attempt_id",
-                              "error"
-                            ]
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "status": {
-                                "type": "string",
-                                "enum": ["pending"]
-                              },
-                              "action_type": { "type": "string" },
-                              "action_attempt_id": {
-                                "type": "string",
-                                "format": "uuid"
-                              },
-                              "result": {
-                                "type": "string",
-                                "format": "null",
-                                "nullable": true
-                              },
-                              "error": {
-                                "type": "string",
-                                "format": "null",
-                                "nullable": true
-                              }
-                            },
-                            "required": [
-                              "status",
-                              "action_type",
-                              "action_attempt_id",
-                              "result",
-                              "error"
-                            ]
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "status": { "type": "string", "enum": ["error"] },
-                              "action_type": { "type": "string" },
-                              "action_attempt_id": {
-                                "type": "string",
-                                "format": "uuid"
-                              },
-                              "result": {
-                                "type": "string",
-                                "format": "null",
-                                "nullable": true
-                              },
-                              "error": {
-                                "type": "object",
-                                "properties": {
-                                  "type": { "type": "string" },
-                                  "message": { "type": "string" }
-                                },
-                                "required": ["type", "message"]
-                              }
-                            },
-                            "required": [
-                              "status",
-                              "action_type",
-                              "action_attempt_id",
-                              "result",
-                              "error"
-                            ]
-                          }
-                        ]
-                      }
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["action_attempts", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "security": [{ "cst_ak_pk": [] }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "action_attempt_ids": {
-                    "type": "array",
-                    "items": { "type": "string" }
-                  }
-                },
-                "required": ["action_attempt_ids"]
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "actionAttemptsListPost"
-      }
-    },
     "/client_sessions/create": {
       "put": {
         "x-fern-ignore": true,
@@ -3137,6 +2871,272 @@
         },
         "tags": [],
         "operationId": "clientSessionsGetOrCreatePost"
+      }
+    },
+    "/action_attempts/get": {
+      "post": {
+        "x-fern-sdk-group-name": ["action_attempts"],
+        "x-fern-sdk-method-name": "get",
+        "summary": "/action_attempts/get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "action_attempt": {
+                      "discriminator": { "propertyName": "status" },
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["success"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": { "nullable": true },
+                            "error": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "error"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["pending"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            },
+                            "error": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "result",
+                            "error"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "string", "enum": ["error"] },
+                            "action_type": { "type": "string" },
+                            "action_attempt_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "result": {
+                              "type": "string",
+                              "format": "null",
+                              "nullable": true
+                            },
+                            "error": {
+                              "type": "object",
+                              "properties": {
+                                "type": { "type": "string" },
+                                "message": { "type": "string" }
+                              },
+                              "required": ["type", "message"]
+                            }
+                          },
+                          "required": [
+                            "status",
+                            "action_type",
+                            "action_attempt_id",
+                            "result",
+                            "error"
+                          ]
+                        }
+                      ]
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["action_attempt", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "action_attempt_id": { "type": "string" } },
+                "required": ["action_attempt_id"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "actionAttemptsGetPost"
+      }
+    },
+    "/action_attempts/list": {
+      "post": {
+        "x-fern-sdk-group-name": ["action_attempts"],
+        "x-fern-sdk-method-name": "list",
+        "summary": "/action_attempts/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "action_attempts": {
+                      "type": "array",
+                      "items": {
+                        "discriminator": { "propertyName": "status" },
+                        "oneOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "status": {
+                                "type": "string",
+                                "enum": ["success"]
+                              },
+                              "action_type": { "type": "string" },
+                              "action_attempt_id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "result": { "nullable": true },
+                              "error": {
+                                "type": "string",
+                                "format": "null",
+                                "nullable": true
+                              }
+                            },
+                            "required": [
+                              "status",
+                              "action_type",
+                              "action_attempt_id",
+                              "error"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "status": {
+                                "type": "string",
+                                "enum": ["pending"]
+                              },
+                              "action_type": { "type": "string" },
+                              "action_attempt_id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "result": {
+                                "type": "string",
+                                "format": "null",
+                                "nullable": true
+                              },
+                              "error": {
+                                "type": "string",
+                                "format": "null",
+                                "nullable": true
+                              }
+                            },
+                            "required": [
+                              "status",
+                              "action_type",
+                              "action_attempt_id",
+                              "result",
+                              "error"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "status": { "type": "string", "enum": ["error"] },
+                              "action_type": { "type": "string" },
+                              "action_attempt_id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "result": {
+                                "type": "string",
+                                "format": "null",
+                                "nullable": true
+                              },
+                              "error": {
+                                "type": "object",
+                                "properties": {
+                                  "type": { "type": "string" },
+                                  "message": { "type": "string" }
+                                },
+                                "required": ["type", "message"]
+                              }
+                            },
+                            "required": [
+                              "status",
+                              "action_type",
+                              "action_attempt_id",
+                              "result",
+                              "error"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["action_attempts", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "action_attempt_ids": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  }
+                },
+                "required": ["action_attempt_ids"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "actionAttemptsListPost"
       }
     },
     "/connect_webviews/create": {
@@ -3604,6 +3604,20 @@
         "security": [{ "cst_ak_pk": [] }],
         "tags": [],
         "operationId": "connectedAccountsListGet"
+      }
+    },
+    "/internal/tlmtry": {
+      "post": {
+        "x-fern-sdk-group-name": ["internal"],
+        "x-fern-sdk-method-name": "tlmtry",
+        "summary": "/internal/tlmtry",
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "tags": [],
+        "operationId": "internalTlmtryPost"
       }
     },
     "/devices/get": {
@@ -4677,20 +4691,6 @@
         },
         "tags": [],
         "operationId": "devicesListDeviceProvidersPost"
-      }
-    },
-    "/internal/tlmtry": {
-      "post": {
-        "x-fern-sdk-group-name": ["internal"],
-        "x-fern-sdk-method-name": "tlmtry",
-        "summary": "/internal/tlmtry",
-        "responses": {
-          "200": { "description": "OK" },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "tags": [],
-        "operationId": "internalTlmtryPost"
       }
     },
     "/locks/lock_door": {
