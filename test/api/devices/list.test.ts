@@ -19,20 +19,37 @@ test("GET /devices/list with api key", async (t: ExecutionContext) => {
   t.is(devices.length, 4)
 })
 
-test("GET /devices/list with device_ids filter", async (t: ExecutionContext) => {
+test("GET /devices/list with filters", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
   const seed_result = seed(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
-  const {
-    data: { devices },
-  } = await axios.get("/devices/list", {
+  // device_ids filter
+  let devices_res = await axios.get("/devices/list", {
     params: { device_ids: [seed_result.august_device_1] },
   })
 
-  t.is(devices.length, 1)
-  t.is(devices[0]?.device_id, seed_result.august_device_1)
+  t.is(devices_res.data.devices.length, 1)
+  t.is(devices_res.data.devices[0]?.device_id, seed_result.august_device_1)
+
+  // connected_account_id filter
+  devices_res = await axios.get("/devices/list", {
+    params: { connected_account_id: seed_result.jane_connected_account_id },
+  })
+  t.true(devices_res.data.devices.length > 0)
+
+  // device_type filter
+  devices_res = await axios.get("/devices/list", {
+    params: { device_type: "august_lock" },
+  })
+  t.true(devices_res.data.devices.length > 0)
+
+  // manufacturer filter
+  devices_res = await axios.get("/devices/list", {
+    params: { manufacturer: "august" },
+  })
+  t.true(devices_res.data.devices.length > 0)
 })
 
 test("GET /devices/list with simulated workspace outage", async (t: ExecutionContext) => {
