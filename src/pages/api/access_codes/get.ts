@@ -12,8 +12,8 @@ export const commonParams = z
     code: z.string().optional(),
   })
   .superRefine(({ access_code_id, code, device_id }, ctx) => {
-    if (!access_code_id) {
-      if (!code && !device_id) {
+    if (access_code_id == null) {
+      if (code == null && device_id == null) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message:
@@ -21,7 +21,10 @@ export const commonParams = z
         })
       }
 
-      if ((!device_id && Boolean(code)) || (Boolean(device_id) && !code)) {
+      if (
+        (device_id == null && Boolean(code)) ||
+        (Boolean(device_id) && code == null)
+      ) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'Both "device_id" and "code" must be provided if one is',
