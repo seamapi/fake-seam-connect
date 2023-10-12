@@ -40,7 +40,7 @@ test("POST /devices/delete", async (t: ExecutionContext) => {
   t.is(devices_get_res.status, 404)
 
   const access_codes_get_res = await axios.get("/access_codes/get", {
-    params: { access_code_id: access_code!.access_code_id },
+    params: { access_code_id: access_code.access_code_id },
     headers: {
       Authorization: `Bearer ${seed.ws2.cst}`,
     },
