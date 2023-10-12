@@ -65,12 +65,15 @@
     "npm": ">= 8.1.0"
   },
   "optionalDependencies": {
+    "@seamapi/fake-devicedb": "<1.0.0",
     "zustand": "^4.3.7",
     "zustand-hoist": "^1.0.0"
   },
   "devDependencies": {
     "@godaddy/terminus": "^4.12.1",
+    "@seamapi/fake-devicedb": "^0.3.0",
     "@seamapi/logger": "^1.9.2",
+    "@seamapi/types": "^1.26.2",
     "@tsconfig/next": "^1.0.5",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.35",
