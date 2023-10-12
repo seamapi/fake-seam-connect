@@ -31,95 +31,6 @@
         "operationId": "healthGet"
       }
     },
-    "/_fake/complete_connect_webview": {
-      "post": {
-        "x-fern-sdk-group-name": ["_fake"],
-        "x-fern-sdk-method-name": "complete_connect_webview",
-        "summary": "/_fake/complete_connect_webview",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": { "ok": { "type": "boolean" } },
-                  "required": ["ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": { "connect_webview_id": { "type": "string" } },
-                "required": ["connect_webview_id"]
-              }
-            }
-          }
-        },
-        "tags": [],
-        "operationId": "fakeCompleteConnectWebviewPost"
-      }
-    },
-    "/_fake/database": {
-      "post": {
-        "x-fern-sdk-group-name": ["_fake"],
-        "x-fern-sdk-method-name": "database",
-        "summary": "/_fake/database",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": { "ok": { "type": "boolean" } },
-                  "required": ["ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "requestBody": {
-          "content": { "application/json": { "schema": { "nullable": true } } }
-        },
-        "tags": [],
-        "operationId": "fakeDatabasePost"
-      },
-      "put": {
-        "x-fern-ignore": true,
-        "summary": "/_fake/database",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": { "ok": { "type": "boolean" } },
-                  "required": ["ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "requestBody": {
-          "content": { "application/json": { "schema": { "nullable": true } } }
-        },
-        "tags": [],
-        "operationId": "fakeDatabasePut"
-      }
-    },
     "/access_codes/create": {
       "post": {
         "x-fern-sdk-group-name": ["access_codes"],
@@ -2470,6 +2381,95 @@
         },
         "tags": [],
         "operationId": "accessCodesUpdatePost"
+      }
+    },
+    "/_fake/complete_connect_webview": {
+      "post": {
+        "x-fern-sdk-group-name": ["_fake"],
+        "x-fern-sdk-method-name": "complete_connect_webview",
+        "summary": "/_fake/complete_connect_webview",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "connect_webview_id": { "type": "string" } },
+                "required": ["connect_webview_id"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "fakeCompleteConnectWebviewPost"
+      }
+    },
+    "/_fake/database": {
+      "post": {
+        "x-fern-sdk-group-name": ["_fake"],
+        "x-fern-sdk-method-name": "database",
+        "summary": "/_fake/database",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "requestBody": {
+          "content": { "application/json": { "schema": { "nullable": true } } }
+        },
+        "tags": [],
+        "operationId": "fakeDatabasePost"
+      },
+      "put": {
+        "x-fern-ignore": true,
+        "summary": "/_fake/database",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "requestBody": {
+          "content": { "application/json": { "schema": { "nullable": true } } }
+        },
+        "tags": [],
+        "operationId": "fakeDatabasePut"
       }
     },
     "/action_attempts/get": {
