@@ -2186,6 +2186,49 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/thermostats/heat_cool": {
+    route: "/thermostats/heat_cool"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+      heating_set_point_celsius?: number | undefined
+      heating_set_point_fahrenheit?: number | undefined
+      cooling_set_point_celsius?: number | undefined
+      cooling_set_point_fahrenheit?: number | undefined
+      sync?: boolean
+    }
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
   "/thermostats/list": {
     route: "/thermostats/list"
     method: "GET" | "POST"
