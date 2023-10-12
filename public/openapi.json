@@ -3267,6 +3267,111 @@
         "operationId": "connectWebviewsGetPost"
       }
     },
+    "/connect_webviews/list": {
+      "post": {
+        "x-fern-sdk-group-name": ["connect_webviews"],
+        "x-fern-sdk-method-name": "list",
+        "summary": "/connect_webviews/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "connect_webviews": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "connect_webview_id": { "type": "string" },
+                          "workspace_id": { "type": "string" },
+                          "status": {
+                            "type": "string",
+                            "enum": ["pending", "authorized", "failed"]
+                          },
+                          "accepted_providers": {
+                            "type": "array",
+                            "items": { "type": "string" }
+                          },
+                          "connected_account_id": { "type": "string" },
+                          "created_at": { "type": "string" }
+                        },
+                        "required": [
+                          "connect_webview_id",
+                          "workspace_id",
+                          "status",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["connect_webviews", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "tags": [],
+        "operationId": "connectWebviewsListPost"
+      },
+      "get": {
+        "x-fern-ignore": true,
+        "summary": "/connect_webviews/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "connect_webviews": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "connect_webview_id": { "type": "string" },
+                          "workspace_id": { "type": "string" },
+                          "status": {
+                            "type": "string",
+                            "enum": ["pending", "authorized", "failed"]
+                          },
+                          "accepted_providers": {
+                            "type": "array",
+                            "items": { "type": "string" }
+                          },
+                          "connected_account_id": { "type": "string" },
+                          "created_at": { "type": "string" }
+                        },
+                        "required": [
+                          "connect_webview_id",
+                          "workspace_id",
+                          "status",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["connect_webviews", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "tags": [],
+        "operationId": "connectWebviewsListGet"
+      }
+    },
     "/connect_webviews/view": {
       "get": {
         "x-fern-sdk-group-name": ["connect_webviews"],

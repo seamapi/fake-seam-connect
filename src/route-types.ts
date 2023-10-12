@@ -1182,6 +1182,25 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/connect_webviews/list": {
+    route: "/connect_webviews/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      connect_webviews: {
+        connect_webview_id: string
+        workspace_id: string
+        status: "pending" | "authorized" | "failed"
+        accepted_providers?: string[] | undefined
+        connected_account_id?: string | undefined
+        created_at: string
+      }[]
+      ok: boolean
+    }
+  }
   "/connect_webviews/view": {
     route: "/connect_webviews/view"
     method: "GET"
