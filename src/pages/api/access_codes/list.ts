@@ -25,11 +25,9 @@ export default withRouteSpec({
 
   res.status(200).json({
     access_codes: req.db.access_codes.filter((ac) =>
-      ac.device_id === device_id &&
-      !(ac?.is_backup ?? false) &&
-      access_code_ids != null
+      ac.device_id === device_id && access_code_ids != null
         ? access_code_ids.includes(ac.access_code_id)
-        : true
+        : true && !(ac?.is_backup ?? false)
     ),
   })
 })
