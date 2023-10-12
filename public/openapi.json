@@ -6479,83 +6479,6 @@
         "operationId": "accessCodesSimulateCreateUnmanagedAccessCodePost"
       }
     },
-    "/internal/device_models/list": {
-      "get": {
-        "x-fern-sdk-group-name": ["internal", "device_models"],
-        "x-fern-sdk-method-name": "list",
-        "summary": "/internal/device_models/list",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "device_models": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "main_category": { "type": "string" },
-                          "model_name": { "type": "string" },
-                          "manufacturer_model_id": { "type": "string" },
-                          "connection_type": {
-                            "type": "string",
-                            "enum": ["wifi", "zwave", "zigbee", "unknown"]
-                          },
-                          "support_level": {
-                            "type": "string",
-                            "enum": ["live", "beta", "unsupported"]
-                          },
-                          "brand": { "type": "string" },
-                          "icon_url": { "type": "string" },
-                          "seam_device_model_page_url": { "type": "string" }
-                        },
-                        "required": [
-                          "main_category",
-                          "model_name",
-                          "manufacturer_model_id",
-                          "connection_type",
-                          "support_level",
-                          "brand",
-                          "icon_url",
-                          "seam_device_model_page_url"
-                        ]
-                      }
-                    },
-                    "ok": { "type": "boolean" }
-                  },
-                  "required": ["device_models", "ok"]
-                }
-              }
-            }
-          },
-          "400": { "description": "Bad Request" },
-          "401": { "description": "Unauthorized" }
-        },
-        "parameters": [
-          {
-            "name": "main_category",
-            "in": "query",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "support_level",
-            "in": "query",
-            "schema": { "type": "string" }
-          },
-          { "name": "brand", "in": "query", "schema": { "type": "string" } },
-          {
-            "name": "text_search",
-            "in": "query",
-            "schema": { "type": "string" }
-          }
-        ],
-        "tags": [],
-        "operationId": "internalDeviceModelsListGet"
-      }
-    },
     "/access_codes/unmanaged/list": {
       "get": {
         "x-fern-sdk-group-name": ["access_codes", "unmanaged"],
@@ -6985,6 +6908,83 @@
         },
         "tags": [],
         "operationId": "accessCodesUnmanagedUpdatePost"
+      }
+    },
+    "/internal/device_models/list": {
+      "get": {
+        "x-fern-sdk-group-name": ["internal", "device_models"],
+        "x-fern-sdk-method-name": "list",
+        "summary": "/internal/device_models/list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "device_models": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "main_category": { "type": "string" },
+                          "model_name": { "type": "string" },
+                          "manufacturer_model_id": { "type": "string" },
+                          "connection_type": {
+                            "type": "string",
+                            "enum": ["wifi", "zwave", "zigbee", "unknown"]
+                          },
+                          "support_level": {
+                            "type": "string",
+                            "enum": ["live", "beta", "unsupported"]
+                          },
+                          "brand": { "type": "string" },
+                          "icon_url": { "type": "string" },
+                          "seam_device_model_page_url": { "type": "string" }
+                        },
+                        "required": [
+                          "main_category",
+                          "model_name",
+                          "manufacturer_model_id",
+                          "connection_type",
+                          "support_level",
+                          "brand",
+                          "icon_url",
+                          "seam_device_model_page_url"
+                        ]
+                      }
+                    },
+                    "ok": { "type": "boolean" }
+                  },
+                  "required": ["device_models", "ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "parameters": [
+          {
+            "name": "main_category",
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "support_level",
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          { "name": "brand", "in": "query", "schema": { "type": "string" } },
+          {
+            "name": "text_search",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "tags": [],
+        "operationId": "internalDeviceModelsListGet"
       }
     },
     "/thermostats/climate_setting_schedules/create": {
