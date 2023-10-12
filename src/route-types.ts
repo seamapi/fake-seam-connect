@@ -1235,13 +1235,27 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/devices/delete": {
+    route: "/devices/delete"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/devices/get": {
     route: "/devices/get"
     method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
     commonParams: {
-      device_id: string
+      device_id?: string | undefined
+      name?: string | undefined
     }
     formData: {}
     jsonResponse: {
@@ -1431,6 +1445,17 @@ export type Routes = {
     jsonBody: {}
     commonParams: {
       device_ids?: string[] | undefined
+      connected_account_id?: string | undefined
+      device_type?:
+        | (
+            | "august_lock"
+            | "schlage_lock"
+            | "yale_lock"
+            | "smartthings_lock"
+            | "ecobee_thermostat"
+          )
+        | undefined
+      manufacturer?: string | undefined
     }
     formData: {}
     jsonResponse: {
@@ -1618,14 +1643,16 @@ export type Routes = {
     method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
-    commonParams: {}
+    commonParams: {
+      provider_category?: ("stable" | "consumer_smartlocks") | undefined
+    }
     formData: {}
     jsonResponse: {
       device_providers: {
         device_provider_name: string
         display_name: string
         image_url: string
-        provider_categories: ("stable" | "internal_beta")[]
+        provider_categories: ("stable" | "consumer_smartlocks")[]
       }[]
       ok: boolean
     }
