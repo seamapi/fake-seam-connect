@@ -1188,7 +1188,40 @@ export type Routes = {
         connect_webview_id: string
         workspace_id: string
         status: "pending" | "authorized" | "failed"
-        accepted_providers?: string[] | undefined
+        accepted_providers?:
+          | (
+              | "akuvox"
+              | "august"
+              | "avigilon_alta"
+              | "brivo"
+              | "butterflymx"
+              | "schlage"
+              | "smartthings"
+              | "yale"
+              | "genie"
+              | "doorking"
+              | "salto"
+              | "lockly"
+              | "ttlock"
+              | "linear"
+              | "noiseaware"
+              | "nuki"
+              | "seam_relay_admin"
+              | "igloo"
+              | "kwikset"
+              | "minut"
+              | "my_2n"
+              | "controlbyweb"
+              | "nest"
+              | "igloohome"
+              | "ecobee"
+              | "hubitat"
+              | "four_suites"
+              | "dormakaba_oracode"
+              | "pti"
+              | "wyze"
+            )[]
+          | undefined
         connected_account_id?: string | undefined
         created_at: string
         custom_redirect_url: string | null
@@ -1210,7 +1243,40 @@ export type Routes = {
         connect_webview_id: string
         workspace_id: string
         status: "pending" | "authorized" | "failed"
-        accepted_providers?: string[] | undefined
+        accepted_providers?:
+          | (
+              | "akuvox"
+              | "august"
+              | "avigilon_alta"
+              | "brivo"
+              | "butterflymx"
+              | "schlage"
+              | "smartthings"
+              | "yale"
+              | "genie"
+              | "doorking"
+              | "salto"
+              | "lockly"
+              | "ttlock"
+              | "linear"
+              | "noiseaware"
+              | "nuki"
+              | "seam_relay_admin"
+              | "igloo"
+              | "kwikset"
+              | "minut"
+              | "my_2n"
+              | "controlbyweb"
+              | "nest"
+              | "igloohome"
+              | "ecobee"
+              | "hubitat"
+              | "four_suites"
+              | "dormakaba_oracode"
+              | "pti"
+              | "wyze"
+            )[]
+          | undefined
         connected_account_id?: string | undefined
         created_at: string
         custom_redirect_url: string | null
@@ -1230,7 +1296,40 @@ export type Routes = {
         connect_webview_id: string
         workspace_id: string
         status: "pending" | "authorized" | "failed"
-        accepted_providers?: string[] | undefined
+        accepted_providers?:
+          | (
+              | "akuvox"
+              | "august"
+              | "avigilon_alta"
+              | "brivo"
+              | "butterflymx"
+              | "schlage"
+              | "smartthings"
+              | "yale"
+              | "genie"
+              | "doorking"
+              | "salto"
+              | "lockly"
+              | "ttlock"
+              | "linear"
+              | "noiseaware"
+              | "nuki"
+              | "seam_relay_admin"
+              | "igloo"
+              | "kwikset"
+              | "minut"
+              | "my_2n"
+              | "controlbyweb"
+              | "nest"
+              | "igloohome"
+              | "ecobee"
+              | "hubitat"
+              | "four_suites"
+              | "dormakaba_oracode"
+              | "pti"
+              | "wyze"
+            )[]
+          | undefined
         connected_account_id?: string | undefined
         created_at: string
         custom_redirect_url: string | null

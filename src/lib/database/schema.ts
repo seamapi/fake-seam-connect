@@ -10,6 +10,7 @@ import type {
   ConnectedAccount,
   ConnectWebview,
   Device,
+  DeviceProvider,
   Workspace,
 } from "lib/zod/index.ts"
 
@@ -66,7 +67,7 @@ export interface DatabaseMethods {
     workspace_id: WorkspaceId
     connect_webview_id?: string
     created_at?: string
-    accepted_providers?: string[]
+    accepted_providers?: DeviceProvider[]
     custom_redirect_url?: string
   }) => ConnectWebview
   updateConnectWebview: (params: {

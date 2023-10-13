@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { connect_webview, device_providers } from "lib/zod/index.ts"
+import { connect_webview, device_provider } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
@@ -8,7 +8,7 @@ export default withRouteSpec({
   auth: "cst_ak_pk",
   methods: ["POST"],
   jsonBody: z.object({
-    accepted_providers: z.array(device_providers).optional(),
+    accepted_providers: z.array(device_provider).optional(),
     custom_redirect_url: z.string().optional(),
   }),
   jsonResponse: z.object({

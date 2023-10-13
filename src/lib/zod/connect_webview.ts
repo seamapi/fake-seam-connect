@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const device_providers = z.enum([
+export const device_provider = z.enum([
   "akuvox",
   "august",
   "avigilon_alta",
@@ -33,11 +33,13 @@ export const device_providers = z.enum([
   "wyze",
 ])
 
+export type DeviceProvider = z.infer<typeof device_provider>
+
 export const connect_webview = z.object({
   connect_webview_id: z.string(),
   workspace_id: z.string(),
   status: z.enum(["pending", "authorized", "failed"]),
-  accepted_providers: z.array(device_providers).optional(),
+  accepted_providers: z.array(device_provider).optional(),
   connected_account_id: z.string().optional(),
   created_at: z.string(),
   custom_redirect_url: z.string().nullable(),
