@@ -3,7 +3,7 @@ import { z } from "zod"
 import { climate_setting } from "lib/zod/climate_setting.ts"
 import { climate_setting_schedule } from "lib/zod/climate_setting_schedule.ts"
 
-export const deviceType = z.enum([
+export const device_type = z.enum([
   "august_lock",
   "schlage_lock",
   "yale_lock",
@@ -99,7 +99,7 @@ export const thermostat_device_properties = common_device_properties.extend({
 
 export const device = z.object({
   device_id: z.string(),
-  device_type: deviceType,
+  device_type,
   capabilities_supported: z.array(z.string()),
   properties: z.union([
     common_device_properties,
