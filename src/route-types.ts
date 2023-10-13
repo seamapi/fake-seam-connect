@@ -136,6 +136,121 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/access_codes/create_multiple": {
+    route: "/access_codes/create_multiple"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      device_ids: string[]
+      behavior_when_code_cannot_be_shared?: "throw" | "create_random_code"
+      name?: string | undefined
+      code?: string | undefined
+      starts_at?: (string | Date) | undefined
+      ends_at?: (string | Date) | undefined
+      use_backup_access_code_pool?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      access_codes: (
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            is_backup_access_code_available: boolean
+            is_external_modification_allowed: boolean
+            common_code_key?: (string | null) | undefined
+            type: "ongoing"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            is_backup_access_code_available: boolean
+            is_external_modification_allowed: boolean
+            common_code_key?: (string | null) | undefined
+            type: "time_bound"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
+            starts_at: string
+            ends_at: string
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            is_backup_access_code_available: boolean
+            is_external_modification_allowed: boolean
+            status: "set"
+            created_at: string
+            type: "ongoing"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            is_backup_access_code_available: boolean
+            is_external_modification_allowed: boolean
+            status: "set" | "unset"
+            created_at: string
+            type: "time_bound"
+            starts_at: string
+            ends_at: string
+          }
+      )[]
+      ok: boolean
+    }
+  }
   "/access_codes/delete": {
     route: "/access_codes/delete"
     method: "POST" | "DELETE"
@@ -199,7 +314,9 @@ export type Routes = {
     queryParams: {}
     jsonBody: {}
     commonParams: {
-      access_code_id: string
+      device_id?: string | undefined
+      access_code_id?: string | undefined
+      code?: string | undefined
     }
     formData: {}
     jsonResponse: {
@@ -307,7 +424,8 @@ export type Routes = {
     queryParams: {}
     jsonBody: {}
     commonParams: {
-      device_id: string
+      device_id?: string | undefined
+      access_code_ids?: string[] | undefined
     }
     formData: {}
     jsonResponse: {
@@ -518,6 +636,116 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/access_codes/simulate/create_unmanaged_access_code": {
+    route: "/access_codes/simulate/create_unmanaged_access_code"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      name: string
+      code: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      access_code:
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            is_backup_access_code_available: boolean
+            is_external_modification_allowed: boolean
+            common_code_key?: (string | null) | undefined
+            type: "ongoing"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            is_backup_access_code_available: boolean
+            is_external_modification_allowed: boolean
+            common_code_key?: (string | null) | undefined
+            type: "time_bound"
+            created_at: string
+            status: "setting" | "set" | "removing" | "unset" | "unknown"
+            starts_at: string
+            ends_at: string
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            is_backup_access_code_available: boolean
+            is_external_modification_allowed: boolean
+            status: "set"
+            created_at: string
+            type: "ongoing"
+          }
+        | {
+            access_code_id: string
+            device_id: string
+            name: string
+            code: string
+            errors: {
+              error_code: string
+              message: string
+            }[]
+            warnings: {
+              warning_code: string
+              message: string
+            }[]
+            is_managed: boolean
+            is_backup?: boolean | undefined
+            pulled_backup_access_code_id?: (string | null) | undefined
+            is_backup_access_code_available: boolean
+            is_external_modification_allowed: boolean
+            status: "set" | "unset"
+            created_at: string
+            type: "time_bound"
+            starts_at: string
+            ends_at: string
+          }
+      ok: boolean
+    }
+  }
   "/access_codes/unmanaged/list": {
     route: "/access_codes/unmanaged/list"
     method: "GET"
@@ -624,6 +852,22 @@ export type Routes = {
             ends_at: string
           }
       )[]
+      ok: boolean
+    }
+  }
+  "/access_codes/unmanaged/update": {
+    route: "/access_codes/unmanaged/update"
+    method: "POST" | "PATCH"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      access_code_id: string
+      is_managed: boolean
+      allow_external_modification?: boolean | undefined
+      force?: boolean | undefined
+    }
+    formData: {}
+    jsonResponse: {
       ok: boolean
     }
   }
@@ -738,6 +982,83 @@ export type Routes = {
             starts_at: string
             ends_at: string
           }
+      ok: boolean
+    }
+  }
+  "/action_attempts/get": {
+    route: "/action_attempts/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      action_attempt_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
+  "/action_attempts/list": {
+    route: "/action_attempts/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      action_attempt_ids: string[]
+    }
+    formData: {}
+    jsonResponse: {
+      action_attempts: (
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      )[]
       ok: boolean
     }
   }
@@ -864,6 +1185,25 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/connect_webviews/list": {
+    route: "/connect_webviews/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      connect_webviews: {
+        connect_webview_id: string
+        workspace_id: string
+        status: "pending" | "authorized" | "failed"
+        accepted_providers?: string[] | undefined
+        connected_account_id?: string | undefined
+        created_at: string
+      }[]
+      ok: boolean
+    }
+  }
   "/connect_webviews/view": {
     route: "/connect_webviews/view"
     method: "GET"
@@ -931,13 +1271,27 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/devices/delete": {
+    route: "/devices/delete"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/devices/get": {
     route: "/devices/get"
     method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
     commonParams: {
-      device_id: string
+      device_id?: string | undefined
+      name?: string | undefined
     }
     formData: {}
     jsonResponse: {
@@ -1127,6 +1481,17 @@ export type Routes = {
     jsonBody: {}
     commonParams: {
       device_ids?: string[] | undefined
+      connected_account_id?: string | undefined
+      device_type?:
+        | (
+            | "august_lock"
+            | "schlage_lock"
+            | "yale_lock"
+            | "smartthings_lock"
+            | "ecobee_thermostat"
+          )
+        | undefined
+      manufacturer?: string | undefined
     }
     formData: {}
     jsonResponse: {
@@ -1314,14 +1679,16 @@ export type Routes = {
     method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
-    commonParams: {}
+    commonParams: {
+      provider_category?: ("stable" | "consumer_smartlocks") | undefined
+    }
     formData: {}
     jsonResponse: {
       device_providers: {
         device_provider_name: string
         display_name: string
         image_url: string
-        provider_categories: ("stable" | "internal_beta")[]
+        provider_categories: ("stable" | "consumer_smartlocks")[]
       }[]
       ok: boolean
     }
@@ -1838,6 +2205,47 @@ export type Routes = {
         }[]
         created_at: string
       }
+      ok: boolean
+    }
+  }
+  "/thermostats/heat": {
+    route: "/thermostats/heat"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+      heating_set_point_celsius?: number | undefined
+      heating_set_point_fahrenheit?: number | undefined
+      sync?: boolean
+    }
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
       ok: boolean
     }
   }

@@ -34,10 +34,13 @@ export default withRouteSpec({
     (cs) => cs.connected_account_ids.includes(connected_account_id)
   )
 
-  req.db.deleteDevice({ device_ids: connected_account_device_ids })
-  req.db.deleteAccessCode({
-    access_code_ids: connected_account_access_code_ids,
-  })
+  for (const device_id of connected_account_device_ids) {
+    req.db.deleteDevice(device_id)
+  }
+  for (const access_code_id of connected_account_access_code_ids) {
+    req.db.deleteAccessCode(access_code_id)
+  }
+
   req.db.deleteConnectedAccount({ connected_account_id })
 
   for (const client_session of connected_account_client_sessions) {

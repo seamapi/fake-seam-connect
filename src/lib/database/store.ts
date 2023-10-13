@@ -155,22 +155,9 @@ const initializer = immer<Database>((set, get) => ({
     return new_device
   },
 
-  deleteDevice(params) {
-    if ("device_ids" in params) {
-      set({
-        devices: [
-          ...get().devices.filter((device) => {
-            const is_target = params.device_ids.includes(device.device_id)
-
-            return !is_target
-          }),
-        ],
-      })
-      return
-    }
-
+  deleteDevice(device_id) {
     const target = get().devices.find(
-      (device) => device.device_id === params.device_id
+      (device) => device.device_id === device_id
     )
     if (target == null) {
       throw new Error("Could not find device with device_id")
@@ -298,24 +285,9 @@ const initializer = immer<Database>((set, get) => ({
     return updated
   },
 
-  deleteAccessCode(params) {
-    if ("access_code_ids" in params) {
-      set({
-        access_codes: [
-          ...get().access_codes.filter((access_code) => {
-            const is_target = params.access_code_ids.includes(
-              access_code.access_code_id
-            )
-
-            return !is_target
-          }),
-        ],
-      })
-      return
-    }
-
+  deleteAccessCode(access_code_id) {
     const target = get().access_codes.find(
-      (access_code) => access_code.access_code_id === params.access_code_id
+      (access_code) => access_code.access_code_id === access_code_id
     )
     if (target == null) {
       throw new Error("Could not find access_code with access_code_id")
@@ -408,11 +380,11 @@ const initializer = immer<Database>((set, get) => ({
     return updated
   },
 
-  deleteClimateSettingSchedule(params) {
+  deleteClimateSettingSchedule(climate_setting_schedule_id) {
     const target = get().climate_setting_schedules.find(
       (climate_setting_schedule) =>
         climate_setting_schedule.climate_setting_schedule_id ===
-        params.climate_setting_schedule_id
+        climate_setting_schedule_id
     )
     if (target == null) {
       throw new Error(

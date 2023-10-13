@@ -28,7 +28,7 @@ export default withRouteSpec({
     })
   }
 
-  req.db.deleteClimateSettingSchedule(climate_setting_schedule)
+  req.db.deleteClimateSettingSchedule(climate_setting_schedule_id)
 
   res.status(200).json({})
 })

@@ -94,9 +94,7 @@ export interface DatabaseMethods {
     warnings?: Device["warnings"]
     created_at?: string
   }) => Device
-  deleteDevice: (
-    params: Pick<Device, "device_id"> | { device_ids: string[] }
-  ) => void
+  deleteDevice: (device_id: Device["device_id"]) => void
   addAccessCode: (
     params: {
       workspace_id: string
@@ -111,9 +109,7 @@ export interface DatabaseMethods {
     device_id?: string
   }) => AccessCode | undefined
   updateAccessCode: (params: Partial<AccessCode>) => AccessCode
-  deleteAccessCode: (
-    params: Pick<AccessCode, "access_code_id"> | { access_code_ids: string[] }
-  ) => void
+  deleteAccessCode: (access_code_id: AccessCode["access_code_id"]) => void
   setPulledBackupAccessCodeId: (params: {
     original_access_code_id: string
     pulled_backup_access_code_id: string
@@ -136,7 +132,9 @@ export interface DatabaseMethods {
   updateClimateSettingSchedule: (
     params: Partial<ClimateSettingSchedule>
   ) => ClimateSettingSchedule
-  deleteClimateSettingSchedule: (params: ClimateSettingSchedule) => void
+  deleteClimateSettingSchedule: (
+    climate_setting_schedule_id: ClimateSettingSchedule["climate_setting_schedule_id"]
+  ) => void
 
   addActionAttempt: (params: Partial<ActionAttempt>) => ActionAttempt
   findActionAttempt: (
