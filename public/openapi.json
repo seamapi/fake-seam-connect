@@ -1388,8 +1388,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "properties": { "access_code_id": { "type": "string" } },
-                "required": ["access_code_id"]
+                "properties": {
+                  "device_id": { "type": "string" },
+                  "access_code_id": { "type": "string" },
+                  "code": { "type": "string" }
+                }
               }
             }
           }
@@ -1741,8 +1744,13 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "properties": { "device_id": { "type": "string" } },
-                "required": ["device_id"]
+                "properties": {
+                  "device_id": { "type": "string" },
+                  "access_code_ids": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  }
+                }
               }
             }
           }
