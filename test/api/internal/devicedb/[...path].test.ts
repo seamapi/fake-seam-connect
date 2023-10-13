@@ -81,16 +81,11 @@ test("GET /internal/devicedb/v1/manufacturers/get", async (t) => {
 
 test("GET /internal/devicedb/v1/device_models/list (with client session token)", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const { seam_apikey1_token, seam_cst1_token } = seed(db)
-  axios.defaults.headers.common.Authorization = `Bearer ${seam_apikey1_token}`
-
+  const { seam_cst1_token } = seed(db)
+  axios.defaults.headers.common.Authorization = `Bearer ${seam_cst1_token}`
   const { data, status } = await (axios as Axios).get<
     RouteResponse<"/v1/device_models/list">
-  >("/internal/devicedb/v1/device_models/list", {
-    headers: {
-      Authorization: `Bearer ${seam_cst1_token}`,
-    },
-  })
+  >("/internal/devicedb/v1/device_models/list")
   t.is(status, 200)
   t.is(data.device_models.length, 1)
 })
