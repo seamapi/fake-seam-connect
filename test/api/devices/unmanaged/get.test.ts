@@ -37,7 +37,6 @@ test("GET /devices/unmanaged/get", async (t: ExecutionContext) => {
     headers: {
       Authorization: `Bearer ${seed.ws2.cst}`,
     },
-    validateStatus: () => true,
   })
 
   t.is(unmanaged_devices_get_res.status, 200)
