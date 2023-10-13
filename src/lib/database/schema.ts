@@ -154,7 +154,6 @@ export interface DatabaseMethods {
 interface DevicedbConfig {
   url: string
   vercelProtectionSecret: string
-  imageProxyUrl?: string
 }
 
 export type Database = DatabaseState & DatabaseMethods
