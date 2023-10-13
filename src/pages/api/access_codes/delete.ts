@@ -30,7 +30,7 @@ export default withRouteSpec({
     })
   }
 
-  req.db.deleteAccessCode(access_code)
+  req.db.deleteAccessCode(access_code_id)
 
   res.status(200).json({
     action_attempt: {

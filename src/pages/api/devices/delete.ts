@@ -25,19 +25,21 @@ export default withRouteSpec({
   const device_access_codes = req.db.access_codes.filter(
     (ac) => ac.device_id === device_id
   )
-  for (const access_code of device_access_codes) {
-    req.db.deleteAccessCode(access_code)
+  for (const { access_code_id } of device_access_codes) {
+    req.db.deleteAccessCode(access_code_id)
   }
 
   const device_climate_setting_schedules =
     req.db.climate_setting_schedules.filter(
       (climate_setting) => climate_setting.device_id === device_id
     )
-  for (const climate_setting_schedule of device_climate_setting_schedules) {
-    req.db.deleteClimateSettingSchedule(climate_setting_schedule)
+  for (const {
+    climate_setting_schedule_id,
+  } of device_climate_setting_schedules) {
+    req.db.deleteClimateSettingSchedule(climate_setting_schedule_id)
   }
 
-  req.db.deleteDevice(device)
+  req.db.deleteDevice(device_id)
 
   res.status(200).json({})
 })

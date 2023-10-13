@@ -3586,6 +3586,49 @@
         "operationId": "connectWebviewsViewGet"
       }
     },
+    "/connected_accounts/delete": {
+      "post": {
+        "x-fern-sdk-group-name": ["connected_accounts"],
+        "x-fern-sdk-method-name": "delete",
+        "summary": "/connected_accounts/delete",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "connected_account_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "sync": { "default": false, "type": "boolean" }
+                },
+                "required": ["connected_account_id"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "connectedAccountsDeletePost"
+      }
+    },
     "/connected_accounts/get": {
       "post": {
         "x-fern-sdk-group-name": ["connected_accounts"],

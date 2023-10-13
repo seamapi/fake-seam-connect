@@ -156,16 +156,18 @@ const initializer = immer<Database>((set, get) => ({
     return new_device
   },
 
-  deleteDevice(params) {
-    const target = get().devices.find((d) => d.device_id === params.device_id)
+  deleteDevice(device_id) {
+    const target = get().devices.find(
+      (device) => device.device_id === device_id
+    )
     if (target == null) {
       throw new Error("Could not find device with device_id")
     }
 
     set({
       devices: [
-        ...get().devices.filter((d) => {
-          const is_target = d.device_id === target.device_id
+        ...get().devices.filter((device) => {
+          const is_target = device.device_id === target.device_id
 
           return !is_target
         }),
@@ -187,6 +189,30 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_connected_account
+  },
+
+  deleteConnectedAccount(params) {
+    const target = get().connected_accounts.find(
+      (connected_account) =>
+        connected_account.connected_account_id === params.connected_account_id
+    )
+    if (target == null) {
+      throw new Error(
+        "Could not find connected_account with connected_account_id"
+      )
+    }
+
+    set({
+      connected_accounts: [
+        ...get().connected_accounts.filter((connected_account) => {
+          const is_target =
+            connected_account.connected_account_id ===
+            target.connected_account_id
+
+          return !is_target
+        }),
+      ],
+    })
   },
 
   updateConnectWebview(params) {
@@ -260,9 +286,9 @@ const initializer = immer<Database>((set, get) => ({
     return updated
   },
 
-  deleteAccessCode(params) {
+  deleteAccessCode(access_code_id) {
     const target = get().access_codes.find(
-      (access_code) => access_code.access_code_id === params.access_code_id
+      (access_code) => access_code.access_code_id === access_code_id
     )
     if (target == null) {
       throw new Error("Could not find access_code with access_code_id")
@@ -355,11 +381,11 @@ const initializer = immer<Database>((set, get) => ({
     return updated
   },
 
-  deleteClimateSettingSchedule(params) {
+  deleteClimateSettingSchedule(climate_setting_schedule_id) {
     const target = get().climate_setting_schedules.find(
       (climate_setting_schedule) =>
         climate_setting_schedule.climate_setting_schedule_id ===
-        params.climate_setting_schedule_id
+        climate_setting_schedule_id
     )
     if (target == null) {
       throw new Error(
