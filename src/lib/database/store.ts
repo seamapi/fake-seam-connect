@@ -22,6 +22,7 @@ export const createDatabase = (): ZustandDatabase => {
 
 const initializer = immer<Database>((set, get) => ({
   _counters: {},
+  devicedbConfig: null,
   simulatedWorkspaceOutages: {},
   client_sessions: [],
   workspaces: [],
@@ -37,6 +38,10 @@ const initializer = immer<Database>((set, get) => ({
     const count = (get()._counters[type] ?? 0) + 1
     set({ _counters: { ...get()._counters, [type]: count } })
     return `${type}${count}`
+  },
+
+  setDevicedbConfig(devicedbConfig) {
+    set({ devicedbConfig })
   },
 
   addWorkspace(params) {

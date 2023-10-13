@@ -1687,6 +1687,28 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/internal/devicedb_image_proxy": {
+    route: "/internal/devicedb_image_proxy"
+    method: "GET"
+    queryParams: {
+      image_id: string
+    }
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {}
+  }
+  "/internal/devicedb/[...path]": {
+    route: "/internal/devicedb/[...path]"
+    method: "GET" | "OPTIONS"
+    queryParams: {
+      path: string[]
+    }
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: any
+  }
   "/internal/tlmtry": {
     route: "/internal/tlmtry"
     method: "POST"
