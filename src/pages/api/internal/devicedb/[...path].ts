@@ -24,7 +24,8 @@ export default withRouteSpec({
     params: query,
     baseURL: db.devicedbConfig.url,
     headers: {
-      "x-vercel-protection-bypass": db.devicedbConfig.vercelProtectionBypassSecret,
+      "x-vercel-protection-bypass":
+        db.devicedbConfig.vercelProtectionBypassSecret,
     },
     validateStatus: () => true,
     responseType: "arraybuffer",
