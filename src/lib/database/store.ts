@@ -115,8 +115,9 @@ const initializer = immer<Database>((set, get) => ({
       connect_webview_id: get()._getNextId("connect_webview"),
       workspace_id: params.workspace_id,
       status: "pending",
-      accepted_providers: ["august"],
+      accepted_providers: params.accepted_providers ?? ["august"],
       created_at: params.created_at ?? new Date().toISOString(),
+      custom_redirect_url: params.custom_redirect_url ?? null,
     }
     set({
       connect_webviews: [...get().connect_webviews, new_connect_webview],

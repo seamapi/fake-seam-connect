@@ -3171,16 +3171,55 @@
                         },
                         "accepted_providers": {
                           "type": "array",
-                          "items": { "type": "string" }
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "akuvox",
+                              "august",
+                              "avigilon_alta",
+                              "brivo",
+                              "butterflymx",
+                              "schlage",
+                              "smartthings",
+                              "yale",
+                              "genie",
+                              "doorking",
+                              "salto",
+                              "lockly",
+                              "ttlock",
+                              "linear",
+                              "noiseaware",
+                              "nuki",
+                              "seam_relay_admin",
+                              "igloo",
+                              "kwikset",
+                              "minut",
+                              "my_2n",
+                              "controlbyweb",
+                              "nest",
+                              "igloohome",
+                              "ecobee",
+                              "hubitat",
+                              "four_suites",
+                              "dormakaba_oracode",
+                              "pti",
+                              "wyze"
+                            ]
+                          }
                         },
                         "connected_account_id": { "type": "string" },
-                        "created_at": { "type": "string" }
+                        "created_at": { "type": "string" },
+                        "custom_redirect_url": {
+                          "type": "string",
+                          "nullable": true
+                        }
                       },
                       "required": [
                         "connect_webview_id",
                         "workspace_id",
                         "status",
-                        "created_at"
+                        "created_at",
+                        "custom_redirect_url"
                       ]
                     },
                     "ok": { "type": "boolean" }
@@ -3202,8 +3241,43 @@
                 "properties": {
                   "accepted_providers": {
                     "type": "array",
-                    "items": { "type": "string" }
-                  }
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "akuvox",
+                        "august",
+                        "avigilon_alta",
+                        "brivo",
+                        "butterflymx",
+                        "schlage",
+                        "smartthings",
+                        "yale",
+                        "genie",
+                        "doorking",
+                        "salto",
+                        "lockly",
+                        "ttlock",
+                        "linear",
+                        "noiseaware",
+                        "nuki",
+                        "seam_relay_admin",
+                        "igloo",
+                        "kwikset",
+                        "minut",
+                        "my_2n",
+                        "controlbyweb",
+                        "nest",
+                        "igloohome",
+                        "ecobee",
+                        "hubitat",
+                        "four_suites",
+                        "dormakaba_oracode",
+                        "pti",
+                        "wyze"
+                      ]
+                    }
+                  },
+                  "custom_redirect_url": { "type": "string" }
                 }
               }
             }
@@ -3237,16 +3311,55 @@
                         },
                         "accepted_providers": {
                           "type": "array",
-                          "items": { "type": "string" }
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "akuvox",
+                              "august",
+                              "avigilon_alta",
+                              "brivo",
+                              "butterflymx",
+                              "schlage",
+                              "smartthings",
+                              "yale",
+                              "genie",
+                              "doorking",
+                              "salto",
+                              "lockly",
+                              "ttlock",
+                              "linear",
+                              "noiseaware",
+                              "nuki",
+                              "seam_relay_admin",
+                              "igloo",
+                              "kwikset",
+                              "minut",
+                              "my_2n",
+                              "controlbyweb",
+                              "nest",
+                              "igloohome",
+                              "ecobee",
+                              "hubitat",
+                              "four_suites",
+                              "dormakaba_oracode",
+                              "pti",
+                              "wyze"
+                            ]
+                          }
                         },
                         "connected_account_id": { "type": "string" },
-                        "created_at": { "type": "string" }
+                        "created_at": { "type": "string" },
+                        "custom_redirect_url": {
+                          "type": "string",
+                          "nullable": true
+                        }
                       },
                       "required": [
                         "connect_webview_id",
                         "workspace_id",
                         "status",
-                        "created_at"
+                        "created_at",
+                        "custom_redirect_url"
                       ]
                     },
                     "ok": { "type": "boolean" }
@@ -3301,16 +3414,55 @@
                           },
                           "accepted_providers": {
                             "type": "array",
-                            "items": { "type": "string" }
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "akuvox",
+                                "august",
+                                "avigilon_alta",
+                                "brivo",
+                                "butterflymx",
+                                "schlage",
+                                "smartthings",
+                                "yale",
+                                "genie",
+                                "doorking",
+                                "salto",
+                                "lockly",
+                                "ttlock",
+                                "linear",
+                                "noiseaware",
+                                "nuki",
+                                "seam_relay_admin",
+                                "igloo",
+                                "kwikset",
+                                "minut",
+                                "my_2n",
+                                "controlbyweb",
+                                "nest",
+                                "igloohome",
+                                "ecobee",
+                                "hubitat",
+                                "four_suites",
+                                "dormakaba_oracode",
+                                "pti",
+                                "wyze"
+                              ]
+                            }
                           },
                           "connected_account_id": { "type": "string" },
-                          "created_at": { "type": "string" }
+                          "created_at": { "type": "string" },
+                          "custom_redirect_url": {
+                            "type": "string",
+                            "nullable": true
+                          }
                         },
                         "required": [
                           "connect_webview_id",
                           "workspace_id",
                           "status",
-                          "created_at"
+                          "created_at",
+                          "custom_redirect_url"
                         ]
                       }
                     },
@@ -3352,16 +3504,55 @@
                           },
                           "accepted_providers": {
                             "type": "array",
-                            "items": { "type": "string" }
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "akuvox",
+                                "august",
+                                "avigilon_alta",
+                                "brivo",
+                                "butterflymx",
+                                "schlage",
+                                "smartthings",
+                                "yale",
+                                "genie",
+                                "doorking",
+                                "salto",
+                                "lockly",
+                                "ttlock",
+                                "linear",
+                                "noiseaware",
+                                "nuki",
+                                "seam_relay_admin",
+                                "igloo",
+                                "kwikset",
+                                "minut",
+                                "my_2n",
+                                "controlbyweb",
+                                "nest",
+                                "igloohome",
+                                "ecobee",
+                                "hubitat",
+                                "four_suites",
+                                "dormakaba_oracode",
+                                "pti",
+                                "wyze"
+                              ]
+                            }
                           },
                           "connected_account_id": { "type": "string" },
-                          "created_at": { "type": "string" }
+                          "created_at": { "type": "string" },
+                          "custom_redirect_url": {
+                            "type": "string",
+                            "nullable": true
+                          }
                         },
                         "required": [
                           "connect_webview_id",
                           "workspace_id",
                           "status",
-                          "created_at"
+                          "created_at",
+                          "custom_redirect_url"
                         ]
                       }
                     },
