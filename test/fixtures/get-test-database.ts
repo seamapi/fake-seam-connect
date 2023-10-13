@@ -35,7 +35,8 @@ export const getTestDatabase = async (
   if (fakeDevicedb?.serverUrl != null) {
     db.setDevicedbConfig({
       url: fakeDevicedb.serverUrl,
-      vercelProtectionSecret: fakeDevicedb.database.vercel_protection_secret,
+      vercelProtectionBypassSecret:
+        fakeDevicedb.database.vercel_protection_bypass_secret,
     })
   }
 

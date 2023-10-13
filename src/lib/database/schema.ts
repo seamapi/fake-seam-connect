@@ -162,7 +162,7 @@ export interface DatabaseMethods {
 
 interface DevicedbConfig {
   url: string
-  vercelProtectionSecret: string
+  vercelProtectionBypassSecret: string
 }
 
 export type Database = DatabaseState & DatabaseMethods

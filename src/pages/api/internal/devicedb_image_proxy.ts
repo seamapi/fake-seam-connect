@@ -23,7 +23,7 @@ export default withRouteSpec({
     },
     baseURL: db.devicedbConfig.url,
     headers: {
-      "x-vercel-protection-bypass": db.devicedbConfig.vercelProtectionSecret,
+      "x-vercel-protection-bypass": db.devicedbConfig.vercelProtectionBypassSecret,
     },
     validateStatus: () => true,
     responseType: "arraybuffer",
