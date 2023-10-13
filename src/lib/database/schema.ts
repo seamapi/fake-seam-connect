@@ -91,6 +91,7 @@ export interface DatabaseMethods {
     warnings?: Device["warnings"]
     created_at?: string
   }) => Device
+  deleteDevice: (params: Device) => void
   addAccessCode: (
     params: {
       workspace_id: string

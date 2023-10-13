@@ -56,6 +56,10 @@ export const getTestDatabase = async (
     device_type: "august_lock",
     name: "Front Door",
     workspace_id: ws2.workspace_id,
+    properties: {
+      name: "Fake Test August Lock",
+      manufacturer: "august",
+    },
   })
 
   const device2 = db.addDevice({

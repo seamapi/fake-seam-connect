@@ -3559,6 +3559,43 @@
         "operationId": "connectedAccountsListGet"
       }
     },
+    "/devices/delete": {
+      "post": {
+        "x-fern-sdk-group-name": ["devices"],
+        "x-fern-sdk-method-name": "delete",
+        "summary": "/devices/delete",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" }
+        },
+        "security": [{ "cst_ak_pk": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "device_id": { "type": "string" } },
+                "required": ["device_id"]
+              }
+            }
+          }
+        },
+        "tags": [],
+        "operationId": "devicesDeletePost"
+      }
+    },
     "/devices/get": {
       "post": {
         "x-fern-sdk-group-name": ["devices"],
@@ -4047,8 +4084,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "properties": { "device_id": { "type": "string" } },
-                "required": ["device_id"]
+                "properties": {
+                  "device_id": { "type": "string" },
+                  "name": { "type": "string" }
+                }
               }
             }
           }
@@ -4563,7 +4602,19 @@
                   "device_ids": {
                     "type": "array",
                     "items": { "type": "string" }
-                  }
+                  },
+                  "connected_account_id": { "type": "string" },
+                  "device_type": {
+                    "type": "string",
+                    "enum": [
+                      "august_lock",
+                      "schlage_lock",
+                      "yale_lock",
+                      "smartthings_lock",
+                      "ecobee_thermostat"
+                    ]
+                  },
+                  "manufacturer": { "type": "string" }
                 }
               }
             }
@@ -4598,7 +4649,7 @@
                             "type": "array",
                             "items": {
                               "type": "string",
-                              "enum": ["stable", "internal_beta"]
+                              "enum": ["stable", "consumer_smartlocks"]
                             }
                           }
                         },
@@ -4624,7 +4675,15 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "type": "object", "properties": {} }
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "provider_category": {
+                    "type": "string",
+                    "enum": ["stable", "consumer_smartlocks"]
+                  }
+                }
+              }
             }
           }
         },

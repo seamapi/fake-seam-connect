@@ -155,6 +155,23 @@ const initializer = immer<Database>((set, get) => ({
     return new_device
   },
 
+  deleteDevice(params) {
+    const target = get().devices.find((d) => d.device_id === params.device_id)
+    if (target == null) {
+      throw new Error("Could not find device with device_id")
+    }
+
+    set({
+      devices: [
+        ...get().devices.filter((d) => {
+          const is_target = d.device_id === target.device_id
+
+          return !is_target
+        }),
+      ],
+    })
+  },
+
   addConnectedAccount(params) {
     // @ts-expect-error  Partially implemented
     const new_connected_account: ConnectedAccount = {
