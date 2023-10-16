@@ -2594,6 +2594,45 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/thermostats/off": {
+    route: "/thermostats/off"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      sync?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
 }
 
 export type RouteResponse<Path extends keyof Routes> =
