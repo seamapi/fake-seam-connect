@@ -49,6 +49,6 @@ export default withRouteSpec({
   })
 
   res.status(200).json({
-    action_attempt: sync === true ? action_attempt_sync : action_attempt,
+    action_attempt: sync ? action_attempt_sync : action_attempt,
   })
 })
