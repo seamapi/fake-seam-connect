@@ -100,6 +100,10 @@ export interface DatabaseMethods {
     created_at?: string
   }) => Device
   deleteDevice: (device_id: Device["device_id"]) => void
+  updateDevice: (
+    device_id: Device["device_id"],
+    values: Partial<Device>
+  ) => void
   addAccessCode: (
     params: {
       workspace_id: string

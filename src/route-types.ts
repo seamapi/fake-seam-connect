@@ -1518,6 +1518,7 @@ export type Routes = {
                   }
                 | undefined
               image_url?: string | undefined
+              manufacturer?: string | undefined
               temperature_fahrenheit: number
               temperature_celsius: number
               relative_humidity: number
@@ -1718,6 +1719,7 @@ export type Routes = {
                   }
                 | undefined
               image_url?: string | undefined
+              manufacturer?: string | undefined
               temperature_fahrenheit: number
               temperature_celsius: number
               relative_humidity: number
@@ -2274,6 +2276,7 @@ export type Routes = {
                   }
                 | undefined
               image_url?: string | undefined
+              manufacturer?: string | undefined
               temperature_fahrenheit: number
               temperature_celsius: number
               relative_humidity: number
@@ -2502,6 +2505,7 @@ export type Routes = {
                   }
                 | undefined
               image_url?: string | undefined
+              manufacturer?: string | undefined
               temperature_fahrenheit: number
               temperature_celsius: number
               relative_humidity: number
@@ -2591,6 +2595,29 @@ export type Routes = {
         }[]
         created_at: string
       }[]
+      ok: boolean
+    }
+  }
+  "/thermostats/update": {
+    route: "/thermostats/update"
+    method: "PATCH" | "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      default_climate_setting: {
+        automatic_heating_enabled?: boolean | undefined
+        automatic_cooling_enabled?: boolean | undefined
+        hvac_mode_setting?: ("off" | "heat" | "cool" | "heat_cool") | undefined
+        cooling_set_point_celsius?: (number | undefined) | undefined
+        heating_set_point_celsius?: (number | undefined) | undefined
+        cooling_set_point_fahrenheit?: (number | undefined) | undefined
+        heating_set_point_fahrenheit?: (number | undefined) | undefined
+        manual_override_allowed?: boolean | undefined
+      }
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
       ok: boolean
     }
   }

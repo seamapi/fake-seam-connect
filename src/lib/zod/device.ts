@@ -66,6 +66,7 @@ export const lock_device_properties = common_device_properties.extend({
 })
 
 export const thermostat_device_properties = common_device_properties.extend({
+  manufacturer: z.string().optional(),
   temperature_fahrenheit: z.number(),
   temperature_celsius: z.number(),
   relative_humidity: z.number(),

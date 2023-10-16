@@ -180,6 +180,32 @@ const initializer = immer<Database>((set, get) => ({
     })
   },
 
+  updateDevice(device_id, values) {
+    const target = get().devices.find(
+      (device) => device.device_id === device_id
+    )
+    if (target == null) {
+      throw new Error("Could not find device with device_id")
+    }
+
+    const updated = {
+      ...target,
+      ...values,
+    }
+
+    set({
+      devices: get().devices.map((device) => {
+        if (device.device_id === updated.device_id) {
+          return updated
+        }
+
+        return device
+      }),
+    })
+
+    return updated
+  },
+
   addConnectedAccount(params) {
     // @ts-expect-error  Partially implemented
     const new_connected_account: ConnectedAccount = {
