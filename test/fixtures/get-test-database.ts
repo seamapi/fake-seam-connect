@@ -1,3 +1,4 @@
+import type { Fake as FakeDevicedb } from "@seamapi/fake-devicedb"
 import type { ExecutionContext } from "ava"
 
 import { createDatabase, type Database } from "index.ts"
@@ -24,9 +25,20 @@ interface Seed {
 
 export const getTestDatabase = async (
   _t: ExecutionContext,
-  { seed: shouldSeed = true }: { seed?: boolean } = {}
+  {
+    seed: shouldSeed = true,
+    fakeDevicedb,
+  }: { seed?: boolean; fakeDevicedb?: FakeDevicedb } = {}
 ): Promise<DatabaseFixture> => {
   const db = createDatabase()
+
+  if (fakeDevicedb?.serverUrl != null) {
+    db.setDevicedbConfig({
+      url: fakeDevicedb.serverUrl,
+      vercelProtectionBypassSecret:
+        fakeDevicedb.database.vercel_protection_bypass_secret,
+    })
+  }
 
   if (!shouldSeed) return { db, seed: {} as any } // NOTE: bad type, but not worth the templating
 
@@ -56,6 +68,10 @@ export const getTestDatabase = async (
     device_type: "august_lock",
     name: "Front Door",
     workspace_id: ws2.workspace_id,
+    properties: {
+      name: "Fake Test August Lock",
+      manufacturer: "august",
+    },
   })
 
   const device2 = db.addDevice({

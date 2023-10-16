@@ -1,3 +1,4 @@
+import { createFake as createFakeDevicedb } from "@seamapi/fake-devicedb"
 import type { ExecutionContext } from "ava"
 import type { Axios } from "axios"
 import type { NextApiRequest } from "next"
@@ -22,24 +23,34 @@ type ServerFixture<TSeed = true> = DatabaseFixture<TSeed> &
 
 interface ApiRequest extends NextApiRequest {
   db?: Database | undefined
+  baseUrl?: string | undefined
 }
 
 export const getTestServer = async <TSeed extends boolean>(
   t: ExecutionContext,
   { seed }: { seed?: TSeed } = {}
 ): Promise<ServerFixture<TSeed>> => {
+  const fakeDevicedb = await createFakeDevicedb()
+  await fakeDevicedb.seed()
+  await fakeDevicedb.startServer()
+
   const { db, seed: seedResult } = await getTestDatabase(t, {
     seed: seed ?? true,
+    fakeDevicedb,
   })
 
+  let baseUrl: string | undefined
+  baseUrl = undefined
   const fixture = await getServerFixture(t, {
     middlewares: [
       (next: NextApiHandler) => (req: ApiRequest, res: NextApiResponse) => {
         req.db = db
+        req.baseUrl = baseUrl
         return next(req, res)
       },
     ],
   })
+  baseUrl = fixture.serverURL
 
   return {
     ...fixture,

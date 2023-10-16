@@ -314,7 +314,9 @@ export type Routes = {
     queryParams: {}
     jsonBody: {}
     commonParams: {
-      access_code_id: string
+      device_id?: string | undefined
+      access_code_id?: string | undefined
+      code?: string | undefined
     }
     formData: {}
     jsonResponse: {
@@ -422,7 +424,8 @@ export type Routes = {
     queryParams: {}
     jsonBody: {}
     commonParams: {
-      device_id: string
+      device_id?: string | undefined
+      access_code_ids?: string[] | undefined
     }
     formData: {}
     jsonResponse: {
@@ -1145,7 +1148,41 @@ export type Routes = {
     method: "POST"
     queryParams: {}
     jsonBody: {
-      accepted_providers?: string[] | undefined
+      accepted_providers?:
+        | (
+            | "akuvox"
+            | "august"
+            | "avigilon_alta"
+            | "brivo"
+            | "butterflymx"
+            | "schlage"
+            | "smartthings"
+            | "yale"
+            | "genie"
+            | "doorking"
+            | "salto"
+            | "lockly"
+            | "ttlock"
+            | "linear"
+            | "noiseaware"
+            | "nuki"
+            | "seam_relay_admin"
+            | "igloo"
+            | "kwikset"
+            | "minut"
+            | "my_2n"
+            | "controlbyweb"
+            | "nest"
+            | "igloohome"
+            | "ecobee"
+            | "hubitat"
+            | "four_suites"
+            | "dormakaba_oracode"
+            | "pti"
+            | "wyze"
+          )[]
+        | undefined
+      custom_redirect_url?: string | undefined
     }
     commonParams: {}
     formData: {}
@@ -1154,9 +1191,43 @@ export type Routes = {
         connect_webview_id: string
         workspace_id: string
         status: "pending" | "authorized" | "failed"
-        accepted_providers?: string[] | undefined
+        accepted_providers?:
+          | (
+              | "akuvox"
+              | "august"
+              | "avigilon_alta"
+              | "brivo"
+              | "butterflymx"
+              | "schlage"
+              | "smartthings"
+              | "yale"
+              | "genie"
+              | "doorking"
+              | "salto"
+              | "lockly"
+              | "ttlock"
+              | "linear"
+              | "noiseaware"
+              | "nuki"
+              | "seam_relay_admin"
+              | "igloo"
+              | "kwikset"
+              | "minut"
+              | "my_2n"
+              | "controlbyweb"
+              | "nest"
+              | "igloohome"
+              | "ecobee"
+              | "hubitat"
+              | "four_suites"
+              | "dormakaba_oracode"
+              | "pti"
+              | "wyze"
+            )[]
+          | undefined
         connected_account_id?: string | undefined
         created_at: string
+        custom_redirect_url: string | null
       }
       ok: boolean
     }
@@ -1175,10 +1246,97 @@ export type Routes = {
         connect_webview_id: string
         workspace_id: string
         status: "pending" | "authorized" | "failed"
-        accepted_providers?: string[] | undefined
+        accepted_providers?:
+          | (
+              | "akuvox"
+              | "august"
+              | "avigilon_alta"
+              | "brivo"
+              | "butterflymx"
+              | "schlage"
+              | "smartthings"
+              | "yale"
+              | "genie"
+              | "doorking"
+              | "salto"
+              | "lockly"
+              | "ttlock"
+              | "linear"
+              | "noiseaware"
+              | "nuki"
+              | "seam_relay_admin"
+              | "igloo"
+              | "kwikset"
+              | "minut"
+              | "my_2n"
+              | "controlbyweb"
+              | "nest"
+              | "igloohome"
+              | "ecobee"
+              | "hubitat"
+              | "four_suites"
+              | "dormakaba_oracode"
+              | "pti"
+              | "wyze"
+            )[]
+          | undefined
         connected_account_id?: string | undefined
         created_at: string
+        custom_redirect_url: string | null
       }
+      ok: boolean
+    }
+  }
+  "/connect_webviews/list": {
+    route: "/connect_webviews/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      connect_webviews: {
+        connect_webview_id: string
+        workspace_id: string
+        status: "pending" | "authorized" | "failed"
+        accepted_providers?:
+          | (
+              | "akuvox"
+              | "august"
+              | "avigilon_alta"
+              | "brivo"
+              | "butterflymx"
+              | "schlage"
+              | "smartthings"
+              | "yale"
+              | "genie"
+              | "doorking"
+              | "salto"
+              | "lockly"
+              | "ttlock"
+              | "linear"
+              | "noiseaware"
+              | "nuki"
+              | "seam_relay_admin"
+              | "igloo"
+              | "kwikset"
+              | "minut"
+              | "my_2n"
+              | "controlbyweb"
+              | "nest"
+              | "igloohome"
+              | "ecobee"
+              | "hubitat"
+              | "four_suites"
+              | "dormakaba_oracode"
+              | "pti"
+              | "wyze"
+            )[]
+          | undefined
+        connected_account_id?: string | undefined
+        created_at: string
+        custom_redirect_url: string | null
+      }[]
       ok: boolean
     }
   }
@@ -1190,6 +1348,20 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: {}
+  }
+  "/connected_accounts/delete": {
+    route: "/connected_accounts/delete"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {
+      connected_account_id: string
+      sync?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
   }
   "/connected_accounts/get": {
     route: "/connected_accounts/get"
@@ -1235,13 +1407,27 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/devices/delete": {
+    route: "/devices/delete"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/devices/get": {
     route: "/devices/get"
     method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
     commonParams: {
-      device_id: string
+      device_id?: string | undefined
+      name?: string | undefined
     }
     formData: {}
     jsonResponse: {
@@ -1431,6 +1617,17 @@ export type Routes = {
     jsonBody: {}
     commonParams: {
       device_ids?: string[] | undefined
+      connected_account_id?: string | undefined
+      device_type?:
+        | (
+            | "august_lock"
+            | "schlage_lock"
+            | "yale_lock"
+            | "smartthings_lock"
+            | "ecobee_thermostat"
+          )
+        | undefined
+      manufacturer?: string | undefined
     }
     formData: {}
     jsonResponse: {
@@ -1618,14 +1815,16 @@ export type Routes = {
     method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
-    commonParams: {}
+    commonParams: {
+      provider_category?: ("stable" | "consumer_smartlocks") | undefined
+    }
     formData: {}
     jsonResponse: {
       device_providers: {
         device_provider_name: string
         display_name: string
         image_url: string
-        provider_categories: ("stable" | "internal_beta")[]
+        provider_categories: ("stable" | "consumer_smartlocks")[]
       }[]
       ok: boolean
     }
@@ -1667,6 +1866,28 @@ export type Routes = {
       }[]
       ok: boolean
     }
+  }
+  "/internal/devicedb_image_proxy": {
+    route: "/internal/devicedb_image_proxy"
+    method: "GET"
+    queryParams: {
+      image_id: string
+    }
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {}
+  }
+  "/internal/devicedb/[...path]": {
+    route: "/internal/devicedb/[...path]"
+    method: "GET" | "OPTIONS"
+    queryParams: {
+      path: string[]
+    }
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: any
   }
   "/internal/tlmtry": {
     route: "/internal/tlmtry"
