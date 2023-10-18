@@ -11,16 +11,6 @@ test("GET /events/list", async (t: ExecutionContext) => {
   } = seed.ws2
   const date_before_event_happened = new Date().toISOString()
 
-  // since: timestamp.optional(),
-  // between: between_timestamps.optional(),
-  // device_id: z.string().optional(),
-  // device_ids: z.array(z.string()).optional(),
-  // access_code_id: z.string().optional(),
-  // access_code_ids: z.array(z.string()).optional(),
-  // event_type: z.string().optional(),
-  // event_types: z.array(z.string()).optional(),
-  // connected_account_id: z.string().optional(),
-
   const {
     data: { access_code: created_access_code },
   } = await axios.post(
@@ -70,6 +60,17 @@ test("GET /events/list", async (t: ExecutionContext) => {
     },
   })
   t.true(events_list_request.data.events.length === 0)
+
+  // Test 200 response (between)
+  events_list_request = await axios.get("/events/list", {
+    params: {
+      between: [date_before_event_happened, new Date().toISOString()],
+    },
+    headers: {
+      Authorization: `Bearer ${seed.ws2.cst}`,
+    },
+  })
+  t.true(events_list_request.data.events.length === 2)
 
   // Test 200 response (device_id)
   events_list_request = await axios.get("/events/list", {

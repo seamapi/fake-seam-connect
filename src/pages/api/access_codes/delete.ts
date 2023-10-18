@@ -39,7 +39,7 @@ export default withRouteSpec({
     access_code_id: access_code.access_code_id,
     connected_account_id: req.db.devices.find(
       (d) => d.device_id === access_code.device_id
-    )!.connected_account_id,
+    )?.connected_account_id,
   })
 
   res.status(200).json({

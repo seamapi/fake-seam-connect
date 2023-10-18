@@ -24,7 +24,7 @@ export default withRouteSpec({
       "Must specify either since or between"
     )
     .refine(
-      (payload) => !(payload.since && payload.between != null),
+      (payload) => !(payload.since != null && payload.between != null),
       "Cannot specify both since and between"
     ),
   jsonResponse: z.object({
@@ -61,16 +61,17 @@ export default withRouteSpec({
 
     const is_between_valid =
       between == null ||
-      (event_created_at_date > new Date(between[0]!) &&
-        event_created_at_date < new Date(between[1]!))
+      (event_created_at_date > new Date(between[0] as string) &&
+        event_created_at_date < new Date(between[1] as string))
 
     const does_device_ids_match =
       device_ids.length === 0 ||
-      ("device_id" in e && device_ids.includes(e.device_id!))
+      ("device_id" in e && device_ids.includes(e.device_id as string))
 
     const does_access_code_ids_match =
       access_code_ids.length === 0 ||
-      ("access_code_id" in e && access_code_ids.includes(e.access_code_id!))
+      ("access_code_id" in e &&
+        access_code_ids.includes(e.access_code_id as string))
 
     const does_event_types_match =
       event_types.length === 0 || event_types.includes(e.event_type)
