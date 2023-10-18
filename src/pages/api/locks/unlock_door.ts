@@ -1,8 +1,8 @@
+import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
 import { action_attempt } from "lib/zod/index.ts"
-import { NotFoundException } from "nextlove"
 
 export const jsonBody = z.object({
   device_id: z.string(),
@@ -20,7 +20,7 @@ export default withRouteSpec({
   const { sync, device_id } = req.body
 
   const device = req.db.devices.find((d) => d.device_id === device_id)
-  if (!device) {
+  if (device == null) {
     throw new NotFoundException({
       type: "device_not_found",
       message: "Device not found",

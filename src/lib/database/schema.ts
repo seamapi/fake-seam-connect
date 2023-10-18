@@ -11,8 +11,8 @@ import type {
   ConnectWebview,
   Device,
   DeviceProvider,
-  Workspace,
   Event,
+  Workspace,
 } from "lib/zod/index.ts"
 
 import type { ClimateSetting } from "lib/zod/climate_setting.ts"

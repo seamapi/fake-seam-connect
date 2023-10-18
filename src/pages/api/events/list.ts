@@ -24,7 +24,7 @@ export default withRouteSpec({
       "Must specify either since or between"
     )
     .refine(
-      (payload) => !(payload.since && payload.between),
+      (payload) => !(payload.since && (payload.between != null)),
       "Cannot specify both since and between"
     ),
   jsonResponse: z.object({
@@ -78,7 +78,7 @@ export default withRouteSpec({
     const does_connected_account_match =
       connected_account_id == null ||
       ("connected_account_id" in e
-        ? e["connected_account_id"] === connected_account_id
+        ? e.connected_account_id === connected_account_id
         : true)
 
     return (

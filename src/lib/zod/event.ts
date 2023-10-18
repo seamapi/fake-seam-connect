@@ -18,4 +18,4 @@ export const connect_webview_event = z.object({
   created_at: z.string().datetime(),
 })
 
-export type Event = z.infer<typeof event> & { [key: string]: any }
+export type Event = z.infer<typeof event> & Record<string, any>
