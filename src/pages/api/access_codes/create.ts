@@ -73,6 +73,14 @@ export default withRouteSpec({
       : { type: "ongoing" }),
   })
 
+  req.db.addEvent({
+    event_type: "access_code.created",
+    workspace_id: req.auth.workspace_id,
+    device_id,
+    access_code_id: access_code.access_code_id,
+    connected_account_id: device.connected_account_id,
+  })
+
   if (use_backup_access_code_pool) {
     const code = Math.random().toString().slice(-4)
     req.db.addAccessCode({
