@@ -1618,6 +1618,7 @@ export type Routes = {
     commonParams: {
       device_ids?: string[] | undefined
       connected_account_id?: string | undefined
+      connected_account_ids?: string[] | undefined
       device_type?:
         | (
             | "august_lock"
@@ -1626,6 +1627,15 @@ export type Routes = {
             | "smartthings_lock"
             | "ecobee_thermostat"
           )
+        | undefined
+      device_types?:
+        | (
+            | "august_lock"
+            | "schlage_lock"
+            | "yale_lock"
+            | "smartthings_lock"
+            | "ecobee_thermostat"
+          )[]
         | undefined
       manufacturer?: string | undefined
     }
@@ -1826,6 +1836,141 @@ export type Routes = {
         image_url: string
         provider_categories: ("stable" | "consumer_smartlocks")[]
       }[]
+      ok: boolean
+    }
+  }
+  "/devices/unmanaged/get": {
+    route: "/devices/unmanaged/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id?: string | undefined
+      name?: string | undefined
+    }
+    formData: {}
+    jsonResponse: {
+      device: {
+        device_id: string
+        device_type:
+          | "august_lock"
+          | "schlage_lock"
+          | "yale_lock"
+          | "smartthings_lock"
+          | "ecobee_thermostat"
+        connected_account_id: string
+        workspace_id: string
+        errors: {
+          error_code: string
+          message: string
+        }[]
+        warnings: {
+          warning_code: string
+          message: string
+        }[]
+        created_at: string
+        properties: {
+          name?: string | undefined
+          manufacturer?: string | undefined
+          image_url?: string | undefined
+          image_alt_text?: string | undefined
+          model: {
+            display_name: string
+          }
+        }
+      }
+      ok: boolean
+    }
+  }
+  "/devices/unmanaged/list": {
+    route: "/devices/unmanaged/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_ids?: string[] | undefined
+      connected_account_id?: string | undefined
+      connected_account_ids?: string[] | undefined
+      device_type?:
+        | (
+            | "august_lock"
+            | "schlage_lock"
+            | "yale_lock"
+            | "smartthings_lock"
+            | "ecobee_thermostat"
+          )
+        | undefined
+      device_types?:
+        | (
+            | "august_lock"
+            | "schlage_lock"
+            | "yale_lock"
+            | "smartthings_lock"
+            | "ecobee_thermostat"
+          )[]
+        | undefined
+      manufacturer?: string | undefined
+    }
+    formData: {}
+    jsonResponse: {
+      devices: {
+        device_id: string
+        device_type:
+          | "august_lock"
+          | "schlage_lock"
+          | "yale_lock"
+          | "smartthings_lock"
+          | "ecobee_thermostat"
+        connected_account_id: string
+        workspace_id: string
+        errors: {
+          error_code: string
+          message: string
+        }[]
+        warnings: {
+          warning_code: string
+          message: string
+        }[]
+        created_at: string
+        properties: {
+          name?: string | undefined
+          manufacturer?: string | undefined
+          image_url?: string | undefined
+          image_alt_text?: string | undefined
+          model: {
+            display_name: string
+          }
+        }
+      }[]
+      ok: boolean
+    }
+  }
+  "/devices/unmanaged/update": {
+    route: "/devices/unmanaged/update"
+    method: "POST" | "PATCH"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+      is_managed: true
+    }
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/devices/update": {
+    route: "/devices/update"
+    method: "POST" | "PATCH"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+      name?: (string | null) | undefined
+      is_managed?: boolean
+    }
+    formData: {}
+    jsonResponse: {
       ok: boolean
     }
   }
