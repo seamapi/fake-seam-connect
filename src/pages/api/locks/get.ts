@@ -1,13 +1,13 @@
 import { HttpException, NotFoundException } from "nextlove"
 import { z } from "zod"
 
-import {    device,
-  LOCK_DEVICE_TYPES} from "lib/zod/index.ts";
-import type {LockDeviceType} from "lib/zod/index.ts"
+import { device, LOCK_DEVICE_TYPES } from "lib/zod/index.ts"
+import type { LockDeviceType } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 import { common_params } from "../devices/get.ts"
+import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
@@ -19,14 +19,18 @@ export default withRouteSpec({
   }),
 } as const)(async (req, res) => {
   const { device_id, name } = req.commonParams
+  const { workspace_id } = req.auth
 
-  const device = req.db.devices.find(
-    (d) =>
-      (d.device_id === device_id || d.properties.name === name) &&
-      LOCK_DEVICE_TYPES.includes(d.device_type as LockDeviceType)
-  )
+  const device = getManagedDevicesWithFilter(req.db, {
+    workspace_id,
+    device_id,
+    name,
+  })[0]
 
-  if (device == null) {
+  if (
+    device == null ||
+    !LOCK_DEVICE_TYPES.includes(device.device_type as LockDeviceType)
+  ) {
     throw new NotFoundException({
       type: "device_not_found",
       message: "Device not found",

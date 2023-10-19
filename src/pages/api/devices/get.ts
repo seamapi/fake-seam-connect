@@ -16,16 +16,6 @@ export const common_params = z
     "Either 'device_id' or 'name' is required"
   )
 
-export const common_params = z
-  .object({
-    device_id: z.string().optional(),
-    name: z.string().optional(),
-  })
-  .refine(
-    (args) => Boolean(args.device_id) || Boolean(args.name),
-    "Either 'device_id' or 'name' is required"
-  )
-
 export default withRouteSpec({
   auth: "cst_ak_pk",
   methods: ["GET", "POST"],
