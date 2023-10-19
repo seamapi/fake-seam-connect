@@ -1,10 +1,10 @@
 import { HttpException, NotFoundException } from "nextlove"
 import { z } from "zod"
 
-import { LOCK_DEVICE_TYPES, device } from "lib/zod/index.ts"
-import type { LockDeviceType } from "lib/zod/index.ts"
+import type {LockDeviceType  ,device,LOCK_DEVICE_TYPES} from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
+
 import { common_params } from "../devices/get.ts"
 
 export default withRouteSpec({
@@ -13,7 +13,7 @@ export default withRouteSpec({
   commonParams: common_params,
   jsonResponse: z.object({
     lock: device,
-    device: device,
+    device,
   }),
 } as const)(async (req, res) => {
   const { device_id, name } = req.commonParams
