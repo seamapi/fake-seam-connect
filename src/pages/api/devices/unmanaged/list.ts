@@ -1,25 +1,18 @@
 import { z } from "zod"
 
-import { device, device_type } from "lib/zod/index.ts"
+import { unmanaged_device } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
+import { getUnmanagedDevicesWithFilter } from "lib/util/devices.ts"
 
-export const common_params = z.object({
-  device_ids: z.array(z.string()).optional(),
-  connected_account_id: z.string().optional(),
-  connected_account_ids: z.array(z.string()).nonempty().optional(),
-  device_type: device_type.optional(),
-  device_types: z.array(device_type).nonempty().optional(),
-  manufacturer: z.string().optional(),
-})
+import { common_params } from "../list.ts"
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
   methods: ["GET", "POST"],
   commonParams: common_params,
   jsonResponse: z.object({
-    devices: z.array(device),
+    devices: z.array(unmanaged_device),
   }),
 } as const)(async (req, res) => {
   const {
@@ -32,7 +25,7 @@ export default withRouteSpec({
   } = req.commonParams
   const { workspace_id } = req.auth
 
-  let devices = getManagedDevicesWithFilter(req.db, {
+  let devices = getUnmanagedDevicesWithFilter(req.db, {
     workspace_id,
     device_ids,
     connected_account_id,
