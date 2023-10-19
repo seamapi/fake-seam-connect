@@ -1,8 +1,6 @@
 import { z } from "zod"
 
-import type {LockDeviceType} from "lib/zod/index.ts"
-import {    device,
-  LOCK_DEVICE_TYPES} from "lib/zod/index.ts";
+import type {device, LOCK_DEVICE_TYPES,LockDeviceType  } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
