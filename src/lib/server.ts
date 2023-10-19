@@ -19,10 +19,12 @@ interface ServerOptions {
 
 interface ApiRequest extends NextApiRequest {
   db?: Database | undefined
+  baseUrl?: string | undefined
 }
 
 export async function startServer(
   options: {
+    baseUrl?: string
     port?: number | undefined
     database?: Database
     signals?: string[]
@@ -31,6 +33,7 @@ export async function startServer(
   const database = options.database ?? createDatabase()
   const port = options.port ?? (await getPort())
   const signals = options.signals ?? []
+  const baseUrl = options.baseUrl ?? `http://localhost:${port}`
 
   logger.debug(`Starting fake on http://localhost:${port}`)
 
@@ -39,6 +42,7 @@ export async function startServer(
     middlewares: [
       (next) => (req: ApiRequest, res) => {
         req.db = database
+        req.baseUrl = baseUrl
         return next(req, res)
       },
     ],

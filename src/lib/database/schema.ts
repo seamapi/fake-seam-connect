@@ -21,6 +21,7 @@ export type WorkspaceId = string
 
 export interface DatabaseState {
   _counters: Record<string, number>
+  devicedbConfig: DevicedbConfig | null
   workspaces: Workspace[]
   api_keys: ApiKey[]
   access_codes: AccessCode[]
@@ -38,6 +39,7 @@ export interface DatabaseState {
 
 export interface DatabaseMethods {
   _getNextId: (type: string) => string
+  setDevicedbConfig: (devicedbConfig: DevicedbConfig) => void
   addWorkspace: (params: {
     name: string
     publishable_key?: string
@@ -161,6 +163,11 @@ export interface DatabaseMethods {
   simulateWorkspaceOutageRecovery: (workspace_id: string) => void
 
   update: (t?: number) => void
+}
+
+interface DevicedbConfig {
+  url: string
+  vercelProtectionBypassSecret: string
 }
 
 export type Database = DatabaseState & DatabaseMethods
