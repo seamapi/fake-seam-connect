@@ -14,8 +14,8 @@ import type {
   Workspace,
 } from "lib/zod/index.ts"
 
+import type { RecursivePartial } from "lib/util/type-helpers.ts"
 import type { ClimateSetting } from "lib/zod/climate_setting.ts"
-import { RecursivePartial } from "lib/util/type-helpers.ts"
 
 export type WorkspaceId = string
 
@@ -101,7 +101,9 @@ export interface DatabaseMethods {
     created_at?: string
   }) => Device
   deleteDevice: (device_id: Device["device_id"]) => void
-  updateDevice: (params: Pick<Device, "device_id"> & RecursivePartial<Device>) => Device
+  updateDevice: (
+    params: Pick<Device, "device_id"> & RecursivePartial<Device>
+  ) => Device
   addAccessCode: (
     params: {
       workspace_id: string
