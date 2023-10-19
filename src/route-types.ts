@@ -1434,11 +1434,8 @@ export type Routes = {
       device: {
         device_id: string
         device_type:
-          | "august_lock"
-          | "schlage_lock"
-          | "yale_lock"
-          | "smartthings_lock"
-          | "ecobee_thermostat"
+          | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
+          | ("nest_thermostat" | "ecobee_thermostat")
         capabilities_supported: string[]
         properties:
           | {
@@ -1620,11 +1617,13 @@ export type Routes = {
       connected_account_id?: string | undefined
       device_type?:
         | (
-            | "august_lock"
-            | "schlage_lock"
-            | "yale_lock"
-            | "smartthings_lock"
-            | "ecobee_thermostat"
+            | (
+                | "august_lock"
+                | "schlage_lock"
+                | "yale_lock"
+                | "smartthings_lock"
+              )
+            | ("nest_thermostat" | "ecobee_thermostat")
           )
         | undefined
       manufacturer?: string | undefined
@@ -1634,11 +1633,8 @@ export type Routes = {
       devices: {
         device_id: string
         device_type:
-          | "august_lock"
-          | "schlage_lock"
-          | "yale_lock"
-          | "smartthings_lock"
-          | "ecobee_thermostat"
+          | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
+          | ("nest_thermostat" | "ecobee_thermostat")
         capabilities_supported: string[]
         properties:
           | {
@@ -1897,6 +1893,366 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: {}
+  }
+  "/locks/get": {
+    route: "/locks/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id?: string | undefined
+      name?: string | undefined
+    }
+    formData: {}
+    jsonResponse: {
+      lock: {
+        device_id: string
+        device_type:
+          | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
+          | ("nest_thermostat" | "ecobee_thermostat")
+        capabilities_supported: string[]
+        properties:
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+            }
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              locked: boolean
+              door_open?: boolean | undefined
+              battery_level?: number | undefined
+              has_direct_power?: boolean | undefined
+              manufacturer?: string | undefined
+              supported_code_lengths?: number[] | undefined
+              max_active_codes_supported?: number | undefined
+              serial_number?: string | undefined
+              schlage_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    access_code_length: number
+                    model?: string | undefined
+                    location_id?: string | undefined
+                  }
+                | undefined
+              august_metadata?:
+                | {
+                    lock_id: string
+                    lock_name: string
+                    house_name: string
+                    has_keypad?: boolean | undefined
+                    model?: string | undefined
+                    keypad_battery_level?: string | undefined
+                  }
+                | undefined
+              nuki_metadata?:
+                | {
+                    keypad_battery_critical?: boolean | undefined
+                  }
+                | undefined
+              smartthings_metadata?: any | undefined
+            }
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              temperature_fahrenheit: number
+              temperature_celsius: number
+              relative_humidity: number
+              can_enable_automatic_heating: boolean
+              can_enable_automatic_cooling: boolean
+              available_hvac_mode_settings:
+                | "heat"
+                | "cool"
+                | "heat_cool"
+                | "off"
+              is_heating: boolean
+              is_cooling: boolean
+              is_fan_running: boolean
+              is_temporary_manual_override_active: boolean
+              current_climate_setting: {
+                automatic_heating_enabled: boolean
+                automatic_cooling_enabled: boolean
+                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                cooling_set_point_celsius?: number | undefined
+                heating_set_point_celsius?: number | undefined
+                cooling_set_point_fahrenheit?: number | undefined
+                heating_set_point_fahrenheit?: number | undefined
+                manual_override_allowed: boolean
+              }
+              default_climate_setting?:
+                | {
+                    automatic_heating_enabled: boolean
+                    automatic_cooling_enabled: boolean
+                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                    cooling_set_point_celsius?: number | undefined
+                    heating_set_point_celsius?: number | undefined
+                    cooling_set_point_fahrenheit?: number | undefined
+                    heating_set_point_fahrenheit?: number | undefined
+                    manual_override_allowed: boolean
+                  }
+                | undefined
+              is_climate_setting_schedule_active: boolean
+              active_climate_setting_schedule?:
+                | {
+                    climate_setting_schedule_id: string
+                    schedule_type: "time_bound"
+                    device_id: string
+                    name?: string | undefined
+                    schedule_starts_at: string
+                    schedule_ends_at: string
+                    created_at: string
+                    automatic_heating_enabled?: boolean | undefined
+                    automatic_cooling_enabled?: boolean | undefined
+                    hvac_mode_setting?:
+                      | ("off" | "heat" | "cool" | "heat_cool")
+                      | undefined
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    manual_override_allowed?: boolean | undefined
+                  }
+                | undefined
+              is_cooling_available: boolean
+              min_cooling_set_point_celsius: number
+              min_cooling_set_point_fahrenheit: number
+              max_cooling_set_point_celsius: number
+              max_cooling_set_point_fahrenheit: number
+              is_heating_available: boolean
+              min_heating_set_point_celsius: number
+              min_heating_set_point_fahrenheit: number
+              max_heating_set_point_celsius: number
+              max_heating_set_point_fahrenheit: number
+              min_heating_cooling_delta_celsius: number
+              min_heating_cooling_delta_fahrenheit: number
+            }
+        location?: any
+        connected_account_id: string
+        is_managed: boolean
+        workspace_id: string
+        errors: {
+          error_code: string
+          message: string
+        }[]
+        warnings: {
+          warning_code: string
+          message: string
+        }[]
+        created_at: string
+      }
+      device: {
+        device_id: string
+        device_type:
+          | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
+          | ("nest_thermostat" | "ecobee_thermostat")
+        capabilities_supported: string[]
+        properties:
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+            }
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              locked: boolean
+              door_open?: boolean | undefined
+              battery_level?: number | undefined
+              has_direct_power?: boolean | undefined
+              manufacturer?: string | undefined
+              supported_code_lengths?: number[] | undefined
+              max_active_codes_supported?: number | undefined
+              serial_number?: string | undefined
+              schlage_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    access_code_length: number
+                    model?: string | undefined
+                    location_id?: string | undefined
+                  }
+                | undefined
+              august_metadata?:
+                | {
+                    lock_id: string
+                    lock_name: string
+                    house_name: string
+                    has_keypad?: boolean | undefined
+                    model?: string | undefined
+                    keypad_battery_level?: string | undefined
+                  }
+                | undefined
+              nuki_metadata?:
+                | {
+                    keypad_battery_critical?: boolean | undefined
+                  }
+                | undefined
+              smartthings_metadata?: any | undefined
+            }
+          | {
+              online: boolean
+              name: string
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              temperature_fahrenheit: number
+              temperature_celsius: number
+              relative_humidity: number
+              can_enable_automatic_heating: boolean
+              can_enable_automatic_cooling: boolean
+              available_hvac_mode_settings:
+                | "heat"
+                | "cool"
+                | "heat_cool"
+                | "off"
+              is_heating: boolean
+              is_cooling: boolean
+              is_fan_running: boolean
+              is_temporary_manual_override_active: boolean
+              current_climate_setting: {
+                automatic_heating_enabled: boolean
+                automatic_cooling_enabled: boolean
+                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                cooling_set_point_celsius?: number | undefined
+                heating_set_point_celsius?: number | undefined
+                cooling_set_point_fahrenheit?: number | undefined
+                heating_set_point_fahrenheit?: number | undefined
+                manual_override_allowed: boolean
+              }
+              default_climate_setting?:
+                | {
+                    automatic_heating_enabled: boolean
+                    automatic_cooling_enabled: boolean
+                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
+                    cooling_set_point_celsius?: number | undefined
+                    heating_set_point_celsius?: number | undefined
+                    cooling_set_point_fahrenheit?: number | undefined
+                    heating_set_point_fahrenheit?: number | undefined
+                    manual_override_allowed: boolean
+                  }
+                | undefined
+              is_climate_setting_schedule_active: boolean
+              active_climate_setting_schedule?:
+                | {
+                    climate_setting_schedule_id: string
+                    schedule_type: "time_bound"
+                    device_id: string
+                    name?: string | undefined
+                    schedule_starts_at: string
+                    schedule_ends_at: string
+                    created_at: string
+                    automatic_heating_enabled?: boolean | undefined
+                    automatic_cooling_enabled?: boolean | undefined
+                    hvac_mode_setting?:
+                      | ("off" | "heat" | "cool" | "heat_cool")
+                      | undefined
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    manual_override_allowed?: boolean | undefined
+                  }
+                | undefined
+              is_cooling_available: boolean
+              min_cooling_set_point_celsius: number
+              min_cooling_set_point_fahrenheit: number
+              max_cooling_set_point_celsius: number
+              max_cooling_set_point_fahrenheit: number
+              is_heating_available: boolean
+              min_heating_set_point_celsius: number
+              min_heating_set_point_fahrenheit: number
+              max_heating_set_point_celsius: number
+              max_heating_set_point_fahrenheit: number
+              min_heating_cooling_delta_celsius: number
+              min_heating_cooling_delta_fahrenheit: number
+            }
+        location?: any
+        connected_account_id: string
+        is_managed: boolean
+        workspace_id: string
+        errors: {
+          error_code: string
+          message: string
+        }[]
+        warnings: {
+          warning_code: string
+          message: string
+        }[]
+        created_at: string
+      }
+      ok: boolean
+    }
   }
   "/locks/lock_door": {
     route: "/locks/lock_door"
@@ -2190,11 +2546,8 @@ export type Routes = {
       thermostat: {
         device_id: string
         device_type:
-          | "august_lock"
-          | "schlage_lock"
-          | "yale_lock"
-          | "smartthings_lock"
-          | "ecobee_thermostat"
+          | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
+          | ("nest_thermostat" | "ecobee_thermostat")
         capabilities_supported: string[]
         properties:
           | {
@@ -2418,11 +2771,8 @@ export type Routes = {
       thermostats: {
         device_id: string
         device_type:
-          | "august_lock"
-          | "schlage_lock"
-          | "yale_lock"
-          | "smartthings_lock"
-          | "ecobee_thermostat"
+          | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
+          | ("nest_thermostat" | "ecobee_thermostat")
         capabilities_supported: string[]
         properties:
           | {
