@@ -2739,6 +2739,40 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/workspaces/get": {
+    route: "/workspaces/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      workspace: {
+        workspace_id: string
+        name: string
+        publishable_key: string
+        created_at: string
+      }
+      ok: boolean
+    }
+  }
+  "/workspaces/list": {
+    route: "/workspaces/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      workspaces: {
+        workspace_id: string
+        name: string
+        publishable_key: string
+        created_at: string
+      }[]
+      ok: boolean
+    }
+  }
 }
 
 export type RouteResponse<Path extends keyof Routes> =
