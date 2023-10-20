@@ -4,7 +4,7 @@ import { z } from "zod"
 import {
   device,
   THERMOSTAT_DEVICE_TYPES,
-  ThermostatDeviceType,
+  type ThermostatDeviceType,
 } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"

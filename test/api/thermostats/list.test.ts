@@ -4,7 +4,7 @@ import { getTestServer } from "fixtures/get-test-server.ts"
 import { seed } from "lib/database/seed.ts"
 import {
   THERMOSTAT_DEVICE_TYPES,
-  ThermostatDeviceType,
+  type ThermostatDeviceType,
 } from "lib/zod/device.ts"
 
 test("POST /thermostats/list with api key", async (t: ExecutionContext) => {
