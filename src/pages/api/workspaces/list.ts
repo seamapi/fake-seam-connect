@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
-import { Workspace, workspace } from "lib/zod/index.ts"
+import { type Workspace, workspace } from "lib/zod/index.ts"
 
 export default withRouteSpec({
   methods: ["GET", "POST"],
