@@ -1,6 +1,10 @@
 import { z } from "zod"
 
-import { device, THERMOSTAT_DEVICE_TYPES } from "lib/zod/index.ts"
+import {
+  device,
+  THERMOSTAT_DEVICE_TYPES,
+  ThermostatDeviceType,
+} from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
@@ -20,6 +24,8 @@ export default withRouteSpec({
           : true
       )
       .filter((d) => d.workspace_id === req.auth.workspace_id)
-      .filter((d) => THERMOSTAT_DEVICE_TYPES.includes(d.device_type)),
+      .filter((d) =>
+        THERMOSTAT_DEVICE_TYPES.includes(d.device_type as ThermostatDeviceType)
+      ),
   })
 })

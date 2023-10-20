@@ -15,6 +15,7 @@ export const THERMOSTAT_DEVICE_TYPES = [
   "nest_thermostat",
   "ecobee_thermostat",
 ] as const
+export type ThermostatDeviceType = (typeof THERMOSTAT_DEVICE_TYPES)[number]
 
 export const device_type = z.union([
   z.enum(LOCK_DEVICE_TYPES),
