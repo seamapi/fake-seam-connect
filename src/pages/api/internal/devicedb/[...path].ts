@@ -1,9 +1,13 @@
-import axios from "axios"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
-const forwardedHeaders = ["content-type", "last-modified", "cache-control"]
+const forwardedHeaders = [
+  "content-type",
+  "etag",
+  "last-modified",
+  "cache-control",
+]
 
 export default withRouteSpec({
   methods: ["GET", "OPTIONS"],
@@ -20,28 +24,34 @@ export default withRouteSpec({
     return
   }
 
-  const { data, headers, status } = await axios.get(path.join("/"), {
-    params: query,
-    baseURL: db.devicedbConfig.url,
+  const url = new URL(path.join("/"), db.devicedbConfig.url)
+  for (const [k, v] of Object.entries(query)) {
+    if (typeof v === "string") url.searchParams.append(k, v)
+  }
+  const proxyRes = await fetch(url, {
+    method: "GET",
     headers: {
       "x-vercel-protection-bypass":
         db.devicedbConfig.vercelProtectionBypassSecret,
     },
-    validateStatus: () => true,
-    responseType: "arraybuffer",
   })
+  const { status, headers } = proxyRes
+  const data = await proxyRes.arrayBuffer()
 
-  const isJson: boolean =
-    headers["content-type"]?.includes("application/json") ?? false
-
-  res.status(status)
-  for (const header of forwardedHeaders) {
-    if (headers[header] != null) {
-      res.setHeader(header, headers[header])
+  for (const key of forwardedHeaders) {
+    if (headers.has(key)) {
+      const value = headers.get(key)
+      if (typeof value === "string") res.setHeader(key, value)
     }
   }
 
-  res.send(isJson ? replaceImageUrls(data, baseUrl) : data)
+  const isJson: boolean =
+    headers.get("content-type")?.includes("application/json") ?? false
+
+  res.status(status)
+  res.send(
+    isJson ? replaceImageUrls(Buffer.from(data), baseUrl) : Buffer.from(data)
+  )
 })
 
 const replaceImageUrls = (data: Buffer, baseUrl: string): string => {
