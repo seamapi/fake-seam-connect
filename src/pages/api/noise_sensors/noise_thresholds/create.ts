@@ -20,13 +20,19 @@ export default withRouteSpec({
       noise_threshold_nrs: z.number().optional(),
     })
     .refine((value) => {
-      if (!value.noise_threshold_decibels && !value.noise_threshold_nrs) {
+      if (
+        value.noise_threshold_decibels == null &&
+        value.noise_threshold_nrs == null
+      ) {
         return false
       }
       return true
     }, "Must provide either noise_threshold_decibels or noise_threshold_nrs")
     .refine((value) => {
-      if (value.noise_threshold_decibels && value.noise_threshold_nrs) {
+      if (
+        value.noise_threshold_decibels != null &&
+        value.noise_threshold_nrs != null
+      ) {
         return false
       }
       return true

@@ -18,11 +18,11 @@ const json_body = z
     noise_threshold_nrs: z.number().optional(),
   })
   .refine((value) => {
-    const is_starts_provided_but_ends_not = Boolean(
-      value.starts_daily_at && !value.ends_daily_at
-    )
+    const is_starts_provided_but_ends_not =
+      value.starts_daily_at != null && value.ends_daily_at == null
+
     const is_ends_provided_but_starts_not = Boolean(
-      !value.starts_daily_at && value.ends_daily_at
+      value.starts_daily_at == null && value.ends_daily_at != null
     )
     if (is_starts_provided_but_ends_not || is_ends_provided_but_starts_not) {
       return false
@@ -30,7 +30,10 @@ const json_body = z
     return true
   }, "Must provide both starts_daily_at or ends_daily_at, if either is provided")
   .refine((value) => {
-    if (value.noise_threshold_decibels && value.noise_threshold_nrs) {
+    if (
+      value.noise_threshold_decibels != null &&
+      value.noise_threshold_nrs != null
+    ) {
       return false
     }
     return true
