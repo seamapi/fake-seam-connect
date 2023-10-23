@@ -20,6 +20,7 @@ interface Seed {
     connected_account1_id: string
     device1_id: string
     device2_id: string
+    noise_sensor_device_id: string
     noise_threshold_id: string
   }
 }
@@ -113,6 +114,7 @@ export const getTestDatabase = async (
       connected_account1_id: ca.connected_account_id,
       device1_id: device1.device_id,
       device2_id: device2.device_id,
+      noise_sensor_device_id,
       noise_threshold_id,
     },
   }
