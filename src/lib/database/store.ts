@@ -14,6 +14,7 @@ import type { ConnectedAccount } from "lib/zod/connected_account.ts"
 import type { Device } from "lib/zod/device.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import { NoiseThreshold } from "lib/zod/noise_threshold.ts"
 
 export const createDatabase = (): ZustandDatabase => {
   enableMapSet()
@@ -33,6 +34,7 @@ const initializer = immer<Database>((set, get) => ({
   access_codes: [],
   climate_setting_schedules: [],
   action_attempts: [],
+  noise_thresholds: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -509,6 +511,82 @@ const initializer = immer<Database>((set, get) => ({
     set((state) => {
       state.simulatedWorkspaceOutages[workspace_id] = undefined
     })
+  },
+
+  addNoiseThreshold(params) {
+    const noise_threshold: NoiseThreshold = {
+      noise_threshold_id: get()._getNextId("noise_threshold"),
+      noise_threshold_decibels: 70,
+      name: "Fake Noise Threshold",
+      ...params,
+    }
+
+    set({
+      noise_thresholds: [...get().noise_thresholds, noise_threshold],
+    })
+
+    return noise_threshold
+  },
+
+  deleteNoiseThreshold({ device_id, noise_threshold_id }) {
+    const target = get().noise_thresholds.find(
+      (nt) =>
+        nt.device_id === device_id &&
+        nt.noise_threshold_id === noise_threshold_id
+    )
+    if (target == null) {
+      throw new Error(
+        "Could not find noise_threshold with device_id and noise_threshold_id"
+      )
+    }
+
+    set({
+      noise_thresholds: [
+        ...get().noise_thresholds.filter((nt) => {
+          const is_target =
+            nt.device_id === target.device_id &&
+            nt.noise_threshold_id === target.noise_threshold_id
+
+          return !is_target
+        }),
+      ],
+    })
+  },
+
+  updateNoiseThreshold(params) {
+    const target = get().noise_thresholds.find(
+      (nt) =>
+        nt.device_id === params.device_id &&
+        nt.noise_threshold_id === params.noise_threshold_id
+    )
+    if (target == null) {
+      throw new Error(
+        "Could not find noise_threshold with device_id and noise_threshold_id"
+      )
+    }
+
+    const updated: NoiseThreshold = {
+      ...target,
+      ...params,
+    }
+
+    set({
+      noise_thresholds: [
+        ...get().noise_thresholds.map((nt) => {
+          const is_target =
+            nt.device_id === target.device_id &&
+            nt.noise_threshold_id === target.noise_threshold_id
+
+          if (is_target) {
+            return updated
+          }
+
+          return nt
+        }),
+      ],
+    })
+
+    return updated
   },
 
   update() {},

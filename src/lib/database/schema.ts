@@ -12,6 +12,7 @@ import type {
   Device,
   DeviceProvider,
   Workspace,
+  NoiseThreshold,
 } from "lib/zod/index.ts"
 
 import type { RecursivePartial } from "lib/util/type-helpers.ts"
@@ -31,6 +32,7 @@ export interface DatabaseState {
   devices: Device[]
   climate_setting_schedules: ClimateSettingSchedule[]
   action_attempts: ActionAttempt[]
+  noise_thresholds: NoiseThreshold[]
   simulatedWorkspaceOutages: Record<
     string,
     { workspace_id: string; routes: Array<keyof Routes> } | undefined
@@ -163,6 +165,21 @@ export interface DatabaseMethods {
     }
   ) => void
   simulateWorkspaceOutageRecovery: (workspace_id: string) => void
+
+  addNoiseThreshold: (
+    params: Pick<
+      NoiseThreshold,
+      "device_id" | "starts_daily_at" | "ends_daily_at"
+    > &
+      Partial<NoiseThreshold>
+  ) => NoiseThreshold
+  deleteNoiseThreshold: (
+    params: Pick<NoiseThreshold, "noise_threshold_id" | "device_id">
+  ) => void
+  updateNoiseThreshold: (
+    params: Pick<NoiseThreshold, "device_id" | "noise_threshold_id"> &
+      Partial<NoiseThreshold>
+  ) => NoiseThreshold
 
   update: (t?: number) => void
 }

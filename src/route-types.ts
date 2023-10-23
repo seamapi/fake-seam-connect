@@ -2121,6 +2121,179 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/noise_sensors/noise_thresholds/create": {
+    route: "/noise_sensors/noise_thresholds/create"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      sync?: boolean
+      name?: string | undefined
+      starts_daily_at: string
+      ends_daily_at: string
+      noise_threshold_decibels?: number | undefined
+      noise_threshold_nrs?: number | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
+  "/noise_sensors/noise_thresholds/delete": {
+    route: "/noise_sensors/noise_thresholds/delete"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {
+      noise_threshold_id: string
+      device_id: string
+      sync?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
+  "/noise_sensors/noise_thresholds/get": {
+    route: "/noise_sensors/noise_thresholds/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      noise_threshold_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      noise_threshold: {
+        noise_threshold_id: string
+        device_id: string
+        name: string
+        noise_threshold_nrs?: number | undefined
+        starts_daily_at: string
+        ends_daily_at: string
+        noise_threshold_decibels: number
+      }
+      ok: boolean
+    }
+  }
+  "/noise_sensors/noise_thresholds/list": {
+    route: "/noise_sensors/noise_thresholds/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      device_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      noise_thresholds: {
+        noise_threshold_id: string
+        device_id: string
+        name: string
+        noise_threshold_nrs?: number | undefined
+        starts_daily_at: string
+        ends_daily_at: string
+        noise_threshold_decibels: number
+      }[]
+      ok: boolean
+    }
+  }
+  "/noise_sensors/noise_thresholds/update": {
+    route: "/noise_sensors/noise_thresholds/update"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      noise_threshold_id: string
+      device_id: string
+      sync?: boolean
+      name?: string | undefined
+      starts_daily_at?: string | undefined
+      ends_daily_at?: string | undefined
+      noise_threshold_decibels?: number | undefined
+      noise_threshold_nrs?: number | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
   "/thermostats/climate_setting_schedules/create": {
     route: "/thermostats/climate_setting_schedules/create"
     method: "POST"
