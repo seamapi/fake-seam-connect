@@ -1439,6 +1439,7 @@ export type Routes = {
           | "yale_lock"
           | "smartthings_lock"
           | "ecobee_thermostat"
+          | "minut_sensor"
         capabilities_supported: string[]
         properties:
           | {
@@ -1626,6 +1627,7 @@ export type Routes = {
             | "yale_lock"
             | "smartthings_lock"
             | "ecobee_thermostat"
+            | "minut_sensor"
           )
         | undefined
       device_types?:
@@ -1635,6 +1637,7 @@ export type Routes = {
             | "yale_lock"
             | "smartthings_lock"
             | "ecobee_thermostat"
+            | "minut_sensor"
           )[]
         | undefined
       manufacturer?: string | undefined
@@ -1649,6 +1652,7 @@ export type Routes = {
           | "yale_lock"
           | "smartthings_lock"
           | "ecobee_thermostat"
+          | "minut_sensor"
         capabilities_supported: string[]
         properties:
           | {
@@ -1858,6 +1862,7 @@ export type Routes = {
           | "yale_lock"
           | "smartthings_lock"
           | "ecobee_thermostat"
+          | "minut_sensor"
         connected_account_id: string
         workspace_id: string
         errors: {
@@ -1898,6 +1903,7 @@ export type Routes = {
             | "yale_lock"
             | "smartthings_lock"
             | "ecobee_thermostat"
+            | "minut_sensor"
           )
         | undefined
       device_types?:
@@ -1907,6 +1913,7 @@ export type Routes = {
             | "yale_lock"
             | "smartthings_lock"
             | "ecobee_thermostat"
+            | "minut_sensor"
           )[]
         | undefined
       manufacturer?: string | undefined
@@ -1921,6 +1928,7 @@ export type Routes = {
           | "yale_lock"
           | "smartthings_lock"
           | "ecobee_thermostat"
+          | "minut_sensor"
         connected_account_id: string
         workspace_id: string
         errors: {
@@ -2251,7 +2259,7 @@ export type Routes = {
   }
   "/noise_sensors/noise_thresholds/update": {
     route: "/noise_sensors/noise_thresholds/update"
-    method: "POST"
+    method: "PATCH" | "POST"
     queryParams: {}
     jsonBody: {
       noise_threshold_id: string
@@ -2513,6 +2521,7 @@ export type Routes = {
           | "yale_lock"
           | "smartthings_lock"
           | "ecobee_thermostat"
+          | "minut_sensor"
         capabilities_supported: string[]
         properties:
           | {
@@ -2741,6 +2750,7 @@ export type Routes = {
           | "yale_lock"
           | "smartthings_lock"
           | "ecobee_thermostat"
+          | "minut_sensor"
         capabilities_supported: string[]
         properties:
           | {

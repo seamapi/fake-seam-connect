@@ -8,8 +8,8 @@ import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
 
 const json_body = z
   .object({
-    noise_threshold_id: z.string().uuid(),
-    device_id: z.string().uuid(),
+    noise_threshold_id: z.string(),
+    device_id: z.string(),
     sync: z.boolean().default(false),
     name: z.string().optional(),
     starts_daily_at: seam_tod.optional(),
@@ -38,7 +38,7 @@ const json_body = z
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
-  methods: ["POST"],
+  methods: ["PATCH", "POST"],
   jsonBody: json_body,
   jsonResponse: z.object({
     action_attempt,
