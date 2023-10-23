@@ -11,8 +11,8 @@ import type {
   ConnectWebview,
   Device,
   DeviceProvider,
-  Workspace,
   NoiseThreshold,
+  Workspace,
 } from "lib/zod/index.ts"
 
 import type { RecursivePartial } from "lib/util/type-helpers.ts"
