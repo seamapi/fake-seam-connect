@@ -1,3 +1,5 @@
+import "isomorphic-fetch"
+
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
