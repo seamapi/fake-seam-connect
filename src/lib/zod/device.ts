@@ -9,6 +9,7 @@ export const device_type = z.enum([
   "yale_lock",
   "smartthings_lock",
   "ecobee_thermostat",
+  "minut_sensor",
 ])
 
 export const THERMOSTAT_DEVICE_TYPES = ["nest_thermostat", "ecobee_thermostat"]
