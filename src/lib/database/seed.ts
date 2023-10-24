@@ -95,7 +95,7 @@ export const seed = (db: Database): Seed => {
     properties: {
       is_cooling_available: true,
       is_heating_available: true,
-      min_heating_cooling_delta_celsius: 8,
+      min_heating_cooling_delta_celsius: 2.78,
     },
   })
 
