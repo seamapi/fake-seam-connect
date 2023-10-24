@@ -1448,6 +1448,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1463,6 +1464,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1474,7 +1476,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -1511,6 +1512,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1518,7 +1520,6 @@ export type Routes = {
                   }
                 | undefined
               image_url?: string | undefined
-              manufacturer?: string | undefined
               temperature_fahrenheit: number
               temperature_celsius: number
               relative_humidity: number
@@ -1659,6 +1660,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1674,6 +1676,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1685,7 +1688,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -1722,6 +1724,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1729,7 +1732,6 @@ export type Routes = {
                   }
                 | undefined
               image_url?: string | undefined
-              manufacturer?: string | undefined
               temperature_fahrenheit: number
               temperature_celsius: number
               relative_humidity: number
@@ -2351,6 +2353,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2366,6 +2369,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2377,7 +2381,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -2414,6 +2417,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2421,7 +2425,6 @@ export type Routes = {
                   }
                 | undefined
               image_url?: string | undefined
-              manufacturer?: string | undefined
               temperature_fahrenheit: number
               temperature_celsius: number
               relative_humidity: number
@@ -2623,6 +2626,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2638,6 +2642,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2649,7 +2654,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -2686,6 +2690,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2693,7 +2698,6 @@ export type Routes = {
                   }
                 | undefined
               image_url?: string | undefined
-              manufacturer?: string | undefined
               temperature_fahrenheit: number
               temperature_celsius: number
               relative_humidity: number
