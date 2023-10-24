@@ -53,7 +53,8 @@ export default withRouteSpec({
 
   throwIfClimateSettingNotAllowed(normalized_climate_setting, device.properties)
 
-  req.db.updateDevice(device.device_id, {
+  req.db.updateDevice({
+    device_id: device.device_id,
     properties: {
       ...device.properties,
       default_climate_setting: normalized_climate_setting,
