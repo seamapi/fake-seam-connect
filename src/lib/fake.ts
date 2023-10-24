@@ -29,12 +29,19 @@ export class Fake {
 
   async startServer({
     port,
+    baseUrl,
     signals = [],
   }: {
     port?: number
+    baseUrl?: string
     signals?: string[]
   } = {}): Promise<Server> {
-    this.server = await startServer({ port, signals, database: this.#database })
+    this.server = await startServer({
+      baseUrl,
+      port,
+      signals,
+      database: this.#database,
+    })
     return this.server
   }
 
