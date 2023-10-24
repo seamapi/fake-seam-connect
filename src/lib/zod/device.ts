@@ -98,6 +98,8 @@ export const thermostat_device_properties = common_device_properties.extend({
   min_heating_cooling_delta_fahrenheit: z.number(),
 })
 
+export const fan_mode_setting = z.enum(["auto", "on"])
+
 export const device = z.object({
   device_id: z.string(),
   device_type,

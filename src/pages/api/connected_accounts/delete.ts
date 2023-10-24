@@ -7,7 +7,7 @@ export default withRouteSpec({
   auth: "cst_ak_pk",
   methods: ["DELETE", "POST"],
   jsonBody: z.object({
-    connected_account_id: z.string().uuid(),
+    connected_account_id: z.string(),
     sync: z.boolean().default(false),
   }),
   jsonResponse: z.object({}),

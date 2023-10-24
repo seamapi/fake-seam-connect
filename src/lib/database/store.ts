@@ -180,27 +180,32 @@ const initializer = immer<Database>((set, get) => ({
     })
   },
 
-  updateDevice(device_id, values) {
+  updateDevice(params) {
     const target = get().devices.find(
-      (device) => device.device_id === device_id
+      (device) => device.device_id === params.device_id
     )
     if (target == null) {
       throw new Error("Could not find device with device_id")
     }
 
-    const updated = {
+    const updated: Device = {
       ...target,
-      ...values,
-    }
+      ...params,
+      properties: { ...target.properties, ...(params.properties ?? {}) },
+    } as any
 
     set({
-      devices: get().devices.map((device) => {
-        if (device.device_id === updated.device_id) {
-          return updated
-        }
+      devices: [
+        ...get().devices.map((device) => {
+          const is_target = device.device_id === target.device_id
 
-        return device
-      }),
+          if (is_target) {
+            return updated
+          }
+
+          return device
+        }),
+      ],
     })
 
     return updated
