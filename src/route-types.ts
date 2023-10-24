@@ -1448,6 +1448,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1463,6 +1464,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1474,7 +1476,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -1511,6 +1512,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1658,6 +1660,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1673,6 +1676,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1684,7 +1688,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -1721,6 +1724,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2349,6 +2353,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2364,6 +2369,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2375,7 +2381,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -2412,6 +2417,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2620,6 +2626,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2635,6 +2642,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2646,7 +2654,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -2683,6 +2690,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2858,6 +2866,29 @@ export type Routes = {
               message: string
             }
           }
+      ok: boolean
+    }
+  }
+  "/thermostats/update": {
+    route: "/thermostats/update"
+    method: "PATCH" | "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      default_climate_setting: {
+        automatic_heating_enabled?: boolean | undefined
+        automatic_cooling_enabled?: boolean | undefined
+        hvac_mode_setting?: ("off" | "heat" | "cool" | "heat_cool") | undefined
+        cooling_set_point_celsius?: (number | undefined) | undefined
+        heating_set_point_celsius?: (number | undefined) | undefined
+        cooling_set_point_fahrenheit?: (number | undefined) | undefined
+        heating_set_point_fahrenheit?: (number | undefined) | undefined
+        manual_override_allowed?: boolean | undefined
+      }
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
       ok: boolean
     }
   }
