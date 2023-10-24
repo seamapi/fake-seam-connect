@@ -26,7 +26,7 @@ export default withRouteSpec({
     return
   }
 
-  const url = new URL(path.join("/"), db.devicedbConfig.url)
+  const url = new URL(`${db.devicedbConfig.url}/${path.join("/")}`)
   for (const [k, v] of Object.entries(query)) {
     if (typeof v === "string") url.searchParams.append(k, v)
   }
@@ -67,7 +67,7 @@ const replaceImageUrls = (data: Buffer, baseUrl: string): string => {
       throw new Error(`Missing image_id param in ${value}`)
     }
 
-    const proxiedUrl = new URL("/internal/devicedb_image_proxy", baseUrl)
+    const proxiedUrl = new URL(`${baseUrl}/internal/devicedb_image_proxy`)
     proxiedUrl.searchParams.set("image_id", imageId)
     return proxiedUrl.toString()
   })
