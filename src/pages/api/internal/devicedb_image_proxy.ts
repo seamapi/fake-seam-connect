@@ -23,7 +23,7 @@ export default withRouteSpec({
     return
   }
 
-  const url = new URL("images/view", db.devicedbConfig.url)
+  const url = new URL(`${db.devicedbConfig.url}/images/view`)
   url.searchParams.set("image_id", query.image_id)
   const proxyRes = await fetch(url, {
     method: "GET",
