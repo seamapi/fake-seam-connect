@@ -43,6 +43,13 @@ export default withRouteSpec({
       ? device.properties.default_climate_setting
       : null
 
+  if (
+    thermostat_original_climate_setting == null &&
+    default_climate_setting["manual_override_allowed"] == null
+  ) {
+    throw new Error("manual_override_allowed must be defined")
+  }
+
   const normalized_climate_setting = normalizeClimateSetting({
     ...default_climate_setting,
     manual_override_allowed:
