@@ -1982,6 +1982,62 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/events/get": {
+    route: "/events/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      event_id?: string | undefined
+      event_type?: string | undefined
+      device_id?: string | undefined
+    }
+    formData: {}
+    jsonResponse: {
+      event: {
+        event_id: string
+        device_id?: string | undefined
+        access_code_id?: string | undefined
+        connected_account_id?: string | undefined
+        event_type: string
+        workspace_id: string
+        created_at: string
+        occurred_at: string
+      }
+      ok: boolean
+    }
+  }
+  "/events/list": {
+    route: "/events/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      since?: (string | Date) | undefined
+      between?: (string | Date)[] | undefined
+      device_id?: string | undefined
+      device_ids?: string[] | undefined
+      access_code_id?: string | undefined
+      access_code_ids?: string[] | undefined
+      event_type?: string | undefined
+      event_types?: string[] | undefined
+      connected_account_id?: string | undefined
+    }
+    formData: {}
+    jsonResponse: {
+      events: {
+        event_id: string
+        device_id?: string | undefined
+        access_code_id?: string | undefined
+        connected_account_id?: string | undefined
+        event_type: string
+        workspace_id: string
+        created_at: string
+        occurred_at: string
+      }[]
+      ok: boolean
+    }
+  }
   "/health": {
     route: "/health"
     method: "GET"

@@ -1,12 +1,14 @@
 import { z } from "zod"
 
 export const event = z.object({
-  event_id: z.string().uuid(),
-  device_id: z.string().uuid().optional(),
+  event_id: z.string(),
+  device_id: z.string().optional(),
+  access_code_id: z.string().optional(),
+  connected_account_id: z.string().optional(),
   event_type: z.string(),
-  workspace_id: z.string().uuid(),
-  created_at: z.date(),
-  occurred_at: z.date(),
+  workspace_id: z.string(),
+  created_at: z.string().datetime(),
+  occurred_at: z.string().datetime(),
 })
 
 export const connect_webview_event = z.object({
@@ -15,3 +17,5 @@ export const connect_webview_event = z.object({
   expected_duration_ms: z.union([z.number(), z.null()]),
   created_at: z.string().datetime(),
 })
+
+export type Event = z.infer<typeof event> & Record<string, any>

@@ -12,6 +12,7 @@ import type {
   Device,
   DeviceProvider,
   NoiseThreshold,
+  Event,
   Workspace,
 } from "lib/zod/index.ts"
 
@@ -30,6 +31,7 @@ export interface DatabaseState {
   client_sessions: ClientSession[]
   connected_accounts: ConnectedAccount[]
   devices: Device[]
+  events: Event[]
   climate_setting_schedules: ClimateSettingSchedule[]
   action_attempts: ActionAttempt[]
   noise_thresholds: NoiseThreshold[]
@@ -180,6 +182,10 @@ export interface DatabaseMethods {
     params: Pick<NoiseThreshold, "device_id" | "noise_threshold_id"> &
       Partial<NoiseThreshold>
   ) => NoiseThreshold
+
+  addEvent: (
+    params: Partial<Event> & Pick<Event, "event_type" | "workspace_id">
+  ) => Event
 
   update: (t?: number) => void
 }
