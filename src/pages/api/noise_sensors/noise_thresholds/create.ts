@@ -2,9 +2,9 @@ import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import {
-  NOISE_SENSOR_DEVICE_TYPES,
-  NoiseSensorDeviceType,
   action_attempt,
+  NOISE_SENSOR_DEVICE_TYPES,
+  type NoiseSensorDeviceType,
   seam_tod,
 } from "lib/zod/index.ts"
 
