@@ -2,7 +2,10 @@ import test, { type ExecutionContext } from "ava"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
 import { seed } from "lib/database/seed.ts"
-import { THERMOSTAT_DEVICE_TYPES } from "lib/zod/device.ts"
+import {
+  THERMOSTAT_DEVICE_TYPES,
+  type ThermostatDeviceType,
+} from "lib/zod/device.ts"
 
 test("POST /thermostats/list with api key", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
@@ -17,6 +20,10 @@ test("POST /thermostats/list with api key", async (t: ExecutionContext) => {
   t.is(thermostats.length, 1)
 
   thermostats.forEach((thermostat) => {
-    t.true(THERMOSTAT_DEVICE_TYPES.includes(thermostat.device_type))
+    t.true(
+      THERMOSTAT_DEVICE_TYPES.includes(
+        thermostat.device_type as ThermostatDeviceType
+      )
+    )
   })
 })
