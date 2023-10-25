@@ -1,7 +1,10 @@
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
-import { THERMOSTAT_DEVICE_TYPES } from "lib/zod/index.ts"
+import {
+  THERMOSTAT_DEVICE_TYPES,
+  type ThermostatDeviceType,
+} from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import {
@@ -23,7 +26,11 @@ export default withRouteSpec({
   const { device_id, default_climate_setting } = req.body
 
   const device = req.db.devices.find((device) => {
-    if (!THERMOSTAT_DEVICE_TYPES.includes(device.device_type)) {
+    if (
+      !THERMOSTAT_DEVICE_TYPES.includes(
+        device.device_type as ThermostatDeviceType
+      )
+    ) {
       return false
     }
 

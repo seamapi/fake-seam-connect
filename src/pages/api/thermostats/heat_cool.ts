@@ -1,7 +1,11 @@
 import { BadRequestException, HttpException, NotFoundException } from "nextlove"
 import { z } from "zod"
 
-import { action_attempt, THERMOSTAT_DEVICE_TYPES } from "lib/zod/index.ts"
+import {
+  action_attempt,
+  THERMOSTAT_DEVICE_TYPES,
+  type ThermostatDeviceType,
+} from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { convertToCelsius, convertToFahrenheit } from "lib/util/thermostats.ts"
@@ -68,7 +72,11 @@ export default withRouteSpec({
   } = req.body
 
   const device = req.db.devices.find((device) => {
-    if (!THERMOSTAT_DEVICE_TYPES.includes(device.device_type)) {
+    if (
+      !THERMOSTAT_DEVICE_TYPES.includes(
+        device.device_type as ThermostatDeviceType
+      )
+    ) {
       return false
     }
 
