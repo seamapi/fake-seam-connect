@@ -12,8 +12,8 @@ import type { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts
 import type { ConnectWebview } from "lib/zod/connect_webview.ts"
 import type { ConnectedAccount } from "lib/zod/connected_account.ts"
 import type { Device } from "lib/zod/device.ts"
-import type { NoiseThreshold } from "lib/zod/noise_threshold.ts"
 import type { Event } from "lib/zod/event.ts"
+import type { NoiseThreshold } from "lib/zod/noise_threshold.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
 

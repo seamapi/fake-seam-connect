@@ -11,8 +11,8 @@ import type {
   ConnectWebview,
   Device,
   DeviceProvider,
-  NoiseThreshold,
   Event,
+  NoiseThreshold,
   Workspace,
 } from "lib/zod/index.ts"
 
