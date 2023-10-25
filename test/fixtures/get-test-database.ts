@@ -20,6 +20,8 @@ interface Seed {
     connected_account1_id: string
     device1_id: string
     device2_id: string
+    noise_sensor_device_id: string
+    noise_threshold_id: string
   }
 }
 
@@ -88,6 +90,18 @@ export const getTestDatabase = async (
     user_identifier_key: "seed_client_session_user",
   })
 
+  const { device_id: noise_sensor_device_id } = db.addDevice({
+    connected_account_id: ca.connected_account_id,
+    device_type: "minut_sensor",
+    name: "Living Room Noise Sensor",
+    workspace_id: ws2.workspace_id,
+  })
+  const { noise_threshold_id } = db.addNoiseThreshold({
+    device_id: noise_sensor_device_id,
+    starts_daily_at: "07:00:00[America/Los_Angeles]",
+    ends_daily_at: "12:00:00[America/Los_Angeles]",
+  })
+
   const seed: Seed = {
     ws1: {
       workspace_id: ws1.workspace_id,
@@ -100,6 +114,8 @@ export const getTestDatabase = async (
       connected_account1_id: ca.connected_account_id,
       device1_id: device1.device_id,
       device2_id: device2.device_id,
+      noise_sensor_device_id,
+      noise_threshold_id,
     },
   }
 

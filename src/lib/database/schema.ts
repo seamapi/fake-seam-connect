@@ -12,6 +12,7 @@ import type {
   Device,
   DeviceProvider,
   Event,
+  NoiseThreshold,
   Workspace,
 } from "lib/zod/index.ts"
 
@@ -33,6 +34,7 @@ export interface DatabaseState {
   events: Event[]
   climate_setting_schedules: ClimateSettingSchedule[]
   action_attempts: ActionAttempt[]
+  noise_thresholds: NoiseThreshold[]
   simulatedWorkspaceOutages: Record<
     string,
     { workspace_id: string; routes: Array<keyof Routes> } | undefined
@@ -166,11 +168,23 @@ export interface DatabaseMethods {
   ) => void
   simulateWorkspaceOutageRecovery: (workspace_id: string) => void
 
+  addNoiseThreshold: (
+    params: Pick<
+      NoiseThreshold,
+      "device_id" | "starts_daily_at" | "ends_daily_at"
+    > &
+      Partial<NoiseThreshold>
+  ) => NoiseThreshold
+  deleteNoiseThreshold: (
+    params: Pick<NoiseThreshold, "noise_threshold_id" | "device_id">
+  ) => void
+  updateNoiseThreshold: (
+    params: Pick<NoiseThreshold, "device_id" | "noise_threshold_id"> &
+      Partial<NoiseThreshold>
+  ) => NoiseThreshold
+
   addEvent: (
-    params: Partial<Event> &
-      Pick<Event, "event_type" | "workspace_id"> & {
-        payload?: Record<string, any>
-      }
+    params: Partial<Event> & Pick<Event, "event_type" | "workspace_id">
   ) => Event
 
   update: (t?: number) => void

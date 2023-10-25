@@ -17,9 +17,16 @@ export const THERMOSTAT_DEVICE_TYPES = [
 ] as const
 export type ThermostatDeviceType = (typeof THERMOSTAT_DEVICE_TYPES)[number]
 
+export const NOISE_SENSOR_DEVICE_TYPES = [
+  "minut_sensor",
+  "noiseaware_activity_zone",
+] as const
+export type NoiseSensorDeviceType = (typeof NOISE_SENSOR_DEVICE_TYPES)[number]
+
 export const device_type = z.union([
   z.enum(LOCK_DEVICE_TYPES),
   z.enum(THERMOSTAT_DEVICE_TYPES),
+  z.enum(NOISE_SENSOR_DEVICE_TYPES),
 ])
 
 export const common_device_properties = z.object({
