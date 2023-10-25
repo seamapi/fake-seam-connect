@@ -3,15 +3,24 @@ import { z } from "zod"
 import { climate_setting } from "lib/zod/climate_setting.ts"
 import { climate_setting_schedule } from "lib/zod/climate_setting_schedule.ts"
 
-export const device_type = z.enum([
+export const LOCK_DEVICE_TYPES = [
   "august_lock",
   "schlage_lock",
   "yale_lock",
   "smartthings_lock",
-  "ecobee_thermostat",
-])
+] as const
+export type LockDeviceType = (typeof LOCK_DEVICE_TYPES)[number]
 
-export const THERMOSTAT_DEVICE_TYPES = ["nest_thermostat", "ecobee_thermostat"]
+export const THERMOSTAT_DEVICE_TYPES = [
+  "nest_thermostat",
+  "ecobee_thermostat",
+] as const
+export type ThermostatDeviceType = (typeof THERMOSTAT_DEVICE_TYPES)[number]
+
+export const device_type = z.union([
+  z.enum(LOCK_DEVICE_TYPES),
+  z.enum(THERMOSTAT_DEVICE_TYPES),
+])
 
 export const common_device_properties = z.object({
   online: z.boolean(),
