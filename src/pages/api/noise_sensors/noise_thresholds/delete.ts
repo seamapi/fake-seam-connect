@@ -1,7 +1,11 @@
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
-import { action_attempt } from "lib/zod/index.ts"
+import {
+  NOISE_SENSOR_DEVICE_TYPES,
+  NoiseSensorDeviceType,
+  action_attempt,
+} from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
@@ -26,7 +30,12 @@ export default withRouteSpec({
     device_id,
   })[0]
 
-  if (device == null) {
+  if (
+    device == null ||
+    !NOISE_SENSOR_DEVICE_TYPES.includes(
+      device.device_type as NoiseSensorDeviceType
+    )
+  ) {
     throw new NotFoundException({
       type: "device_not_found",
       message: "Device not found",
