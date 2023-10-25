@@ -11,6 +11,7 @@ import type {
   ConnectWebview,
   Device,
   DeviceProvider,
+  Event,
   Workspace,
 } from "lib/zod/index.ts"
 
@@ -29,6 +30,7 @@ export interface DatabaseState {
   client_sessions: ClientSession[]
   connected_accounts: ConnectedAccount[]
   devices: Device[]
+  events: Event[]
   climate_setting_schedules: ClimateSettingSchedule[]
   action_attempts: ActionAttempt[]
   simulatedWorkspaceOutages: Record<
@@ -163,6 +165,13 @@ export interface DatabaseMethods {
     }
   ) => void
   simulateWorkspaceOutageRecovery: (workspace_id: string) => void
+
+  addEvent: (
+    params: Partial<Event> &
+      Pick<Event, "event_type" | "workspace_id"> & {
+        payload?: Record<string, any>
+      }
+  ) => Event
 
   update: (t?: number) => void
 }

@@ -12,6 +12,7 @@ import type { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts
 import type { ConnectWebview } from "lib/zod/connect_webview.ts"
 import type { ConnectedAccount } from "lib/zod/connected_account.ts"
 import type { Device } from "lib/zod/device.ts"
+import type { Event } from "lib/zod/event.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
 
@@ -30,6 +31,7 @@ const initializer = immer<Database>((set, get) => ({
   connect_webviews: [],
   connected_accounts: [],
   devices: [],
+  events: [],
   access_codes: [],
   climate_setting_schedules: [],
   action_attempts: [],
@@ -509,6 +511,24 @@ const initializer = immer<Database>((set, get) => ({
     set((state) => {
       state.simulatedWorkspaceOutages[workspace_id] = undefined
     })
+  },
+
+  addEvent(params) {
+    const { payload = {}, ...rest_params } = params
+
+    const new_event: Event = {
+      event_id: get()._getNextId("event"),
+      created_at: params?.created_at ?? new Date().toISOString(),
+      occurred_at: params?.occurred_at ?? new Date().toISOString(),
+      ...rest_params,
+      ...payload,
+    }
+
+    set({
+      events: [...get().events, new_event],
+    })
+
+    return new_event
   },
 
   update() {},

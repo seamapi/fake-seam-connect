@@ -1,3 +1,4 @@
+import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
@@ -16,7 +17,15 @@ export default withRouteSpec({
     action_attempt,
   }),
 } as const)(async (req, res) => {
-  const { sync } = req.body
+  const { sync, device_id } = req.body
+
+  const device = req.db.devices.find((d) => d.device_id === device_id)
+  if (device == null) {
+    throw new NotFoundException({
+      type: "device_not_found",
+      message: "Device not found",
+    })
+  }
 
   const action_attempt = req.db.addActionAttempt({
     action_type: "LOCK_DOOR",
@@ -25,6 +34,13 @@ export default withRouteSpec({
   const action_attempt_sync = req.db.updateActionAttempt({
     action_attempt_id: action_attempt.action_attempt_id,
     status: "success",
+  })
+
+  req.db.addEvent({
+    event_type: "lock.locked",
+    workspace_id: req.auth.workspace_id,
+    device_id,
+    connected_account_id: device.connected_account_id,
   })
 
   res.status(200).json({
