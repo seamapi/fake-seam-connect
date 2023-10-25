@@ -1448,6 +1448,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1463,6 +1464,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1474,7 +1476,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -1511,6 +1512,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1658,6 +1660,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1673,6 +1676,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -1684,7 +1688,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -1721,6 +1724,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2349,6 +2353,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2364,6 +2369,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2375,7 +2381,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -2412,6 +2417,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2552,6 +2558,49 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/thermostats/heat_cool": {
+    route: "/thermostats/heat_cool"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      heating_set_point_celsius?: number | undefined
+      heating_set_point_fahrenheit?: number | undefined
+      cooling_set_point_celsius?: number | undefined
+      cooling_set_point_fahrenheit?: number | undefined
+      sync?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
   "/thermostats/list": {
     route: "/thermostats/list"
     method: "GET" | "POST"
@@ -2577,6 +2626,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2592,6 +2642,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2603,7 +2654,6 @@ export type Routes = {
               door_open?: boolean | undefined
               battery_level?: number | undefined
               has_direct_power?: boolean | undefined
-              manufacturer?: string | undefined
               supported_code_lengths?: number[] | undefined
               max_active_codes_supported?: number | undefined
               serial_number?: string | undefined
@@ -2640,6 +2690,7 @@ export type Routes = {
                 display_name: string
                 manufacturer_display_name: string
               }
+              manufacturer?: string | undefined
               battery?:
                 | {
                     level: number
@@ -2736,6 +2787,108 @@ export type Routes = {
         }[]
         created_at: string
       }[]
+      ok: boolean
+    }
+  }
+  "/thermostats/off": {
+    route: "/thermostats/off"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      sync?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
+  "/thermostats/set_fan_mode": {
+    route: "/thermostats/set_fan_mode"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      fan_mode_setting: "auto" | "on"
+      sync?: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
+  "/thermostats/update": {
+    route: "/thermostats/update"
+    method: "PATCH" | "POST"
+    queryParams: {}
+    jsonBody: {
+      device_id: string
+      default_climate_setting: {
+        automatic_heating_enabled?: boolean | undefined
+        automatic_cooling_enabled?: boolean | undefined
+        hvac_mode_setting?: ("off" | "heat" | "cool" | "heat_cool") | undefined
+        cooling_set_point_celsius?: (number | undefined) | undefined
+        heating_set_point_celsius?: (number | undefined) | undefined
+        cooling_set_point_fahrenheit?: (number | undefined) | undefined
+        heating_set_point_fahrenheit?: (number | undefined) | undefined
+        manual_override_allowed?: boolean | undefined
+      }
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
       ok: boolean
     }
   }

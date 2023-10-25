@@ -20,6 +20,7 @@ export const common_device_properties = z.object({
     display_name: z.string(),
     manufacturer_display_name: z.string(),
   }),
+  manufacturer: z.string().optional(),
   battery: z
     .object({
       level: z.number(),
@@ -34,7 +35,6 @@ export const lock_device_properties = common_device_properties.extend({
   door_open: z.boolean().optional(),
   battery_level: z.number().optional(),
   has_direct_power: z.boolean().optional(),
-  manufacturer: z.string().optional(),
   supported_code_lengths: z.array(z.number()).optional(),
   max_active_codes_supported: z.number().optional(),
   serial_number: z.string().optional(),
@@ -96,6 +96,8 @@ export const thermostat_device_properties = common_device_properties.extend({
   min_heating_cooling_delta_celsius: z.number(),
   min_heating_cooling_delta_fahrenheit: z.number(),
 })
+
+export const fan_mode_setting = z.enum(["auto", "on"])
 
 export const device = z.object({
   device_id: z.string(),

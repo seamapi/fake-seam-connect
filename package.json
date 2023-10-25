@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/fake-seam-connect",
-  "version": "1.31.0",
+  "version": "1.37.1",
   "description": "Fake for Seam Connect.",
   "type": "module",
   "main": "dist/index.js",
@@ -86,6 +86,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "get-port": "^5.1.1",
     "immer": "^9.0.21",
+    "isomorphic-fetch": "^3.0.0",
     "landlubber": "^1.0.0",
     "minisearch": "^6.1.0",
     "mkdirp": "^3.0.0",
