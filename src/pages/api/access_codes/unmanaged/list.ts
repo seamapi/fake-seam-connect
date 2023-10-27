@@ -6,7 +6,7 @@ import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
-  methods: ["GET"],
+  methods: ["GET", "POST"],
   queryParams: z.object({
     device_id: z.string(),
   }),
