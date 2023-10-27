@@ -883,104 +883,35 @@ export type Routes = {
       starts_at?: (string | Date) | undefined
       ends_at?: (string | Date) | undefined
       type?: ("ongoing" | "time_bound") | undefined
+      sync?: boolean
     }
     commonParams: {}
     formData: {}
     jsonResponse: {
-      access_code:
+      action_attempt:
         | {
-            access_code_id: string
-            device_id: string
-            name: string
-            code: string
-            errors: {
-              error_code: string
-              message: string
-            }[]
-            warnings: {
-              warning_code: string
-              message: string
-            }[]
-            is_managed: boolean
-            is_backup?: boolean | undefined
-            pulled_backup_access_code_id?: (string | null) | undefined
-            is_backup_access_code_available: boolean
-            is_external_modification_allowed: boolean
-            common_code_key?: (string | null) | undefined
-            type: "ongoing"
-            created_at: string
-            status: "setting" | "set" | "removing" | "unset" | "unknown"
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
           }
         | {
-            access_code_id: string
-            device_id: string
-            name: string
-            code: string
-            errors: {
-              error_code: string
-              message: string
-            }[]
-            warnings: {
-              warning_code: string
-              message: string
-            }[]
-            is_managed: boolean
-            is_backup?: boolean | undefined
-            pulled_backup_access_code_id?: (string | null) | undefined
-            is_backup_access_code_available: boolean
-            is_external_modification_allowed: boolean
-            common_code_key?: (string | null) | undefined
-            type: "time_bound"
-            created_at: string
-            status: "setting" | "set" | "removing" | "unset" | "unknown"
-            starts_at: string
-            ends_at: string
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
           }
         | {
-            access_code_id: string
-            device_id: string
-            name: string
-            code: string
-            errors: {
-              error_code: string
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
               message: string
-            }[]
-            warnings: {
-              warning_code: string
-              message: string
-            }[]
-            is_managed: boolean
-            is_backup?: boolean | undefined
-            pulled_backup_access_code_id?: (string | null) | undefined
-            is_backup_access_code_available: boolean
-            is_external_modification_allowed: boolean
-            status: "set"
-            created_at: string
-            type: "ongoing"
-          }
-        | {
-            access_code_id: string
-            device_id: string
-            name: string
-            code: string
-            errors: {
-              error_code: string
-              message: string
-            }[]
-            warnings: {
-              warning_code: string
-              message: string
-            }[]
-            is_managed: boolean
-            is_backup?: boolean | undefined
-            pulled_backup_access_code_id?: (string | null) | undefined
-            is_backup_access_code_available: boolean
-            is_external_modification_allowed: boolean
-            status: "set" | "unset"
-            created_at: string
-            type: "time_bound"
-            starts_at: string
-            ends_at: string
+            }
           }
       ok: boolean
     }
