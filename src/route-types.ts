@@ -748,7 +748,7 @@ export type Routes = {
   }
   "/access_codes/unmanaged/list": {
     route: "/access_codes/unmanaged/list"
-    method: "GET"
+    method: "GET" | "POST"
     queryParams: {
       device_id: string
     }
