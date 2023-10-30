@@ -29,6 +29,7 @@ test("POST /access_codes/update", async (t: ExecutionContext) => {
     {
       access_code_id: access_code.access_code_id,
       name: "Updated Code",
+      sync: true,
     },
     {
       headers: {
