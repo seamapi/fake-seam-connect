@@ -58,7 +58,8 @@
     "example:inspect": "tsx --inspect examples",
     "format": "eslint --ignore-path .gitignore --fix .",
     "preformat": "prettier --write --ignore-path .gitignore .",
-    "report": "c8 report"
+    "report": "c8 report",
+    "minify": "terser dist/index.js --output dist/index.min.js"
   },
   "engines": {
     "node": ">=16.13.0",
