@@ -10,7 +10,6 @@ import type {
   ConnectedAccount,
   ConnectWebview,
   Device,
-  DeviceProvider,
   Event,
   NoiseThreshold,
   Workspace,
