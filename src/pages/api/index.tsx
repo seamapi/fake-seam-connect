@@ -1,13 +1,13 @@
 // src/pages/api/types.ts
-export interface RouteSpec {
-  auth: string;
-  methods: string[];
-  jsonBody: any;
-  jsonResponse: any;
-}
-
 // src/pages/api/index.tsx
-import { RouteSpec } from './types';
+import { RouteSpec } from "./types"
+
+export interface RouteSpec {
+  auth: string
+  methods: string[]
+  jsonBody: any
+  jsonResponse: any
+}
 
 export default withRouteSpec({
   auth: "none",
@@ -18,4 +18,4 @@ export default withRouteSpec({
   jsonResponse: z.object({}),
 })(async (req, res) => {
   // ... existing code ...
-});
+})
