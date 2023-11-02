@@ -1,6 +1,4 @@
 export * from "./schema.ts"
-updateActionAttempt: (
-  params: Pick<ActionAttempt, "action_attempt_id"> & Partial<ActionAttempt>
-) => ActionAttempt
+// Removed updateActionAttempt function
 export * from "./singleton.ts"
 export * from "./store.ts"
