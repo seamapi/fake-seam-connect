@@ -1,7 +1,7 @@
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
-import { access_code, timestamp } from "lib/zod/index.ts"
+import { action_attempt, timestamp } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
@@ -14,6 +14,7 @@ const json_body = z
     starts_at: timestamp.optional(),
     ends_at: timestamp.optional(),
     type: z.enum(["ongoing", "time_bound"]).optional(),
+    sync: z.boolean().default(false),
   })
   .refine((value) => {
     if (
@@ -40,10 +41,11 @@ export default withRouteSpec({
   methods: ["POST"],
   jsonBody: json_body,
   jsonResponse: z.object({
-    access_code,
+    action_attempt,
   }),
 } as const)(async (req, res) => {
-  const { access_code_id, code, name, starts_at, ends_at, device_id } = req.body
+  const { access_code_id, code, name, starts_at, ends_at, device_id, sync } =
+    req.body
 
   const access_code = req.db.findAccessCode({ access_code_id, device_id })
 
@@ -55,8 +57,16 @@ export default withRouteSpec({
     })
   }
 
+  const action_attempt = req.db.addActionAttempt({
+    action_type: "UPDATE_ACCESS_CODE",
+  })
+  const action_attempt_sync = req.db.updateActionAttempt({
+    action_attempt_id: action_attempt.action_attempt_id,
+    status: "success",
+  })
+
   if (starts_at !== undefined && ends_at !== undefined) {
-    const updated = req.db.updateAccessCode({
+    req.db.updateAccessCode({
       access_code_id,
       name: name ?? access_code.name,
       type: "time_bound",
@@ -64,16 +74,16 @@ export default withRouteSpec({
       starts_at: new Date(starts_at).toISOString(),
       ends_at: new Date(ends_at).toISOString(),
     })
-
-    res.status(200).json({ access_code: updated })
+  } else {
+    req.db.updateAccessCode({
+      access_code_id,
+      name: name ?? access_code.name,
+      type: "ongoing",
+      code: code ?? access_code.code,
+    })
   }
 
-  const updated = req.db.updateAccessCode({
-    access_code_id,
-    name: name ?? access_code.name,
-    type: "ongoing",
-    code: code ?? access_code.code,
-  })
-
-  res.status(200).json({ access_code: updated })
+  res
+    .status(200)
+    .json({ action_attempt: sync ? action_attempt_sync : action_attempt })
 })
