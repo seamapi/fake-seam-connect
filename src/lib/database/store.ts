@@ -218,7 +218,8 @@ const initializer = immer<Database>((set, get) => ({
   addConnectedAccount(params) {
     // @ts-expect-error  Partially implemented
     const new_connected_account: ConnectedAccount = {
-      connected_account_id: get()._getNextId("connected_account"),
+      connected_account_id:
+        params.connected_account_id ?? get()._getNextId("connected_account"),
       provider: params.provider,
       workspace_id: params.workspace_id,
       created_at: params.created_at ?? new Date().toISOString(),
