@@ -24,11 +24,24 @@ test("POST /access_codes/update", async (t: ExecutionContext) => {
 
   t.is(access_code.code, "1234")
 
-  const res = await axios.post(
+  await axios.post(
     "/access_codes/update",
     {
       access_code_id: access_code.access_code_id,
       name: "Updated Code",
+      sync: true,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${seed.ws2.cst}`,
+      },
+    }
+  )
+
+  const res = await axios.post(
+    "/access_codes/get",
+    {
+      access_code_id: access_code.access_code_id,
     },
     {
       headers: {
