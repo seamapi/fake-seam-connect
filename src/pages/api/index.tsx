@@ -1,15 +1,7 @@
 // src/pages/api/types.ts
 // src/pages/api/index.tsx
-import { RouteSpec } from "./types"
+import { RouteSpec } from "./types.ts"
 
-export interface RouteSpec {
-  auth: string
-  methods: string[]
-  jsonBody: any
-  jsonResponse: any
-}
-
-// Removed withRouteSpec function
-export default async (req, res) => {
+export default async (): Promise<void> => {
   // ... existing code ...
 }
