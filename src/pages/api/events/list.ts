@@ -65,16 +65,13 @@ export default withRouteSpec({
         event_created_at_date < new Date(between[1] as string))
 
     const does_device_ids_match =
-      device_ids.length === 0 ||
-      ("device_id" in e && device_ids.includes(e.device_id as string))
+      "device_id" in e && device_ids.includes(e.device_id as string)
 
     const does_access_code_ids_match =
-      access_code_ids.length === 0 ||
-      ("access_code_id" in e &&
-        access_code_ids.includes(e.access_code_id as string))
+      "access_code_id" in e &&
+      access_code_ids.includes(e.access_code_id as string)
 
-    const does_event_types_match =
-      event_types.length === 0 || event_types.includes(e.event_type)
+    const does_event_types_match = event_types.includes(e.event_type)
 
     const does_connected_account_match =
       connected_account_id == null ||

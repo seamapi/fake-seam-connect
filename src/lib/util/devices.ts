@@ -56,12 +56,12 @@ export const getDevicesWithFilter = (
     (d) =>
       d.workspace_id === workspace_id &&
       (is_managed == null ? true : d.is_managed === is_managed) &&
-      (device_ids.length === 0 ? true : device_ids.includes(d.device_id)) &&
+      (device_ids.length === 0 ? false : device_ids.includes(d.device_id)) &&
       (connected_account_ids.length === 0
-        ? true
+        ? false
         : connected_account_ids.includes(d.connected_account_id)) &&
       (device_types.length === 0
-        ? true
+        ? false
         : device_types.includes(d.device_type)) &&
       (manufacturer == null
         ? true
