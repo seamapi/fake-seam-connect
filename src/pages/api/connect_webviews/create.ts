@@ -10,17 +10,26 @@ export default withRouteSpec({
   jsonBody: z.object({
     accepted_providers: z.array(device_provider).optional(),
     custom_redirect_url: z.string().optional(),
+    device_selection_mode: z.enum(["none", "single", "multiple"]).optional(),
+    custom_redirect_failure_url: z.string().optional(),
   }),
   jsonResponse: z.object({
     connect_webview,
   }),
 } as const)(async (req, res) => {
-  const { accepted_providers, custom_redirect_url } = req.body
+  const {
+    accepted_providers,
+    custom_redirect_url,
+    device_selection_mode,
+    custom_redirect_failure_url,
+  } = req.body
 
   const connect_webview = req.db.addConnectWebview({
     workspace_id: req.auth.workspace_id,
     accepted_providers,
     custom_redirect_url,
+    device_selection_mode,
+    custom_redirect_failure_url,
   })
   if (req.auth.auth_mode === "client_session_token") {
     req.db.updateClientSession({

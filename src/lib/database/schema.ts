@@ -70,13 +70,9 @@ export interface DatabaseMethods {
     connect_webview_ids?: string[]
   }) => void
 
-  addConnectWebview: (params: {
-    workspace_id: WorkspaceId
-    connect_webview_id?: string
-    created_at?: string
-    accepted_providers?: DeviceProvider[]
-    custom_redirect_url?: string
-  }) => ConnectWebview
+  addConnectWebview: (
+    params: Partial<ConnectWebview> & Pick<ConnectWebview, "workspace_id">
+  ) => ConnectWebview
   updateConnectWebview: (params: {
     connect_webview_id: string
     connected_account_id: string
