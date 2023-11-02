@@ -60,9 +60,7 @@
     "preformat": "prettier --write --ignore-path .gitignore .",
     "report": "c8 report"
   },
-    "scripts": {
-      "minify": "terser dist/index.js --output dist/index.min.js"
-    },
+    "minify": "terser dist/index.js --output dist/index.min.js",
   "engines": {
     "node": ">=16.13.0",
     "npm": ">= 8.1.0"
@@ -81,7 +79,7 @@
     "typed-axios-instance": "^1.0.12",
     "zustand": "^4.3.7",
     "zustand-hoist": "^1.0.0",
-    "terser": "^5.10.0"
+    "terser": "^5.10.0",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-config-standard": "^17.1.0",
