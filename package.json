@@ -60,7 +60,9 @@
     "preformat": "prettier --write --ignore-path .gitignore .",
     "report": "c8 report"
   },
-    "minify": "terser dist/index.js --output dist/index.min.js",
+    "scripts": {
+        "minify": "terser dist/index.js --output dist/index.min.js"
+    },
   "engines": {
     "node": ">=16.13.0",
     "npm": ">= 8.1.0"
