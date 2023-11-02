@@ -9,13 +9,7 @@ export interface RouteSpec {
   jsonResponse: any
 }
 
-export default withRouteSpec({
-  auth: "none",
-  methods: ["POST"],
-  jsonBody: z.object({
-    connect_webview_id: z.string(),
-  }),
-  jsonResponse: z.object({}),
-})(async (req, res) => {
+// Removed withRouteSpec function
+export default async (req, res) => {
   // ... existing code ...
-})
+}
