@@ -105,4 +105,4 @@
     "zustand-hoist": "^1.0.0"
   }
 }
-    "minify": "terser dist/index.js --output dist/index.min.js",
+// Removed the misplaced minify script
