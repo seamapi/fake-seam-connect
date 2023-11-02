@@ -37,12 +37,19 @@ export type DeviceProvider = z.infer<typeof device_provider>
 
 export const connect_webview = z.object({
   connect_webview_id: z.string(),
+  url: z.string().url(),
   workspace_id: z.string(),
   status: z.enum(["pending", "authorized", "failed"]),
   accepted_providers: z.array(device_provider).optional(),
-  connected_account_id: z.string().optional(),
+  connected_account_id: z.string().nullable(),
   created_at: z.string(),
   custom_redirect_url: z.string().nullable(),
+  custom_redirect_failure_url: z.string().nullable(),
+  device_selection_mode: z.enum(["none", "single", "multiple"]),
+  accepted_devices: z.array(z.string()),
+  any_provider_allowed: z.boolean(),
+  any_device_allowed: z.boolean().nullable(),
+  login_successful: z.boolean(),
 })
 
 export type ConnectWebview = z.infer<typeof connect_webview>

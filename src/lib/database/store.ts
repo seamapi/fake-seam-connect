@@ -120,13 +120,23 @@ const initializer = immer<Database>((set, get) => ({
   },
 
   addConnectWebview(params) {
+    const connect_webview_id = get()._getNextId("connect_webview")
+    const random_string = Math.random().toString(36).slice(-5)
     const new_connect_webview: ConnectWebview = {
-      connect_webview_id: get()._getNextId("connect_webview"),
+      connect_webview_id,
+      url: `https://${random_string}.fakeseamconnect.seam.vc/connect_webviews/view?connect_webview_id=${connect_webview_id}`,
       workspace_id: params.workspace_id,
       status: "pending",
       accepted_providers: params.accepted_providers ?? ["august"],
       created_at: params.created_at ?? new Date().toISOString(),
       custom_redirect_url: params.custom_redirect_url ?? null,
+      custom_redirect_failure_url: params.custom_redirect_failure_url ?? null,
+      device_selection_mode: params.device_selection_mode ?? "none",
+      accepted_devices: params.accepted_devices ?? [],
+      any_device_allowed: params.any_device_allowed ?? null,
+      any_provider_allowed: params.any_provider_allowed ?? false,
+      login_successful: params.login_successful ?? false,
+      connected_account_id: params.connected_account_id ?? null,
     }
     set({
       connect_webviews: [...get().connect_webviews, new_connect_webview],
