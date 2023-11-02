@@ -18,7 +18,7 @@ export default withRouteSpec({
     action_attempt,
   }),
 } as const)(async (req, res) => {
-  const { access_code_id, device_id } = req.body
+  const { access_code_id, device_id, sync } = req.body
 
   const access_code = req.db.findAccessCode({ access_code_id, device_id })
 
@@ -29,6 +29,14 @@ export default withRouteSpec({
       data: { device_id, access_code_id },
     })
   }
+
+  const action_attempt = req.db.addActionAttempt({
+    action_type: "DELETE_ACCESS_CODE",
+  })
+  const action_attempt_sync = req.db.updateActionAttempt({
+    action_attempt_id: action_attempt.action_attempt_id,
+    status: "success",
+  })
 
   req.db.deleteAccessCode(access_code_id)
 
@@ -43,12 +51,6 @@ export default withRouteSpec({
   })
 
   res.status(200).json({
-    action_attempt: {
-      status: "success",
-      action_type: "delete",
-      action_attempt_id: "attempt_1",
-      result: null,
-      error: null,
-    },
+    action_attempt: sync ? action_attempt_sync : action_attempt,
   })
 })
