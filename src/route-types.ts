@@ -1114,12 +1114,15 @@ export type Routes = {
           )[]
         | undefined
       custom_redirect_url?: string | undefined
+      device_selection_mode?: ("none" | "single" | "multiple") | undefined
+      custom_redirect_failure_url?: string | undefined
     }
     commonParams: {}
     formData: {}
     jsonResponse: {
       connect_webview: {
         connect_webview_id: string
+        url: string
         workspace_id: string
         status: "pending" | "authorized" | "failed"
         accepted_providers?:
@@ -1156,9 +1159,15 @@ export type Routes = {
               | "wyze"
             )[]
           | undefined
-        connected_account_id?: string | undefined
+        connected_account_id: string | null
         created_at: string
         custom_redirect_url: string | null
+        custom_redirect_failure_url: string | null
+        device_selection_mode: "none" | "single" | "multiple"
+        accepted_devices: string[]
+        any_provider_allowed: boolean
+        any_device_allowed: boolean | null
+        login_successful: boolean
       }
       ok: boolean
     }
@@ -1175,6 +1184,7 @@ export type Routes = {
     jsonResponse: {
       connect_webview: {
         connect_webview_id: string
+        url: string
         workspace_id: string
         status: "pending" | "authorized" | "failed"
         accepted_providers?:
@@ -1211,9 +1221,15 @@ export type Routes = {
               | "wyze"
             )[]
           | undefined
-        connected_account_id?: string | undefined
+        connected_account_id: string | null
         created_at: string
         custom_redirect_url: string | null
+        custom_redirect_failure_url: string | null
+        device_selection_mode: "none" | "single" | "multiple"
+        accepted_devices: string[]
+        any_provider_allowed: boolean
+        any_device_allowed: boolean | null
+        login_successful: boolean
       }
       ok: boolean
     }
@@ -1228,6 +1244,7 @@ export type Routes = {
     jsonResponse: {
       connect_webviews: {
         connect_webview_id: string
+        url: string
         workspace_id: string
         status: "pending" | "authorized" | "failed"
         accepted_providers?:
@@ -1264,9 +1281,15 @@ export type Routes = {
               | "wyze"
             )[]
           | undefined
-        connected_account_id?: string | undefined
+        connected_account_id: string | null
         created_at: string
         custom_redirect_url: string | null
+        custom_redirect_failure_url: string | null
+        device_selection_mode: "none" | "single" | "multiple"
+        accepted_devices: string[]
+        any_provider_allowed: boolean
+        any_device_allowed: boolean | null
+        login_successful: boolean
       }[]
       ok: boolean
     }
