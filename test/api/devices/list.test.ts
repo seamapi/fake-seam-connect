@@ -67,6 +67,21 @@ test("GET /devices/list with empty device_ids", async (t: ExecutionContext) => {
   t.is(devices.length, 0)
 })
 
+test("GET /devices/list with empty connected_account_ids", async (t: ExecutionContext) => {
+  const { axios, db } = await getTestServer(t, { seed: false })
+  const seed_result = seed(db)
+
+  axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
+
+  const {
+    data: { devices },
+  } = await axios.post("/devices/list", {
+    data: { connected_account_ids: [] },
+  })
+
+  t.is(devices.length, 0)
+})
+
 test("GET /devices/list with simulated workspace outage", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
   const seed_result = seed(db)
