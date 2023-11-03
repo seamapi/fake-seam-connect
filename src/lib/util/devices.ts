@@ -30,44 +30,54 @@ export const getDevicesWithFilter = (
   device_filters: DeviceFilters
 ): Device[] => {
   const {
-    is_managed,
     workspace_id,
+    is_managed,
     manufacturer,
     name,
     device_id,
+    device_ids,
     connected_account_id,
+    connected_account_ids,
     device_type,
+    device_types,
   } = device_filters
 
-  const device_types =
-    device_type != null
-      ? [device_type, ...(device_filters.device_types ?? [])]
-      : device_filters.device_types ?? []
-  const connected_account_ids =
-    connected_account_id != null
-      ? [connected_account_id, ...(device_filters.connected_account_ids ?? [])]
-      : device_filters.connected_account_ids ?? []
-  const device_ids =
-    device_id != null
-      ? [device_id, ...(device_filters.device_ids ?? [])]
-      : device_filters.device_ids ?? []
-
-  return db.devices.filter(
-    (d) =>
-      d.workspace_id === workspace_id &&
-      (is_managed == null ? true : d.is_managed === is_managed) &&
-      (device_ids.length === 0 ? true : device_ids.includes(d.device_id)) &&
-      (connected_account_ids.length === 0
-        ? true
-        : connected_account_ids.includes(d.connected_account_id)) &&
-      (device_types.length === 0
-        ? true
-        : device_types.includes(d.device_type)) &&
-      (manufacturer == null
-        ? true
-        : "manufacturer" in d.properties
-        ? d.properties.manufacturer === manufacturer
-        : false) &&
-      (name == null ? true : d.properties.name === name)
-  )
+  return db.devices
+    .filter((d) => d.workspace_id === workspace_id)
+    .filter((d) => {
+      if (is_managed == null) return true
+      return d.is_managed === is_managed
+    })
+    .filter((d) => {
+      if (manufacturer == null) return true
+      return d.properties.manufacturer === manufacturer
+    })
+    .filter((d) => {
+      if (name == null) return true
+      return d.properties.name === name
+    })
+    .filter((d) => {
+      if (device_id == null) return true
+      return d.device_id === device_id
+    })
+    .filter((d) => {
+      if (device_ids == null) return true
+      return device_ids.includes(d.device_id)
+    })
+    .filter((d) => {
+      if (connected_account_id == null) return true
+      return d.connected_account_id === connected_account_id
+    })
+    .filter((d) => {
+      if (connected_account_ids == null) return true
+      return connected_account_ids.includes(d.connected_account_id)
+    })
+    .filter((d) => {
+      if (device_type == null) return true
+      return d.device_type === device_type
+    })
+    .filter((d) => {
+      if (device_types == null) return true
+      return device_types.includes(d.device_type)
+    })
 }

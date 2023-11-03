@@ -8,9 +8,9 @@ import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
 export const common_params = z.object({
   device_ids: z.array(z.string()).optional(),
   connected_account_id: z.string().optional(),
-  connected_account_ids: z.array(z.string()).nonempty().optional(),
+  connected_account_ids: z.array(z.string()).optional(),
   device_type: device_type.optional(),
-  device_types: z.array(device_type).nonempty().optional(),
+  device_types: z.array(device_type).optional(),
   manufacturer: z.string().optional(),
 })
 

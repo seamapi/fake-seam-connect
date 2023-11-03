@@ -61,7 +61,7 @@ test("GET /devices/list with empty device_ids", async (t: ExecutionContext) => {
   const {
     data: { devices },
   } = await axios.post("/devices/list", {
-    data: { device_ids: [] },
+    device_ids: [],
   })
 
   t.is(devices.length, 0)
@@ -76,7 +76,7 @@ test("GET /devices/list with empty connected_account_ids", async (t: ExecutionCo
   const {
     data: { devices },
   } = await axios.post("/devices/list", {
-    data: { connected_account_ids: [] },
+    connected_account_ids: [],
   })
 
   t.is(devices.length, 0)
@@ -91,7 +91,7 @@ test("GET /devices/list with empty device_types", async (t: ExecutionContext) =>
   const {
     data: { devices },
   } = await axios.post("/devices/list", {
-    data: { device_types: [] },
+    device_types: [],
   })
 
   t.is(devices.length, 0)
