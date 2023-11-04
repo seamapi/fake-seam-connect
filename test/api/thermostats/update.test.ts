@@ -33,4 +33,22 @@ test("POST /thermostats/update with api key", async (t) => {
   )
 
   t.is(20, device?.properties.default_climate_setting.heating_set_point_celsius)
+
+  // Test only manual_override_allowed
+  const { status: status2 } = await axios.post(
+    "/thermostats/update",
+    {
+      device_id: seed_result.ecobee_device_1,
+      default_climate_setting: {
+        manual_override_allowed: true,
+      },
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+
+  t.is(200, status2)
 })
