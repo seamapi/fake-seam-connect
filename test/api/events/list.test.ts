@@ -95,7 +95,7 @@ test("GET /events/list", async (t: ExecutionContext) => {
       Authorization: `Bearer ${seed.ws2.cst}`,
     },
   })
-  t.is(events_list_request.data.events.length, 0)
+  t.is(events_list_request.data.events.length, 1)
 
   // Test 200 response (empty device_ids)
   events_list_request = await axios.get("/events/list", {
