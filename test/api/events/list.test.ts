@@ -85,6 +85,30 @@ test("GET /events/list", async (t: ExecutionContext) => {
   t.true(events_list_request.data.events.length === 1)
   t.is(events_list_request.data.events[0]?.device_id, device_id)
 
+  // Test 200 response (device_ids)
+  events_list_request = await axios.get("/events/list", {
+    params: {
+      device_ids: [device_id],
+      since: date_before_event_happened,
+    },
+    headers: {
+      Authorization: `Bearer ${seed.ws2.cst}`,
+    },
+  })
+  t.is(events_list_request.data.events.length, 1)
+
+  // Test 200 response (empty device_ids)
+  events_list_request = await axios.get("/events/list", {
+    params: {
+      device_ids: [],
+      since: date_before_event_happened,
+    },
+    headers: {
+      Authorization: `Bearer ${seed.ws2.cst}`,
+    },
+  })
+  t.is(events_list_request.data.events.length, 0)
+
   // Test 200 response (access_code_ids)
   events_list_request = await axios.get("/events/list", {
     params: {
@@ -100,6 +124,18 @@ test("GET /events/list", async (t: ExecutionContext) => {
     events_list_request.data.events[0]?.access_code_id,
     created_access_code.access_code_id
   )
+
+  // Test 200 response (empty access_code_ids)
+  events_list_request = await axios.get("/events/list", {
+    params: {
+      access_code_ids: [],
+      since: date_before_event_happened,
+    },
+    headers: {
+      Authorization: `Bearer ${seed.ws2.cst}`,
+    },
+  })
+  t.is(events_list_request.data.events.length, 0)
 
   // Test 200 response (event_type)
   events_list_request = await axios.get("/events/list", {

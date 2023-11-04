@@ -34,63 +34,66 @@ export default withRouteSpec({
   const {
     since,
     between,
-    device_id,
-    access_code_id,
     event_type,
+    event_types,
     connected_account_id,
+    device_id,
+    device_ids,
+    access_code_id,
+    access_code_ids,
   } = req.commonParams
 
-  const device_ids =
-    device_id != null
-      ? [device_id, ...(req.commonParams.device_ids ?? [])]
-      : req.commonParams.device_ids ?? []
-  const access_code_ids =
-    access_code_id != null
-      ? [access_code_id, ...(req.commonParams.access_code_ids ?? [])]
-      : req.commonParams.access_code_ids ?? []
-  const event_types =
-    event_type != null
-      ? [event_type, ...(req.commonParams.event_types ?? [])]
-      : req.commonParams.event_types ?? []
-
-  const events = req.db.events.filter((e) => {
-    const event_created_at_date = new Date(e.created_at)
-
-    const is_since_valid =
-      since == null || event_created_at_date > new Date(since)
-
-    const is_between_valid =
-      between == null ||
-      (event_created_at_date > new Date(between[0] as string) &&
-        event_created_at_date < new Date(between[1] as string))
-
-    const does_device_ids_match =
-      device_ids.length === 0 ||
-      ("device_id" in e && device_ids.includes(e.device_id as string))
-
-    const does_access_code_ids_match =
-      access_code_ids.length === 0 ||
-      ("access_code_id" in e &&
-        access_code_ids.includes(e.access_code_id as string))
-
-    const does_event_types_match =
-      event_types.length === 0 || event_types.includes(e.event_type)
-
-    const does_connected_account_match =
-      connected_account_id == null ||
-      ("connected_account_id" in e
-        ? e.connected_account_id === connected_account_id
-        : true)
-
-    return (
-      is_since_valid &&
-      is_between_valid &&
-      does_device_ids_match &&
-      does_access_code_ids_match &&
-      does_event_types_match &&
-      does_connected_account_match
-    )
-  })
+  const events = req.db.events
+    .filter((e) => {
+      if (since == null) return true
+      const event_created_at_date = new Date(e.created_at)
+      return event_created_at_date > new Date(since)
+    })
+    .filter((e) => {
+      if (between == null) return true
+      const [start, end] = between
+      if (start == null || end == null) return true
+      const event_created_at_date = new Date(e.created_at)
+      return (
+        event_created_at_date > new Date(start) &&
+        event_created_at_date < new Date(end)
+      )
+    })
+    .filter((e) => {
+      if (event_type == null) return true
+      return e.event_type === event_type
+    })
+    .filter((e) => {
+      if (event_types == null) return true
+      return event_types.includes(e.event_type)
+    })
+    .filter((e) => {
+      if (connected_account_id == null) return true
+      if (!("connected_account_id" in e)) return true
+      return e.connected_account_id === connected_account_id
+    })
+    .filter((e) => {
+      if (device_id == null) return true
+      if (!("device_id" in e)) return true
+      return e.device_id === device_id
+    })
+    .filter((e) => {
+      if (device_ids == null) return true
+      if (!("device_id" in e)) return true
+      if (e.device_id == null) return true
+      return device_ids.includes(e.device_id)
+    })
+    .filter((e) => {
+      if (access_code_id == null) return true
+      if (!("access_code_id" in e)) return true
+      return e.access_code_id === device_id
+    })
+    .filter((e) => {
+      if (access_code_ids == null) return true
+      if (!("access_code_id" in e)) return true
+      if (e.access_code_id == null) return true
+      return access_code_ids.includes(e.access_code_id)
+    })
 
   res.status(200).json({ events })
 })
