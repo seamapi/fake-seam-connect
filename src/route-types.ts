@@ -3846,7 +3846,7 @@ export type Routes = {
         name: string
         publishable_key: string
         created_at: string
-        is_sandbox: string
+        is_sandbox: boolean
       }
       ok: boolean
     }
@@ -3864,7 +3864,7 @@ export type Routes = {
         name: string
         publishable_key: string
         created_at: string
-        is_sandbox: string
+        is_sandbox: boolean
       }[]
       ok: boolean
     }
