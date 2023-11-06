@@ -181,13 +181,15 @@ export const refineClimateSetting = <T extends z.AnyZodObject>(
         heating_set_point_celsius,
         cooling_set_point_fahrenheit,
         heating_set_point_fahrenheit,
+        manual_override_allowed,
       },
       ctx
     ) => {
       if (
         automatic_cooling_enabled === undefined &&
         automatic_heating_enabled === undefined &&
-        hvac_mode_setting === undefined
+        hvac_mode_setting === undefined &&
+        manual_override_allowed === undefined
       ) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
