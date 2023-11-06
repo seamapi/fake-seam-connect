@@ -48,6 +48,7 @@ export interface DatabaseMethods {
     publishable_key?: string
     created_at?: string
     workspace_id?: string
+    is_sandbox?: boolean
   }) => Workspace
   addApiKey: (params: {
     name?: string
