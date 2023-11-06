@@ -99,6 +99,14 @@ export const seed = (db: Database): Seed => {
     },
   })
 
+  db.addDevice({
+    device_id: "noiseaware_device_1",
+    device_type: "noiseaware_activity_zone",
+    name: "Noise Sensor 1",
+    connected_account_id: "john_connected_account_id",
+    workspace_id: "seed_workspace_1",
+  })
+
   db.addConnectedAccount({
     provider: "schlage",
     workspace_id: "seed_workspace_1",
