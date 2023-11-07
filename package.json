@@ -75,6 +75,7 @@
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
+    "@types/uuid": "^9.0.7",
     "ava": "^5.0.1",
     "c8": "^8.0.0",
     "cpy-cli": "^5.0.0",
@@ -100,6 +101,7 @@
     "tsx": "^3.12.1",
     "typed-axios-instance": "^1.0.12",
     "typescript": "~5.1.0",
+    "uuid": "^9.0.1",
     "zod": "^3.21.4",
     "zustand": "^4.3.7",
     "zustand-hoist": "^1.0.0"
