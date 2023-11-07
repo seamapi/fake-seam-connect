@@ -5,12 +5,13 @@ import { withBaseUrl } from "./with-base-url.ts"
 import { withCors } from "./with-cors.ts"
 import { withCSTOrApiKeyOrPublishableKey } from "./with-cst-or-api-key-or-publishable-key.ts"
 import { withDb } from "./with-db.ts"
+import { withRequestId } from "./with-request-id.ts"
 
 export const withRouteSpec = createWithRouteSpec({
   apiName: "Fake Seam Connect",
   productionServerUrl: "https://example.com",
   shouldValidateGetRequestBody: false,
-  globalMiddlewares: [withCors, withDb, withBaseUrl],
+  globalMiddlewares: [withCors, withDb, withBaseUrl, withRequestId],
   addOkStatus: true,
   authMiddlewareMap: {
     api_key: withApiKey,

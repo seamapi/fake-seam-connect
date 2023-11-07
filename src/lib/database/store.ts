@@ -44,6 +44,10 @@ const initializer = immer<Database>((set, get) => ({
     return `${type}${count}`
   },
 
+  getNextRequestId() {
+    return get()._getNextId("request")
+  },
+
   setDevicedbConfig(devicedbConfig) {
     set({ devicedbConfig })
   },
