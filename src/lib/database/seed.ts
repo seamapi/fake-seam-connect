@@ -8,6 +8,7 @@ export interface Seed {
   august_device_1: "august_device_1"
   august_device_2: "august_device_2"
   ecobee_device_1: "ecobee_device_1"
+  minut_device_1: "minut_device_1"
   schlage_device_1: "schlage_device_id"
   seam_apikey1_token: "seam_apikey1_token"
   seam_apikey2_token: "seam_apikey2_token"
@@ -99,12 +100,19 @@ export const seed = (db: Database): Seed => {
     },
   })
 
-  db.addDevice({
-    device_id: "noiseaware_device_1",
-    device_type: "noiseaware_activity_zone",
-    name: "Noise Sensor 1",
+  const minut_device = db.addDevice({
+    device_id: "minut_device_1",
+    device_type: "minut_sensor",
+    name: "Minut Sensor 1",
     connected_account_id: "john_connected_account_id",
     workspace_id: "seed_workspace_1",
+  })
+  db.addNoiseThreshold({
+    device_id: minut_device.device_id,
+    noise_threshold_decibels: 60,
+    name: "builtin_normal_hours",
+    starts_daily_at: "00:00:00[America/Los_Angeles]",
+    ends_daily_at: "00:00:00[America/Los_Angeles]",
   })
 
   db.addConnectedAccount({
@@ -140,6 +148,7 @@ export const seed = (db: Database): Seed => {
     august_device_1: "august_device_1",
     august_device_2: "august_device_2",
     ecobee_device_1: "ecobee_device_1",
+    minut_device_1: "minut_device_1",
     schlage_device_1: "schlage_device_id",
     seam_apikey1_token: "seam_apikey1_token",
     seam_apikey2_token: "seam_apikey2_token",
