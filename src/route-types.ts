@@ -749,11 +749,11 @@ export type Routes = {
   "/access_codes/unmanaged/list": {
     route: "/access_codes/unmanaged/list"
     method: "GET" | "POST"
-    queryParams: {
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
       device_id: string
     }
-    jsonBody: {}
-    commonParams: {}
     formData: {}
     jsonResponse: {
       access_codes: (
