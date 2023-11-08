@@ -1,6 +1,6 @@
 import { HttpException, type Middleware, NotFoundException } from "nextlove"
 
-import { seed, type Database } from "lib/database/index.ts"
+import type { Database } from "lib/database/index.ts"
 
 import { withApiKey } from "./with-api-key.ts"
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
@@ -22,7 +22,6 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
     db: Database
   }
 > = (next) => async (req, res) => {
-  await seed(req.db)
   const token =
     req.headers.authorization?.split("Bearer ")?.[1] ??
     (req.headers["client-session-token"] as string | null) ??
