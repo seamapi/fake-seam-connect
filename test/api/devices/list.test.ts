@@ -16,7 +16,7 @@ test("GET /devices/list with api key", async (t: ExecutionContext) => {
     data: { devices },
   } = await axios.get("/devices/list")
 
-  t.is(devices.length, 4)
+  t.is(devices.length, 5)
 })
 
 test("GET /devices/list with filters", async (t: ExecutionContext) => {
