@@ -1,6 +1,6 @@
 import { HttpException, type Middleware, NotFoundException } from "nextlove"
 
-import { seed, type Database } from "lib/database/index.ts"
+import { type Database,seed } from "lib/database/index.ts"
 
 import { withApiKey } from "./with-api-key.ts"
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
