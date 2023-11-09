@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/fake-seam-connect",
-  "version": "1.43.2",
+  "version": "1.43.3",
   "description": "Fake for Seam Connect.",
   "type": "module",
   "main": "dist/index.js",
