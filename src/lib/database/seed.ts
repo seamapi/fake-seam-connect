@@ -76,6 +76,7 @@ export const seed = (db: Database): Seed => {
     properties: {
       name: "Fake August Lock 1",
       manufacturer: "august",
+      locked: true,
     },
   })
 
@@ -85,6 +86,11 @@ export const seed = (db: Database): Seed => {
     device_type: "august_lock",
     name: "Back Door",
     workspace_id: "seed_workspace_1",
+    properties: {
+      name: "Fake August Lock 2",
+      manufacturer: "august",
+      locked: true,
+    },
   })
 
   db.addDevice({
@@ -130,6 +136,9 @@ export const seed = (db: Database): Seed => {
     device_type: "schlage_lock",
     name: "Bathroom Door",
     workspace_id: "seed_workspace_1",
+    properties: {
+      locked: true,
+    },
   })
 
   db.addClientSession({

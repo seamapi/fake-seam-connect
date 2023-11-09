@@ -36,6 +36,8 @@ export default withRouteSpec({
     status: "success",
   })
 
+  req.db.updateDevice({ device_id, properties: { locked: true } })
+
   req.db.addEvent({
     event_type: "lock.locked",
     workspace_id: req.auth.workspace_id,
