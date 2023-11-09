@@ -10,7 +10,7 @@ export const withCors: Middleware<Record<string, unknown>> =
     )
     res.setHeader(
       "Access-Control-Allow-Headers",
-      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Seam-Workspace, Authorization, User-Agent, Seam-Sdk-Version, Seam-Publishable-Key, Seam-Client-Session-Token, Client-Session-Token, Seam-Api-Key, Seam-User-Identifier-Key"
+      access_control_allow_headers.join(", ")
     )
     res.setHeader("Access-Control-Allow-Credentials", "true")
 
@@ -23,3 +23,25 @@ export const withCors: Middleware<Record<string, unknown>> =
     // @ts-expect-error  Unknown issue
     return next(req, res)
   }
+
+const access_control_allow_headers = [
+  "x-csrf-token",
+  "x-requested-with",
+  "accept",
+  "accept-version",
+  "content-length",
+  "content-md5",
+  "content-type",
+  "date",
+  "x-api-version",
+  "seam-workspace",
+  "authorization",
+  "user-agent",
+  "seam-sdk-version",
+  "seam-sdk-name",
+  "seam-publishable-key",
+  "seam-client-session-token",
+  "client-session-token",
+  "seam-api-key",
+  "seam-user-identifier-key",
+]
