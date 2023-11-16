@@ -296,6 +296,8 @@ const initializer = immer<Database>((set, get) => ({
       warnings: [],
       is_backup_access_code_available: false,
       is_external_modification_allowed: false,
+      is_one_time_use: false,
+      is_offline_access_code: false,
       ...params,
     }
 
