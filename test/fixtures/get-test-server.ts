@@ -57,6 +57,7 @@ export const getTestServer = async <TSeed extends boolean>(
 
   return {
     ...fixture,
+    // @ts-expect-error Current version of axios has upstream type issue.
     get: fixture.axios.get.bind(fixture.axios),
     db,
     seed: seedResult as any,
