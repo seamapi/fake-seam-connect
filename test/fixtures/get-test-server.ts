@@ -1,11 +1,10 @@
 import { createFake as createFakeDevicedb } from "@seamapi/fake-devicedb"
+import type { Database, Routes } from "@seamapi/fake-seam-connect"
 import { paramsSerializer } from "@seamapi/http/connect"
 import type { ExecutionContext } from "ava"
 import type { Axios } from "axios"
 import type { NextApiRequest } from "next"
 import type { TypedAxios } from "typed-axios-instance"
-
-import type { Database, Routes } from "index.ts"
 
 import nsm from "nsm/get-server-fixture.ts"
 import type { NextApiHandler, NextApiResponse } from "nsm/types/nextjs.ts"

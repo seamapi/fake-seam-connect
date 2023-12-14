@@ -1,10 +1,9 @@
 import { writeFile } from "node:fs/promises"
 import { dirname } from "node:path"
 
+import { createFake } from "@seamapi/fake-seam-connect"
 import type { Builder, Command, Describe, Handler } from "landlubber"
 import { mkdirp } from "mkdirp"
-
-import { createFake } from "index.ts"
 
 interface Options {
   outfile: string

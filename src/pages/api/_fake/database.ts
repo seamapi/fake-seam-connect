@@ -1,6 +1,5 @@
+import type { Database } from "@seamapi/fake-seam-connect"
 import { z } from "zod"
-
-import type { Database } from "index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 

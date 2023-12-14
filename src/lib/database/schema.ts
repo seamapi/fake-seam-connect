@@ -1,6 +1,6 @@
+import type { Routes } from "@seamapi/fake-seam-connect"
 import type { HoistedStoreApi } from "zustand-hoist"
 
-import type { Routes } from "index.ts"
 import type {
   AccessCode,
   ActionAttempt,
