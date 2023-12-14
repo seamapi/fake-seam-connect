@@ -4,7 +4,7 @@ export const timestamp = z.union([
   z.string().refine((payload) => {
     if (payload != null) {
       const parsed = new Date(payload)
-      return parsed instanceof Date && !isNaN(parsed as any)
+      return parsed instanceof Date && !isNaN(parsed as unknown as number)
     }
 
     return true
