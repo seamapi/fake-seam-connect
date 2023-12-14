@@ -1,6 +1,6 @@
+import type { Routes } from "@seamapi/fake-seam-connect"
 import type { HoistedStoreApi } from "zustand-hoist"
 
-import type { Routes } from "index.ts"
 import type {
   AccessCode,
   ActionAttempt,
@@ -61,7 +61,7 @@ export interface DatabaseMethods {
     workspace_id: WorkspaceId
     connected_account_ids?: string[]
     connect_webview_ids?: string[]
-    user_identifier_key?: string
+    user_identifier_key: string
     token?: string
     created_at?: string
   }) => ClientSession

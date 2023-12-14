@@ -8,8 +8,7 @@ import {
   getManagedDevicesWithFilter,
   getUnmanagedDevicesWithFilter,
 } from "lib/util/devices.ts"
-
-import { common_params } from "../get.ts"
+import { common_params } from "pages/api/devices/get.ts"
 
 export default withRouteSpec({
   auth: "cst_ak_pk",

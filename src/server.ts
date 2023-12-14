@@ -28,7 +28,7 @@ const main = async (): Promise<void> => {
   logger.info(fake.serverUrl ?? "")
 }
 
-main().catch((err) => {
-  logger.error(err)
+main().catch((err: unknown) => {
+  logger.error(err as string)
   exit(1)
 })

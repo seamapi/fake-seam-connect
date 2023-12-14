@@ -1,7 +1,8 @@
+import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
-import { type Workspace, workspace } from "lib/zod/index.ts"
+import { workspace } from "lib/zod/index.ts"
 
 export default withRouteSpec({
   methods: ["GET", "POST"],
@@ -14,7 +15,14 @@ export default withRouteSpec({
     (w) => w.workspace_id === req.auth.workspace_id
   )
 
+  if (workspace == null) {
+    throw new NotFoundException({
+      type: "workspace_not_found",
+      message: "Workspace not found",
+    })
+  }
+
   res.status(200).json({
-    workspace: workspace as Workspace,
+    workspace,
   })
 })

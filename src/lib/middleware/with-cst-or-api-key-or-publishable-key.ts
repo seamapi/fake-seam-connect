@@ -54,7 +54,9 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
     }
     // Cannot run middleware after auth middleware.
     // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return withSimulatedOutage(next as unknown as any)(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       req as unknown as any,
       res
     )
@@ -77,13 +79,18 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
     }
     // Cannot run middleware after auth middleware.
     // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return withSimulatedOutage(next as unknown as any)(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       req as unknown as any,
       res
     )
   }
 
   if (is_api_key) {
+    // Cannot run middleware after auth middleware.
+    // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return withApiKey(next)(req as any, res)
   }
 

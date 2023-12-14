@@ -227,11 +227,15 @@ export const refineClimateSetting = <T extends z.AnyZodObject>(
 
       const heating_set_point_required =
         automatic_heating_enabled ??
-        deriveAutomaticHeatingEnabledFromHvacModeSetting(hvac_mode_setting)
+        deriveAutomaticHeatingEnabledFromHvacModeSetting(
+          hvac_mode_setting as ClimateSetting["hvac_mode_setting"]
+        )
 
       const cooling_set_point_required =
         automatic_cooling_enabled ??
-        deriveAutomaticCoolingEnabledFromHvacModeSetting(hvac_mode_setting)
+        deriveAutomaticCoolingEnabledFromHvacModeSetting(
+          hvac_mode_setting as ClimateSetting["hvac_mode_setting"]
+        )
 
       // now we can check the set points
 

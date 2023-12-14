@@ -53,12 +53,18 @@ test("Login via a CST and view devices", async (t) => {
 
   t.is(authorized_connect_webview.status, "authorized")
 
+  const { connected_account_id } = authorized_connect_webview
+
+  if (connected_account_id == null) {
+    t.fail("No connected_account_id")
+    return
+  }
+
   const {
     data: { connected_account },
   } = await axios.get("/connected_accounts/get", {
     params: {
-      connected_account_id:
-        authorized_connect_webview.connected_account_id as string,
+      connected_account_id,
     },
     headers: cst_headers,
   })
@@ -84,11 +90,17 @@ test("Login via a CST and view devices", async (t) => {
 
   t.is(devices.length, 1)
 
+  const device_id = devices?.[0]?.device_id
+  if (device_id == null) {
+    t.fail("No connected_account_id")
+    return
+  }
+
   const {
     data: { device },
   } = await axios.get("/devices/get", {
     params: {
-      device_id: devices?.[0]?.device_id as string,
+      device_id,
     },
     headers: cst_headers,
   })

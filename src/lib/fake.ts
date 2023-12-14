@@ -19,7 +19,7 @@ export class Fake {
 
   public database: Database
 
-  #database: ZustandDatabase
+  readonly #database: ZustandDatabase
 
   constructor(database: ZustandDatabase) {
     this.server = null

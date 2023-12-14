@@ -8,8 +8,7 @@ import {
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
-
-import { common_params } from "../devices/list.ts"
+import { common_params } from "pages/api/devices/list.ts"
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
