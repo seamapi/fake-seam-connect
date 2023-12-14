@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
-import { type Workspace, workspace } from "lib/zod/index.ts"
+import { workspace } from "lib/zod/index.ts"
 
 export default withRouteSpec({
   methods: ["GET", "POST"],
@@ -15,6 +15,6 @@ export default withRouteSpec({
   )
 
   res.status(200).json({
-    workspace: workspace as Workspace,
+    workspace: workspace!,
   })
 })

@@ -6,5 +6,5 @@ export const simpleHash = (str: string): string => {
     hash = (hash << 5) - hash + char
     hash &= hash // Convert to 32bit integer
   }
-  return new Uint32Array([hash])[0]?.toString(36) as string
+  return new Uint32Array([hash])[0]?.toString(36)!
 }
