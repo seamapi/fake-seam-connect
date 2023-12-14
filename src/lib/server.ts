@@ -48,6 +48,8 @@ export async function startServer(
     ],
   })
 
+  if (signals.length === 0) return new Server({ server, port })
+
   return new Server({
     server: createTerminus(server, {
       onShutdown: async () => {
