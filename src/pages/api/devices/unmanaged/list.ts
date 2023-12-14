@@ -4,8 +4,7 @@ import { unmanaged_device } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { getUnmanagedDevicesWithFilter } from "lib/util/devices.ts"
-
-import { common_params } from "../list.ts"
+import { common_params } from "pages/api/devices/list.ts"
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
