@@ -15,7 +15,7 @@ test("GET /events/get", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   // Test 200 response (device_id)

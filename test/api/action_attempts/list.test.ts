@@ -18,7 +18,7 @@ test("GET /action_attempts/list", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
   const {
     data: {
@@ -33,7 +33,7 @@ test("GET /action_attempts/list", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   const {
@@ -54,8 +54,8 @@ test("GET /action_attempts/list", async (t: ExecutionContext) => {
   t.true(
     list_action_attempts.every(({ action_attempt_id }) =>
       [lock_door_action_attempt_id, unlock_door_action_attempt_id].includes(
-        action_attempt_id
-      )
-    )
+        action_attempt_id,
+      ),
+    ),
   )
 })

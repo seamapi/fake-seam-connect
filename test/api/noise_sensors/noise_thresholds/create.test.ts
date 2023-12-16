@@ -20,7 +20,7 @@ test("POST /noise_sensors/noise_thresholds/create", async (t: ExecutionContext) 
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.is(action_attempt.status, "success")

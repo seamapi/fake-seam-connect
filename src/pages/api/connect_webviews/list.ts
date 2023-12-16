@@ -12,7 +12,7 @@ export default withRouteSpec({
   }),
 } as const)(async (req, res) => {
   const connect_webviews = req.db.connect_webviews.filter(
-    (cw) => cw.workspace_id === req.auth.workspace_id
+    (cw) => cw.workspace_id === req.auth.workspace_id,
   )
 
   res.status(200).json({ connect_webviews })

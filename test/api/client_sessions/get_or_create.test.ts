@@ -15,7 +15,7 @@ test("POST /client_sessions/get_or_create", async (t: ExecutionContext) => {
       headers: {
         "Seam-Publishable-Key": seed.ws2.publishable_key,
       },
-    }
+    },
   )
 
   t.truthy(client_session)
@@ -31,7 +31,7 @@ test("POST /client_sessions/get_or_create", async (t: ExecutionContext) => {
       headers: {
         "Seam-Publishable-Key": seed.ws2.publishable_key,
       },
-    }
+    },
   )
 
   t.is(client_session.client_session_id, client_session_2.client_session_id)

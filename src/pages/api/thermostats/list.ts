@@ -21,11 +21,11 @@ export default withRouteSpec({
       .filter((d) =>
         req.auth.auth_mode === "client_session_token"
           ? req.auth.connected_account_ids.includes(d.connected_account_id)
-          : true
+          : true,
       )
       .filter((d) => d.workspace_id === req.auth.workspace_id)
       .filter((d) =>
-        THERMOSTAT_DEVICE_TYPES.includes(d.device_type as ThermostatDeviceType)
+        THERMOSTAT_DEVICE_TYPES.includes(d.device_type as ThermostatDeviceType),
       ),
   })
 })

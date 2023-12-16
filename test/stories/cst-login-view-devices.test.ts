@@ -16,7 +16,7 @@ test("Login via a CST and view devices", async (t) => {
     {
       user_identifier_key: "my_test_user",
     },
-    { headers: pk_headers }
+    { headers: pk_headers },
   )
 
   const cst_headers = {
@@ -33,7 +33,7 @@ test("Login via a CST and view devices", async (t) => {
     {
       accepted_providers: ["august"],
     },
-    { headers: cst_headers }
+    { headers: cst_headers },
   )
 
   t.is(pending_connect_webview.status, "pending")
@@ -118,7 +118,7 @@ test("Login via a CST and view devices", async (t) => {
     },
     {
       headers: cst_headers,
-    }
+    },
   )
 
   t.is(access_code.code, "1234")

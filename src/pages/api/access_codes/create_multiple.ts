@@ -18,7 +18,7 @@ const json_body = z
       common_code_key: true,
       device_id: true,
       sync: true,
-    })
+    }),
   )
 
 export default withRouteSpec({

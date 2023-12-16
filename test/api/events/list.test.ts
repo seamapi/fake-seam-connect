@@ -22,7 +22,7 @@ test("GET /events/list", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
   await axios.post(
     "/access_codes/create",
@@ -33,7 +33,7 @@ test("GET /events/list", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   // Test 200 response (since)
@@ -48,7 +48,7 @@ test("GET /events/list", async (t: ExecutionContext) => {
   t.true(events_list_request.data.events.length === 2)
   t.true(
     new Date(events_list_request.data.events[0]?.created_at ?? "") >
-      new Date(date_before_event_happened)
+      new Date(date_before_event_happened),
   )
 
   events_list_request = await axios.get("/events/list", {
@@ -122,7 +122,7 @@ test("GET /events/list", async (t: ExecutionContext) => {
   t.true(events_list_request.data.events.length === 1)
   t.is(
     events_list_request.data.events[0]?.access_code_id,
-    created_access_code.access_code_id
+    created_access_code.access_code_id,
   )
 
   // Test 200 response (empty access_code_ids)

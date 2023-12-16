@@ -9,13 +9,13 @@ export const access_code_base = z.object({
     z.object({
       error_code: z.string(),
       message: z.string(),
-    })
+    }),
   ),
   warnings: z.array(
     z.object({
       warning_code: z.string(),
       message: z.string(),
-    })
+    }),
   ),
   is_managed: z.boolean(),
   is_backup: z.boolean().optional(),

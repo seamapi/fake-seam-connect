@@ -72,7 +72,7 @@ export interface DatabaseMethods {
   }) => void
 
   addConnectWebview: (
-    params: Partial<ConnectWebview> & Pick<ConnectWebview, "workspace_id">
+    params: Partial<ConnectWebview> & Pick<ConnectWebview, "workspace_id">,
   ) => ConnectWebview
   updateConnectWebview: (params: {
     connect_webview_id: string
@@ -88,7 +88,7 @@ export interface DatabaseMethods {
     created_at?: string
   }) => ConnectedAccount
   deleteConnectedAccount: (
-    params: Pick<ConnectedAccount, "connected_account_id">
+    params: Pick<ConnectedAccount, "connected_account_id">,
   ) => void
   addDevice: (params: {
     device_id?: string
@@ -103,7 +103,7 @@ export interface DatabaseMethods {
   }) => Device
   deleteDevice: (device_id: Device["device_id"]) => void
   updateDevice: (
-    params: Pick<Device, "device_id"> & RecursivePartial<Device>
+    params: Pick<Device, "device_id"> & RecursivePartial<Device>,
   ) => Device
   addAccessCode: (
     params: {
@@ -112,14 +112,14 @@ export interface DatabaseMethods {
       code: string
       device_id: string
       created_at?: string
-    } & Partial<AccessCode>
+    } & Partial<AccessCode>,
   ) => AccessCode
   findAccessCode: (params: {
     access_code_id: string
     device_id?: string
   }) => AccessCode | undefined
   updateAccessCode: (
-    params: Pick<AccessCode, "access_code_id"> & Partial<AccessCode>
+    params: Pick<AccessCode, "access_code_id"> & Partial<AccessCode>,
   ) => AccessCode
   deleteAccessCode: (access_code_id: AccessCode["access_code_id"]) => void
   setPulledBackupAccessCodeId: (params: {
@@ -139,29 +139,29 @@ export interface DatabaseMethods {
       schedule_ends_at: string
       created_at?: string
       name: string
-    } & Partial<ClimateSetting>
+    } & Partial<ClimateSetting>,
   ) => ClimateSettingSchedule
   updateClimateSettingSchedule: (
     params: Pick<ClimateSettingSchedule, "climate_setting_schedule_id"> &
-      Partial<ClimateSettingSchedule>
+      Partial<ClimateSettingSchedule>,
   ) => ClimateSettingSchedule
   deleteClimateSettingSchedule: (
-    climate_setting_schedule_id: ClimateSettingSchedule["climate_setting_schedule_id"]
+    climate_setting_schedule_id: ClimateSettingSchedule["climate_setting_schedule_id"],
   ) => void
 
   addActionAttempt: (params: Partial<ActionAttempt>) => ActionAttempt
   findActionAttempt: (
-    params: Pick<ActionAttempt, "action_attempt_id">
+    params: Pick<ActionAttempt, "action_attempt_id">,
   ) => ActionAttempt | undefined
   updateActionAttempt: (
-    params: Partial<ActionAttempt> & Pick<ActionAttempt, "action_attempt_id">
+    params: Partial<ActionAttempt> & Pick<ActionAttempt, "action_attempt_id">,
   ) => ActionAttempt
 
   simulateWorkspaceOutage: (
     workspace_id: string,
     context: {
       routes: Array<keyof Routes>
-    }
+    },
   ) => void
   simulateWorkspaceOutageRecovery: (workspace_id: string) => void
 
@@ -170,18 +170,18 @@ export interface DatabaseMethods {
       NoiseThreshold,
       "device_id" | "starts_daily_at" | "ends_daily_at"
     > &
-      Partial<NoiseThreshold>
+      Partial<NoiseThreshold>,
   ) => NoiseThreshold
   deleteNoiseThreshold: (
-    params: Pick<NoiseThreshold, "noise_threshold_id" | "device_id">
+    params: Pick<NoiseThreshold, "noise_threshold_id" | "device_id">,
   ) => void
   updateNoiseThreshold: (
     params: Pick<NoiseThreshold, "device_id" | "noise_threshold_id"> &
-      Partial<NoiseThreshold>
+      Partial<NoiseThreshold>,
   ) => NoiseThreshold
 
   addEvent: (
-    params: Partial<Event> & Pick<Event, "event_type" | "workspace_id">
+    params: Partial<Event> & Pick<Event, "event_type" | "workspace_id">,
   ) => Event
 
   update: (t?: number) => void

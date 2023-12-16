@@ -16,7 +16,7 @@ test("GET /internal/devicedb_image_proxy", async (t) => {
   const {
     data: { device_models },
   } = await (axios as Axios).get<RouteResponse<"/v1/device_models/list">>(
-    "/internal/devicedb/v1/device_models/list"
+    "/internal/devicedb/v1/device_models/list",
   )
 
   const image_url = device_models[0]?.aesthetic_variants[0]?.front_image?.url
@@ -38,7 +38,7 @@ test("GET /internal/devicedb_image_proxy (404)", async (t) => {
     async () =>
       await axios.get("/internal/devicedb_image_proxy", {
         params: { image_id: "00000000-0000-0000-4242-000000000000" },
-      })
+      }),
   )
   t.is(err?.status, 404)
 })

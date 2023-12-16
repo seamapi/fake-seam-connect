@@ -16,7 +16,7 @@ test("PATCH /devices/unmanaged/update", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   let devices_unmanaged_get_res = await axios.get("/devices/unmanaged/get", {
@@ -37,7 +37,7 @@ test("PATCH /devices/unmanaged/update", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   devices_unmanaged_get_res = await axios.get("/devices/unmanaged/get", {

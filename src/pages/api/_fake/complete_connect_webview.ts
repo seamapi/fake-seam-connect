@@ -13,7 +13,7 @@ export default withRouteSpec({
   jsonResponse: z.object({}),
 } as const)(async (req, res) => {
   const connect_webview = req.db.connect_webviews.find(
-    (cw) => cw.connect_webview_id === req.body.connect_webview_id
+    (cw) => cw.connect_webview_id === req.body.connect_webview_id,
   )
 
   if (connect_webview == null) {
@@ -32,7 +32,7 @@ export default withRouteSpec({
   })
 
   const relevant_cs = req.db.client_sessions.find((cs) =>
-    cs.connect_webview_ids.includes(connect_webview.connect_webview_id)
+    cs.connect_webview_ids.includes(connect_webview.connect_webview_id),
   )
   if (relevant_cs != null) {
     req.db.updateClientSession({

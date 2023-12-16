@@ -19,7 +19,7 @@ test("POST /access_codes/unmanaged/update", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.is(access_code.is_managed, false)
@@ -34,11 +34,11 @@ test("POST /access_codes/unmanaged/update", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   const updated_access_code = db.access_codes.find(
-    (ac) => ac.access_code_id === access_code.access_code_id
+    (ac) => ac.access_code_id === access_code.access_code_id,
   )
 
   t.is(updated_access_code?.is_managed, true)

@@ -25,7 +25,7 @@ test("GET /internal/devicedb/v1/device_models/get", async (t) => {
   const {
     data: { device_models },
   } = await (axios as Axios).get<RouteResponse<"/v1/device_models/list">>(
-    "/internal/devicedb/v1/device_models/list"
+    "/internal/devicedb/v1/device_models/list",
   )
 
   const device_model_id = device_models[0]?.device_model_id
@@ -62,7 +62,7 @@ test("GET /internal/devicedb/v1/manufacturers/get", async (t) => {
   const {
     data: { manufacturers },
   } = await (axios as Axios).get<RouteResponse<"/v1/manufacturers/list">>(
-    "/internal/devicedb/v1/manufacturers/list"
+    "/internal/devicedb/v1/manufacturers/list",
   )
 
   const manufacturer_id = manufacturers[0]?.manufacturer_id

@@ -17,7 +17,7 @@ export default withRouteSpec({
   const { action_attempt_ids } = req.commonParams
 
   const action_attempts = req.db.action_attempts.filter((aa) =>
-    action_attempt_ids.includes(aa.action_attempt_id)
+    action_attempt_ids.includes(aa.action_attempt_id),
   )
 
   if (action_attempts.length === 0) {

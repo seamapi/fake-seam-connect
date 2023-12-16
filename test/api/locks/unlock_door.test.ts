@@ -6,7 +6,7 @@ test("POST /locks/unlock_door", async (t) => {
   const { axios, db, seed } = await getTestServer(t)
 
   const device = db.devices.find(
-    (d) => d.workspace_id === seed.ws2.workspace_id
+    (d) => d.workspace_id === seed.ws2.workspace_id,
   )
 
   if (device == null) {
@@ -25,7 +25,7 @@ test("POST /locks/unlock_door", async (t) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.is(action_attempt.status, "pending")
@@ -47,7 +47,7 @@ test("POST /locks/unlock_door (sync)", async (t) => {
   const { axios, db, seed } = await getTestServer(t)
 
   const device = db.devices.find(
-    (d) => d.workspace_id === seed.ws2.workspace_id
+    (d) => d.workspace_id === seed.ws2.workspace_id,
   )
 
   if (device == null) {
@@ -67,7 +67,7 @@ test("POST /locks/unlock_door (sync)", async (t) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.is(action_attempt.status, "success")

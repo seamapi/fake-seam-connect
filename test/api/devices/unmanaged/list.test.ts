@@ -24,7 +24,7 @@ test("GET /devices/unmanaged/list", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   unmanaged_devices_list_res = await axios.get("/devices/unmanaged/list", {

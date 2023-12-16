@@ -45,7 +45,7 @@ export default withRouteSpec({
     (d) =>
       d.client_session_id === client_session_id ||
       (d.user_identifier_key != null &&
-        d.user_identifier_key === user_identifier_key)
+        d.user_identifier_key === user_identifier_key),
   )
 
   if (client_session == null) {

@@ -26,7 +26,7 @@ test("DELETE /thermostats/climate_setting_schedules/delete", async (t: Execution
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.true(climate_setting_schedule.manual_override_allowed)
@@ -45,7 +45,7 @@ test("DELETE /thermostats/climate_setting_schedules/delete", async (t: Execution
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.is(res.status, 200)

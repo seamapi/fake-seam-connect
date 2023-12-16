@@ -19,7 +19,7 @@ test("POST /access_codes/create_multiple", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.is(access_codes.length, 2)

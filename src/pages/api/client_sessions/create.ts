@@ -45,7 +45,7 @@ export default withRouteSpec({
     const existing_cs = req.db.client_sessions.find(
       (cst) =>
         cst.user_identifier_key === user_identifier_key &&
-        cst.workspace_id === workspace_id
+        cst.workspace_id === workspace_id,
     )
     if (existing_cs != null) {
       if (req.method !== "PUT") {

@@ -30,7 +30,7 @@ test("GET /client_sessions/get (with workspace outage)", async (t: ExecutionCont
         headers: {
           Authorization: `Bearer ${seed.ws2.cst}`,
         },
-      })
+      }),
   )
   t.is(err?.status, 503)
 

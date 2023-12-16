@@ -23,7 +23,7 @@ export default withRouteSpec({
     req.commonParams
 
   const access_code = req.db.access_codes.filter(
-    (ac) => ac.access_code_id === access_code_id && !ac.is_managed
+    (ac) => ac.access_code_id === access_code_id && !ac.is_managed,
   )
 
   if (access_code == null) {

@@ -26,7 +26,7 @@ test("POST /thermostats/heat_cool with api key", async (t) => {
       headers: {
         "Content-Type": "application/json",
       },
-    }
+    },
   )
 
   t.is(200, status)
@@ -56,8 +56,8 @@ test("POST /thermostats/heat_cool (below min_heating_cooling_delta_celsius)", as
           headers: {
             "Content-Type": "application/json",
           },
-        }
-      )
+        },
+      ),
   )
 
   t.is(err?.status, 400)

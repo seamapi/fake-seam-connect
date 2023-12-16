@@ -28,7 +28,7 @@ export async function startServer(
     port?: number | undefined
     database?: Database
     signals?: string[]
-  } = {}
+  } = {},
 ): Promise<Server> {
   const database = options.database ?? createDatabase()
   const port = options.port ?? (await getPort())

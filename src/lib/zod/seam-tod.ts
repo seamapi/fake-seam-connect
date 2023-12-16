@@ -7,5 +7,5 @@ export const seam_tod = z
   .string()
   .regex(
     timeRegex,
-    'Invalid time format. Must be in the format of "HH:mm:ss[time_zone]", where time_zone is in the format of "Region/City"'
+    'Invalid time format. Must be in the format of "HH:mm:ss[time_zone]", where time_zone is in the format of "Region/City"',
   )

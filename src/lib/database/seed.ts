@@ -20,11 +20,11 @@ export interface Seed {
 export const seed = (db: Database): Seed => {
   if (
     db.connected_accounts.some(
-      (ca) => ca.user_identifier?.email === "john@example.com"
+      (ca) => ca.user_identifier?.email === "john@example.com",
     )
   ) {
     throw new Error(
-      "Database has already been seeded (already has john@example.com)"
+      "Database has already been seeded (already has john@example.com)",
     )
   }
 

@@ -10,7 +10,7 @@ export const withDb: Middleware<{
 }> = (next) => (req, res) => {
   if (process.env.NODE_ENV === "test" && req.db == null) {
     throw new Error(
-      `In the test environment, req.db must be set by server middleware.`
+      `In the test environment, req.db must be set by server middleware.`,
     )
   }
 

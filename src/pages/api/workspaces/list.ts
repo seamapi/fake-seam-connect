@@ -13,7 +13,7 @@ export default withRouteSpec({
   // Multi-workspace API keys aren't supported, so this will always return one
   // workspace
   const workspace = req.db.workspaces.find(
-    (w) => w.workspace_id === req.auth.workspace_id
+    (w) => w.workspace_id === req.auth.workspace_id,
   )
 
   res.status(200).json({

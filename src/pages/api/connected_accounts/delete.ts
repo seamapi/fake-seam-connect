@@ -15,7 +15,7 @@ export default withRouteSpec({
   const { connected_account_id } = req.body
 
   const connected_account = req.db.connected_accounts.find(
-    (cw) => cw.connected_account_id === connected_account_id
+    (cw) => cw.connected_account_id === connected_account_id,
   )
   if (connected_account == null) {
     throw new NotFoundException({
@@ -31,7 +31,7 @@ export default withRouteSpec({
     .filter((ac) => connected_account_device_ids.includes(ac.device_id))
     .map((ac) => ac.access_code_id)
   const connected_account_client_sessions = req.db.client_sessions.filter(
-    (cs) => cs.connected_account_ids.includes(connected_account_id)
+    (cs) => cs.connected_account_ids.includes(connected_account_id),
   )
 
   for (const device_id of connected_account_device_ids) {
@@ -47,7 +47,7 @@ export default withRouteSpec({
     req.db.updateClientSession({
       client_session_id: client_session.client_session_id,
       connected_account_ids: client_session.connected_account_ids.filter(
-        (cl) => cl !== connected_account_id
+        (cl) => cl !== connected_account_id,
       ),
     })
   }

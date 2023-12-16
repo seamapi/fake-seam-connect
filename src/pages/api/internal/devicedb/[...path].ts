@@ -52,7 +52,7 @@ export default withRouteSpec({
 
   res.status(status)
   res.send(
-    isJson ? replaceImageUrls(Buffer.from(data), baseUrl) : Buffer.from(data)
+    isJson ? replaceImageUrls(Buffer.from(data), baseUrl) : Buffer.from(data),
   )
 })
 

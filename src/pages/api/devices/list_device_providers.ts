@@ -50,7 +50,7 @@ export default withRouteSpec({
     device_providers: device_providers.filter((dp) =>
       provider_category == null
         ? true
-        : dp.provider_categories.includes(provider_category)
+        : dp.provider_categories.includes(provider_category),
     ),
   })
 })

@@ -38,7 +38,7 @@ export default withRouteSpec({
     const auth_connected_account_ids = req.auth.connected_account_ids
 
     devices = devices.filter((d) =>
-      auth_connected_account_ids.includes(d.connected_account_id)
+      auth_connected_account_ids.includes(d.connected_account_id),
     )
   }
 

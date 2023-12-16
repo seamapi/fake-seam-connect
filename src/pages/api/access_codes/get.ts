@@ -53,7 +53,7 @@ export default withRouteSpec({
   const access_code = req.db.access_codes.find(
     (ac) =>
       ac.access_code_id === access_code_id ||
-      (ac.device_id === device_id && ac.code === code)
+      (ac.device_id === device_id && ac.code === code),
   )
   if (access_code == null) {
     throw new NotFoundException({

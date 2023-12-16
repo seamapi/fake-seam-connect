@@ -25,7 +25,7 @@ export default withRouteSpec({
   const device = req.db.devices.find((device) => {
     if (
       THERMOSTAT_DEVICE_TYPES.includes(
-        device.device_type as ThermostatDeviceType
+        device.device_type as ThermostatDeviceType,
       )
     ) {
       if (device_id != null) {

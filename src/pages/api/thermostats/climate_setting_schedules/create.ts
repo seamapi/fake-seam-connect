@@ -27,7 +27,7 @@ const jsonBody = z
   }, "schedule_starts_at must be before schedule_ends_at")
   .refine(
     (value) => value.manual_override_allowed !== undefined,
-    "manual_override_allowed must be provided"
+    "manual_override_allowed must be provided",
   )
 
 export default withRouteSpec({
