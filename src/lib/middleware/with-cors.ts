@@ -6,11 +6,11 @@ export const withCors: Middleware<Record<string, unknown>> =
     res.setHeader("Access-Control-Allow-Origin", req.headers.origin ?? "*")
     res.setHeader(
       "Access-Control-Allow-Methods",
-      "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+      "GET, POST, PUT, PATCH, DELETE, OPTIONS",
     )
     res.setHeader(
       "Access-Control-Allow-Headers",
-      access_control_allow_headers.join(", ")
+      access_control_allow_headers.join(", "),
     )
     res.setHeader("Access-Control-Allow-Credentials", "true")
 

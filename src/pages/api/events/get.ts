@@ -19,7 +19,7 @@ export default withRouteSpec({
         Boolean(args.event_id) ||
         Boolean(args.event_type) ||
         Boolean(args.device_id),
-      "An argument for event_id, event_type, or device_id is required"
+      "An argument for event_id, event_type, or device_id is required",
     ),
   jsonResponse: z.object({
     event,
@@ -32,7 +32,7 @@ export default withRouteSpec({
       e.workspace_id === req.auth.workspace_id &&
       (e.event_id === event_id ||
         e.event_type === event_type ||
-        ("device_id" in e ? e?.device_id === device_id : false))
+        ("device_id" in e ? e?.device_id === device_id : false)),
   )
   if (event == null) {
     throw new NotFoundException({

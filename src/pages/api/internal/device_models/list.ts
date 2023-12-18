@@ -40,13 +40,13 @@ export default withRouteSpec({
     device_models = device_models.filter(
       (dm) =>
         dm.support_level.toLowerCase() ===
-        req.query.support_level?.toLowerCase()
+        req.query.support_level?.toLowerCase(),
     )
   }
 
   if (req.query.brand != null) {
     device_models = device_models.filter(
-      (dm) => dm.brand.toLowerCase() === req.query.brand?.toLowerCase()
+      (dm) => dm.brand.toLowerCase() === req.query.brand?.toLowerCase(),
     )
   }
 

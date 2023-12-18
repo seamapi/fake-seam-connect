@@ -13,6 +13,6 @@ export const usage_metric = z.object({
       started_at: z.string().datetime(),
       ended_at: z.string().datetime(),
       usage_value: z.number(),
-    })
+    }),
   ),
 })

@@ -17,7 +17,7 @@ test("PATCH /devices/update", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   const {

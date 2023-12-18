@@ -18,7 +18,7 @@ export default withRouteSpec({
   const { access_code_id } = req.body
 
   const access_code = req.db.access_codes.find(
-    (ac) => ac.access_code_id === access_code_id
+    (ac) => ac.access_code_id === access_code_id,
   )
   if (access_code == null) {
     throw new NotFoundException({
@@ -39,7 +39,7 @@ export default withRouteSpec({
 
   if (pulled_backup_access_code_id == null) {
     backup_access_code = req.db.access_codes.find(
-      (ac) => (ac.is_backup ?? false) && ac.device_id === access_code.device_id
+      (ac) => (ac.is_backup ?? false) && ac.device_id === access_code.device_id,
     )
 
     if (backup_access_code == null) {
@@ -63,7 +63,7 @@ export default withRouteSpec({
   }
 
   backup_access_code = req.db.access_codes.find(
-    (ac) => ac.access_code_id === pulled_backup_access_code_id
+    (ac) => ac.access_code_id === pulled_backup_access_code_id,
   )
 
   if (backup_access_code == null) {

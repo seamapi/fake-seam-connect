@@ -33,7 +33,7 @@ export default withRouteSpec({
   if (
     device == null ||
     !NOISE_SENSOR_DEVICE_TYPES.includes(
-      device.device_type as NoiseSensorDeviceType
+      device.device_type as NoiseSensorDeviceType,
     )
   ) {
     throw new NotFoundException({

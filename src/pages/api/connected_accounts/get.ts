@@ -16,7 +16,7 @@ export default withRouteSpec({
   }),
 } as const)(async (req, res) => {
   const connected_account = req.db.connected_accounts.find(
-    (cw) => cw.connected_account_id === req.commonParams.connected_account_id
+    (cw) => cw.connected_account_id === req.commonParams.connected_account_id,
   )
   if (connected_account == null) {
     throw new NotFoundException({

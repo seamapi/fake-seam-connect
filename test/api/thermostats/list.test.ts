@@ -22,8 +22,8 @@ test("POST /thermostats/list with api key", async (t: ExecutionContext) => {
   thermostats.forEach((thermostat) => {
     t.true(
       THERMOSTAT_DEVICE_TYPES.includes(
-        thermostat.device_type as ThermostatDeviceType
-      )
+        thermostat.device_type as ThermostatDeviceType,
+      ),
     )
   })
 })

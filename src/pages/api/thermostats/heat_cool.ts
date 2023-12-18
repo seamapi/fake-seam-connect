@@ -38,7 +38,7 @@ export default withRouteSpec({
           cooling_set_point !== undefined && heating_set_point !== undefined
         )
       },
-      "You must set both a heating setpoint and a cooling setpoint"
+      "You must set both a heating setpoint and a cooling setpoint",
     )
     .refine(({ heating_set_point_celsius, heating_set_point_fahrenheit }) => {
       if (
@@ -74,7 +74,7 @@ export default withRouteSpec({
   const device = req.db.devices.find((device) => {
     if (
       !THERMOSTAT_DEVICE_TYPES.includes(
-        device.device_type as ThermostatDeviceType
+        device.device_type as ThermostatDeviceType,
       )
     ) {
       return false
@@ -139,7 +139,7 @@ export default withRouteSpec({
     throw new BadRequestException({
       type: "invalid_heating_cooling_delta",
       message: `Difference between set points must be more than ${min_heating_cooling_delta_celsius}°C/${convertToFahrenheit(
-        min_heating_cooling_delta_celsius
+        min_heating_cooling_delta_celsius,
       )}°F  for this thermostat`,
     })
   }

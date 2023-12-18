@@ -77,7 +77,7 @@ export default withRouteSpec({
   if (Object.keys(climate_setting_for_schedule).length > 0) {
     Object.assign(
       update_object,
-      normalizeClimateSetting(climate_setting_for_schedule)
+      normalizeClimateSetting(climate_setting_for_schedule),
     )
   }
 

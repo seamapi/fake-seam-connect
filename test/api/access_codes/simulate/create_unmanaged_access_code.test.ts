@@ -19,7 +19,7 @@ test("POST /access_codes/simulate/create_unmanaged_access_code", async (t: Execu
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.is(access_code.code, "3333")

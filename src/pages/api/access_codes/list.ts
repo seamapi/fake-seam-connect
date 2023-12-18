@@ -15,7 +15,7 @@ export default withRouteSpec({
     .refine(
       ({ device_id, access_code_ids }) =>
         Boolean(device_id) || Boolean(access_code_ids),
-      "Either 'device_id' or 'access_code_ids' is required"
+      "Either 'device_id' or 'access_code_ids' is required",
     ),
   jsonResponse: z.object({
     access_codes: z.array(access_code),
@@ -27,7 +27,7 @@ export default withRouteSpec({
     access_codes: req.db.access_codes.filter((ac) =>
       ac.device_id === device_id && access_code_ids != null
         ? access_code_ids.includes(ac.access_code_id)
-        : true && !(ac?.is_backup ?? false)
+        : true && !(ac?.is_backup ?? false),
     ),
   })
 })

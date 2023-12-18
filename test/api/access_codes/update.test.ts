@@ -19,7 +19,7 @@ test("POST /access_codes/update", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.is(access_code.code, "1234")
@@ -35,7 +35,7 @@ test("POST /access_codes/update", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   const res = await axios.post(
@@ -47,7 +47,7 @@ test("POST /access_codes/update", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.is(res.data.access_code.name, "Updated Code")

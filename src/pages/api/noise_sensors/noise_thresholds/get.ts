@@ -18,7 +18,7 @@ export default withRouteSpec({
   const { noise_threshold_id } = req.commonParams
 
   const noise_threshold = req.db.noise_thresholds.find(
-    (nt) => nt.noise_threshold_id === noise_threshold_id
+    (nt) => nt.noise_threshold_id === noise_threshold_id,
   )
 
   if (noise_threshold == null) {

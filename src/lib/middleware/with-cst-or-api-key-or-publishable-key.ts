@@ -40,7 +40,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
 
   if (is_pub_key) {
     const workspace = req.db.workspaces.find(
-      (ws) => ws.publishable_key === token
+      (ws) => ws.publishable_key === token,
     )
     if (workspace == null)
       throw new NotFoundException({
@@ -58,7 +58,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
     return withSimulatedOutage(next as unknown as any)(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       req as unknown as any,
-      res
+      res,
     )
   }
 
@@ -83,7 +83,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
     return withSimulatedOutage(next as unknown as any)(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       req as unknown as any,
-      res
+      res,
     )
   }
 

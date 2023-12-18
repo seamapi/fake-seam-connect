@@ -25,7 +25,7 @@ test("POST /thermostats/climate_setting_schedules/create", async (t: ExecutionCo
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.true(climate_setting_schedule.manual_override_allowed)
@@ -45,7 +45,7 @@ test("POST /thermostats/climate_setting_schedules/create", async (t: ExecutionCo
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.is(schedules_list.length, 1)

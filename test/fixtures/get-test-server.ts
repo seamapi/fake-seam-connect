@@ -28,7 +28,7 @@ interface ApiRequest extends NextApiRequest {
 
 export const getTestServer = async <TSeed extends boolean>(
   t: ExecutionContext,
-  { seed }: { seed?: TSeed } = {}
+  { seed }: { seed?: TSeed } = {},
 ): Promise<ServerFixture<TSeed>> => {
   const fakeDevicedb = await createFakeDevicedb()
   await fakeDevicedb.seed()

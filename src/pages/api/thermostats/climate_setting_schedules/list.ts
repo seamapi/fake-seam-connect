@@ -16,7 +16,7 @@ export default withRouteSpec({
 } as const)(async (req, res) => {
   res.status(200).json({
     climate_setting_schedules: req.db.climate_setting_schedules.filter(
-      (schedule) => schedule.device_id === req.commonParams.device_id
+      (schedule) => schedule.device_id === req.commonParams.device_id,
     ),
   })
 })

@@ -109,7 +109,7 @@ test("GET /devices/list with simulated workspace outage", async (t: ExecutionCon
 
   const err = await t.throwsAsync<SimpleAxiosError>(
     async () =>
-      await axios.get("/devices/list", { params: { device_ids: ["123"] } })
+      await axios.get("/devices/list", { params: { device_ids: ["123"] } }),
   )
   t.is(err?.status, 503)
 

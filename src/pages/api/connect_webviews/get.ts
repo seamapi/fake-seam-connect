@@ -16,7 +16,7 @@ export default withRouteSpec({
   }),
 } as const)(async (req, res) => {
   const connect_webview = req.db.connect_webviews.find(
-    (cw) => cw.connect_webview_id === req.commonParams.connect_webview_id
+    (cw) => cw.connect_webview_id === req.commonParams.connect_webview_id,
   )
   if (connect_webview == null) {
     throw new NotFoundException({

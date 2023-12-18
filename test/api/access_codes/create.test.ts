@@ -19,7 +19,7 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   t.is(access_code.code, "1234")
@@ -49,10 +49,10 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
   const backup_codes = db.access_codes.filter(
-    (ac) => (ac.is_backup ?? false) && ac.device_id === device_id
+    (ac) => (ac.is_backup ?? false) && ac.device_id === device_id,
   )
   t.is(backup_codes.length, 1)
 
@@ -67,7 +67,7 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
   // backup codes are not included
   t.is(access_code_list.length, 2)

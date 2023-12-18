@@ -16,7 +16,7 @@ test("GET /action_attempts/get", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   const {
@@ -33,6 +33,6 @@ test("GET /action_attempts/get", async (t: ExecutionContext) => {
   t.truthy(get_res_action_attempt)
   t.is(
     get_res_action_attempt.action_attempt_id,
-    lock_door_action_attempt.action_attempt_id
+    lock_door_action_attempt.action_attempt_id,
   )
 })

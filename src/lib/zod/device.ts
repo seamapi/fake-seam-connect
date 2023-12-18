@@ -132,13 +132,13 @@ export const device = z.object({
     z.object({
       error_code: z.string(),
       message: z.string(),
-    })
+    }),
   ),
   warnings: z.array(
     z.object({
       warning_code: z.string(),
       message: z.string(),
-    })
+    }),
   ),
   created_at: z.string(),
 })

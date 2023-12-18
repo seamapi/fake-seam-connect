@@ -13,7 +13,7 @@ export const common_params = z
   })
   .refine(
     (args) => Boolean(args.device_id) || Boolean(args.name),
-    "Either 'device_id' or 'name' is required"
+    "Either 'device_id' or 'name' is required",
   )
 
 export default withRouteSpec({

@@ -12,7 +12,7 @@ export type ClimateSettingMode = Pick<
 >
 
 export const normalizeClimateSettingMode = (
-  cs: Partial<ClimateSetting>
+  cs: Partial<ClimateSetting>,
 ): ClimateSettingMode => {
   return {
     automatic_heating_enabled:
@@ -38,7 +38,7 @@ export const normalizeClimateSettingMode = (
  *
  */
 export const normalizeClimateSetting = (
-  cs: Partial<ClimateSetting>
+  cs: Partial<ClimateSetting>,
 ): ClimateSetting => {
   if (cs.manual_override_allowed === undefined)
     throw new Error("manual_override_allowed is required")
@@ -68,11 +68,11 @@ export const normalizeClimateSetting = (
 }
 
 export const deriveAutomaticHeatingEnabledFromHvacModeSetting = (
-  hvac_mode_setting?: ClimateSetting["hvac_mode_setting"]
+  hvac_mode_setting?: ClimateSetting["hvac_mode_setting"],
 ): boolean => hvac_mode_setting === "heat" || hvac_mode_setting === "heat_cool"
 
 export const deriveAutomaticCoolingEnabledFromHvacModeSetting = (
-  hvac_mode_setting?: ClimateSetting["hvac_mode_setting"]
+  hvac_mode_setting?: ClimateSetting["hvac_mode_setting"],
 ): boolean => hvac_mode_setting === "cool" || hvac_mode_setting === "heat_cool"
 
 export const deriveHvacModeSettingFromFlags = ({
@@ -97,7 +97,7 @@ export const deriveHvacModeSettingFromFlags = ({
  *
  */
 const normalizeCoolingSetPoints = (
-  cs: Partial<ClimateSetting>
+  cs: Partial<ClimateSetting>,
 ): Partial<ClimateSetting> => {
   const setPoints: Partial<ClimateSetting> = {}
 
@@ -105,7 +105,7 @@ const normalizeCoolingSetPoints = (
     setPoints.cooling_set_point_celsius = cs.cooling_set_point_celsius
   } else if (cs.cooling_set_point_fahrenheit !== undefined) {
     setPoints.cooling_set_point_celsius = convertToCelsius(
-      cs.cooling_set_point_fahrenheit
+      cs.cooling_set_point_fahrenheit,
     )
   }
 
@@ -113,7 +113,7 @@ const normalizeCoolingSetPoints = (
     setPoints.cooling_set_point_fahrenheit = cs.cooling_set_point_fahrenheit
   } else if (cs.cooling_set_point_celsius !== undefined) {
     setPoints.cooling_set_point_fahrenheit = convertToFahrenheit(
-      cs.cooling_set_point_celsius
+      cs.cooling_set_point_celsius,
     )
   }
   return setPoints
@@ -128,7 +128,7 @@ const normalizeCoolingSetPoints = (
  *
  */
 const normalizeHeatingSetPoints = (
-  cs: Partial<ClimateSetting>
+  cs: Partial<ClimateSetting>,
 ): Partial<ClimateSetting> => {
   const setPoints: Partial<ClimateSetting> = {}
 
@@ -136,7 +136,7 @@ const normalizeHeatingSetPoints = (
     setPoints.heating_set_point_celsius = cs.heating_set_point_celsius
   } else if (cs.heating_set_point_fahrenheit !== undefined) {
     setPoints.heating_set_point_celsius = convertToCelsius(
-      cs.heating_set_point_fahrenheit
+      cs.heating_set_point_fahrenheit,
     )
   }
 
@@ -144,7 +144,7 @@ const normalizeHeatingSetPoints = (
     setPoints.heating_set_point_fahrenheit = cs.heating_set_point_fahrenheit
   } else if (cs.heating_set_point_celsius !== undefined) {
     setPoints.heating_set_point_fahrenheit = convertToFahrenheit(
-      cs.heating_set_point_celsius
+      cs.heating_set_point_celsius,
     )
   }
 
@@ -169,7 +169,7 @@ export const convertToCelsius = (fahrenheit: number): number =>
  * Eg. If the mode described here is invalid, we don't need to return any errors about the set points.
  */
 export const refineClimateSetting = <T extends z.AnyZodObject>(
-  b: T
+  b: T,
 ): z.ZodEffects<T, Record<string, any>, Record<string, any>> =>
   b.superRefine(
     (
@@ -183,7 +183,7 @@ export const refineClimateSetting = <T extends z.AnyZodObject>(
         heating_set_point_fahrenheit,
         manual_override_allowed,
       },
-      ctx
+      ctx,
     ) => {
       if (
         automatic_cooling_enabled === undefined &&
@@ -228,13 +228,13 @@ export const refineClimateSetting = <T extends z.AnyZodObject>(
       const heating_set_point_required =
         automatic_heating_enabled ??
         deriveAutomaticHeatingEnabledFromHvacModeSetting(
-          hvac_mode_setting as ClimateSetting["hvac_mode_setting"]
+          hvac_mode_setting as ClimateSetting["hvac_mode_setting"],
         )
 
       const cooling_set_point_required =
         automatic_cooling_enabled ??
         deriveAutomaticCoolingEnabledFromHvacModeSetting(
-          hvac_mode_setting as ClimateSetting["hvac_mode_setting"]
+          hvac_mode_setting as ClimateSetting["hvac_mode_setting"],
         )
 
       // now we can check the set points
@@ -298,7 +298,7 @@ export const refineClimateSetting = <T extends z.AnyZodObject>(
           fatal: true,
         })
       }
-    }
+    },
   )
 
 /**
@@ -311,7 +311,7 @@ export const refineClimateSetting = <T extends z.AnyZodObject>(
  */
 export const throwIfClimateSettingNotAllowed = (
   climate_setting: Partial<ClimateSetting>,
-  properties: Device["properties"]
+  properties: Device["properties"],
 ): void => {
   const {
     heating_set_point_celsius,
@@ -407,7 +407,7 @@ export const throwIfClimateSettingNotAllowed = (
         throw new BadRequestException({
           type: "invalid_heating_cooling_delta",
           message: `Difference between set points must be more than ${min_heating_cooling_delta_celsius}°C/${convertToFahrenheit(
-            min_heating_cooling_delta_celsius
+            min_heating_cooling_delta_celsius,
           )}°F  for this thermostat`,
         })
       }

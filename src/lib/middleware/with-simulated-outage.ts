@@ -17,7 +17,7 @@ export const withSimulatedOutage: Middleware<
     return res
       .status(500)
       .end(
-        "The withApiKey middleware requires req.db. Use it with the withDb middleware."
+        "The withApiKey middleware requires req.db. Use it with the withDb middleware.",
       )
   }
 

@@ -35,7 +35,7 @@ export default withRouteSpec({
     req.db.updateClientSession({
       client_session_id: req.auth.client_session_id,
       connect_webview_ids: req.auth.connect_webview_ids.concat(
-        connect_webview.connect_webview_id
+        connect_webview.connect_webview_id,
       ),
     })
   }

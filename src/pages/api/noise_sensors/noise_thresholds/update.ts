@@ -27,7 +27,7 @@ const json_body = z
       value.starts_daily_at != null && value.ends_daily_at == null
 
     const is_ends_provided_but_starts_not = Boolean(
-      value.starts_daily_at == null && value.ends_daily_at != null
+      value.starts_daily_at == null && value.ends_daily_at != null,
     )
     if (is_starts_provided_but_ends_not || is_ends_provided_but_starts_not) {
       return false
@@ -63,7 +63,7 @@ export default withRouteSpec({
   if (
     device == null ||
     !NOISE_SENSOR_DEVICE_TYPES.includes(
-      device.device_type as NoiseSensorDeviceType
+      device.device_type as NoiseSensorDeviceType,
     )
   ) {
     throw new NotFoundException({
@@ -81,7 +81,7 @@ export default withRouteSpec({
   })
 
   const noise_threshold_update_props = Object.fromEntries(
-    Object.entries(noise_threshold).filter(([_, value]) => value !== undefined)
+    Object.entries(noise_threshold).filter(([_, value]) => value !== undefined),
   )
   req.db.updateNoiseThreshold({
     device_id,

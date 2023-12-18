@@ -16,18 +16,18 @@ interface DeviceFilters {
 
 export const getManagedDevicesWithFilter = (
   db: ZustandDatabase,
-  device_filters: Omit<DeviceFilters, "is_managed">
+  device_filters: Omit<DeviceFilters, "is_managed">,
 ): Device[] => getDevicesWithFilter(db, { ...device_filters, is_managed: true })
 
 export const getUnmanagedDevicesWithFilter = (
   db: ZustandDatabase,
-  device_filters: Omit<DeviceFilters, "is_managed">
+  device_filters: Omit<DeviceFilters, "is_managed">,
 ): UnmanagedDevice[] =>
   getDevicesWithFilter(db, { ...device_filters, is_managed: false })
 
 export const getDevicesWithFilter = (
   db: ZustandDatabase,
-  device_filters: DeviceFilters
+  device_filters: DeviceFilters,
 ): Device[] => {
   const {
     workspace_id,

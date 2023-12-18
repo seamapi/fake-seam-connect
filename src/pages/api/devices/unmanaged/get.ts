@@ -57,7 +57,7 @@ export default withRouteSpec({
   if (req.auth.auth_mode === "client_session_token") {
     if (
       !req.auth.connected_account_ids.includes(
-        unmanaged_device.connected_account_id
+        unmanaged_device.connected_account_id,
       )
     ) {
       throw new HttpException(401, {

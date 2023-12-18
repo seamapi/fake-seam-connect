@@ -29,7 +29,7 @@ export const getTestDatabase = async (
   {
     seed: shouldSeed = true,
     fakeDevicedb,
-  }: { seed?: boolean; fakeDevicedb?: FakeDevicedb } = {}
+  }: { seed?: boolean; fakeDevicedb?: FakeDevicedb } = {},
 ): Promise<DatabaseFixture> => {
   const db = createDatabase()
 

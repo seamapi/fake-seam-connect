@@ -25,7 +25,7 @@ test("POST /access_codes/pull_backup_access_code", async (t: ExecutionContext) =
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   const {
@@ -39,14 +39,14 @@ test("POST /access_codes/pull_backup_access_code", async (t: ExecutionContext) =
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
   const original_access_code = db.access_codes.find(
-    (ac) => ac.access_code_id === access_code_id
+    (ac) => ac.access_code_id === access_code_id,
   )
   t.is(backup_access_code.device_id, device_id)
   t.is(
     original_access_code?.pulled_backup_access_code_id,
-    backup_access_code.access_code_id
+    backup_access_code.access_code_id,
   )
 })

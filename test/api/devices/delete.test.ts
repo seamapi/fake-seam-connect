@@ -17,7 +17,7 @@ test("POST /devices/delete", async (t: ExecutionContext) => {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   const devices_delete_res = await axios.delete("/devices/delete", {

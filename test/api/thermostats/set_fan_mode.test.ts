@@ -22,7 +22,7 @@ test("POST /thermostats/set_fan_mode with api key", async (t) => {
       headers: {
         "Content-Type": "application/json",
       },
-    }
+    },
   )
 
   t.is(200, status)

@@ -16,7 +16,7 @@ export default withRouteSpec({
       .filter((ca) =>
         req.auth.auth_mode === "client_session_token"
           ? req.auth.connected_account_ids.includes(ca.connected_account_id)
-          : true
+          : true,
       )
       .filter((ca) => ca.workspace_id === req.auth.workspace_id),
   })

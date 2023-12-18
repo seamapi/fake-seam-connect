@@ -26,7 +26,7 @@ test("DELETE /connected_accounts/delete", async (t: ExecutionContext) => {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
       validateStatus: () => true,
-    }
+    },
   )
 
   t.is(connected_accounts_get_res.status, 404)

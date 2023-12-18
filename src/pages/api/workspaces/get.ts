@@ -12,7 +12,7 @@ export default withRouteSpec({
   }),
 } as const)(async (req, res) => {
   const workspace = req.db.workspaces.find(
-    (w) => w.workspace_id === req.auth.workspace_id
+    (w) => w.workspace_id === req.auth.workspace_id,
   )
 
   if (workspace == null) {

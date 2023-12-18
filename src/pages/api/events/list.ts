@@ -21,11 +21,11 @@ export default withRouteSpec({
     })
     .refine(
       (payload) => payload.since ?? payload.between,
-      "Must specify either since or between"
+      "Must specify either since or between",
     )
     .refine(
       (payload) => !(payload.since != null && payload.between != null),
-      "Cannot specify both since and between"
+      "Cannot specify both since and between",
     ),
   jsonResponse: z.object({
     events: z.array(event),

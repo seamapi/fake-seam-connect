@@ -14,7 +14,7 @@ export const withRequestId: Middleware<
     return res
       .status(500)
       .end(
-        "The withRequestId middleware requires req.db. Use it with the withDb middleware."
+        "The withRequestId middleware requires req.db. Use it with the withDb middleware.",
       )
   }
 

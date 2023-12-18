@@ -19,7 +19,7 @@ test("GET /noise_sensors/noise_thresholds/update", async (t: ExecutionContext) =
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
       },
-    }
+    },
   )
 
   const {
@@ -36,6 +36,6 @@ test("GET /noise_sensors/noise_thresholds/update", async (t: ExecutionContext) =
   t.truthy(noise_threshold)
   t.is(
     noise_threshold.noise_threshold_decibels,
-    updated_noise_threshold_decibels
+    updated_noise_threshold_decibels,
   )
 })

@@ -15,7 +15,7 @@ test("POST /client_sessions/create", async (t: ExecutionContext) => {
       headers: {
         "Seam-Publishable-Key": seed.ws2.publishable_key,
       },
-    }
+    },
   )
 
   t.truthy(client_session)
