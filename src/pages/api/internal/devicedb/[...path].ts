@@ -3,6 +3,7 @@ import "isomorphic-fetch"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
+import { updateSearchParamsFromQuery } from "lib/params-serializer.ts"
 
 const forwardedHeaders = [
   "content-type",
@@ -27,9 +28,7 @@ export default withRouteSpec({
   }
 
   const url = new URL(`${db.devicedbConfig.url}/${path.join("/")}`)
-  for (const [k, v] of Object.entries(query)) {
-    if (typeof v === "string") url.searchParams.append(k, v)
-  }
+  updateSearchParamsFromQuery(url.searchParams, query)
   const proxyRes = await fetch(url, {
     method: "GET",
     headers: {
