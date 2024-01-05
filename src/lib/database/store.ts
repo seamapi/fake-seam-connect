@@ -61,6 +61,7 @@ const initializer = immer<Database>((set, get) => ({
         params.publishable_key ?? `seam_${pk_id}_${simpleHash(pk_id)}`,
       created_at: params.created_at ?? new Date().toISOString(),
       is_sandbox: params.is_sandbox ?? false,
+      connect_partner_name: params.connect_partner_name ?? null,
     }
     set({
       workspaces: [...get().workspaces, new_workspace],
@@ -96,7 +97,7 @@ const initializer = immer<Database>((set, get) => ({
       connect_webview_ids: params.connect_webview_ids ?? [],
       client_session_id: cst_id,
       token: params.token ?? `seam_${cst_id}_${simpleHash(cst_id)}`,
-      user_identifier_key: params.user_identifier_key,
+      user_identifier_key: params.user_identifier_key ?? null,
       created_at: params.created_at ?? new Date().toISOString(),
     }
 
@@ -142,6 +143,7 @@ const initializer = immer<Database>((set, get) => ({
       any_provider_allowed: params.any_provider_allowed ?? false,
       login_successful: params.login_successful ?? false,
       connected_account_id: params.connected_account_id ?? null,
+      custom_metadata: params.custom_metadata ?? {},
     }
     set({
       connect_webviews: [...get().connect_webviews, new_connect_webview],
@@ -167,6 +169,11 @@ const initializer = immer<Database>((set, get) => ({
           manufacturer_display_name:
             params.properties?.model?.manufacturer_display_name ?? "Generic",
         },
+        battery: {
+          level: 1,
+          status: "full",
+          ...params.properties?.battery,
+        },
       },
       workspace_id: params.workspace_id,
       errors: params.errors ?? [],
@@ -182,7 +189,7 @@ const initializer = immer<Database>((set, get) => ({
 
   deleteDevice(device_id) {
     const target = get().devices.find(
-      (device) => device.device_id === device_id,
+      (device) => device.device_id === device_id
     )
     if (target == null) {
       throw new Error("Could not find device with device_id")
@@ -201,7 +208,7 @@ const initializer = immer<Database>((set, get) => ({
 
   updateDevice(params) {
     const target = get().devices.find(
-      (device) => device.device_id === params.device_id,
+      (device) => device.device_id === params.device_id
     )
     if (target == null) {
       throw new Error("Could not find device with device_id")
@@ -238,6 +245,7 @@ const initializer = immer<Database>((set, get) => ({
       provider: params.provider,
       workspace_id: params.workspace_id,
       created_at: params.created_at ?? new Date().toISOString(),
+      user_identifier: params.user_identifier ?? { email: "jane@example.com" },
     }
 
     set({
@@ -250,11 +258,11 @@ const initializer = immer<Database>((set, get) => ({
   deleteConnectedAccount(params) {
     const target = get().connected_accounts.find(
       (connected_account) =>
-        connected_account.connected_account_id === params.connected_account_id,
+        connected_account.connected_account_id === params.connected_account_id
     )
     if (target == null) {
       throw new Error(
-        "Could not find connected_account with connected_account_id",
+        "Could not find connected_account with connected_account_id"
       )
     }
 
@@ -299,6 +307,8 @@ const initializer = immer<Database>((set, get) => ({
       is_one_time_use: false,
       is_offline_access_code: false,
       ...params,
+      common_code_key:
+        "common_code_key" in params ? params?.common_code_key ?? null : null,
     }
 
     set({
@@ -319,7 +329,7 @@ const initializer = immer<Database>((set, get) => ({
 
   updateAccessCode(params) {
     const target = get().access_codes.find(
-      (access_code) => access_code.access_code_id === params.access_code_id,
+      (access_code) => access_code.access_code_id === params.access_code_id
     )
     if (target == null) {
       throw new Error("Could not find access_code with access_code_id")
@@ -346,7 +356,7 @@ const initializer = immer<Database>((set, get) => ({
 
   deleteAccessCode(access_code_id) {
     const target = get().access_codes.find(
-      (access_code) => access_code.access_code_id === access_code_id,
+      (access_code) => access_code.access_code_id === access_code_id
     )
     if (target == null) {
       throw new Error("Could not find access_code with access_code_id")
@@ -410,11 +420,11 @@ const initializer = immer<Database>((set, get) => ({
     const target = get().climate_setting_schedules.find(
       (climate_setting_schedule) =>
         climate_setting_schedule.climate_setting_schedule_id ===
-        params.climate_setting_schedule_id,
+        params.climate_setting_schedule_id
     )
     if (target == null) {
       throw new Error(
-        "Could not find climate_setting_schedule with climate_setting_schedule_id",
+        "Could not find climate_setting_schedule with climate_setting_schedule_id"
       )
     }
 
@@ -443,11 +453,11 @@ const initializer = immer<Database>((set, get) => ({
     const target = get().climate_setting_schedules.find(
       (climate_setting_schedule) =>
         climate_setting_schedule.climate_setting_schedule_id ===
-        climate_setting_schedule_id,
+        climate_setting_schedule_id
     )
     if (target == null) {
       throw new Error(
-        "Could not find climate_setting_schedule with climate_setting_schedule_id",
+        "Could not find climate_setting_schedule with climate_setting_schedule_id"
       )
     }
 
@@ -460,7 +470,7 @@ const initializer = immer<Database>((set, get) => ({
               target.climate_setting_schedule_id
 
             return !is_target
-          },
+          }
         ),
       ],
     })
@@ -492,7 +502,7 @@ const initializer = immer<Database>((set, get) => ({
   updateActionAttempt(params) {
     const target = get().action_attempts.find(
       (action_attempt) =>
-        action_attempt.action_attempt_id === params.action_attempt_id,
+        action_attempt.action_attempt_id === params.action_attempt_id
     )
     if (target == null) {
       throw new Error("Could not find access_code with access_code_id")
@@ -552,11 +562,11 @@ const initializer = immer<Database>((set, get) => ({
     const target = get().noise_thresholds.find(
       (nt) =>
         nt.device_id === device_id &&
-        nt.noise_threshold_id === noise_threshold_id,
+        nt.noise_threshold_id === noise_threshold_id
     )
     if (target == null) {
       throw new Error(
-        "Could not find noise_threshold with device_id and noise_threshold_id",
+        "Could not find noise_threshold with device_id and noise_threshold_id"
       )
     }
 
@@ -577,11 +587,11 @@ const initializer = immer<Database>((set, get) => ({
     const target = get().noise_thresholds.find(
       (nt) =>
         nt.device_id === params.device_id &&
-        nt.noise_threshold_id === params.noise_threshold_id,
+        nt.noise_threshold_id === params.noise_threshold_id
     )
     if (target == null) {
       throw new Error(
-        "Could not find noise_threshold with device_id and noise_threshold_id",
+        "Could not find noise_threshold with device_id and noise_threshold_id"
       )
     }
 

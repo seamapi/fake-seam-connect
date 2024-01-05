@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { custom_metadata } from "./custom-metadata.ts"
 
 export const device_provider = z.enum([
   "akuvox",
@@ -50,6 +51,7 @@ export const connect_webview = z.object({
   any_provider_allowed: z.boolean(),
   any_device_allowed: z.boolean().nullable(),
   login_successful: z.boolean(),
+  custom_metadata,
 })
 
 export type ConnectWebview = z.infer<typeof connect_webview>
