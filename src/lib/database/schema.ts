@@ -50,6 +50,7 @@ export interface DatabaseMethods {
     created_at?: string
     workspace_id?: string
     is_sandbox?: boolean
+    connect_partner_name?: string
   }) => Workspace
   addApiKey: (params: {
     name?: string

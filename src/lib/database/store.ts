@@ -61,6 +61,7 @@ const initializer = immer<Database>((set, get) => ({
         params.publishable_key ?? `seam_${pk_id}_${simpleHash(pk_id)}`,
       created_at: params.created_at ?? new Date().toISOString(),
       is_sandbox: params.is_sandbox ?? false,
+      connect_partner_name: params.connect_partner_name ?? null,
     }
     set({
       workspaces: [...get().workspaces, new_workspace],
@@ -96,7 +97,7 @@ const initializer = immer<Database>((set, get) => ({
       connect_webview_ids: params.connect_webview_ids ?? [],
       client_session_id: cst_id,
       token: params.token ?? `seam_${cst_id}_${simpleHash(cst_id)}`,
-      user_identifier_key: params.user_identifier_key,
+      user_identifier_key: params.user_identifier_key ?? null,
       created_at: params.created_at ?? new Date().toISOString(),
     }
 
@@ -142,6 +143,7 @@ const initializer = immer<Database>((set, get) => ({
       any_provider_allowed: params.any_provider_allowed ?? false,
       login_successful: params.login_successful ?? false,
       connected_account_id: params.connected_account_id ?? null,
+      custom_metadata: params.custom_metadata ?? {},
     }
     set({
       connect_webviews: [...get().connect_webviews, new_connect_webview],
@@ -166,6 +168,11 @@ const initializer = immer<Database>((set, get) => ({
           display_name: params.properties?.model?.display_name ?? "Device",
           manufacturer_display_name:
             params.properties?.model?.manufacturer_display_name ?? "Generic",
+        },
+        battery: {
+          level: 1,
+          status: "full",
+          ...params.properties?.battery,
         },
       },
       workspace_id: params.workspace_id,
@@ -238,6 +245,7 @@ const initializer = immer<Database>((set, get) => ({
       provider: params.provider,
       workspace_id: params.workspace_id,
       created_at: params.created_at ?? new Date().toISOString(),
+      user_identifier: params.user_identifier ?? { email: "jane@example.com" },
     }
 
     set({
@@ -299,6 +307,8 @@ const initializer = immer<Database>((set, get) => ({
       is_one_time_use: false,
       is_offline_access_code: false,
       ...params,
+      common_code_key:
+        "common_code_key" in params ? params?.common_code_key ?? null : null,
     }
 
     set({
