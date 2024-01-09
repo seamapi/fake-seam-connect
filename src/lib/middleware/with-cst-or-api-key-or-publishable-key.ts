@@ -3,8 +3,8 @@ import { HttpException, type Middleware, NotFoundException } from "nextlove"
 import type { Database } from "lib/database/index.ts"
 
 import { withApiKey } from "./with-api-key.ts"
-import { withSimulatedOutage } from "./with-simulated-outage.ts"
 import { withCst } from "./with-cst.ts"
+import { withSimulatedOutage } from "./with-simulated-outage.ts"
 
 export const withCSTOrApiKeyOrPublishableKey: Middleware<
   {

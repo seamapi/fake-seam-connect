@@ -2,8 +2,9 @@ import { HttpException, type Middleware, UnauthorizedException } from "nextlove"
 
 import type { Database } from "lib/database/index.ts"
 
-import { withSimulatedOutage } from "./with-simulated-outage.ts"
 import { hashLongToken } from "lib/tokens/generate-api-key.ts"
+
+import { withSimulatedOutage } from "./with-simulated-outage.ts"
 
 export const extractLongToken = (token: string) =>
   token.split("_").slice(-1)?.[0]

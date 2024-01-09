@@ -5,6 +5,7 @@ import { hoist } from "zustand-hoist"
 
 import { simpleHash } from "lib/util/simple-hash.ts"
 import type { AccessCode } from "lib/zod/access_code.ts"
+import type { AccessToken } from "lib/zod/access_token.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
 import type { ClientSession } from "lib/zod/client_session.ts"
@@ -16,7 +17,6 @@ import type { Event } from "lib/zod/event.ts"
 import type { NoiseThreshold } from "lib/zod/noise_threshold.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
-import { AccessToken } from "lib/zod/access_token.ts"
 
 export const createDatabase = (): ZustandDatabase => {
   enableMapSet()
