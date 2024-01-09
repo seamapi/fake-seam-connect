@@ -7,7 +7,7 @@ import {
 } from "lib/zod/invitations.ts"
 
 export default withRouteSpec({
-  auth: "cst_ak_pk", // TODO: client_session
+  auth: "client_session",
   methods: ["POST"],
   jsonBody: z.object({
     custom_sdk_installation_id: z.string(),

@@ -30,6 +30,10 @@ export const getTestServer = async <TSeed extends boolean>(
   t: ExecutionContext,
   { seed }: { seed?: TSeed } = {},
 ): Promise<ServerFixture<TSeed>> => {
+  // Admin credentials to create testing access tokens
+  process.env["ADMIN_USERNAME"] = "seamtest"
+  process.env["ADMIN_PASSWORD"] = "seamtest"
+
   const fakeDevicedb = await createFakeDevicedb()
   await fakeDevicedb.seed()
   await fakeDevicedb.startServer()

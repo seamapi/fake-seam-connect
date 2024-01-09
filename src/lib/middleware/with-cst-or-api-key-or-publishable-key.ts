@@ -4,6 +4,7 @@ import type { Database } from "lib/database/index.ts"
 
 import { withApiKey } from "./with-api-key.ts"
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
+import { withCst } from "./with-cst.ts"
 
 export const withCSTOrApiKeyOrPublishableKey: Middleware<
   {
@@ -63,28 +64,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
   }
 
   if (is_cst) {
-    const cst = req.db.client_sessions.find((cst) => cst.token === token)
-    if (cst == null)
-      throw new NotFoundException({
-        type: "client_session_token_not_found",
-        message: "Client session token not found",
-      })
-
-    req.auth = {
-      auth_mode: "client_session_token",
-      workspace_id: cst.workspace_id,
-      client_session_id: cst.client_session_id,
-      connected_account_ids: cst.connected_account_ids ?? [],
-      connect_webview_ids: cst.connect_webview_ids ?? [],
-    }
-    // Cannot run middleware after auth middleware.
-    // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    return withSimulatedOutage(next as unknown as any)(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      req as unknown as any,
-      res,
-    )
+    return withCst(next)(req as any, res)
   }
 
   if (is_api_key) {
