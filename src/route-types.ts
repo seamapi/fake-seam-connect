@@ -2069,6 +2069,27 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/internal/api_keys/create": {
+    route: "/internal/api_keys/create"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      name: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      api_key: {
+        api_key_id: string
+        name: string
+        token: string
+        short_token: string
+        created_at: string
+        workspace_id: string
+      }
+      ok: boolean
+    }
+  }
   "/internal/device_models/list": {
     route: "/internal/device_models/list"
     method: "GET"
@@ -2117,6 +2138,229 @@ export type Routes = {
     formData: {}
     jsonResponse: any
   }
+  "/internal/integration_fixturing/create_user_with_pat": {
+    route: "/internal/integration_fixturing/create_user_with_pat"
+    method: "POST" | "PUT"
+    queryParams: {}
+    jsonBody: {
+      email: string
+      access_token_name: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      user_with_pat: {
+        user_id: string
+        pat: string
+      }
+      ok: boolean
+    }
+  }
+  "/internal/phone/user_identities/get_invitation": {
+    route: "/internal/phone/user_identities/get_invitation"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      custom_sdk_installation_id: string
+      endpoint_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      endpoint?:
+        | (
+            | {
+                endpoint_type: "hid_credential_manager"
+                endpoint_id: string
+              }
+            | {
+                endpoint_type: "assa_abloy_credential_service"
+                endpoint_id: string
+                is_active: boolean
+                seos_tsm_endpoint_id: number | null
+              }
+          )
+        | undefined
+      ok: boolean
+    }
+  }
+  "/internal/phone/user_identities/load_credentials": {
+    route: "/internal/phone/user_identities/load_credentials"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      hid_invitation_id?: (string | undefined) | null
+      hid_credential_container_id?: (string | undefined) | null
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      internal_loaded_credentials: {
+        hid_invitations: {
+          invitation_id: string
+          invitation_code?: string | undefined
+        }[]
+        hid_credential_container?:
+          | {
+              ext_hid_credential_container_id: string
+            }
+          | undefined
+      }
+      ok: boolean
+    }
+  }
+  "/internal/phone/user_identities/load_invitations": {
+    route: "/internal/phone/user_identities/load_invitations"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      custom_sdk_installation_id: string
+      phone_os: "ios" | "android"
+      phone_device_metadata?:
+        | {
+            os_version?: string | undefined
+            manufacturer?: string | undefined
+            model?: string | undefined
+          }
+        | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      invitations: (
+        | {
+            invitation_type: "hid_credential_manager"
+            invitation_id: string
+            invitation_code?: string | undefined
+          }
+        | {
+            invitation_type: "assa_abloy_credential_service"
+            invitation_id: string
+            invitation_code?: string | undefined
+          }
+      )[]
+      ok: boolean
+    }
+  }
+  "/internal/phone/user_identities/prepare_endpoint": {
+    route: "/internal/phone/user_identities/prepare_endpoint"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      custom_sdk_installation_id: string
+      endpoint_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      endpoint?:
+        | (
+            | {
+                endpoint_type: "hid_credential_manager"
+                endpoint_id: string
+              }
+            | {
+                endpoint_type: "assa_abloy_credential_service"
+                endpoint_id: string
+                is_active: boolean
+                seos_tsm_endpoint_id: number | null
+              }
+          )
+        | undefined
+      ok: boolean
+    }
+  }
+  "/internal/sandbox/[workspace_id]/assa_abloy/_fake/load_credentials": {
+    route: "/internal/sandbox/[workspace_id]/assa_abloy/_fake/load_credentials"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      endpoint_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      cards: {
+        cancelled: boolean
+        cardHolder: string
+        created: string
+        discarded: boolean
+        doorOperations: {
+          doors: string[]
+          operation: "guest"
+        }[]
+        expireTime: string
+        endpointId: string
+        expired: boolean
+        format: "TLCode" | "rfid48"
+        id: string
+        notIssued: boolean
+        numberOfIssuedCards: number
+        overridden: boolean
+        overwritten: boolean
+        pendingAutoUpdate: boolean
+        serialNumbers: string[]
+        startTime: string
+        uniqueRegistrationNumber: number
+        credentialID: number
+      }[]
+      ok: boolean
+    }
+  }
+  "/internal/sandbox/[workspace_id]/assa_abloy/_fake/redeem_invite_code": {
+    route: "/internal/sandbox/[workspace_id]/assa_abloy/_fake/redeem_invite_code"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      invite_code: string
+      endpoint_details: {
+        ble_capability: boolean
+        hce_capability: boolean
+        nfc_capability: boolean
+        device_manufacturer: string
+        application_version: string
+        device_model: string
+        seos_applet_version: string
+        os_version: string
+      }
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      endpoint: {
+        endpoint_id: string
+        invite_code: string
+        status:
+          | "INVITATION_PENDING"
+          | "INVITATION_INVALID"
+          | "ACKNOWLEDGED"
+          | "ACTIVATING"
+          | "ACTIVATION_FAILURE"
+          | "ACTIVE"
+          | "TERMINATED"
+          | "TERMINATING_FAILURE"
+        details?:
+          | (
+              | {
+                  ble_capability: boolean
+                  hce_capability: boolean
+                  nfc_capability: boolean
+                  device_manufacturer: string
+                  application_version: string
+                  device_model: string
+                  seos_applet_version: string
+                  os_version: string
+                  seos_tsm_endpoint_id: number
+                }
+              | {
+                  seos_tsm_endpoint_id: number
+                }
+            )
+          | undefined
+      }
+      ok: boolean
+    }
+  }
   "/internal/tlmtry": {
     route: "/internal/tlmtry"
     method: "POST"
@@ -2125,6 +2369,31 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: {}
+  }
+  "/internal/workspaces/create": {
+    route: "/internal/workspaces/create"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      workspace_name: string
+      connect_partner_name: string
+      is_sandbox: boolean
+      webview_primary_button_color?: string | undefined
+      webview_logo_shape?: ("circle" | "square") | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      workspace: {
+        workspace_id: string
+        name: string
+        publishable_key: string
+        created_at: string
+        is_sandbox: boolean
+        connect_partner_name: string | null
+      }
+      ok: boolean
+    }
   }
   "/locks/get": {
     route: "/locks/get"
@@ -3895,6 +4164,44 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/user_identities/add_acs_user": {
+    route: "/user_identities/add_acs_user"
+    method: "POST" | "PUT"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      user_identity_id: string
+      acs_user_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/user_identities/create": {
+    route: "/user_identities/create"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      user_identity_key?: (string | null) | undefined
+      email_address?: (string | null) | undefined
+      full_name?: (string | null) | undefined
+    }
+    formData: {}
+    jsonResponse: {
+      user_identity: {
+        user_identity_id: string
+        user_identity_key: string | null
+        email_address: string | null
+        display_name: string
+        full_name: string | null
+        created_at: string
+        workspace_id: string
+      }
       ok: boolean
     }
   }

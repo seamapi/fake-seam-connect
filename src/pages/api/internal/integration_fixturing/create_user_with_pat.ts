@@ -1,5 +1,6 @@
-import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { z } from "zod"
+
+import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
   auth: "cst_ak_pk", // TODO: admin
