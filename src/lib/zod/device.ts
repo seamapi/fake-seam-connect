@@ -23,10 +23,14 @@ export const NOISE_SENSOR_DEVICE_TYPES = [
 ] as const
 export type NoiseSensorDeviceType = (typeof NOISE_SENSOR_DEVICE_TYPES)[number]
 
+export const PHONE_DEVICE_TYPES = ["ios_phone", "android_phone"] as const
+export type PhoneDeviceType = (typeof PHONE_DEVICE_TYPES)[number]
+
 export const device_type = z.union([
   z.enum(LOCK_DEVICE_TYPES),
   z.enum(THERMOSTAT_DEVICE_TYPES),
   z.enum(NOISE_SENSOR_DEVICE_TYPES),
+  z.enum(PHONE_DEVICE_TYPES),
 ])
 
 export const common_device_properties = z.object({

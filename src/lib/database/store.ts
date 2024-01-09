@@ -37,6 +37,8 @@ const initializer = immer<Database>((set, get) => ({
   climate_setting_schedules: [],
   action_attempts: [],
   noise_thresholds: [],
+  phone_invitations: [],
+  phone_sdk_installations: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -632,6 +634,25 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_event
+  },
+
+  getPhoneSdkInstallation(params) {
+    return get().phone_sdk_installations.find(
+      (installation) =>
+        installation.workspace_id === params.workspace_id &&
+        installation.phone_sdk_installation_id ===
+          params.ext_sdk_installation_id,
+    )
+  },
+
+  getInvitation(params) {
+    return get().phone_invitations.find(
+      (invitation) =>
+        invitation.phone_sdk_installation_id ===
+          params.phone_sdk_installation_id &&
+        invitation.invitation_type === params.invitation_type &&
+        invitation.invitation_id === params.invitation_id,
+    )
   },
 
   update() {},

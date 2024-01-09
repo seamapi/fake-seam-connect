@@ -12,6 +12,8 @@ import type {
   Device,
   Event,
   NoiseThreshold,
+  PhoneInvitation,
+  PhoneSdkInstallation,
   Workspace,
 } from "lib/zod/index.ts"
 
@@ -38,6 +40,8 @@ export interface DatabaseState {
     string,
     { workspace_id: string; routes: Array<keyof Routes> } | undefined
   >
+  phone_invitations: PhoneInvitation[]
+  phone_sdk_installations: PhoneSdkInstallation[]
 }
 
 export interface DatabaseMethods {
@@ -184,6 +188,20 @@ export interface DatabaseMethods {
   addEvent: (
     params: Partial<Event> & Pick<Event, "event_type" | "workspace_id">,
   ) => Event
+
+  getPhoneSdkInstallation: (
+    params: Pick<
+      PhoneSdkInstallation,
+      "workspace_id" | "ext_sdk_installation_id"
+    >,
+  ) => PhoneSdkInstallation | undefined
+
+  getInvitation: (
+    params: Pick<
+      PhoneInvitation,
+      "phone_sdk_installation_id" | "invitation_id" | "invitation_type"
+    >,
+  ) => PhoneInvitation | undefined
 
   update: (t?: number) => void
 }
