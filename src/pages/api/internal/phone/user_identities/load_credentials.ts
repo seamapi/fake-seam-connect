@@ -23,6 +23,6 @@ export default withRouteSpec({
         .optional(),
     }),
   }),
-} as const)(async (req, res) => {
+} as const)(async (_req, res) => {
   res.status(500).end("Not implemented!")
 })

@@ -6,7 +6,7 @@ export const optional_hex_color_code = z
   .string()
   .optional()
   .refine((value) => {
-    if (value) {
+    if (value !== undefined) {
       return /^#[\da-fa-z]{3,6}$/i.test(value)
     }
 
@@ -32,6 +32,6 @@ export const route_spec = {
   }),
 } as const
 
-export default withRouteSpec(route_spec)(async (req, res) => {
+export default withRouteSpec(route_spec)(async (_req, res) => {
   res.status(500).end("Not implemented!")
 })

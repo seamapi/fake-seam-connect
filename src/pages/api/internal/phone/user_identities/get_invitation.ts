@@ -14,6 +14,6 @@ export default withRouteSpec({
   jsonResponse: z.object({
     endpoint: endpoint_schema.optional(),
   }),
-} as const)(async (req, res) => {
+} as const)(async (_req, res) => {
   res.status(500).end("Not implemented!")
 })

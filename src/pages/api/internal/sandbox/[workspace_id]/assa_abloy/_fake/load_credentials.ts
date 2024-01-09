@@ -12,6 +12,6 @@ export default withRouteSpec({
   jsonResponse: z.object({
     cards: z.array(card),
   }),
-} as const)(async (req, res) => {
+} as const)(async (_req, res) => {
   res.status(500).end("Not implemented!")
 })
