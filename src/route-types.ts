@@ -1456,6 +1456,7 @@ export type Routes = {
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
+          | ("ios_phone" | "android_phone")
         capabilities_supported: string[]
         properties:
           | {
@@ -1648,6 +1649,7 @@ export type Routes = {
               )
             | ("nest_thermostat" | "ecobee_thermostat")
             | ("minut_sensor" | "noiseaware_activity_zone")
+            | ("ios_phone" | "android_phone")
           )
         | undefined
       device_types?:
@@ -1660,6 +1662,7 @@ export type Routes = {
               )
             | ("nest_thermostat" | "ecobee_thermostat")
             | ("minut_sensor" | "noiseaware_activity_zone")
+            | ("ios_phone" | "android_phone")
           )[]
         | undefined
       manufacturer?: string | undefined
@@ -1672,6 +1675,7 @@ export type Routes = {
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
+          | ("ios_phone" | "android_phone")
         capabilities_supported: string[]
         properties:
           | {
@@ -1881,6 +1885,7 @@ export type Routes = {
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
+          | ("ios_phone" | "android_phone")
         connected_account_id: string
         workspace_id: string
         errors: {
@@ -1924,6 +1929,7 @@ export type Routes = {
               )
             | ("nest_thermostat" | "ecobee_thermostat")
             | ("minut_sensor" | "noiseaware_activity_zone")
+            | ("ios_phone" | "android_phone")
           )
         | undefined
       device_types?:
@@ -1936,6 +1942,7 @@ export type Routes = {
               )
             | ("nest_thermostat" | "ecobee_thermostat")
             | ("minut_sensor" | "noiseaware_activity_zone")
+            | ("ios_phone" | "android_phone")
           )[]
         | undefined
       manufacturer?: string | undefined
@@ -1948,6 +1955,7 @@ export type Routes = {
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
+          | ("ios_phone" | "android_phone")
         connected_account_id: string
         workspace_id: string
         errors: {
@@ -2162,25 +2170,25 @@ export type Routes = {
     queryParams: {}
     jsonBody: {
       custom_sdk_installation_id: string
-      endpoint_id: string
+      invitation_id: string
+      invitation_type:
+        | "hid_credential_manager"
+        | "assa_abloy_credential_service"
     }
     commonParams: {}
     formData: {}
     jsonResponse: {
-      endpoint?:
-        | (
-            | {
-                endpoint_type: "hid_credential_manager"
-                endpoint_id: string
-              }
-            | {
-                endpoint_type: "assa_abloy_credential_service"
-                endpoint_id: string
-                is_active: boolean
-                seos_tsm_endpoint_id: number | null
-              }
-          )
-        | undefined
+      invitation:
+        | {
+            invitation_type: "hid_credential_manager"
+            invitation_id: string
+            invitation_code?: string | undefined
+          }
+        | {
+            invitation_type: "assa_abloy_credential_service"
+            invitation_id: string
+            invitation_code?: string | undefined
+          }
       ok: boolean
     }
   }
@@ -2412,6 +2420,7 @@ export type Routes = {
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
+          | ("ios_phone" | "android_phone")
         capabilities_supported: string[]
         properties:
           | {
@@ -2588,6 +2597,7 @@ export type Routes = {
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
+          | ("ios_phone" | "android_phone")
         capabilities_supported: string[]
         properties:
           | {
@@ -2780,6 +2790,7 @@ export type Routes = {
               )
             | ("nest_thermostat" | "ecobee_thermostat")
             | ("minut_sensor" | "noiseaware_activity_zone")
+            | ("ios_phone" | "android_phone")
           )
         | undefined
       device_types?:
@@ -2792,6 +2803,7 @@ export type Routes = {
               )
             | ("nest_thermostat" | "ecobee_thermostat")
             | ("minut_sensor" | "noiseaware_activity_zone")
+            | ("ios_phone" | "android_phone")
           )[]
         | undefined
       manufacturer?: string | undefined
@@ -2804,6 +2816,7 @@ export type Routes = {
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
+          | ("ios_phone" | "android_phone")
         capabilities_supported: string[]
         properties:
           | {
@@ -2980,6 +2993,7 @@ export type Routes = {
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
+          | ("ios_phone" | "android_phone")
         capabilities_supported: string[]
         properties:
           | {
@@ -3621,6 +3635,7 @@ export type Routes = {
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
+          | ("ios_phone" | "android_phone")
         capabilities_supported: string[]
         properties:
           | {
@@ -3892,6 +3907,7 @@ export type Routes = {
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
+          | ("ios_phone" | "android_phone")
         capabilities_supported: string[]
         properties:
           | {
