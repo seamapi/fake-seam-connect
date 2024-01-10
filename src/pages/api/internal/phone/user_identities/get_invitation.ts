@@ -16,24 +16,13 @@ export default withRouteSpec({
   methods: ["POST"],
   jsonBody: z.object({
     custom_sdk_installation_id: z.string(),
-    invitation_id: z.string().uuid(),
+    invitation_id: z.string(),
     invitation_type: invitation_schema_type,
   }),
   jsonResponse: z.object({
     invitation: invitation_schema,
   }),
 } as const)(async (req, res) => {
-  const { auth_mode } = req.auth
-
-  if (auth_mode !== "client_session_token") {
-    throw new NotFoundException({
-      message: `Auth Mode ${
-        (auth_mode as string) ?? "undefined"
-      } not implemented`,
-      type: "not_implemented",
-    })
-  }
-
   const state = req.db.getState()
 
   const { client_session_id, workspace_id } = req.auth

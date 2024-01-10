@@ -159,7 +159,7 @@ export const seed = (db: Database): Seed => {
     token: "seam_cst1_token",
   })
 
-  db.addConnectedAccount({
+  const connected_account = db.addConnectedAccount({
     provider: "assa_abloy_credential_service",
     workspace_id: "seed_workspace_1",
     user_identifier: {
@@ -167,6 +167,16 @@ export const seed = (db: Database): Seed => {
     },
     connected_account_id: "john_assa_cs_connected_account_id",
   })
+
+  if (connected_account.assa_abloy_credential_service_id !== undefined) {
+    db.addEnrollmentAutomation({
+      assa_abloy_credential_service_id:
+        connected_account.assa_abloy_credential_service_id,
+      user_identity_id: "john_user_identity_id",
+      workspace_id: "seed_workspace_1",
+      enrollment_automation_id: "john_assa_cs_enrollment_automation_id",
+    })
+  }
 
   return {
     john_connected_account_id: "john_connected_account_id",

@@ -2,6 +2,7 @@ import { z } from "zod"
 
 export const credential_service = z.object({
   service_id: z.string(),
+  workspace_id: z.string(),
 })
 
 export type CredentialService = z.infer<typeof credential_service>

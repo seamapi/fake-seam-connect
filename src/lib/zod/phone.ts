@@ -25,5 +25,7 @@ export const phone_invitation = z.object({
   phone_sdk_installation_id: z.string().uuid(),
   workspace_id: z.string(),
   invitation_code: z.string().optional(),
+
+  assa_abloy_credential_service_id: z.string().optional(),
 })
 export type PhoneInvitation = z.infer<typeof phone_invitation>

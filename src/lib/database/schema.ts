@@ -21,6 +21,7 @@ import type {
 import type { RecursivePartial } from "lib/util/type-helpers.ts"
 import type { CredentialService } from "lib/zod/assa_abloy_credential_service.ts"
 import type { ClimateSetting } from "lib/zod/climate_setting.ts"
+import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 export type WorkspaceId = string
@@ -33,6 +34,7 @@ export interface DatabaseState {
   access_codes: AccessCode[]
   access_tokens: AccessToken[]
   assa_abloy_credential_services: CredentialService[]
+  enrollment_automations: EnrollmentAutomation[]
   connect_webviews: ConnectWebview[]
   client_sessions: ClientSession[]
   connected_accounts: ConnectedAccount[]
@@ -54,7 +56,9 @@ export interface DatabaseMethods {
   _getNextId: (type: string) => string
   getNextRequestId: () => string
   setDevicedbConfig: (devicedbConfig: DevicedbConfig) => void
-  _addAssaAbloyCredentialService: () => CredentialService
+  _addAssaAbloyCredentialService: (params: {
+    workspace_id: string
+  }) => CredentialService
   addWorkspace: (params: {
     name: string
     publishable_key?: string
@@ -92,6 +96,12 @@ export interface DatabaseMethods {
     email_address?: string
     created_at?: string
   }) => UserIdentity
+  addEnrollmentAutomation: (params: {
+    enrollment_automation_id?: string
+    workspace_id: WorkspaceId
+    user_identity_id: string
+    assa_abloy_credential_service_id: string
+  }) => EnrollmentAutomation
   updateClientSession: (params: {
     client_session_id: string
     connected_account_ids?: string[]
@@ -234,12 +244,23 @@ export interface DatabaseMethods {
     },
   ) => PhoneInvitation
 
+  assignInvitationCode: (params: { invitation_id: string }) => PhoneInvitation
+
   getInvitation: (
     params: Pick<
       PhoneInvitation,
       "phone_sdk_installation_id" | "invitation_id" | "invitation_type"
     >,
   ) => PhoneInvitation | undefined
+
+  getEnrollmentAutomations: (params: {
+    client_session_id: string
+  }) => EnrollmentAutomation[]
+
+  getInvitations: (params: {
+    phone_sdk_installation_id: string
+    client_session_id: string
+  }) => PhoneInvitation[]
 
   update: (t?: number) => void
 }
