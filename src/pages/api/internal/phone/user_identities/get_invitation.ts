@@ -7,6 +7,10 @@ import {
   invitation_schema_type,
 } from "lib/zod/invitations.ts"
 
+/**
+ * This fake implementation skips user_identity and
+ * uses client_session_id to look up the phone installation.
+ */
 export default withRouteSpec({
   auth: "cst_ak_pk", // TODO: client_session
   methods: ["POST"],
@@ -19,15 +23,26 @@ export default withRouteSpec({
     invitation: invitation_schema,
   }),
 } as const)(async (_req, res) => {
-  const { workspace_id } = _req.auth
-  const { invitation_id, invitation_type, custom_sdk_installation_id } =
-    _req.body
+  const { auth_mode } = _req.auth
+
+  if (auth_mode !== "client_session_token") {
+    throw new NotFoundException({
+      message: `Auth Mode ${auth_mode} not implemented`,
+      type: "not_implemented",
+    })
+  }
 
   const state = _req.db.getState()
+
+  const { client_session_id, workspace_id } = _req.auth
+
+  const { invitation_id, invitation_type, custom_sdk_installation_id } =
+    _req.body
 
   const installation = state.getPhoneSdkInstallation({
     ext_sdk_installation_id: custom_sdk_installation_id,
     workspace_id,
+    client_session_id,
   })
 
   if (installation === undefined) {

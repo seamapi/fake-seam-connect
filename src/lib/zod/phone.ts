@@ -9,7 +9,7 @@ export const phone_sdk_installation = z.object({
     .uuid()
     .default(() => randomUUID()),
   device_id: z.string(),
-  user_identity_id: z.string(),
+  client_session_id: z.string(),
   ext_sdk_installation_id: z.string(),
   workspace_id: z.string(),
 })

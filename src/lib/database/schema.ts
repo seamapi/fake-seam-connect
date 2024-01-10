@@ -75,6 +75,7 @@ export interface DatabaseMethods {
     connected_account_ids?: string[]
     connect_webview_ids?: string[]
   }) => void
+  getClientSession: (token: string) => ClientSession | undefined
 
   addConnectWebview: (
     params: Partial<ConnectWebview> & Pick<ConnectWebview, "workspace_id">,
@@ -189,12 +190,20 @@ export interface DatabaseMethods {
     params: Partial<Event> & Pick<Event, "event_type" | "workspace_id">,
   ) => Event
 
+  addPhoneSdkInstallation: (
+    params: Omit<PhoneSdkInstallation, "phone_sdk_installation_id">,
+  ) => PhoneSdkInstallation
+
   getPhoneSdkInstallation: (
     params: Pick<
       PhoneSdkInstallation,
-      "workspace_id" | "ext_sdk_installation_id"
+      "workspace_id" | "ext_sdk_installation_id" | "client_session_id"
     >,
   ) => PhoneSdkInstallation | undefined
+
+  addInvitation: (
+    params: Omit<PhoneInvitation, "invitation_id">,
+  ) => PhoneInvitation
 
   getInvitation: (
     params: Pick<
