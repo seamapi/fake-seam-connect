@@ -71,6 +71,7 @@
     "@seamapi/http": "^0.3.0",
     "@seamapi/logger": "^1.9.2",
     "@seamapi/types": "^1.26.2",
+    "@seamapi/url-search-params-serializer": "^1.1.0",
     "@tsconfig/next": "^1.0.5",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.8.10",

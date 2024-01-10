@@ -1,9 +1,9 @@
 import "isomorphic-fetch"
 
+import { updateUrlSearchParams } from "@seamapi/url-search-params-serializer"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { updateSearchParamsFromQuery } from "lib/params-serializer.ts"
 
 const forwardedHeaders = [
   "content-type",
@@ -28,7 +28,7 @@ export default withRouteSpec({
   }
 
   const url = new URL(`${db.devicedbConfig.url}/${path.join("/")}`)
-  updateSearchParamsFromQuery(url.searchParams, query)
+  updateUrlSearchParams(url.searchParams, query)
   const proxyRes = await fetch(url, {
     method: "GET",
     headers: {

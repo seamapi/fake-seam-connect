@@ -27,7 +27,9 @@ export default withRouteSpec({
 
   if (auth_mode !== "client_session_token") {
     throw new NotFoundException({
-      message: `Auth Mode ${auth_mode} not implemented`,
+      message: `Auth Mode ${
+        (auth_mode as string) ?? "undefined"
+      } not implemented`,
       type: "not_implemented",
     })
   }
