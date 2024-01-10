@@ -1404,6 +1404,7 @@ export type Routes = {
         }
         provider: string
         created_at: string
+        assa_abloy_credential_service_id?: string | undefined
       }
       ok: boolean
     }
@@ -1425,6 +1426,7 @@ export type Routes = {
         }
         provider: string
         created_at: string
+        assa_abloy_credential_service_id?: string | undefined
       }[]
       ok: boolean
     }
