@@ -17,6 +17,26 @@ export default withRouteSpec({
   jsonResponse: z.object({
     invitations: z.array(invitation_schema),
   }),
-} as const)(async (_req, res) => {
+} as const)(async (req, res) => {
+  const { client_session_id, workspace_id } = req.auth
+
+  const { custom_sdk_installation_id } = req.body
+
+  const state = req.db.getState()
+
+  const installation = state.getPhoneSdkInstallation({
+    ext_sdk_installation_id: custom_sdk_installation_id,
+    workspace_id,
+    client_session_id,
+  })
+
+  if (installation === undefined) {
+    state.addPhoneSdkInstallation({
+      ext_sdk_installation_id: custom_sdk_installation_id,
+      client_session_id,
+      workspace_id,
+    })
+  }
+
   res.status(500).end("Not implemented!")
 })

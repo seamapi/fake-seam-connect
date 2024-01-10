@@ -1,5 +1,11 @@
 import { z } from "zod"
 
+export const credential_service = z.object({
+  service_id: z.string(),
+})
+
+export type CredentialService = z.infer<typeof credential_service>
+
 export const pending_credential_service_endpoing_details = z.object({
   seos_tsm_endpoint_id: z.number(),
 })

@@ -20,6 +20,8 @@ import type {
 
 import type { RecursivePartial } from "lib/util/type-helpers.ts"
 import type { ClimateSetting } from "lib/zod/climate_setting.ts"
+import { UserIdentity } from "lib/zod/user_identity.ts"
+import { CredentialService } from "lib/zod/assa_abloy_credential_service.ts"
 
 export type WorkspaceId = string
 
@@ -30,6 +32,7 @@ export interface DatabaseState {
   api_keys: ApiKey[]
   access_codes: AccessCode[]
   access_tokens: AccessToken[]
+  assa_abloy_credential_services: CredentialService[]
   connect_webviews: ConnectWebview[]
   client_sessions: ClientSession[]
   connected_accounts: ConnectedAccount[]
@@ -44,12 +47,14 @@ export interface DatabaseState {
   >
   phone_invitations: PhoneInvitation[]
   phone_sdk_installations: PhoneSdkInstallation[]
+  user_identities: UserIdentity[]
 }
 
 export interface DatabaseMethods {
   _getNextId: (type: string) => string
   getNextRequestId: () => string
   setDevicedbConfig: (devicedbConfig: DevicedbConfig) => void
+  _addAssaAbloyCredentialService: () => CredentialService
   addWorkspace: (params: {
     name: string
     publishable_key?: string
@@ -76,9 +81,17 @@ export interface DatabaseMethods {
     connected_account_ids?: string[]
     connect_webview_ids?: string[]
     user_identifier_key: string
+    user_identity_id?: string
     token?: string
     created_at?: string
   }) => ClientSession
+  addUserIdentity: (params: {
+    workspace_id: WorkspaceId
+    user_identity_id?: string
+    user_identity_key?: string
+    email_address?: string
+    created_at?: string
+  }) => UserIdentity
   updateClientSession: (params: {
     client_session_id: string
     connected_account_ids?: string[]
@@ -108,7 +121,7 @@ export interface DatabaseMethods {
   addDevice: (params: {
     device_id?: string
     device_type: Device["device_type"]
-    connected_account_id: string
+    connected_account_id?: string
     workspace_id: string
     name: string
     properties?: Partial<Device["properties"]>
@@ -200,18 +213,25 @@ export interface DatabaseMethods {
   ) => Event
 
   addPhoneSdkInstallation: (
-    params: Omit<PhoneSdkInstallation, "phone_sdk_installation_id">,
+    params: Omit<
+      PhoneSdkInstallation,
+      "phone_sdk_installation_id" | "user_identity_id" | "device_id"
+    > & {
+      client_session_id: string
+    },
   ) => PhoneSdkInstallation
 
   getPhoneSdkInstallation: (
     params: Pick<
       PhoneSdkInstallation,
-      "workspace_id" | "ext_sdk_installation_id" | "client_session_id"
-    >,
+      "workspace_id" | "ext_sdk_installation_id"
+    > & { client_session_id: string },
   ) => PhoneSdkInstallation | undefined
 
   addInvitation: (
-    params: Omit<PhoneInvitation, "invitation_id">,
+    params: Omit<PhoneInvitation, "invitation_id" | "user_identity_id"> & {
+      client_session_id: string
+    },
   ) => PhoneInvitation
 
   getInvitation: (

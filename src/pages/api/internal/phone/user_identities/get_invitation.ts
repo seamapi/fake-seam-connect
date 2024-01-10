@@ -22,8 +22,8 @@ export default withRouteSpec({
   jsonResponse: z.object({
     invitation: invitation_schema,
   }),
-} as const)(async (_req, res) => {
-  const { auth_mode } = _req.auth
+} as const)(async (req, res) => {
+  const { auth_mode } = req.auth
 
   if (auth_mode !== "client_session_token") {
     throw new NotFoundException({
@@ -34,12 +34,12 @@ export default withRouteSpec({
     })
   }
 
-  const state = _req.db.getState()
+  const state = req.db.getState()
 
-  const { client_session_id, workspace_id } = _req.auth
+  const { client_session_id, workspace_id } = req.auth
 
   const { invitation_id, invitation_type, custom_sdk_installation_id } =
-    _req.body
+    req.body
 
   const installation = state.getPhoneSdkInstallation({
     ext_sdk_installation_id: custom_sdk_installation_id,

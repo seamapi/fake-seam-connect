@@ -3,6 +3,7 @@ import type { Database } from "./schema.ts"
 export interface Seed {
   john_connected_account_id: "john_connected_account_id"
   jane_connected_account_id: "jane_connected_account_id"
+  john_assa_cs_connected_account_id: "john_assa_cs_connected_account_id"
   seed_workspace_1: "seed_workspace_1"
   seed_workspace_2: "seed_workspace_2"
   august_device_1: "august_device_1"
@@ -15,6 +16,7 @@ export interface Seed {
   seam_cst1_token: "seam_cst1_token"
   seam_pk1_token: "seam_pk1_token"
   john_user_identifier_key: "john_user_identifier_key"
+  john_user_identity_id: string
 }
 
 export const seed = (db: Database): Seed => {
@@ -141,17 +143,35 @@ export const seed = (db: Database): Seed => {
     },
   })
 
+  db.addUserIdentity({
+    workspace_id: "seed_workspace_1",
+    user_identity_id: "john_user_identity_id",
+    user_identity_key: "john_user_identifier_key",
+    email_address: "jane@example.com",
+  })
+
   db.addClientSession({
     workspace_id: "seed_workspace_1",
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: ["john_connected_account_id"],
     user_identifier_key: "john_user_identifier_key",
+    user_identity_id: "john_user_identity_id",
     token: "seam_cst1_token",
+  })
+
+  db.addConnectedAccount({
+    provider: "assa_abloy_credential_service",
+    workspace_id: "seed_workspace_1",
+    user_identifier: {
+      email: "john@example.com",
+    },
+    connected_account_id: "john_assa_cs_connected_account_id",
   })
 
   return {
     john_connected_account_id: "john_connected_account_id",
     jane_connected_account_id: "jane_connected_account_id",
+    john_assa_cs_connected_account_id: "john_assa_cs_connected_account_id",
     seed_workspace_1: "seed_workspace_1",
     seed_workspace_2: "seed_workspace_2",
     august_device_1: "august_device_1",
@@ -164,5 +184,6 @@ export const seed = (db: Database): Seed => {
     seam_cst1_token: "seam_cst1_token",
     seam_pk1_token: "seam_pk1_token",
     john_user_identifier_key: "john_user_identifier_key",
+    john_user_identity_id: "john_user_identity_id",
   }
 }

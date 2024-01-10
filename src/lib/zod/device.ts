@@ -129,7 +129,7 @@ export const device = z.object({
     thermostat_device_properties,
   ]),
   location: z.any(),
-  connected_account_id: z.string(),
+  connected_account_id: z.string().optional(),
   is_managed: z.boolean(),
   workspace_id: z.string(),
   errors: z.array(
