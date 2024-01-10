@@ -64,6 +64,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
   }
 
   if (is_cst) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return withCst(next)(req as any, res)
   }
 
