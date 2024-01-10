@@ -1,9 +1,6 @@
 {
   "root": true,
-  "plugins": [
-    "simple-import-sort",
-    "unused-imports"
-  ],
+  "plugins": ["simple-import-sort", "unused-imports"],
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": "latest"
@@ -21,10 +18,7 @@
         "ignoreRestSiblings": true
       }
     ],
-    "import/extensions": [
-      "error",
-      "ignorePackages"
-    ],
+    "import/extensions": ["error", "ignorePackages"],
     "import/no-duplicates": [
       "error",
       {
@@ -36,30 +30,13 @@
       "error",
       {
         "groups": [
-          [
-            "^\\u0000"
-          ],
-          [
-            "^node:"
-          ],
-          [
-            "^@?\\w"
-          ],
-          [
-            "index.ts"
-          ],
-          [
-            "^fixtures/",
-            "^lib/",
-            "^nsm",
-            "^pages"
-          ],
-          [
-            "^"
-          ],
-          [
-            "^\\."
-          ]
+          ["^\\u0000"],
+          ["^node:"],
+          ["^@?\\w"],
+          ["index.ts"],
+          ["^fixtures/", "^lib/", "^nsm", "^pages"],
+          ["^"],
+          ["^\\."]
         ]
       }
     ],
@@ -67,33 +44,18 @@
   },
   "overrides": [
     {
-      "files": [
-        "*.js",
-        "*.mjs",
-        "*.cjs"
-      ],
-      "extends": [
-        "standard",
-        "prettier"
-      ]
+      "files": ["*.js", "*.mjs", "*.cjs"],
+      "extends": ["standard", "prettier"]
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
-      "extends": [
-        "standard-with-typescript",
-        "prettier"
-      ],
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["standard-with-typescript", "prettier"],
       "parserOptions": {
         "project": "./tsconfig.json"
       },
       "overrides": [
         {
-          "files": [
-            "./next-env.d.ts"
-          ],
+          "files": ["./next-env.d.ts"],
           "rules": {
             "@typescript-eslint/triple-slash-reference": "off"
           }
