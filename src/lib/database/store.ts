@@ -15,6 +15,7 @@ import type { ConnectedAccount } from "lib/zod/connected_account.ts"
 import type { Device } from "lib/zod/device.ts"
 import type { Event } from "lib/zod/event.ts"
 import type { NoiseThreshold } from "lib/zod/noise_threshold.ts"
+import { phone_invitation, phone_sdk_installation } from "lib/zod/phone.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
 
@@ -39,6 +40,8 @@ const initializer = immer<Database>((set, get) => ({
   climate_setting_schedules: [],
   action_attempts: [],
   noise_thresholds: [],
+  phone_invitations: [],
+  phone_sdk_installations: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -146,6 +149,10 @@ const initializer = immer<Database>((set, get) => ({
         return cst
       }),
     })
+  },
+
+  getClientSession(token) {
+    return get().client_sessions.find((cst) => cst.token === token)
   },
 
   addConnectWebview(params) {
@@ -655,6 +662,41 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_event
+  },
+
+  addPhoneSdkInstallation(params) {
+    const installation = phone_sdk_installation.parse(params)
+    set({
+      phone_sdk_installations: [...get().phone_sdk_installations, installation],
+    })
+    return installation
+  },
+
+  getPhoneSdkInstallation(params) {
+    return get().phone_sdk_installations.find(
+      (installation) =>
+        installation.workspace_id === params.workspace_id &&
+        installation.client_session_id === params.client_session_id &&
+        installation.ext_sdk_installation_id === params.ext_sdk_installation_id,
+    )
+  },
+
+  addInvitation(params) {
+    const invitation = phone_invitation.parse(params)
+    set({
+      phone_invitations: [...get().phone_invitations, invitation],
+    })
+    return invitation
+  },
+
+  getInvitation(params) {
+    return get().phone_invitations.find(
+      (invitation) =>
+        invitation.phone_sdk_installation_id ===
+          params.phone_sdk_installation_id &&
+        invitation.invitation_type === params.invitation_type &&
+        invitation.invitation_id === params.invitation_id,
+    )
   },
 
   update() {},

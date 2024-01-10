@@ -14,7 +14,6 @@ export const invitation_schema_hid = z.object({
 
 export const invitation_schema_assa_abloy = z.object({
   invitation_type: z.literal("assa_abloy_credential_service"),
-
   invitation_id: z.string(),
   invitation_code: z.string().optional(),
 })
