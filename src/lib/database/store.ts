@@ -8,6 +8,7 @@ import type { AccessCode } from "lib/zod/access_code.ts"
 import type { AccessToken } from "lib/zod/access_token.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
+import type { CredentialService } from "lib/zod/assa_abloy_credential_service.ts"
 import type { ClientSession } from "lib/zod/client_session.ts"
 import type { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts"
 import type { ConnectWebview } from "lib/zod/connect_webview.ts"
@@ -15,16 +16,13 @@ import type { ConnectedAccount } from "lib/zod/connected_account.ts"
 import type { Device } from "lib/zod/device.ts"
 import type { Event } from "lib/zod/event.ts"
 import type { NoiseThreshold } from "lib/zod/noise_threshold.ts"
-import {
-  phone_invitation,
-  phone_sdk_installation,
+import type {
   PhoneInvitation,
   PhoneSdkInstallation,
 } from "lib/zod/phone.ts"
+import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
-import { UserIdentity } from "lib/zod/user_identity.ts"
-import { CredentialService } from "lib/zod/assa_abloy_credential_service.ts"
 
 export const createDatabase = (): ZustandDatabase => {
   enableMapSet()
@@ -164,7 +162,7 @@ const initializer = immer<Database>((set, get) => ({
     const user_identity_id = params.user_identity_id ?? get()._getNextId("uid")
     const new_user_identity: UserIdentity = {
       workspace_id: params.workspace_id,
-      user_identity_id: user_identity_id,
+      user_identity_id,
       user_identity_key: params.user_identity_key ?? null,
       email_address: params.email_address ?? null,
       full_name: null,
@@ -717,7 +715,7 @@ const initializer = immer<Database>((set, get) => ({
       (cs) => cs.client_session_id === params.client_session_id,
     )
 
-    if (!client_session || !client_session.user_identity_id) {
+    if (!client_session?.user_identity_id) {
       throw new Error(
         "Could not find client session associated with a user identity!",
       )
@@ -769,7 +767,7 @@ const initializer = immer<Database>((set, get) => ({
       (cs) => cs.client_session_id === params.client_session_id,
     )
 
-    if (!client_session || !client_session.user_identity_id) {
+    if (!client_session?.user_identity_id) {
       throw new Error(
         "Could not find client session associated with a user identity!",
       )

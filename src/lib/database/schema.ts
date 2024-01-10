@@ -19,9 +19,9 @@ import type {
 } from "lib/zod/index.ts"
 
 import type { RecursivePartial } from "lib/util/type-helpers.ts"
+import type { CredentialService } from "lib/zod/assa_abloy_credential_service.ts"
 import type { ClimateSetting } from "lib/zod/climate_setting.ts"
-import { UserIdentity } from "lib/zod/user_identity.ts"
-import { CredentialService } from "lib/zod/assa_abloy_credential_service.ts"
+import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 export type WorkspaceId = string
 
