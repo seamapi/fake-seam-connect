@@ -4,7 +4,7 @@ import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { endpoint_schema } from "lib/zod/endpoints.ts"
 
 export default withRouteSpec({
-  auth: "cst_ak_pk", // TODO: client_session
+  auth: "client_session",
   methods: ["POST"],
   jsonBody: z.object({
     custom_sdk_installation_id: z.string(),

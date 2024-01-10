@@ -3,7 +3,7 @@ import { z } from "zod"
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
-  auth: "cst_ak_pk", // TODO: client_session
+  auth: "client_session",
   methods: ["POST"],
   jsonBody: z.object({
     hid_invitation_id: z.string().optional().nullable(),

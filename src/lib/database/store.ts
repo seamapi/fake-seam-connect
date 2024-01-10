@@ -5,6 +5,7 @@ import { hoist } from "zustand-hoist"
 
 import { simpleHash } from "lib/util/simple-hash.ts"
 import type { AccessCode } from "lib/zod/access_code.ts"
+import type { AccessToken } from "lib/zod/access_token.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
 import type { ClientSession } from "lib/zod/client_session.ts"
@@ -29,6 +30,7 @@ const initializer = immer<Database>((set, get) => ({
   client_sessions: [],
   workspaces: [],
   api_keys: [],
+  access_tokens: [],
   connect_webviews: [],
   connected_accounts: [],
   devices: [],
@@ -87,6 +89,27 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_api_key
+  },
+
+  addAccessToken(params) {
+    const access_token_id = get()._getNextId("access_token")
+    const user_id = get()._getNextId("user")
+
+    const new_access_token: AccessToken = {
+      access_token_id,
+      email: params.email,
+      user_id,
+      access_token_name: params.access_token_name,
+      long_token_hash: params.long_token_hash,
+      short_token: params.short_token,
+      created_at: params.created_at ?? new Date().toISOString(),
+    }
+
+    set({
+      access_tokens: [...get().access_tokens, new_access_token],
+    })
+
+    return new_access_token
   },
 
   addClientSession(params) {

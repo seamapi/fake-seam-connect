@@ -24,7 +24,7 @@ const jsonBody = z.object({
 
 export const route_spec = {
   methods: ["POST"],
-  auth: "cst_ak_pk", // TODO: session_or_access_token_optional_workspace_id
+  auth: "access_token",
   jsonBody,
   jsonResponse: z.object({
     workspace: workspace.extend({
@@ -33,6 +33,16 @@ export const route_spec = {
   }),
 } as const
 
-export default withRouteSpec(route_spec)(async (_req, res) => {
-  res.status(500).end("Not implemented!")
+export default withRouteSpec(route_spec)(async (req, res) => {
+  const { workspace_name, connect_partner_name, is_sandbox } = req.body
+
+  const workspace = req.db.addWorkspace({
+    name: workspace_name,
+    connect_partner_name,
+    is_sandbox,
+  })
+
+  res.status(200).json({
+    workspace,
+  })
 })
