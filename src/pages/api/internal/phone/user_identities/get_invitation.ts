@@ -7,10 +7,6 @@ import {
   invitation_schema_type,
 } from "lib/zod/invitations.ts"
 
-/**
- * This fake implementation skips user_identity and
- * uses client_session_id to look up the phone installation.
- */
 export default withRouteSpec({
   auth: "client_session",
   methods: ["POST"],
@@ -43,11 +39,16 @@ export default withRouteSpec({
     })
   }
 
-  const invitation = state.getInvitation({
-    invitation_id,
-    invitation_type,
-    phone_sdk_installation_id: installation.phone_sdk_installation_id,
-  })
+  const invitation = state
+    .getInvitations({
+      client_session_id: req.auth.client_session_id,
+      phone_sdk_installation_id: installation.phone_sdk_installation_id,
+    })
+    .find(
+      (invitation) =>
+        invitation.invitation_id === invitation_id &&
+        invitation.invitation_type === invitation_type,
+    )
 
   if (invitation === undefined) {
     throw new NotFoundException({
