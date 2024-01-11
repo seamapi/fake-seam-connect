@@ -24,8 +24,8 @@ export default withRouteSpec({
   })
 
   if (
-    !invitation?.assa_abloy_credential_service_id ||
-    !invitation.invitation_code
+    invitation?.assa_abloy_credential_service_id === undefined ||
+    invitation?.invitation_code === undefined
   ) {
     throw new Error("Invalid invitation!")
   }

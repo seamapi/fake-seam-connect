@@ -1,4 +1,5 @@
 import { enableMapSet } from "immer"
+import { UnauthorizedException } from "nextlove"
 import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
 import { hoist } from "zustand-hoist"
@@ -14,6 +15,7 @@ import type { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts
 import type { ConnectWebview } from "lib/zod/connect_webview.ts"
 import type { ConnectedAccount } from "lib/zod/connected_account.ts"
 import type { Device } from "lib/zod/device.ts"
+import type { Endpoint } from "lib/zod/endpoints.ts"
 import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { Event } from "lib/zod/event.ts"
 import type { NoiseThreshold } from "lib/zod/noise_threshold.ts"
@@ -21,7 +23,6 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
-import { Endpoint } from "lib/zod/endpoints.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -914,9 +915,11 @@ const initializer = immer<Database>((set, get) => ({
     )
 
     if (client_session?.user_identity_id === undefined) {
-      throw new Error(
-        "Could not find client session associated with a user identity!",
-      )
+      throw new UnauthorizedException({
+        type: "unassociated_session",
+        message:
+          "Could not find client session associated with a user identity!",
+      })
     }
 
     return get().phone_invitations.filter(
