@@ -70,7 +70,7 @@ export const getDevicesWithFilter = (
     })
     .filter((d) => {
       if (connected_account_ids == null) return true
-      return connected_account_ids.includes(d.connected_account_id)
+      return connected_account_ids.includes(d.connected_account_id ?? "")
     })
     .filter((d) => {
       if (device_type == null) return true

@@ -8,14 +8,17 @@ import type { AccessCode } from "lib/zod/access_code.ts"
 import type { AccessToken } from "lib/zod/access_token.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
+import type { CredentialService } from "lib/zod/assa_abloy_credential_service.ts"
 import type { ClientSession } from "lib/zod/client_session.ts"
 import type { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts"
 import type { ConnectWebview } from "lib/zod/connect_webview.ts"
 import type { ConnectedAccount } from "lib/zod/connected_account.ts"
 import type { Device } from "lib/zod/device.ts"
+import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { Event } from "lib/zod/event.ts"
 import type { NoiseThreshold } from "lib/zod/noise_threshold.ts"
-import { phone_invitation, phone_sdk_installation } from "lib/zod/phone.ts"
+import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
+import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
 
@@ -29,6 +32,9 @@ const initializer = immer<Database>((set, get) => ({
   devicedbConfig: null,
   simulatedWorkspaceOutages: {},
   client_sessions: [],
+  assa_abloy_credential_services: [],
+  enrollment_automations: [],
+  user_identities: [],
   workspaces: [],
   api_keys: [],
   access_tokens: [],
@@ -55,6 +61,23 @@ const initializer = immer<Database>((set, get) => ({
 
   setDevicedbConfig(devicedbConfig) {
     set({ devicedbConfig })
+  },
+
+  _addAssaAbloyCredentialService(params) {
+    const cs_id = get()._getNextId("assa_cs")
+    const new_credential_service: CredentialService = {
+      service_id: cs_id,
+      workspace_id: params.workspace_id,
+    }
+
+    set({
+      assa_abloy_credential_services: [
+        ...get().assa_abloy_credential_services,
+        new_credential_service,
+      ],
+    })
+
+    return new_credential_service
   },
 
   addWorkspace(params) {
@@ -124,6 +147,7 @@ const initializer = immer<Database>((set, get) => ({
       client_session_id: cst_id,
       token: params.token ?? `seam_${cst_id}_${simpleHash(cst_id)}`,
       user_identifier_key: params.user_identifier_key ?? null,
+      user_identity_id: params.user_identity_id,
       created_at: params.created_at ?? new Date().toISOString(),
     }
 
@@ -132,6 +156,46 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_cst
+  },
+
+  addUserIdentity(params) {
+    const user_identity_id = params.user_identity_id ?? get()._getNextId("uid")
+    const new_user_identity: UserIdentity = {
+      workspace_id: params.workspace_id,
+      user_identity_id,
+      user_identity_key: params.user_identity_key ?? null,
+      email_address: params.email_address ?? null,
+      full_name: null,
+      created_at: params.created_at ?? new Date().toISOString(),
+    }
+
+    set({
+      user_identities: [...get().user_identities, new_user_identity],
+    })
+
+    return new_user_identity
+  },
+
+  addEnrollmentAutomation(params) {
+    const enrollment_automation_id =
+      params.enrollment_automation_id ??
+      get()._getNextId("enrollment_automation")
+
+    const new_enrollment_automation: EnrollmentAutomation = {
+      workspace_id: params.workspace_id,
+      enrollment_automation_id,
+      assa_abloy_credential_service_id: params.assa_abloy_credential_service_id,
+      user_identity_id: params.user_identity_id,
+    }
+
+    set({
+      enrollment_automations: [
+        ...get().enrollment_automations,
+        new_enrollment_automation,
+      ],
+    })
+
+    return new_enrollment_automation
   },
 
   updateClientSession(params) {
@@ -276,6 +340,15 @@ const initializer = immer<Database>((set, get) => ({
       workspace_id: params.workspace_id,
       created_at: params.created_at ?? new Date().toISOString(),
       user_identifier: params.user_identifier ?? { email: "jane@example.com" },
+    }
+
+    if (params.provider === "assa_abloy_credential_service") {
+      const service = get()._addAssaAbloyCredentialService({
+        workspace_id: params.workspace_id,
+      })
+
+      new_connected_account.assa_abloy_credential_service_id =
+        service.service_id
     }
 
     set({
@@ -665,28 +738,122 @@ const initializer = immer<Database>((set, get) => ({
   },
 
   addPhoneSdkInstallation(params) {
-    const installation = phone_sdk_installation.parse(params)
-    set({
-      phone_sdk_installations: [...get().phone_sdk_installations, installation],
+    const client_session = get().client_sessions.find(
+      (cs) => cs.client_session_id === params.client_session_id,
+    )
+
+    if (client_session?.user_identity_id === undefined) {
+      throw new Error(
+        "Could not find client session associated with a user identity!",
+      )
+    }
+
+    const device = get().addDevice({
+      workspace_id: params.workspace_id,
+      device_type: "android_phone",
+      name: "Android Phone",
     })
-    return installation
+
+    const installation_id = get()._getNextId("sdk_installation")
+    const new_installation: PhoneSdkInstallation = {
+      device_id: device.device_id,
+      ext_sdk_installation_id: params.ext_sdk_installation_id,
+      phone_sdk_installation_id: installation_id,
+      workspace_id: params.workspace_id,
+      user_identity_id: client_session.user_identity_id,
+    }
+
+    set({
+      phone_sdk_installations: [
+        ...get().phone_sdk_installations,
+        new_installation,
+      ],
+    })
+    return new_installation
   },
 
   getPhoneSdkInstallation(params) {
+    const client_session = get().client_sessions.find(
+      (cs) => cs.client_session_id === params.client_session_id,
+    )
+
+    if (client_session === undefined) {
+      return
+    }
+
     return get().phone_sdk_installations.find(
       (installation) =>
         installation.workspace_id === params.workspace_id &&
-        installation.client_session_id === params.client_session_id &&
+        installation.user_identity_id === client_session.user_identity_id &&
         installation.ext_sdk_installation_id === params.ext_sdk_installation_id,
     )
   },
 
   addInvitation(params) {
-    const invitation = phone_invitation.parse(params)
+    const client_session = get().client_sessions.find(
+      (cs) => cs.client_session_id === params.client_session_id,
+    )
+
+    if (client_session?.user_identity_id === undefined) {
+      throw new Error(
+        "Could not find client session associated with a user identity!",
+      )
+    }
+
+    const invitation_id = get()._getNextId("invitation")
+    const new_invitation: PhoneInvitation = {
+      invitation_id,
+      invitation_type: params.invitation_type,
+      invitation_code: params.invitation_code,
+      phone_sdk_installation_id: params.phone_sdk_installation_id,
+      workspace_id: params.workspace_id,
+      user_identity_id: client_session.user_identity_id,
+
+      assa_abloy_credential_service_id: params.assa_abloy_credential_service_id,
+    }
+
     set({
-      phone_invitations: [...get().phone_invitations, invitation],
+      phone_invitations: [...get().phone_invitations, new_invitation],
     })
-    return invitation
+    return new_invitation
+  },
+
+  assignInvitationCode(params) {
+    const invitation = get().phone_invitations.find(
+      (invitation) => invitation.invitation_id === params.invitation_id,
+    )
+
+    if (invitation === undefined) {
+      throw new Error("Could not find invitation!")
+    }
+
+    const updated_invitation = {
+      ...invitation,
+      invitation_code: `${invitation.invitation_id}:code`,
+    }
+
+    set({
+      phone_invitations: [...get().phone_invitations, updated_invitation],
+    })
+
+    return updated_invitation
+  },
+
+  getEnrollmentAutomations(params) {
+    const client_session = get().client_sessions.find(
+      (cs) => cs.client_session_id === params.client_session_id,
+    )
+
+    if (client_session?.user_identity_id === undefined) {
+      throw new Error(
+        "Could not find client session associated with a user identity!",
+      )
+    }
+
+    return get().enrollment_automations.filter(
+      (automation) =>
+        automation.user_identity_id === client_session.user_identity_id,
+    )
   },
 
   getInvitation(params) {
@@ -696,6 +863,25 @@ const initializer = immer<Database>((set, get) => ({
           params.phone_sdk_installation_id &&
         invitation.invitation_type === params.invitation_type &&
         invitation.invitation_id === params.invitation_id,
+    )
+  },
+
+  getInvitations(params) {
+    const client_session = get().client_sessions.find(
+      (cs) => cs.client_session_id === params.client_session_id,
+    )
+
+    if (client_session?.user_identity_id === undefined) {
+      throw new Error(
+        "Could not find client session associated with a user identity!",
+      )
+    }
+
+    return get().phone_invitations.filter(
+      (invitation) =>
+        invitation.phone_sdk_installation_id ===
+          params.phone_sdk_installation_id &&
+        invitation.user_identity_id === client_session.user_identity_id,
     )
   },
 

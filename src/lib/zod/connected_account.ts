@@ -9,6 +9,8 @@ export const connected_account = z.object({
   }),
   provider: z.string(),
   created_at: z.string(),
+
+  assa_abloy_credential_service_id: z.string().optional(),
 })
 
 export type ConnectedAccount = z.infer<typeof connected_account>

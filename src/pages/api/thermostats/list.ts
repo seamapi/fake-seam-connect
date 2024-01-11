@@ -20,7 +20,9 @@ export default withRouteSpec({
     thermostats: req.db.devices
       .filter((d) =>
         req.auth.auth_mode === "client_session_token"
-          ? req.auth.connected_account_ids.includes(d.connected_account_id)
+          ? req.auth.connected_account_ids.includes(
+              d.connected_account_id ?? "",
+            )
           : true,
       )
       .filter((d) => d.workspace_id === req.auth.workspace_id)

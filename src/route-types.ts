@@ -1071,6 +1071,7 @@ export type Routes = {
         workspace_id: string
         token: string
         user_identifier_key: string
+        user_identity_id?: string | undefined
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
@@ -1094,6 +1095,7 @@ export type Routes = {
         workspace_id: string
         token: string
         user_identifier_key: string
+        user_identity_id?: string | undefined
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
@@ -1123,6 +1125,7 @@ export type Routes = {
         workspace_id: string
         token: string
         user_identifier_key: string
+        user_identity_id?: string | undefined
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
@@ -1401,6 +1404,7 @@ export type Routes = {
         }
         provider: string
         created_at: string
+        assa_abloy_credential_service_id?: string | undefined
       }
       ok: boolean
     }
@@ -1422,6 +1426,7 @@ export type Routes = {
         }
         provider: string
         created_at: string
+        assa_abloy_credential_service_id?: string | undefined
       }[]
       ok: boolean
     }
@@ -1614,7 +1619,7 @@ export type Routes = {
               min_heating_cooling_delta_fahrenheit: number
             }
         location?: any
-        connected_account_id: string
+        connected_account_id?: string | undefined
         is_managed: boolean
         workspace_id: string
         errors: {
@@ -1833,7 +1838,7 @@ export type Routes = {
               min_heating_cooling_delta_fahrenheit: number
             }
         location?: any
-        connected_account_id: string
+        connected_account_id?: string | undefined
         is_managed: boolean
         workspace_id: string
         errors: {
@@ -1886,7 +1891,7 @@ export type Routes = {
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
           | ("ios_phone" | "android_phone")
-        connected_account_id: string
+        connected_account_id?: string | undefined
         workspace_id: string
         errors: {
           error_code: string
@@ -1956,7 +1961,7 @@ export type Routes = {
           | ("nest_thermostat" | "ecobee_thermostat")
           | ("minut_sensor" | "noiseaware_activity_zone")
           | ("ios_phone" | "android_phone")
-        connected_account_id: string
+        connected_account_id?: string | undefined
         workspace_id: string
         errors: {
           error_code: string
@@ -2578,7 +2583,7 @@ export type Routes = {
               min_heating_cooling_delta_fahrenheit: number
             }
         location?: any
-        connected_account_id: string
+        connected_account_id?: string | undefined
         is_managed: boolean
         workspace_id: string
         errors: {
@@ -2755,7 +2760,7 @@ export type Routes = {
               min_heating_cooling_delta_fahrenheit: number
             }
         location?: any
-        connected_account_id: string
+        connected_account_id?: string | undefined
         is_managed: boolean
         workspace_id: string
         errors: {
@@ -2974,7 +2979,7 @@ export type Routes = {
               min_heating_cooling_delta_fahrenheit: number
             }
         location?: any
-        connected_account_id: string
+        connected_account_id?: string | undefined
         is_managed: boolean
         workspace_id: string
         errors: {
@@ -3151,7 +3156,7 @@ export type Routes = {
               min_heating_cooling_delta_fahrenheit: number
             }
         location?: any
-        connected_account_id: string
+        connected_account_id?: string | undefined
         is_managed: boolean
         workspace_id: string
         errors: {
@@ -3793,7 +3798,7 @@ export type Routes = {
               min_heating_cooling_delta_fahrenheit: number
             }
         location?: any
-        connected_account_id: string
+        connected_account_id?: string | undefined
         is_managed: boolean
         workspace_id: string
         errors: {
@@ -4065,7 +4070,7 @@ export type Routes = {
               min_heating_cooling_delta_fahrenheit: number
             }
         location?: any
-        connected_account_id: string
+        connected_account_id?: string | undefined
         is_managed: boolean
         workspace_id: string
         errors: {

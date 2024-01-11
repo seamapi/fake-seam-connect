@@ -41,7 +41,11 @@ export default withRouteSpec({
   }
 
   if (req.auth.auth_mode === "client_session_token") {
-    if (!req.auth.connected_account_ids.includes(device.connected_account_id)) {
+    if (
+      !req.auth.connected_account_ids.includes(
+        device.connected_account_id ?? "",
+      )
+    ) {
       throw new HttpException(401, {
         type: "unauthorized",
         message: "Not authorized to view this device",
