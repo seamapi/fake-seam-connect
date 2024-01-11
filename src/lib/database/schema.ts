@@ -23,6 +23,7 @@ import type { CredentialService } from "lib/zod/assa_abloy_credential_service.ts
 import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
+import { Endpoint } from "lib/zod/endpoints.ts"
 
 export type WorkspaceId = string
 
@@ -34,6 +35,7 @@ export interface DatabaseState {
   access_codes: AccessCode[]
   access_tokens: AccessToken[]
   assa_abloy_credential_services: CredentialService[]
+  endpoints: Endpoint[]
   enrollment_automations: EnrollmentAutomation[]
   connect_webviews: ConnectWebview[]
   client_sessions: ClientSession[]
@@ -96,6 +98,11 @@ export interface DatabaseMethods {
     email_address?: string
     created_at?: string
   }) => UserIdentity
+  addEndpoint: (params: {
+    assa_abloy_credential_service_id: string
+    invitation_id: string
+    is_active: boolean
+  }) => Endpoint
   addEnrollmentAutomation: (params: {
     enrollment_automation_id?: string
     workspace_id: WorkspaceId
@@ -258,6 +265,11 @@ export interface DatabaseMethods {
     phone_sdk_installation_id: string
     client_session_id: string
   }) => PhoneInvitation[]
+
+  getEndpoints: (params: {
+    phone_sdk_installation_id: string
+    client_session_id: string
+  }) => Endpoint[]
 
   update: (t?: number) => void
 }

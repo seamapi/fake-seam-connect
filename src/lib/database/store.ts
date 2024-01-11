@@ -21,6 +21,7 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import { Endpoint } from "lib/zod/endpoints.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -49,6 +50,7 @@ const initializer = immer<Database>((set, get) => ({
   simulatedWorkspaceOutages: {},
   client_sessions: [],
   assa_abloy_credential_services: [],
+  endpoints: [],
   enrollment_automations: [],
   user_identities: [],
   workspaces: [],
@@ -662,6 +664,23 @@ const initializer = immer<Database>((set, get) => ({
     })
   },
 
+  addEndpoint(params) {
+    const endpoint: Endpoint = {
+      endpoint_id: get()._getNextId("endpoint"),
+      endpoint_type: "assa_abloy_credential_service",
+      is_active: params.is_active,
+      seos_tsm_endpoint_id: null,
+      invitation_id: params.invitation_id,
+      assa_abloy_credential_service_id: params.assa_abloy_credential_service_id,
+    }
+
+    set({
+      endpoints: [...get().endpoints, endpoint],
+    })
+
+    return endpoint
+  },
+
   addNoiseThreshold(params) {
     const noise_threshold: NoiseThreshold = {
       noise_threshold_id: get()._getNextId("noise_threshold"),
@@ -849,7 +868,13 @@ const initializer = immer<Database>((set, get) => ({
     }
 
     set({
-      phone_invitations: [...get().phone_invitations, updated_invitation],
+      phone_invitations: [
+        ...get().phone_invitations.filter(
+          (invitation) =>
+            invitation.invitation_id !== updated_invitation.invitation_id,
+        ),
+        updated_invitation,
+      ],
     })
 
     return updated_invitation
@@ -875,6 +900,7 @@ const initializer = immer<Database>((set, get) => ({
   getInvitationByCode(params) {
     const { invitation_id, phone_sdk_installation_id } =
       decodeAssaInvitationCode(params.invitation_code)
+
     return get().phone_invitations.find(
       (invitation) =>
         invitation.phone_sdk_installation_id === phone_sdk_installation_id &&
@@ -898,6 +924,36 @@ const initializer = immer<Database>((set, get) => ({
         invitation.phone_sdk_installation_id ===
           params.phone_sdk_installation_id &&
         invitation.user_identity_id === client_session.user_identity_id,
+    )
+  },
+
+  getEndpoints(params) {
+    const client_session = get().client_sessions.find(
+      (cs) => cs.client_session_id === params.client_session_id,
+    )
+
+    if (client_session?.user_identity_id === undefined) {
+      throw new Error(
+        "Could not find client session associated with a user identity!",
+      )
+    }
+
+    const invitations = get().phone_invitations.filter(
+      (invitation) =>
+        invitation.phone_sdk_installation_id ===
+          params.phone_sdk_installation_id &&
+        invitation.user_identity_id === client_session.user_identity_id,
+    )
+
+    return get().endpoints.filter(
+      (endpoint) =>
+        endpoint.endpoint_type === "assa_abloy_credential_service" &&
+        invitations.some(
+          (invitation) =>
+            invitation.invitation_id === endpoint.invitation_id &&
+            invitation.assa_abloy_credential_service_id ===
+              endpoint.assa_abloy_credential_service_id,
+        ),
     )
   },
 
