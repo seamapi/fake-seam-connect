@@ -22,6 +22,22 @@ import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
 
+const encodeAssaInvitationCode = ({
+  invitation_id,
+  phone_sdk_installation_id,
+}: {
+  invitation_id: string
+  phone_sdk_installation_id: string
+}) => `${invitation_id}:${phone_sdk_installation_id}`
+
+const decodeAssaInvitationCode = (invitation_code: string) => {
+  const parts = invitation_code.split(":")
+  return {
+    invitation_id: parts[0] ?? "",
+    phone_sdk_installation_id: parts[1] ?? "",
+  }
+}
+
 export const createDatabase = (): ZustandDatabase => {
   enableMapSet()
   return hoist<StoreApi<Database>>(createStore(initializer))
@@ -829,7 +845,7 @@ const initializer = immer<Database>((set, get) => ({
 
     const updated_invitation = {
       ...invitation,
-      invitation_code: `${invitation.invitation_id}:code`,
+      invitation_code: encodeAssaInvitationCode(invitation),
     }
 
     set({
@@ -853,6 +869,16 @@ const initializer = immer<Database>((set, get) => ({
     return get().enrollment_automations.filter(
       (automation) =>
         automation.user_identity_id === client_session.user_identity_id,
+    )
+  },
+
+  getInvitationByCode(params) {
+    const { invitation_id, phone_sdk_installation_id } =
+      decodeAssaInvitationCode(params.invitation_code)
+    return get().phone_invitations.find(
+      (invitation) =>
+        invitation.phone_sdk_installation_id === phone_sdk_installation_id &&
+        invitation.invitation_id === invitation_id,
     )
   },
 

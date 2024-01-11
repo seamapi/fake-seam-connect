@@ -18,6 +18,8 @@ export default withRouteSpec({
   jsonResponse: z.object({
     endpoint: credential_service_endpoint,
   }),
-} as const)(async (_req, res) => {
-  res.status(500).end("Not implemented!")
+} as const)(async (req, res) => {
+  req.db.getInvitationByCode({
+    invitation_code: req.body.invite_code,
+  })
 })
