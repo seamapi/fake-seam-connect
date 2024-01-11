@@ -856,16 +856,6 @@ const initializer = immer<Database>((set, get) => ({
     )
   },
 
-  getInvitation(params) {
-    return get().phone_invitations.find(
-      (invitation) =>
-        invitation.phone_sdk_installation_id ===
-          params.phone_sdk_installation_id &&
-        invitation.invitation_type === params.invitation_type &&
-        invitation.invitation_id === params.invitation_id,
-    )
-  },
-
   getInvitations(params) {
     const client_session = get().client_sessions.find(
       (cs) => cs.client_session_id === params.client_session_id,

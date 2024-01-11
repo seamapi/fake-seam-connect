@@ -246,13 +246,6 @@ export interface DatabaseMethods {
 
   assignInvitationCode: (params: { invitation_id: string }) => PhoneInvitation
 
-  getInvitation: (
-    params: Pick<
-      PhoneInvitation,
-      "phone_sdk_installation_id" | "invitation_id" | "invitation_type"
-    >,
-  ) => PhoneInvitation | undefined
-
   getEnrollmentAutomations: (params: {
     client_session_id: string
   }) => EnrollmentAutomation[]
