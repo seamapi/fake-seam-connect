@@ -2197,6 +2197,33 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/internal/phone/user_identities/list_endpoints": {
+    route: "/internal/phone/user_identities/list_endpoints"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      custom_sdk_installation_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      endpoints: (
+        | {
+            endpoint_type: "hid_credential_manager"
+            endpoint_id: string
+          }
+        | {
+            endpoint_type: "assa_abloy_credential_service"
+            endpoint_id: string
+            invitation_id: string
+            is_active: boolean
+            seos_tsm_endpoint_id: number | null
+            assa_abloy_credential_service_id: string
+          }
+      )[]
+      ok: boolean
+    }
+  }
   "/internal/phone/user_identities/load_credentials": {
     route: "/internal/phone/user_identities/load_credentials"
     method: "POST"
@@ -2275,8 +2302,10 @@ export type Routes = {
             | {
                 endpoint_type: "assa_abloy_credential_service"
                 endpoint_id: string
+                invitation_id: string
                 is_active: boolean
                 seos_tsm_endpoint_id: number | null
+                assa_abloy_credential_service_id: string
               }
           )
         | undefined

@@ -18,6 +18,30 @@ export default withRouteSpec({
   jsonResponse: z.object({
     endpoint: credential_service_endpoint,
   }),
-} as const)(async (_req, res) => {
-  res.status(500).end("Not implemented!")
+} as const)(async (req, res) => {
+  const invitation = req.db.getInvitationByCode({
+    invitation_code: req.body.invite_code,
+  })
+
+  if (
+    invitation?.assa_abloy_credential_service_id === undefined ||
+    invitation?.invitation_code === undefined
+  ) {
+    throw new Error("Invalid invitation!")
+  }
+
+  const endpoint = req.db.addEndpoint({
+    assa_abloy_credential_service_id:
+      invitation?.assa_abloy_credential_service_id,
+    invitation_id: invitation.invitation_id,
+    is_active: true,
+  })
+
+  res.status(200).json({
+    endpoint: {
+      endpoint_id: endpoint.endpoint_id,
+      status: "ACTIVE",
+      invite_code: invitation.invitation_code,
+    },
+  })
 })
