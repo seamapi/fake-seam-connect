@@ -34,6 +34,7 @@ export const seed = (db: Database): Seed => {
     name: "My Workspace",
     workspace_id: "seed_workspace_1",
     publishable_key: "seam_pk1_token",
+    is_sandbox: true,
   })
   db.addApiKey({
     name: "Seed API Key 1",
