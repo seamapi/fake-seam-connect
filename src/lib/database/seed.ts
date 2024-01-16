@@ -22,11 +22,11 @@ export interface Seed {
 export const seed = (db: Database): Seed => {
   if (
     db.connected_accounts.some(
-      (ca) => ca.user_identifier?.email === "john@example.com",
+      (ca) => ca.user_identifier?.email === "john@example.com"
     )
   ) {
     throw new Error(
-      "Database has already been seeded (already has john@example.com)",
+      "Database has already been seeded (already has john@example.com)"
     )
   }
 
@@ -34,6 +34,7 @@ export const seed = (db: Database): Seed => {
     name: "My Workspace",
     workspace_id: "seed_workspace_1",
     publishable_key: "seam_pk1_token",
+    is_sandbox: true,
   })
   db.addApiKey({
     name: "Seed API Key 1",
