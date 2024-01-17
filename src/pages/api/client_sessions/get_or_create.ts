@@ -47,8 +47,20 @@ export default withRouteSpec({
         cst.workspace_id === workspace_id,
     )
     if (existing_cs != null) {
+      const device_count = req.db.devices.filter(
+        (d) =>
+          d?.connected_account_id !== undefined &&
+          existing_cs.connected_account_ids.includes(d.connected_account_id),
+      ).length
+
       res.json({
-        client_session: existing_cs,
+        client_session: {
+          ...existing_cs,
+          device_count,
+          user_identity_ids: existing_cs?.user_identity_id
+            ? [existing_cs.user_identity_id]
+            : [],
+        },
         ok: true,
       })
       return
@@ -62,8 +74,20 @@ export default withRouteSpec({
     user_identifier_key,
   })
 
+  const device_count = req.db.devices.filter(
+    (d) =>
+      d?.connected_account_id !== undefined &&
+      client_session.connected_account_ids.includes(d.connected_account_id),
+  ).length
+
   res.json({
-    client_session,
+    client_session: {
+      ...client_session,
+      device_count,
+      user_identity_ids: client_session?.user_identity_id
+        ? [client_session.user_identity_id]
+        : [],
+    },
     ok: true,
   })
 })

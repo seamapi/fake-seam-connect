@@ -55,5 +55,19 @@ export default withRouteSpec({
     })
   }
 
-  res.status(200).json({ client_session })
+  const device_count = req.db.devices.filter(
+    (d) =>
+      d?.connected_account_id !== undefined &&
+      client_session.connected_account_ids.includes(d.connected_account_id),
+  ).length
+
+  res.json({
+    client_session: {
+      ...client_session,
+      device_count,
+      user_identity_ids: client_session?.user_identity_id
+        ? [client_session.user_identity_id]
+        : [],
+    },
+  })
 })
