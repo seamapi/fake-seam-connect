@@ -57,9 +57,10 @@ export default withRouteSpec({
         client_session: {
           ...existing_cs,
           device_count,
-          user_identity_ids: existing_cs?.user_identity_id
-            ? [existing_cs.user_identity_id]
-            : [],
+          user_identity_ids:
+            existing_cs?.user_identity_id != null
+              ? [existing_cs.user_identity_id]
+              : [],
         },
         ok: true,
       })
@@ -84,9 +85,10 @@ export default withRouteSpec({
     client_session: {
       ...client_session,
       device_count,
-      user_identity_ids: client_session?.user_identity_id
-        ? [client_session.user_identity_id]
-        : [],
+      user_identity_ids:
+        client_session?.user_identity_id != null
+          ? [client_session.user_identity_id]
+          : [],
     },
     ok: true,
   })

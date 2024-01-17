@@ -79,9 +79,10 @@ export default withRouteSpec({
     client_session: {
       ...client_session,
       device_count,
-      user_identity_ids: client_session?.user_identity_id
-        ? [client_session.user_identity_id]
-        : [],
+      user_identity_ids:
+        client_session?.user_identity_id != null
+          ? [client_session.user_identity_id]
+          : [],
     },
     ok: true,
   })
