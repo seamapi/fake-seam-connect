@@ -1225,7 +1225,7 @@ export type Routes = {
         device_selection_mode: "none" | "single" | "multiple"
         accepted_devices: string[]
         any_provider_allowed: boolean
-        any_device_allowed: boolean | null
+        any_device_allowed: boolean
         login_successful: boolean
         custom_metadata: {
           [x: string]: string | number | null | boolean
@@ -1292,7 +1292,7 @@ export type Routes = {
         device_selection_mode: "none" | "single" | "multiple"
         accepted_devices: string[]
         any_provider_allowed: boolean
-        any_device_allowed: boolean | null
+        any_device_allowed: boolean
         login_successful: boolean
         custom_metadata: {
           [x: string]: string | number | null | boolean
@@ -1357,7 +1357,7 @@ export type Routes = {
         device_selection_mode: "none" | "single" | "multiple"
         accepted_devices: string[]
         any_provider_allowed: boolean
-        any_device_allowed: boolean | null
+        any_device_allowed: boolean
         login_successful: boolean
         custom_metadata: {
           [x: string]: string | number | null | boolean
