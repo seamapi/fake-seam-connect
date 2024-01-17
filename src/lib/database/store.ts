@@ -362,6 +362,10 @@ const initializer = immer<Database>((set, get) => ({
       workspace_id: params.workspace_id,
       created_at: params.created_at ?? new Date().toISOString(),
       user_identifier: params.user_identifier ?? { email: "jane@example.com" },
+      account_type: params?.account_type,
+      account_type_display_name: params?.account_type ?? "Unknown",
+      automatically_manage_new_devices:
+        params?.automatically_manage_new_devices ?? true,
     }
 
     if (params.provider === "assa_abloy_credential_service") {

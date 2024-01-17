@@ -131,6 +131,8 @@ export interface DatabaseMethods {
     user_identifier: ConnectedAccount["user_identifier"]
     connected_account_id?: string
     created_at?: string
+    account_type?: string
+    automatically_manage_new_devices?: boolean
   }) => ConnectedAccount
   deleteConnectedAccount: (
     params: Pick<ConnectedAccount, "connected_account_id">,

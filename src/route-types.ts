@@ -1410,6 +1410,9 @@ export type Routes = {
         }
         provider: string
         created_at: string
+        account_type?: string | undefined
+        account_type_display_name: string
+        automatically_manage_new_devices: boolean
         assa_abloy_credential_service_id?: string | undefined
       }
       ok: boolean
@@ -1432,6 +1435,9 @@ export type Routes = {
         }
         provider: string
         created_at: string
+        account_type?: string | undefined
+        account_type_display_name: string
+        automatically_manage_new_devices: boolean
         assa_abloy_credential_service_id?: string | undefined
       }[]
       ok: boolean
