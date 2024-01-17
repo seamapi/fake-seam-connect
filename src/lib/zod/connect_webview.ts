@@ -50,7 +50,7 @@ export const connect_webview = z.object({
   device_selection_mode: z.enum(["none", "single", "multiple"]),
   accepted_devices: z.array(z.string()),
   any_provider_allowed: z.boolean(),
-  any_device_allowed: z.boolean().nullable(),
+  any_device_allowed: z.boolean(),
   login_successful: z.boolean(),
   custom_metadata,
   automatically_manage_new_devices: z.boolean(),
