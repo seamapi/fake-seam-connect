@@ -252,11 +252,14 @@ const initializer = immer<Database>((set, get) => ({
       custom_redirect_failure_url: params.custom_redirect_failure_url ?? null,
       device_selection_mode: params.device_selection_mode ?? "none",
       accepted_devices: params.accepted_devices ?? [],
-      any_device_allowed: params.any_device_allowed ?? null,
+      any_device_allowed: params.any_device_allowed ?? false,
       any_provider_allowed: params.any_provider_allowed ?? false,
       login_successful: params.login_successful ?? false,
       connected_account_id: params.connected_account_id ?? null,
       custom_metadata: params.custom_metadata ?? {},
+      automatically_manage_new_devices:
+        params?.automatically_manage_new_devices ?? true,
+      wait_for_device_creation: params?.wait_for_device_creation ?? false,
     }
     set({
       connect_webviews: [...get().connect_webviews, new_connect_webview],

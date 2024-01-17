@@ -1230,6 +1230,8 @@ export type Routes = {
         custom_metadata: {
           [x: string]: string | number | null | boolean
         }
+        automatically_manage_new_devices: boolean
+        wait_for_device_creation: boolean
       }
       ok: boolean
     }
@@ -1295,6 +1297,8 @@ export type Routes = {
         custom_metadata: {
           [x: string]: string | number | null | boolean
         }
+        automatically_manage_new_devices: boolean
+        wait_for_device_creation: boolean
       }
       ok: boolean
     }
@@ -1358,6 +1362,8 @@ export type Routes = {
         custom_metadata: {
           [x: string]: string | number | null | boolean
         }
+        automatically_manage_new_devices: boolean
+        wait_for_device_creation: boolean
       }[]
       ok: boolean
     }
