@@ -19,7 +19,7 @@ test("GET /internal/sandbox/[workspace_id]/assa_abloy/_fake", async (t) => {
   const ext_sdk_installation_id = "ext_sdk_installation_id"
 
   // On first pass invitation code isn't set but we get back an invitation
-  await axios.post("/internal/phone/user_identities/load_invitations", {
+  await axios.post("/internal/phone/user_identities/create_invitations", {
     custom_sdk_installation_id: ext_sdk_installation_id,
     phone_os: "android",
   })
@@ -27,7 +27,7 @@ test("GET /internal/sandbox/[workspace_id]/assa_abloy/_fake", async (t) => {
   // On second pass invitation code is set and endpoint created
   const {
     data: { invitations },
-  } = await axios.post("/internal/phone/user_identities/load_invitations", {
+  } = await axios.post("/internal/phone/user_identities/create_invitations", {
     custom_sdk_installation_id: ext_sdk_installation_id,
     phone_os: "android",
   })

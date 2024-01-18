@@ -18,14 +18,14 @@ test("GET /internal/phone/user_identities/get_invitation", async (t) => {
 
   const ext_sdk_installation_id = "ext_sdk_installation_id"
 
-  await axios.post("/internal/phone/user_identities/load_invitations", {
+  await axios.post("/internal/phone/user_identities/create_invitations", {
     custom_sdk_installation_id: ext_sdk_installation_id,
     phone_os: "android",
   })
 
   const {
     data: { invitations },
-  } = await axios.post("/internal/phone/user_identities/load_invitations", {
+  } = await axios.post("/internal/phone/user_identities/create_invitations", {
     custom_sdk_installation_id: ext_sdk_installation_id,
     phone_os: "android",
   })
