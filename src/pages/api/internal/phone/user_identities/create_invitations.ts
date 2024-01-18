@@ -88,7 +88,7 @@ export default withRouteSpec({
 
         // Don't generate invitation_code on the initial creation of the invitation
         // This is to mimic Seam Connect creating these invitations in the background
-        // (so that the invitation code is only available on a subsequent load_invitations call)
+        // (so that the invitation code is only available on a subsequent create_invitations call)
       })
 
       invitations.push(new_invitation)
