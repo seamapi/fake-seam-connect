@@ -1068,10 +1068,12 @@ export type Routes = {
     jsonResponse: {
       client_session: {
         client_session_id: string
+        device_count?: number | undefined
         workspace_id: string
         token: string
         user_identifier_key: string
         user_identity_id?: string | undefined
+        user_identity_ids?: string[] | undefined
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
@@ -1092,10 +1094,12 @@ export type Routes = {
     jsonResponse: {
       client_session: {
         client_session_id: string
+        device_count?: number | undefined
         workspace_id: string
         token: string
         user_identifier_key: string
         user_identity_id?: string | undefined
+        user_identity_ids?: string[] | undefined
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
@@ -1122,10 +1126,12 @@ export type Routes = {
     jsonResponse: {
       client_session: {
         client_session_id: string
+        device_count?: number | undefined
         workspace_id: string
         token: string
         user_identifier_key: string
         user_identity_id?: string | undefined
+        user_identity_ids?: string[] | undefined
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
