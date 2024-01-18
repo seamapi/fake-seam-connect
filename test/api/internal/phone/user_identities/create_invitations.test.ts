@@ -3,7 +3,7 @@ import test from "ava"
 import { getTestServer } from "fixtures/get-test-server.ts"
 import { seed } from "lib/database/seed.ts"
 
-test("GET /internal/phone/user_identities/load_invitations", async (t) => {
+test("GET /internal/phone/user_identities/create_invitations", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
   const { seam_cst1_token } = seed(db)
 
@@ -19,7 +19,7 @@ test("GET /internal/phone/user_identities/load_invitations", async (t) => {
   const ext_sdk_installation_id = "ext_sdk_installation_id"
 
   const { data, status } = await axios.post(
-    "/internal/phone/user_identities/load_invitations",
+    "/internal/phone/user_identities/create_invitations",
     {
       custom_sdk_installation_id: ext_sdk_installation_id,
       phone_os: "android",
@@ -35,7 +35,7 @@ test("GET /internal/phone/user_identities/load_invitations", async (t) => {
   t.is(data.invitations[0]?.invitation_type, "assa_abloy_credential_service")
 
   const { data: updated_data } = await axios.post(
-    "/internal/phone/user_identities/load_invitations",
+    "/internal/phone/user_identities/create_invitations",
     {
       custom_sdk_installation_id: ext_sdk_installation_id,
       phone_os: "android",
