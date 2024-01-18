@@ -2169,6 +2169,39 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/internal/phone/user_identities/create_invitations": {
+    route: "/internal/phone/user_identities/create_invitations"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      custom_sdk_installation_id: string
+      phone_os: "ios" | "android"
+      phone_device_metadata?:
+        | {
+            os_version?: string | undefined
+            manufacturer?: string | undefined
+            model?: string | undefined
+          }
+        | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      invitations: (
+        | {
+            invitation_type: "hid_credential_manager"
+            invitation_id: string
+            invitation_code?: string | undefined
+          }
+        | {
+            invitation_type: "assa_abloy_credential_service"
+            invitation_id: string
+            invitation_code?: string | undefined
+          }
+      )[]
+      ok: boolean
+    }
+  }
   "/internal/phone/user_identities/get_invitation": {
     route: "/internal/phone/user_identities/get_invitation"
     method: "POST"
@@ -2246,39 +2279,6 @@ export type Routes = {
             }
           | undefined
       }
-      ok: boolean
-    }
-  }
-  "/internal/phone/user_identities/load_invitations": {
-    route: "/internal/phone/user_identities/load_invitations"
-    method: "POST"
-    queryParams: {}
-    jsonBody: {
-      custom_sdk_installation_id: string
-      phone_os: "ios" | "android"
-      phone_device_metadata?:
-        | {
-            os_version?: string | undefined
-            manufacturer?: string | undefined
-            model?: string | undefined
-          }
-        | undefined
-    }
-    commonParams: {}
-    formData: {}
-    jsonResponse: {
-      invitations: (
-        | {
-            invitation_type: "hid_credential_manager"
-            invitation_id: string
-            invitation_code?: string | undefined
-          }
-        | {
-            invitation_type: "assa_abloy_credential_service"
-            invitation_id: string
-            invitation_code?: string | undefined
-          }
-      )[]
       ok: boolean
     }
   }
