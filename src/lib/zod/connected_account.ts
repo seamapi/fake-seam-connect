@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { custom_metadata } from "./custom-metadata.ts"
 
 export const connected_account = z.object({
   connected_account_id: z.string(),
@@ -12,6 +13,7 @@ export const connected_account = z.object({
   account_type: z.string().optional(),
   account_type_display_name: z.string(),
   automatically_manage_new_devices: z.boolean(),
+  custom_metadata: custom_metadata.optional(),
 
   assa_abloy_credential_service_id: z.string().optional(),
 })

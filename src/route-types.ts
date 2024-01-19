@@ -1419,6 +1419,11 @@ export type Routes = {
         account_type?: string | undefined
         account_type_display_name: string
         automatically_manage_new_devices: boolean
+        custom_metadata?:
+          | {
+              [x: string]: string | number | null | boolean
+            }
+          | undefined
         assa_abloy_credential_service_id?: string | undefined
       }
       ok: boolean
@@ -1444,8 +1449,51 @@ export type Routes = {
         account_type?: string | undefined
         account_type_display_name: string
         automatically_manage_new_devices: boolean
+        custom_metadata?:
+          | {
+              [x: string]: string | number | null | boolean
+            }
+          | undefined
         assa_abloy_credential_service_id?: string | undefined
       }[]
+      ok: boolean
+    }
+  }
+  "/connected_accounts/update": {
+    route: "/connected_accounts/update"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      connected_account_id: string
+      automatically_manage_new_devices?: boolean | undefined
+      custom_metadata?:
+        | {
+            [x: string]: string | number | null | boolean
+          }
+        | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      connected_account: {
+        connected_account_id: string
+        workspace_id: string
+        connect_webview_id: string
+        user_identifier: {
+          email?: string | undefined
+        }
+        provider: string
+        created_at: string
+        account_type?: string | undefined
+        account_type_display_name: string
+        automatically_manage_new_devices: boolean
+        custom_metadata?:
+          | {
+              [x: string]: string | number | null | boolean
+            }
+          | undefined
+        assa_abloy_credential_service_id?: string | undefined
+      }
       ok: boolean
     }
   }

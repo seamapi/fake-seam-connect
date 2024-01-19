@@ -134,6 +134,11 @@ export interface DatabaseMethods {
     account_type?: string
     automatically_manage_new_devices?: boolean
   }) => ConnectedAccount
+  updateConnectedAccount: (params: {
+    connected_account_id: string
+    automatically_manage_new_devices?: boolean
+    custom_metadata?: ConnectedAccount["custom_metadata"]
+  }) => ConnectedAccount
   deleteConnectedAccount: (
     params: Pick<ConnectedAccount, "connected_account_id">,
   ) => void
