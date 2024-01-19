@@ -1,4 +1,5 @@
 import { z } from "zod"
+
 import { custom_metadata } from "./custom-metadata.ts"
 
 export const connected_account = z.object({
