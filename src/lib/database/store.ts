@@ -408,6 +408,45 @@ const initializer = immer<Database>((set, get) => ({
     })
   },
 
+  updateConnectedAccount(params) {
+    const target = get().connected_accounts.find(
+      (connected_account) =>
+        connected_account.connected_account_id === params.connected_account_id,
+    )
+    if (target == null) {
+      throw new Error(
+        "Could not find connected_account with connected_account_id",
+      )
+    }
+
+    const updated: ConnectedAccount = {
+      ...target,
+      ...params,
+      custom_metadata: {
+        ...(target?.custom_metadata ?? {}),
+        ...(params?.custom_metadata ?? {}),
+      },
+    }
+
+    set({
+      connected_accounts: [
+        ...get().connected_accounts.map((connected_account) => {
+          const is_target =
+            connected_account.connected_account_id ===
+            target.connected_account_id
+
+          if (is_target) {
+            return updated
+          }
+
+          return connected_account
+        }),
+      ],
+    })
+
+    return updated
+  },
+
   updateConnectWebview(params) {
     set({
       connect_webviews: get().connect_webviews.map((cw) => {
