@@ -18,13 +18,6 @@ test("POST /internal/phone/user_identities/prepare_endpoint", async (t) => {
 
   const ext_sdk_installation_id = "ext_sdk_installation_id"
 
-  // On first pass invitation code isn't set but we get back an invitation
-  await axios.post("/internal/phone/user_identities/create_invitations", {
-    custom_sdk_installation_id: ext_sdk_installation_id,
-    phone_os: "android",
-  })
-
-  // On second pass invitation code is set and endpoint created
   const {
     data: { invitations },
   } = await axios.post("/internal/phone/user_identities/create_invitations", {
@@ -32,7 +25,17 @@ test("POST /internal/phone/user_identities/prepare_endpoint", async (t) => {
     phone_os: "android",
   })
 
-  const invitation_code = invitations[0]?.invitation_code ?? ""
+  // On second pass invitation code is set and endpoint created
+  const {
+    data: { invitation },
+  } = await axios.post("/internal/phone/user_identities/get_invitation", {
+    custom_sdk_installation_id: ext_sdk_installation_id,
+    invitation_id: invitations[0]?.invitation_id ?? "",
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+    invitation_type: invitations[0]?.invitation_type!,
+  })
+
+  const invitation_code = invitation?.invitation_code ?? ""
   if (invitation_code === "") {
     t.fail("Failed to create invite")
   }

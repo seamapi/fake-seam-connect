@@ -39,7 +39,7 @@ export default withRouteSpec({
     })
   }
 
-  const invitation = state
+  let invitation = state
     .getInvitations({
       client_session_id: req.auth.client_session_id,
       phone_sdk_installation_id: installation.phone_sdk_installation_id,
@@ -54,6 +54,13 @@ export default withRouteSpec({
     throw new NotFoundException({
       message: "Invitation not found",
       type: "invitation_not_found",
+    })
+  }
+
+  // If invitation code has not been created, assign it
+  if (invitation?.invitation_code === undefined) {
+    invitation = state.assignInvitationCode({
+      invitation_id,
     })
   }
 

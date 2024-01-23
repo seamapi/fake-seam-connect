@@ -2,7 +2,8 @@ import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import {
-  invitation_schema,
+  invitation_schema_assa_abloy,
+  invitation_schema_hid,
   phone_device_metadata_schema,
 } from "lib/zod/invitations.ts"
 import type { PhoneInvitation } from "lib/zod/phone.ts"
@@ -16,7 +17,12 @@ export default withRouteSpec({
     phone_device_metadata: phone_device_metadata_schema.optional(),
   }),
   jsonResponse: z.object({
-    invitations: z.array(invitation_schema),
+    invitations: z.array(
+      z.discriminatedUnion("invitation_type", [
+        invitation_schema_assa_abloy.omit({ invitation_code: true }),
+        invitation_schema_hid.omit({ invitation_code: true }),
+      ]),
+    ),
   }),
 } as const)(async (req, res) => {
   const { client_session_id, workspace_id } = req.auth
@@ -54,7 +60,7 @@ export default withRouteSpec({
 
   if (enrollment_automations.length > 0) {
     for (const enrollment_automation of enrollment_automations) {
-      let existing_invitation = existing_invitations.find(
+      const existing_invitation = existing_invitations.find(
         (invitation) =>
           invitation.assa_abloy_credential_service_id ===
             enrollment_automation.assa_abloy_credential_service_id &&
@@ -66,12 +72,6 @@ export default withRouteSpec({
           enrollment_automation.assa_abloy_credential_service_id,
         )
       } else {
-        // Generate an invitation code now if we didn't previously
-        // TODO: There's more invovled here w/ assa cs but this will get us going for now
-        existing_invitation = state.assignInvitationCode({
-          invitation_id: existing_invitation.invitation_id,
-        })
-
         invitations.push(existing_invitation)
       }
     }
@@ -85,10 +85,6 @@ export default withRouteSpec({
         phone_sdk_installation_id: installation.phone_sdk_installation_id,
         workspace_id,
         assa_abloy_credential_service_id: service_id,
-
-        // Don't generate invitation_code on the initial creation of the invitation
-        // This is to mimic Seam Connect creating these invitations in the background
-        // (so that the invitation code is only available on a subsequent create_invitations call)
       })
 
       invitations.push(new_invitation)
