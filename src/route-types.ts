@@ -2189,14 +2189,12 @@ export type Routes = {
     jsonResponse: {
       invitations: (
         | {
-            invitation_type: "hid_credential_manager"
-            invitation_id: string
-            invitation_code?: string | undefined
-          }
-        | {
             invitation_type: "assa_abloy_credential_service"
             invitation_id: string
-            invitation_code?: string | undefined
+          }
+        | {
+            invitation_type: "hid_credential_manager"
+            invitation_id: string
           }
       )[]
       ok: boolean
