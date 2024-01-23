@@ -14,9 +14,7 @@ export default async () => {
     environmentVariables: {
       NODE_ENV: "test",
     },
-    extensions: {
-      ts: "commonjs",
-    },
-    nodeArguments: ["--import=tsx"],
+    extensions: ["ts"],
+    require: ["esbuild-runner/register", "tsconfig-paths/register"],
   }
 }

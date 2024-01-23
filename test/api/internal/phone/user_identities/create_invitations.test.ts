@@ -28,7 +28,7 @@ test("GET /internal/phone/user_identities/create_invitations", async (t) => {
 
   t.is(status, 200)
 
-  // On first pass invitation code isn't set but we get back an invitation
+  // Invitation code gets set from acs sync job and can be fetched from `/internal/phone/user_identities/get_invitations`
   t.true(data.invitations.length > 0)
   t.truthy(data.invitations[0]?.invitation_id)
   t.falsy(data.invitations[0]?.invitation_code)
@@ -42,10 +42,10 @@ test("GET /internal/phone/user_identities/create_invitations", async (t) => {
     },
   )
 
-  // On second pass invitation code is set
+  // On second pass invitation code is still null
   t.true(updated_data.invitations.length > 0)
   t.truthy(updated_data.invitations[0]?.invitation_id)
-  t.truthy(updated_data.invitations[0]?.invitation_code)
+  t.falsy(updated_data.invitations[0]?.invitation_code)
   t.is(
     updated_data.invitations[0]?.invitation_type,
     "assa_abloy_credential_service",
