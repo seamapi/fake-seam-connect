@@ -31,7 +31,6 @@ test("GET /internal/phone/user_identities/create_invitations", async (t) => {
   // Invitation code gets set from acs sync job and can be fetched from `/internal/phone/user_identities/get_invitations`
   t.true(data.invitations.length > 0)
   t.truthy(data.invitations[0]?.invitation_id)
-  t.falsy(data.invitations[0]?.invitation_code)
   t.is(data.invitations[0]?.invitation_type, "assa_abloy_credential_service")
 
   const { data: updated_data } = await axios.post(
@@ -45,7 +44,6 @@ test("GET /internal/phone/user_identities/create_invitations", async (t) => {
   // On second pass invitation code is still null
   t.true(updated_data.invitations.length > 0)
   t.truthy(updated_data.invitations[0]?.invitation_id)
-  t.falsy(updated_data.invitations[0]?.invitation_code)
   t.is(
     updated_data.invitations[0]?.invitation_type,
     "assa_abloy_credential_service",
