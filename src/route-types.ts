@@ -4357,6 +4357,42 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/workspaces/reset_sandbox": {
+    route: "/workspaces/reset_sandbox"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
 }
 
 export type RouteResponse<Path extends keyof Routes> =
