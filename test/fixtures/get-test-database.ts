@@ -44,7 +44,10 @@ export const getTestDatabase = async (
   if (!shouldSeed) return { db, seed: {} as any } // NOTE: bad type, but not worth the templating
 
   const ws1 = db.addWorkspace({ name: "Seed Workspace 1 (starts empty)" })
-  const ws2 = db.addWorkspace({ name: "Seed Workspace 2 (starts populated)" })
+  const ws2 = db.addWorkspace({
+    name: "Seed Workspace 2 (starts populated)",
+    is_sandbox: true,
+  })
 
   const cw = db.addConnectWebview({
     workspace_id: ws2.workspace_id,
