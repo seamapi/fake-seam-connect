@@ -122,7 +122,7 @@ const initializer = immer<Database>((set, get) => ({
       (w) => w.workspace_id === workspace_id,
     )
 
-    if (!workspace) {
+    if (workspace == null) {
       throw new Error("Could not find workspace with workspace_id")
     }
     if (!workspace.is_sandbox) {
