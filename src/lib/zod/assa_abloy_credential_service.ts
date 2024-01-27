@@ -80,3 +80,12 @@ export const card = z.object({
 })
 
 export type AssaAbloyCard = z.infer<typeof card>
+
+export const simulated_event = z.object({
+  simulated_event_type: z.enum(["tap"]),
+  reader_id: z.number(),
+  card_number: z.string(),
+  timestamp: z.string(),
+})
+
+export type SimulatedEvent = z.infer<typeof simulated_event>

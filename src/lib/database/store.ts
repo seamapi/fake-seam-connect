@@ -53,6 +53,7 @@ const initializer = immer<Database>((set, get) => ({
   _counters: {},
   devicedbConfig: null,
   simulatedWorkspaceOutages: {},
+  simulatedEvents: {},
   client_sessions: [],
   assa_abloy_credential_services: [],
   assa_abloy_cards: [],
@@ -733,6 +734,23 @@ const initializer = immer<Database>((set, get) => ({
     return endpoint
   },
 
+  addSimulatedReaderEvent(event) {
+    const new_event = {
+      ...event,
+      timestamp: new Date().toISOString(),
+    }
+
+    set((state) => {
+      if (state.simulatedEvents[event.reader_id] == null) {
+        state.simulatedEvents[event.reader_id] = []
+      }
+
+      state.simulatedEvents[event.reader_id]?.push(new_event)
+    })
+
+    return new_event
+  },
+
   addAssaAbloyCard(params) {
     const registration_number = get().assa_abloy_cards.length + 1
 
@@ -742,7 +760,12 @@ const initializer = immer<Database>((set, get) => ({
       cardHolder: "",
       created: new Date().toISOString(),
       discarded: false,
-      doorOperations: [],
+      doorOperations: [
+        {
+          doors: ["1"],
+          operation: "guest",
+        },
+      ],
       expireTime: new Date(Date.now() + ms("14 days")).toISOString(),
       endpointId: params.endpoint_id,
 

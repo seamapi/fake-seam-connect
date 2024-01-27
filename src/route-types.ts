@@ -2467,6 +2467,46 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/internal/sandbox/[workspace_id]/assa_abloy/_fake/simulate/readers/list_events": {
+    route: "/internal/sandbox/[workspace_id]/assa_abloy/_fake/simulate/readers/list_events"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      reader_id: number
+    }
+    formData: {}
+    jsonResponse: {
+      events: {
+        simulated_event_type: "tap"
+        reader_id: number
+        card_number: string
+        timestamp: string
+      }[]
+      ok: boolean
+    }
+  }
+  "/internal/sandbox/[workspace_id]/assa_abloy/_fake/simulate/readers/unlock": {
+    route: "/internal/sandbox/[workspace_id]/assa_abloy/_fake/simulate/readers/unlock"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      reader_id: number
+      tap?: boolean | undefined
+      credential: {
+        format: {
+          name: string
+        }
+        card_number: string
+        facility_code?: string | undefined
+      }
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/internal/tlmtry": {
     route: "/internal/tlmtry"
     method: "POST"
