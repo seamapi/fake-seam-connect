@@ -44,6 +44,7 @@ export default withRouteSpec({
     return
   }
 
+  // Only door with reader_id of 1 exists. Can be changed in `addAssaAbloyCard`
   const is_allowed =
     card.doorOperations.some((d) => d.doors.includes(reader_id.toString())) &&
     !card.cancelled &&
