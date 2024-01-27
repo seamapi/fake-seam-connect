@@ -1,4 +1,5 @@
 import { enableMapSet } from "immer"
+import ms from "ms"
 import { UnauthorizedException } from "nextlove"
 import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
@@ -26,7 +27,6 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
-import ms from "ms"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
