@@ -22,6 +22,7 @@ import type { RecursivePartial } from "lib/util/type-helpers.ts"
 import type {
   AssaAbloyCard,
   CredentialService,
+  SimulatedEvent,
 } from "lib/zod/assa_abloy_credential_service.ts"
 import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 import type { Endpoint } from "lib/zod/endpoints.ts"
@@ -53,6 +54,7 @@ export interface DatabaseState {
     string,
     { workspace_id: string; routes: Array<keyof Routes> } | undefined
   >
+  simulatedEvents: Record<string, SimulatedEvent[]>
   phone_invitations: PhoneInvitation[]
   phone_sdk_installations: PhoneSdkInstallation[]
   user_identities: UserIdentity[]
@@ -108,6 +110,9 @@ export interface DatabaseMethods {
     is_active: boolean
   }) => Endpoint
   addAssaAbloyCard: (params: { endpoint_id: string }) => AssaAbloyCard
+  addSimulatedReaderEvent: (
+    event: Omit<SimulatedEvent, "timestamp">,
+  ) => SimulatedEvent
   addEnrollmentAutomation: (params: {
     enrollment_automation_id?: string
     workspace_id: WorkspaceId

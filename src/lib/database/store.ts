@@ -1,4 +1,5 @@
 import { enableMapSet } from "immer"
+import ms from "ms"
 import { UnauthorizedException } from "nextlove"
 import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
@@ -26,7 +27,6 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
-import ms from "ms"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -53,6 +53,7 @@ const initializer = immer<Database>((set, get) => ({
   _counters: {},
   devicedbConfig: null,
   simulatedWorkspaceOutages: {},
+  simulatedEvents: {},
   client_sessions: [],
   assa_abloy_credential_services: [],
   assa_abloy_cards: [],
@@ -733,6 +734,23 @@ const initializer = immer<Database>((set, get) => ({
     return endpoint
   },
 
+  addSimulatedReaderEvent(event) {
+    const new_event = {
+      ...event,
+      timestamp: new Date().toISOString(),
+    }
+
+    set((state) => {
+      if (state.simulatedEvents[event.reader_id] == null) {
+        state.simulatedEvents[event.reader_id] = []
+      }
+
+      state.simulatedEvents[event.reader_id]?.push(new_event)
+    })
+
+    return new_event
+  },
+
   addAssaAbloyCard(params) {
     const registration_number = get().assa_abloy_cards.length + 1
 
@@ -742,7 +760,12 @@ const initializer = immer<Database>((set, get) => ({
       cardHolder: "",
       created: new Date().toISOString(),
       discarded: false,
-      doorOperations: [],
+      doorOperations: [
+        {
+          doors: ["1"],
+          operation: "guest",
+        },
+      ],
       expireTime: new Date(Date.now() + ms("14 days")).toISOString(),
       endpointId: params.endpoint_id,
 
