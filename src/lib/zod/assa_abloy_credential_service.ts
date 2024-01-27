@@ -78,3 +78,5 @@ export const card = z.object({
   uniqueRegistrationNumber: z.number(),
   credentialID: z.number(),
 })
+
+export type AssaAbloyCard = z.infer<typeof card>

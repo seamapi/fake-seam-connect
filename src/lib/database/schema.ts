@@ -19,7 +19,10 @@ import type {
 } from "lib/zod/index.ts"
 
 import type { RecursivePartial } from "lib/util/type-helpers.ts"
-import type { CredentialService } from "lib/zod/assa_abloy_credential_service.ts"
+import type {
+  AssaAbloyCard,
+  CredentialService,
+} from "lib/zod/assa_abloy_credential_service.ts"
 import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 import type { Endpoint } from "lib/zod/endpoints.ts"
 import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
@@ -35,6 +38,7 @@ export interface DatabaseState {
   access_codes: AccessCode[]
   access_tokens: AccessToken[]
   assa_abloy_credential_services: CredentialService[]
+  assa_abloy_cards: AssaAbloyCard[]
   endpoints: Endpoint[]
   enrollment_automations: EnrollmentAutomation[]
   connect_webviews: ConnectWebview[]
@@ -103,6 +107,7 @@ export interface DatabaseMethods {
     invitation_id: string
     is_active: boolean
   }) => Endpoint
+  addAssaAbloyCard: (params: { endpoint_id: string }) => AssaAbloyCard
   addEnrollmentAutomation: (params: {
     enrollment_automation_id?: string
     workspace_id: WorkspaceId

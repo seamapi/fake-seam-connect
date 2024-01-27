@@ -9,7 +9,10 @@ import type { AccessCode } from "lib/zod/access_code.ts"
 import type { AccessToken } from "lib/zod/access_token.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
-import type { CredentialService } from "lib/zod/assa_abloy_credential_service.ts"
+import type {
+  AssaAbloyCard,
+  CredentialService,
+} from "lib/zod/assa_abloy_credential_service.ts"
 import type { ClientSession } from "lib/zod/client_session.ts"
 import type { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts"
 import type { ConnectWebview } from "lib/zod/connect_webview.ts"
@@ -23,6 +26,7 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import ms from "ms"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -51,6 +55,7 @@ const initializer = immer<Database>((set, get) => ({
   simulatedWorkspaceOutages: {},
   client_sessions: [],
   assa_abloy_credential_services: [],
+  assa_abloy_cards: [],
   endpoints: [],
   enrollment_automations: [],
   user_identities: [],
@@ -726,6 +731,40 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return endpoint
+  },
+
+  addAssaAbloyCard(params) {
+    const registration_number = get().assa_abloy_cards.length + 1
+
+    // These are arbitrary values. Will need to update them when/if acs credentials is implemented
+    const card: AssaAbloyCard = {
+      cancelled: false,
+      cardHolder: "",
+      created: new Date().toISOString(),
+      discarded: false,
+      doorOperations: [],
+      expireTime: new Date(Date.now() + ms("14 days")).toISOString(),
+      endpointId: params.endpoint_id,
+
+      expired: false,
+      format: "rfid48",
+      id: registration_number.toString(),
+      notIssued: false,
+      numberOfIssuedCards: registration_number,
+      overridden: false,
+      overwritten: false,
+      pendingAutoUpdate: false,
+      serialNumbers: ["1"],
+      startTime: new Date().toISOString(),
+      uniqueRegistrationNumber: registration_number,
+      credentialID: registration_number,
+    }
+
+    set({
+      assa_abloy_cards: [...get().assa_abloy_cards, card],
+    })
+
+    return card
   },
 
   addNoiseThreshold(params) {
