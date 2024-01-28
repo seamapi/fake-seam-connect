@@ -16,6 +16,7 @@ export const invitation_schema_assa_abloy = z.object({
   invitation_type: z.literal("assa_abloy_credential_service"),
   invitation_id: z.string(),
   invitation_code: z.string().optional(),
+  ext_assa_abloy_cs_endpoint_id: z.string().optional(),
 })
 
 export const invitation_schema = z.discriminatedUnion("invitation_type", [

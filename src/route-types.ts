@@ -2257,6 +2257,7 @@ export type Routes = {
         | {
             invitation_type: "assa_abloy_credential_service"
             invitation_id: string
+            ext_assa_abloy_cs_endpoint_id?: string | undefined
           }
         | {
             invitation_type: "hid_credential_manager"
@@ -2290,6 +2291,7 @@ export type Routes = {
             invitation_type: "assa_abloy_credential_service"
             invitation_id: string
             invitation_code?: string | undefined
+            ext_assa_abloy_cs_endpoint_id?: string | undefined
           }
       ok: boolean
     }
