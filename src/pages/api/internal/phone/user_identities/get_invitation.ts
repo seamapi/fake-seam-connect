@@ -64,11 +64,18 @@ export default withRouteSpec({
     })
   }
 
+  const endpoint = req.db.addEndpoint({
+    assa_abloy_credential_service_id:
+      invitation.assa_abloy_credential_service_id ?? "",
+    invitation_id: invitation.invitation_id,
+  })
+
   res.status(200).json({
     invitation: {
       invitation_id: invitation.invitation_id,
       invitation_type: invitation.invitation_type,
       invitation_code: invitation.invitation_code,
+      ext_assa_abloy_cs_endpoint_id: endpoint.endpoint_id,
     },
   })
 })

@@ -721,7 +721,7 @@ const initializer = immer<Database>((set, get) => ({
     const endpoint: Endpoint = {
       endpoint_id: get()._getNextId("endpoint"),
       endpoint_type: "assa_abloy_credential_service",
-      is_active: params.is_active,
+      is_active: false,
       seos_tsm_endpoint_id: null,
       invitation_id: params.invitation_id,
       assa_abloy_credential_service_id: params.assa_abloy_credential_service_id,
@@ -732,6 +732,48 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return endpoint
+  },
+
+  activateEndpoint(params) {
+    const endpoint = get().endpoints.find(
+      (endpoint) => endpoint.endpoint_id === params.endpoint_id,
+    )
+    if (endpoint == null) {
+      throw new Error("Could not find endpoint with endpoint_id")
+    }
+
+    if (endpoint.endpoint_type !== "assa_abloy_credential_service") {
+      throw new Error(
+        "Only activate assa_abloy_credential_service endpoint is implemented",
+      )
+    }
+
+    const invitation = get().phone_invitations.find(
+      (invitation) =>
+        invitation.invitation_id === endpoint.invitation_id &&
+        invitation.invitation_code === params.invitation_code,
+    )
+
+    if (invitation == null) {
+      throw new Error("Could not find invitation with invitation_code")
+    }
+
+    set({
+      endpoints: [
+        ...get().endpoints.map((endpoint) => {
+          const is_target = endpoint.endpoint_id === params.endpoint_id
+
+          if (is_target) {
+            return {
+              ...endpoint,
+              is_active: true,
+            }
+          }
+
+          return endpoint
+        }),
+      ],
+    })
   },
 
   addSimulatedReaderEvent(event) {

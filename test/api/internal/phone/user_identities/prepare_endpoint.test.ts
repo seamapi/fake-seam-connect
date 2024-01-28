@@ -40,9 +40,7 @@ test("POST /internal/phone/user_identities/prepare_endpoint", async (t) => {
     t.fail("Failed to create invite")
   }
 
-  const {
-    data: { endpoint },
-  } = await axios.post(
+  await axios.post(
     `/internal/sandbox/${client_session.workspace_id}/assa_abloy/_fake/redeem_invite_code`,
     {
       invite_code: invitation_code,
@@ -59,15 +57,27 @@ test("POST /internal/phone/user_identities/prepare_endpoint", async (t) => {
     },
   )
 
+  if (invitation.invitation_type !== "assa_abloy_credential_service") {
+    t.fail(
+      "Expected to get assa_abloy_credential_service invitation. Got " +
+        invitation.invitation_type +
+        " instead",
+    )
+    return
+  }
+
+  if (invitation.ext_assa_abloy_cs_endpoint_id == null)
+    throw new Error("Expected ext_assa_abloy_cs_endpoint_id to be set")
+
   const {
     data: { endpoint: prepared_endpoint },
   } = await axios.post("/internal/phone/user_identities/prepare_endpoint", {
     custom_sdk_installation_id: ext_sdk_installation_id,
-    endpoint_id: endpoint.endpoint_id,
+    endpoint_id: invitation.ext_assa_abloy_cs_endpoint_id,
   })
 
   t.like(prepared_endpoint, {
-    endpoint_id: endpoint.endpoint_id,
-    is_active: endpoint.status === "ACTIVE",
+    endpoint_id: invitation.ext_assa_abloy_cs_endpoint_id,
+    is_active: true,
   })
 })

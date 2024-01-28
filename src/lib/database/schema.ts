@@ -107,8 +107,11 @@ export interface DatabaseMethods {
   addEndpoint: (params: {
     assa_abloy_credential_service_id: string
     invitation_id: string
-    is_active: boolean
   }) => Endpoint
+  activateEndpoint: (params: {
+    endpoint_id: string
+    invitation_code: string
+  }) => void
   addAssaAbloyCard: (params: { endpoint_id: string }) => AssaAbloyCard
   addSimulatedReaderEvent: (
     event: Omit<SimulatedEvent, "timestamp">,
