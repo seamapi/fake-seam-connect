@@ -30,8 +30,6 @@ export default withRouteSpec({
     throw new Error("Invalid invitation!")
   }
 
-  req.db.endpoints.find((endpoint) => endpoint)
-
   const invitation_endpoint = req.db.endpoints.find(
     (endpoint) =>
       endpoint.endpoint_type === "assa_abloy_credential_service" &&
