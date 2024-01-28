@@ -48,15 +48,10 @@ export default withRouteSpec({
     endpoint_id: invitation_endpoint.endpoint_id,
     invitation_code: invitation.invitation_code,
   })
-  const endpoint = req.db.addEndpoint({
-    assa_abloy_credential_service_id:
-      invitation?.assa_abloy_credential_service_id,
-    invitation_id: invitation.invitation_id,
-  })
 
   res.status(200).json({
     endpoint: {
-      endpoint_id: endpoint.endpoint_id,
+      endpoint_id: invitation_endpoint.endpoint_id,
       status: "ACTIVE",
       invite_code: invitation.invitation_code,
     },
