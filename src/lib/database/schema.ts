@@ -75,6 +75,7 @@ export interface DatabaseMethods {
     is_sandbox?: boolean
     connect_partner_name?: string
   }) => Workspace
+  resetSandboxWorkspace: (workspace_id: string) => void
   addApiKey: (params: {
     name?: string
     token?: string

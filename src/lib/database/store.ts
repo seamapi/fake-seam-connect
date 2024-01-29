@@ -122,6 +122,82 @@ const initializer = immer<Database>((set, get) => ({
     return new_workspace
   },
 
+  resetSandboxWorkspace(workspace_id) {
+    const db_state = get()
+    const workspace = db_state.workspaces.find(
+      (w) => w.workspace_id === workspace_id,
+    )
+
+    if (workspace == null) {
+      throw new Error("Could not find workspace with workspace_id")
+    }
+    if (!workspace.is_sandbox) {
+      throw new Error("Can only reset sandbox workspaces")
+    }
+
+    const ws_device_ids = db_state.devices
+      .filter((device) => device.workspace_id === workspace_id)
+      .map((device) => device.device_id)
+
+    function filterByWorkspaceId<T extends { workspace_id: string }>(
+      resource_collection: T[],
+    ) {
+      return [
+        ...resource_collection.filter(
+          (resource) => resource.workspace_id !== workspace_id,
+        ),
+      ]
+    }
+
+    function filterByDeviceIds<T extends { device_id: string }>(
+      resource_collection: T[],
+    ) {
+      return [
+        ...resource_collection.filter(
+          (resource) => !ws_device_ids.includes(resource.device_id),
+        ),
+      ]
+    }
+
+    set({
+      access_codes: filterByDeviceIds(db_state.access_codes),
+      climate_setting_schedules: filterByDeviceIds(
+        db_state.climate_setting_schedules,
+      ),
+      noise_thresholds: filterByDeviceIds(db_state.noise_thresholds),
+      devices: filterByWorkspaceId(db_state.devices),
+      client_sessions: filterByWorkspaceId(db_state.client_sessions),
+      assa_abloy_credential_services: filterByWorkspaceId(
+        db_state.assa_abloy_credential_services,
+      ),
+      phone_invitations: filterByWorkspaceId(db_state.phone_invitations),
+      enrollment_automations: filterByWorkspaceId(
+        db_state.enrollment_automations,
+      ),
+      user_identities: filterByWorkspaceId(db_state.user_identities),
+      api_keys: filterByWorkspaceId(db_state.api_keys),
+      connect_webviews: filterByWorkspaceId(db_state.connect_webviews),
+      connected_accounts: filterByWorkspaceId(db_state.connected_accounts),
+      events: filterByWorkspaceId(db_state.events),
+      phone_sdk_installations: filterByWorkspaceId(
+        db_state.phone_sdk_installations,
+      ),
+      endpoints: db_state.endpoints.filter((endpoint) => {
+        const ws_credential_service_ids =
+          db_state.assa_abloy_credential_services
+            .filter((cs) => cs.workspace_id === workspace_id)
+            .map((cs) => cs.service_id)
+
+        return "assa_abloy_credential_service_id" in endpoint
+          ? !ws_credential_service_ids.includes(
+              endpoint.assa_abloy_credential_service_id,
+            )
+          : true
+      }),
+      workspaces: filterByWorkspaceId(db_state.workspaces),
+    })
+  },
+
   addApiKey(params) {
     const api_key_id = get()._getNextId("api_key")
     const api_key_num = api_key_id.match(/\d+/)?.[0] ?? "0"
