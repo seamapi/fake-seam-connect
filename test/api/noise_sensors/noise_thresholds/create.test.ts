@@ -6,7 +6,7 @@ test("POST /noise_sensors/noise_thresholds/create", async (t: ExecutionContext) 
   const { axios, seed } = await getTestServer(t)
 
   const {
-    data: { action_attempt },
+    data: { action_attempt, noise_threshold },
   } = await axios.post(
     "/noise_sensors/noise_thresholds/create",
     {
@@ -24,6 +24,8 @@ test("POST /noise_sensors/noise_thresholds/create", async (t: ExecutionContext) 
   )
 
   t.is(action_attempt.status, "success")
+  t.is(noise_threshold.device_id, seed.ws2.noise_sensor_device_id)
+  t.is(noise_threshold.noise_threshold_decibels, 80)
 
   const {
     data: { noise_thresholds },

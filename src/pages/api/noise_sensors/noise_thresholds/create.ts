@@ -3,6 +3,7 @@ import { z } from "zod"
 
 import {
   action_attempt,
+  noise_threshold,
   NOISE_SENSOR_DEVICE_TYPES,
   type NoiseSensorDeviceType,
   seam_tod,
@@ -44,9 +45,10 @@ export default withRouteSpec({
     }, "Cannot provide both noise_threshold_decibels and noise_threshold_nrs"),
   jsonResponse: z.object({
     action_attempt,
+    noise_threshold,
   }),
 } as const)(async (req, res) => {
-  const { device_id, sync, ...noise_threshold } = req.body
+  const { device_id, sync, ...noise_threshold_params } = req.body
   const { workspace_id } = req.auth
 
   const device = getManagedDevicesWithFilter(req.db, {
@@ -74,9 +76,13 @@ export default withRouteSpec({
     status: "success",
   })
 
-  req.db.addNoiseThreshold({ device_id, ...noise_threshold })
+  const noise_threshold = req.db.addNoiseThreshold({
+    device_id,
+    ...noise_threshold_params,
+  })
 
-  res
-    .status(200)
-    .json({ action_attempt: sync ? action_attempt_sync : action_attempt })
+  res.status(200).json({
+    action_attempt: sync ? action_attempt_sync : action_attempt,
+    noise_threshold,
+  })
 })

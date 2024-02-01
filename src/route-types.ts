@@ -3426,6 +3426,15 @@ export type Routes = {
               message: string
             }
           }
+      noise_threshold: {
+        noise_threshold_id: string
+        device_id: string
+        name: string
+        noise_threshold_nrs?: number | undefined
+        starts_daily_at: string
+        ends_daily_at: string
+        noise_threshold_decibels: number
+      }
       ok: boolean
     }
   }
