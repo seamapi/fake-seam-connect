@@ -107,6 +107,7 @@ export const seed = (db: Database): Seed => {
       is_heating_available: true,
       min_heating_cooling_delta_celsius: 2.78,
       is_fan_running: true,
+      fan_mode_setting: "auto",
       current_climate_setting: {
         automatic_heating_enabled: false,
         automatic_cooling_enabled: true,

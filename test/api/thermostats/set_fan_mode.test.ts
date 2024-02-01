@@ -2,6 +2,8 @@ import test from "ava"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
 import { seed } from "lib/database/seed.ts"
+import { z } from "zod"
+import { thermostat_device_properties } from "lib/zod/device.ts"
 
 test("POST /thermostats/set_fan_mode with api key", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
@@ -31,4 +33,15 @@ test("POST /thermostats/set_fan_mode with api key", async (t) => {
   t.is(action_attempt.action_type, "SET_FAN_MODE")
   t.is(action_attempt.error, null)
   t.is(action_attempt.result, null)
+
+  const {
+    data: { device },
+  } = await axios.get("/devices/get", {
+    params: { device_id: seed_result.ecobee_device_1 },
+  })
+
+  const device_props = device.properties as z.infer<
+    typeof thermostat_device_properties
+  >
+  t.is(device_props.fan_mode_setting, "on")
 })
