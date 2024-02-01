@@ -22,7 +22,7 @@ export default withRouteSpec({
     action_attempt,
   }),
 } as const)(async (req, res) => {
-  const { device_id, sync } = req.body
+  const { device_id, sync, fan_mode_setting } = req.body
 
   const device = req.db.devices.find((device) => {
     if (
@@ -51,6 +51,14 @@ export default withRouteSpec({
   const action_attempt_sync = req.db.updateActionAttempt({
     action_attempt_id: action_attempt.action_attempt_id,
     status: "success",
+  })
+
+  req.db.updateDevice({
+    device_id,
+    properties: {
+      ...device.properties,
+      fan_mode_setting,
+    },
   })
 
   res.status(200).json({

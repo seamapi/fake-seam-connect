@@ -102,6 +102,18 @@ export default withRouteSpec({
     status: "success",
   })
 
+  req.db.updateDevice({
+    device_id,
+    properties: {
+      ...device.properties,
+      current_climate_setting: {
+        ...device.properties.current_climate_setting,
+        heating_set_point_celsius: heating_set_point,
+        hvac_mode_setting: "heat",
+      },
+    },
+  })
+
   res.status(200).json({
     action_attempt: sync ? action_attempt_sync : action_attempt,
   })

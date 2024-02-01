@@ -85,6 +85,8 @@ export const lock_device_properties = common_device_properties.extend({
   smartthings_metadata: z.any().optional(),
 })
 
+export const fan_mode_setting = z.enum(["auto", "on"])
+
 export const thermostat_device_properties = common_device_properties.extend({
   temperature_fahrenheit: z.number(),
   temperature_celsius: z.number(),
@@ -100,6 +102,7 @@ export const thermostat_device_properties = common_device_properties.extend({
   default_climate_setting: z.optional(climate_setting),
   is_climate_setting_schedule_active: z.boolean(),
   active_climate_setting_schedule: z.optional(climate_setting_schedule),
+  fan_mode_setting,
 
   is_cooling_available: z.boolean(),
   min_cooling_set_point_celsius: z.number(),
@@ -116,8 +119,6 @@ export const thermostat_device_properties = common_device_properties.extend({
   min_heating_cooling_delta_celsius: z.number(),
   min_heating_cooling_delta_fahrenheit: z.number(),
 })
-
-export const fan_mode_setting = z.enum(["auto", "on"])
 
 export const device = z.object({
   device_id: z.string(),

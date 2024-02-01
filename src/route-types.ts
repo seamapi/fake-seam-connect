@@ -1671,6 +1671,7 @@ export type Routes = {
                     manual_override_allowed?: boolean | undefined
                   }
                 | undefined
+              fan_mode_setting: "auto" | "on"
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -1890,6 +1891,7 @@ export type Routes = {
                     manual_override_allowed?: boolean | undefined
                   }
                 | undefined
+              fan_mode_setting: "auto" | "on"
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -2704,6 +2706,7 @@ export type Routes = {
                     manual_override_allowed?: boolean | undefined
                   }
                 | undefined
+              fan_mode_setting: "auto" | "on"
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -2881,6 +2884,7 @@ export type Routes = {
                     manual_override_allowed?: boolean | undefined
                   }
                 | undefined
+              fan_mode_setting: "auto" | "on"
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -3100,6 +3104,7 @@ export type Routes = {
                     manual_override_allowed?: boolean | undefined
                   }
                 | undefined
+              fan_mode_setting: "auto" | "on"
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -3277,6 +3282,7 @@ export type Routes = {
                     manual_override_allowed?: boolean | undefined
                   }
                 | undefined
+              fan_mode_setting: "auto" | "on"
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -3919,6 +3925,7 @@ export type Routes = {
                     manual_override_allowed?: boolean | undefined
                   }
                 | undefined
+              fan_mode_setting: "auto" | "on"
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -4191,6 +4198,7 @@ export type Routes = {
                     manual_override_allowed?: boolean | undefined
                   }
                 | undefined
+              fan_mode_setting: "auto" | "on"
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
