@@ -2144,7 +2144,7 @@ export type Routes = {
   }
   "/health": {
     route: "/health"
-    method: "GET"
+    method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
     commonParams: {}
