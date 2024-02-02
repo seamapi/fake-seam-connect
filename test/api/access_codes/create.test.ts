@@ -40,7 +40,7 @@ test("POST /access_codes/create", async (t: ExecutionContext) => {
     {
       device_id,
       name: "Test Access Code",
-      code: "1234",
+      code: "5678",
       starts_at: new Date(),
       ends_at: new Date(Date.now() + ms("1d")),
       use_backup_access_code_pool: true,

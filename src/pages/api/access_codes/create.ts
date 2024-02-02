@@ -1,4 +1,4 @@
-import { NotFoundException } from "nextlove"
+import { NotFoundException, HttpException } from "nextlove"
 import { z } from "zod"
 
 import { access_code, timestamp } from "lib/zod/index.ts"
@@ -56,6 +56,17 @@ export default withRouteSpec({
     throw new NotFoundException({
       type: "device_not_found",
       message: "Device not found",
+    })
+  }
+
+  // TODO: 
+  const duplicate_access_code = req.db.access_codes.find(
+    (ac) => ac.code === code && ac.device_id === device_id,
+  )
+  if (duplicate_access_code) {
+    throw new HttpException(409, {
+      type: "duplicate_access_code",
+      message: `Cannot set duplicate access code ${code} named ${name}`,
     })
   }
 
