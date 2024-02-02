@@ -1402,9 +1402,13 @@ export type Routes = {
     method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
-    commonParams: {
-      connected_account_id: string
-    }
+    commonParams:
+      | {
+          connected_account_id: string
+        }
+      | {
+          email: string
+        }
     formData: {}
     jsonResponse: {
       connected_account: {
