@@ -8,3 +8,10 @@ test("GET /health", async (t: ExecutionContext) => {
   t.true(data.ok)
   t.truthy(data.note)
 })
+
+test("POST /health", async (t: ExecutionContext) => {
+  const { axios } = await getTestServer(t)
+  const { data } = await axios.post("/health", {})
+  t.true(data.ok)
+  t.truthy(data.note)
+})

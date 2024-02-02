@@ -8,7 +8,7 @@ const jsonResponse = z.object({
 
 export default withRouteSpec({
   auth: "none",
-  methods: ["GET"],
+  methods: ["GET", "POST"],
   middlewares: [],
   jsonResponse,
 } as const)(async (_req, res) => {
