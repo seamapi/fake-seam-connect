@@ -12,7 +12,7 @@ for Seam Connect.
 
 ## Installation
 
-Add this as a dependency to your project using [npm] with
+Add this as a dependency to your project using [npm] with:
 
 ```
 $ npm install @seamapi/fake-seam-connect
@@ -25,13 +25,13 @@ $ npm install @seamapi/fake-seam-connect
 ### From Docker
 
 The application is distributed as a [Docker container].
-Start the server inside a container with
+Start the server inside a container with:
 
 ```
 $ docker run --init --read-only --publish 8080:8080 ghcr.io/seamapi/fake-seam-connect
 ```
 
-Start a pre-seeded instance with
+Start a pre-seeded instance with:
 
 ```
 $ docker run --init --read-only --publish 8080:8080 ghcr.io/seamapi/fake-seam-connect --seed
@@ -41,13 +41,13 @@ $ docker run --init --read-only --publish 8080:8080 ghcr.io/seamapi/fake-seam-co
 
 ### From npx
 
-The server is included in the published [npm package] and may be run using npx with
+The server is included in the published [npm package] and may be run using npx with:
 
 ```
 $ npx @seamapi/fake-seam-connect
 ```
 
-Start a pre-seeded instance with
+Start a pre-seeded instance with:
 
 ```
 $ npx @seamapi/fake-seam-connect --seed
@@ -69,7 +69,7 @@ $ npm run test:watch
 
 Primary development tasks are defined under `scripts` in `package.json`
 and available via `npm run`.
-View them with
+View them with:
 
 ```
 $ npm run
@@ -78,7 +78,7 @@ $ npm run
 ### Source code
 
 The [source code] is hosted on GitHub.
-Clone the project with
+Clone the project with:
 
 ```
 $ git clone git@github.com:seamapi/fake-seam-connect.git
@@ -91,19 +91,19 @@ $ git clone git@github.com:seamapi/fake-seam-connect.git
 You will need [Node.js] with [npm] and a [Node.js debugging] client.
 
 Be sure that all commands run under the correct Node version, e.g.,
-if using [nvm], install the correct version with
+if using [nvm], install the correct version with:
 
 ```
 $ nvm install
 ```
 
-Set the active version for each shell session with
+Set the active version for each shell session with:
 
 ```
 $ nvm use
 ```
 
-Install the development dependencies with
+Install the development dependencies with:
 
 ```
 $ npm install
@@ -129,7 +129,7 @@ as long as commits follow the [Angular Commit Message Conventions].
 Publish a new version by triggering a [version workflow_dispatch on GitHub Actions].
 The `version` input will be passed as the first argument to [npm-version].
 
-This may be done on the web or using the [GitHub CLI] with
+This may be done on the web or using the [GitHub CLI] with:
 
 ```
 $ gh workflow run version.yml --raw-field version=<version>
