@@ -42,7 +42,7 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/simulate/readers
   const {
     data: { endpoint },
   } = await axios.post(
-    `/internal/sandbox/test/assa_abloy/_fake/redeem_invite_code`,
+    `/internal/sandbox/test/visionline/_fake/redeem_invite_code`,
     {
       invite_code: invitation_code,
       endpoint_details: {
@@ -63,7 +63,7 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/simulate/readers
   const {
     data: { cards },
   } = await axios.post(
-    "/internal/sandbox/test/assa_abloy/_fake/load_credentials",
+    "/internal/sandbox/test/visionline/_fake/load_credentials",
     {
       endpoint_id: endpoint.endpoint_id,
     },
@@ -79,7 +79,7 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/simulate/readers
   const {
     data: { events: simulated_unlock_events },
   } = await axios.get(
-    "/internal/sandbox/test/assa_abloy/_fake/simulate/readers/list_events",
+    "/internal/sandbox/test/visionline/_fake/simulate/readers/list_events",
     {
       params: {
         reader_id: 1,
@@ -90,7 +90,7 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/simulate/readers
   t.is(simulated_unlock_events.length, 0)
 
   await axios.post(
-    "/internal/sandbox/test/assa_abloy/_fake/simulate/readers/unlock",
+    "/internal/sandbox/test/visionline/_fake/simulate/readers/unlock",
     {
       reader_id: 1,
       credential: {
@@ -103,7 +103,7 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/simulate/readers
   const {
     data: { events: single_unlock },
   } = await axios.get(
-    "/internal/sandbox/test/assa_abloy/_fake/simulate/readers/list_events",
+    "/internal/sandbox/test/visionline/_fake/simulate/readers/list_events",
     {
       params: {
         reader_id: 1,
