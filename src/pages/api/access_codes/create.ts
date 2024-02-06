@@ -59,7 +59,7 @@ export default withRouteSpec({
     })
   }
 
-  // TODO: 
+  // TODO: check time bound access codes and allow duplicate pin codes with different time frames
   const duplicate_access_code = req.db.access_codes.find(
     (ac) => ac.code === code && ac.device_id === device_id,
   )
