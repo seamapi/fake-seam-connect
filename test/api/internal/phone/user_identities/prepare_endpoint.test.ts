@@ -41,7 +41,7 @@ test("POST /internal/phone/user_identities/prepare_endpoint", async (t) => {
   }
 
   await axios.post(
-    `/internal/sandbox/${client_session.workspace_id}/assa_abloy/_fake/redeem_invite_code`,
+    `/internal/sandbox/${client_session.workspace_id}/visionline/_fake/redeem_invite_code`,
     {
       invite_code: invitation_code,
       endpoint_details: {

@@ -2384,8 +2384,8 @@ export type Routes = {
       ok: boolean
     }
   }
-  "/internal/sandbox/[workspace_id]/assa_abloy/_fake/load_credentials": {
-    route: "/internal/sandbox/[workspace_id]/assa_abloy/_fake/load_credentials"
+  "/internal/sandbox/[workspace_id]/visionline/_fake/load_credentials": {
+    route: "/internal/sandbox/[workspace_id]/visionline/_fake/load_credentials"
     method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
@@ -2421,8 +2421,8 @@ export type Routes = {
       ok: boolean
     }
   }
-  "/internal/sandbox/[workspace_id]/assa_abloy/_fake/redeem_invite_code": {
-    route: "/internal/sandbox/[workspace_id]/assa_abloy/_fake/redeem_invite_code"
+  "/internal/sandbox/[workspace_id]/visionline/_fake/redeem_invite_code": {
+    route: "/internal/sandbox/[workspace_id]/visionline/_fake/redeem_invite_code"
     method: "POST"
     queryParams: {}
     jsonBody: {
@@ -2475,8 +2475,8 @@ export type Routes = {
       ok: boolean
     }
   }
-  "/internal/sandbox/[workspace_id]/assa_abloy/_fake/simulate/readers/list_events": {
-    route: "/internal/sandbox/[workspace_id]/assa_abloy/_fake/simulate/readers/list_events"
+  "/internal/sandbox/[workspace_id]/visionline/_fake/simulate/readers/list_events": {
+    route: "/internal/sandbox/[workspace_id]/visionline/_fake/simulate/readers/list_events"
     method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
@@ -2494,8 +2494,8 @@ export type Routes = {
       ok: boolean
     }
   }
-  "/internal/sandbox/[workspace_id]/assa_abloy/_fake/simulate/readers/unlock": {
-    route: "/internal/sandbox/[workspace_id]/assa_abloy/_fake/simulate/readers/unlock"
+  "/internal/sandbox/[workspace_id]/visionline/_fake/simulate/readers/unlock": {
+    route: "/internal/sandbox/[workspace_id]/visionline/_fake/simulate/readers/unlock"
     method: "POST"
     queryParams: {}
     jsonBody: {

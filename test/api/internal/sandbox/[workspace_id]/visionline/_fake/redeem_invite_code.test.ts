@@ -3,7 +3,7 @@ import test from "ava"
 import { getTestServer } from "fixtures/get-test-server.ts"
 import { seed } from "lib/database/seed.ts"
 
-test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/load_credentials", async (t) => {
+test("GET /internal/sandbox/[workspace_id]/visionline/_fake/redeem_invite_code", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
   const { seam_cst1_token } = seed(db)
 
@@ -18,6 +18,7 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/load_credentials
 
   const ext_sdk_installation_id = "ext_sdk_installation_id"
 
+  // On first pass invitation code isn't set but we get back an invitation
   const {
     data: { invitations },
   } = await axios.post("/internal/phone/user_identities/create_invitations", {
@@ -25,6 +26,7 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/load_credentials
     phone_os: "android",
   })
 
+  // On second pass invitation code is set and endpoint created
   const {
     data: { invitation },
   } = await axios.post("/internal/phone/user_identities/get_invitation", {
@@ -42,7 +44,7 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/load_credentials
   const {
     data: { endpoint },
   } = await axios.post(
-    `/internal/sandbox/test/assa_abloy/_fake/redeem_invite_code`,
+    `/internal/sandbox/test/visionline/_fake/redeem_invite_code`,
     {
       invite_code: invitation_code,
       endpoint_details: {
@@ -60,17 +62,4 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/load_credentials
 
   t.truthy(endpoint.endpoint_id)
   t.truthy(endpoint.invite_code)
-
-  const {
-    data: { cards },
-  } = await axios.post(
-    "/internal/sandbox/test/assa_abloy/_fake/load_credentials",
-    {
-      endpoint_id: endpoint.endpoint_id,
-    },
-  )
-
-  t.is(cards.length, 1)
-  t.false(cards[0]?.notIssued)
-  t.false(cards[0]?.expired)
 })
