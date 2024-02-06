@@ -1,4 +1,4 @@
-import { NotFoundException, HttpException } from "nextlove"
+import { HttpException, NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { access_code, timestamp } from "lib/zod/index.ts"
