@@ -63,7 +63,7 @@ export default withRouteSpec({
   const duplicate_access_code = req.db.access_codes.find(
     (ac) => ac.code === code && ac.device_id === device_id,
   )
-  if (duplicate_access_code) {
+  if (duplicate_access_code == null) {
     throw new HttpException(409, {
       type: "duplicate_access_code",
       message: `Cannot set duplicate access code ${code} named ${name}`,
