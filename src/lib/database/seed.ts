@@ -64,12 +64,6 @@ export const seed = (db: Database): Seed => {
     connected_account_id: "john_connected_account_id",
   })
 
-  db.addEvent({
-    event_type: "connected_account.completed_first_sync",
-    workspace_id: "seed_workspace_1",
-    connected_account_id: "john_connected_account_id",
-  })
-
   db.updateConnectWebview({
     connect_webview_id: cw.connect_webview_id,
     connected_account_id: "john_connected_account_id",
@@ -87,6 +81,13 @@ export const seed = (db: Database): Seed => {
       manufacturer: "august",
       locked: true,
     },
+  })
+
+  db.addEvent({
+    event_type: "device.connected",
+    workspace_id: "seed_workspace_1",
+    connected_account_id: "john_connected_account_id",
+    device_id: "august_device_1",
   })
 
   db.addDevice({
