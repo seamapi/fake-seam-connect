@@ -5,6 +5,10 @@ import { access_code, timestamp } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
+function formatDateString(date: Date | string) {
+  return date instanceof Date ? date.toISOString() : date
+}
+
 export const json_body = z.object({
   device_id: z.string(),
   name: z.string().optional(),
@@ -63,10 +67,17 @@ export default withRouteSpec({
   const duplicate_access_code = req.db.access_codes.find(
     (ac) => ac.code === code && ac.device_id === device_id,
   )
-  if (duplicate_access_code == null) {
+  if (duplicate_access_code != null) {
+    const period =
+      starts_at != null && ends_at != null
+        ? ` for period ${formatDateString(starts_at)}-${formatDateString(
+            ends_at,
+          )}`
+        : ""
+
     throw new HttpException(409, {
       type: "duplicate_access_code",
-      message: `Cannot set duplicate access code ${code} named ${name}`,
+      message: `Cannot set duplicate access code ${code} named ${name}${period}`,
     })
   }
 
