@@ -83,6 +83,13 @@ export const seed = (db: Database): Seed => {
     },
   })
 
+  db.addEvent({
+    event_type: "device.connected",
+    workspace_id: "seed_workspace_1",
+    connected_account_id: "john_connected_account_id",
+    device_id: "august_device_1",
+  })
+
   db.addDevice({
     device_id: "august_device_2",
     connected_account_id: "john_connected_account_id",
