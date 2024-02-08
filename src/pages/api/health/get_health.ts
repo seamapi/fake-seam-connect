@@ -1,7 +1,6 @@
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
-
 import { public_service_health } from "lib/zod/index.ts"
 
 export const route_spec = {
