@@ -13,3 +13,13 @@ export const service_health_response = z.object({
     description: z.string(),
   }),
 })
+
+export const public_service_health = z.object({
+  service: z.string(),
+  status: z.union([
+    z.literal("healthy"),
+    z.literal("degraded"),
+    z.literal("down"),
+  ]),
+  description: z.string(),
+})
