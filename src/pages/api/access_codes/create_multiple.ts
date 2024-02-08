@@ -12,6 +12,7 @@ const json_body = z
     behavior_when_code_cannot_be_shared: z
       .enum(["throw", "create_random_code"])
       .default("throw"),
+    preferred_code_length: z.number().optional(),
   })
   .merge(
     create_ac_json_body.omit({
@@ -36,10 +37,19 @@ export default withRouteSpec({
     starts_at,
     ends_at,
     use_backup_access_code_pool,
+    preferred_code_length,
   } = req.body
 
   const created_access_codes: AccessCode[] = []
-  const code = req_code ?? Math.random().toString().slice(-4)
+  let code
+
+  if (req_code != null) {
+    code = req_code
+  } else if (preferred_code_length != null) {
+    code = Math.random().toString().slice(-preferred_code_length)
+  } else {
+    code = Math.random().toString().slice(-4)
+  }
 
   for (const device_id of device_ids) {
     const access_code = req.db.addAccessCode({

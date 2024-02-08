@@ -151,6 +151,7 @@ export type Routes = {
     jsonBody: {
       device_ids: string[]
       behavior_when_code_cannot_be_shared?: "throw" | "create_random_code"
+      preferred_code_length?: number | undefined
       name?: string | undefined
       code?: string | undefined
       starts_at?: (string | Date) | undefined
