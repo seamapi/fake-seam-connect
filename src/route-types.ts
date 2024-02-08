@@ -2151,8 +2151,32 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: {
-      note: string
       ok: boolean
+      msg: "I\u2019m one with the Force. The Force is with me."
+      last_service_evaluation_at?: string | undefined
+      service_health_statuses: {
+        service: string
+        status: "healthy" | "degraded" | "down"
+        description: string
+      }[]
+    }
+  }
+  "/health/get_health": {
+    route: "/health/get_health"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+      msg: "I\u2019m one with the Force. The Force is with me."
+      last_service_evaluation_at?: string | undefined
+      service_health_statuses: {
+        service: string
+        status: "healthy" | "degraded" | "down"
+        description: string
+      }[]
     }
   }
   "/internal/api_keys/create": {
