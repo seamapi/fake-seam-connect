@@ -18,7 +18,7 @@ test("POST /internal/phone/visionline/list_lock_service_codes", async (t) => {
 
   const { data, status } = await axios.post(
     "/internal/phone/visionline/list_lock_service_codes",
-    {}
+    {},
   )
 
   t.is(status, 200)
