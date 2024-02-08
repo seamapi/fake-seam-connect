@@ -2409,6 +2409,20 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/internal/phone/visionline/list_lock_service_codes": {
+    route: "/internal/phone/visionline/list_lock_service_codes"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      list_lock_service_codes_response: {
+        lock_service_codes: number[]
+      }
+      ok: boolean
+    }
+  }
   "/internal/sandbox/[workspace_id]/visionline/_fake/load_credentials": {
     route: "/internal/sandbox/[workspace_id]/visionline/_fake/load_credentials"
     method: "GET" | "POST"
