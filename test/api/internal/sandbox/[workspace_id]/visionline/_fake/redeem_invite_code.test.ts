@@ -62,4 +62,5 @@ test("GET /internal/sandbox/[workspace_id]/visionline/_fake/redeem_invite_code",
 
   t.truthy(endpoint.endpoint_id)
   t.truthy(endpoint.invite_code)
+  t.is(endpoint.details?.seos_tsm_endpoint_id, 1234)
 })
