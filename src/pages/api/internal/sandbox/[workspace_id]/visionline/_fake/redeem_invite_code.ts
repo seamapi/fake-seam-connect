@@ -52,6 +52,10 @@ export default withRouteSpec({
       endpoint_id: invitation_endpoint.endpoint_id,
       status: "ACTIVE",
       invite_code: invitation.invitation_code,
+      details: {
+        ...req.body.endpoint_details,
+        seos_tsm_endpoint_id: 1234,
+      },
     },
   })
 })
