@@ -2266,6 +2266,19 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/internal/phone/deactivate": {
+    route: "/internal/phone/deactivate"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {
+      custom_sdk_installation_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/internal/phone/user_identities/create_invitations": {
     route: "/internal/phone/user_identities/create_invitations"
     method: "POST"
