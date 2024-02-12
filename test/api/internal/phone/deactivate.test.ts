@@ -50,4 +50,16 @@ test("DELETE /internal/phone/deactivate", async (t) => {
   })
 
   t.is(phone_sdk_installation, undefined)
+
+  const { status: list_status } = await axios.post(
+    "/internal/phone/user_identities/list_endpoints",
+    {
+      custom_sdk_installation_id: ext_sdk_installation_id,
+    },
+    {
+      validateStatus: () => true,
+    },
+  )
+
+  t.is(list_status, 404)
 })
