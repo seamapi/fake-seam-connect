@@ -19,6 +19,7 @@ import type {
 } from "lib/zod/index.ts"
 
 import type { RecursivePartial } from "lib/util/type-helpers.ts"
+import type { AcsSystem } from "lib/zod/acs/system.ts"
 import type {
   AssaAbloyCard,
   CredentialService,
