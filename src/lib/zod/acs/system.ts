@@ -13,7 +13,7 @@ export const acs_system_external_type = z.enum([
 export type AcsSystemExternalType = z.infer<typeof acs_system_external_type>
 
 export const acs_system = z.object({
-  acs_system_id: z.string().uuid(),
+  acs_system_id: z.string(),
   external_type: acs_system_external_type,
   external_type_display_name: z.string(),
   system_type: acs_system_external_type.describe(
@@ -24,7 +24,7 @@ export const acs_system = z.object({
     .describe("deprecated: use external_type_display_name"),
   name: z.string(),
   created_at: z.string().datetime(),
-  workspace_id: z.string().uuid(),
+  workspace_id: z.string(),
   connected_account_ids: z.array(z.string()),
 })
 
