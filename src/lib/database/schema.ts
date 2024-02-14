@@ -28,6 +28,7 @@ import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 import type { Endpoint } from "lib/zod/endpoints.ts"
 import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
+import { AcsSystem } from "lib/zod/acs/system.ts"
 
 export type WorkspaceId = string
 
@@ -58,6 +59,7 @@ export interface DatabaseState {
   phone_invitations: PhoneInvitation[]
   phone_sdk_installations: PhoneSdkInstallation[]
   user_identities: UserIdentity[]
+  acs_systems: AcsSystem[]
 }
 
 export interface DatabaseMethods {
@@ -291,6 +293,11 @@ export interface DatabaseMethods {
     phone_sdk_installation_id: string
     client_session_id: string
   }) => Endpoint[]
+
+  addAcsSystem: (
+    params: Partial<AcsSystem> &
+      Pick<AcsSystem, "external_type" | "name" | "workspace_id">,
+  ) => AcsSystem
 
   update: (t?: number) => void
 }
