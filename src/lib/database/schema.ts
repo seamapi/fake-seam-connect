@@ -19,6 +19,7 @@ import type {
 } from "lib/zod/index.ts"
 
 import type { RecursivePartial } from "lib/util/type-helpers.ts"
+import type { AcsSystem } from "lib/zod/acs/system.ts"
 import type {
   AssaAbloyCard,
   CredentialService,
@@ -28,7 +29,6 @@ import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 import type { Endpoint } from "lib/zod/endpoints.ts"
 import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
-import { AcsSystem } from "lib/zod/acs/system.ts"
 
 export type WorkspaceId = string
 
