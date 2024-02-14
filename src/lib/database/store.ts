@@ -9,6 +9,7 @@ import { simpleHash } from "lib/util/simple-hash.ts"
 import type { AccessCode } from "lib/zod/access_code.ts"
 import type { AccessToken } from "lib/zod/access_token.ts"
 import type { AcsSystem, AcsSystemExternalType } from "lib/zod/acs/system.ts"
+import type { AcsUser, AcsUserExternalType } from "lib/zod/acs/users.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
 import type {
@@ -28,7 +29,6 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
-import { AcsUser, AcsUserExternalType } from "lib/zod/acs/users.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
