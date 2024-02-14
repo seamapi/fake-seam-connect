@@ -293,6 +293,14 @@ export interface DatabaseMethods {
     client_session_id: string
   }) => Endpoint[]
 
+  addAcsSystem: (
+    params: Partial<AcsSystem> &
+      Pick<
+        AcsSystem,
+        "external_type" | "name" | "workspace_id" | "connected_account_ids"
+      >,
+  ) => AcsSystem
+
   update: (t?: number) => void
 }
 

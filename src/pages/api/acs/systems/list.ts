@@ -11,26 +11,19 @@ export default withRouteSpec({
     connected_account_id: z.string().optional(),
   }),
   jsonResponse: z.object({
-    acs_system,
+    acs_systems: z.array(acs_system),
   }),
 } as const)(async (req, res) => {
   const { connected_account_id } = req.commonParams
 
-  const acs_system = req.db.acs_systems.find(
+  const acs_systems = req.db.acs_systems.filter(
     (acs_system) =>
       acs_system.workspace_id === req.auth.workspace_id &&
       (!connected_account_id ||
         acs_system.connected_account_ids.includes(connected_account_id)),
   )
 
-  if (acs_system == null) {
-    throw new NotFoundException({
-      type: "acs_system_not_found",
-      message: "Access control system not found",
-    })
-  }
-
   res.status(200).json({
-    acs_system,
+    acs_systems,
   })
 })

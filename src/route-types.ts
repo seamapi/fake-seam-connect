@@ -1023,7 +1023,7 @@ export type Routes = {
     }
     formData: {}
     jsonResponse: {
-      acs_system: {
+      acs_systems: {
         acs_system_id: string
         external_type:
           | "pti_site"
@@ -1049,7 +1049,7 @@ export type Routes = {
         created_at: string
         workspace_id: string
         connected_account_ids: string[]
-      }
+      }[]
       ok: boolean
     }
   }
