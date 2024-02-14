@@ -29,6 +29,7 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import { AcsAccessGroup, AcsAccessGroupExternalType } from "lib/zod/index.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -77,6 +78,7 @@ const initializer = immer<Database>((set, get) => ({
   phone_sdk_installations: [],
   acs_systems: [],
   acs_users: [],
+  acs_access_groups: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -1287,6 +1289,68 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_acs_user
+  },
+
+  addAcsAccessGroup({
+    acs_system_id,
+    external_type,
+    name,
+    workspace_id,
+    created_at,
+  }) {
+    const EXTERNAL_TYPE_TYPE_TO_DISPLAY_NAME: Record<
+      AcsAccessGroupExternalType,
+      string
+    > = {
+      pti_unit: "PTI unit",
+      pti_access_level: "PTI access level",
+      salto_access_group: "Salto access group",
+      brivo_group: "Brivo group",
+    }
+
+    const new_acs_access_group: AcsAccessGroup = {
+      _acs_user_ids: [],
+
+      acs_access_group_id: get()._getNextId("acs_access_group"),
+      acs_system_id,
+      name,
+      workspace_id,
+      created_at: created_at ?? new Date().toISOString(),
+      access_group_type: external_type,
+      access_group_type_display_name:
+        EXTERNAL_TYPE_TYPE_TO_DISPLAY_NAME[external_type],
+      external_type,
+      external_type_display_name:
+        EXTERNAL_TYPE_TYPE_TO_DISPLAY_NAME[external_type],
+    }
+
+    set({
+      acs_access_groups: [...get().acs_access_groups, new_acs_access_group],
+    })
+
+    return new_acs_access_group
+  },
+  addAcsUserToAcsAccessGroup({ acs_access_group_id, acs_user_id }) {
+    const access_group = get().acs_access_groups.find(
+      (group) => group.acs_access_group_id === acs_access_group_id,
+    )
+    if (access_group == null) {
+      throw new Error("Could not find access group with acs_access_group_id")
+    }
+
+    set({
+      acs_access_groups: [
+        ...get().acs_access_groups.map((access_group) => {
+          if (access_group.acs_access_group_id === acs_access_group_id) {
+            return {
+              ...access_group,
+              _acs_user_ids: [...access_group._acs_user_ids, acs_user_id],
+            }
+          }
+          return access_group
+        }),
+      ],
+    })
   },
 
   update() {},

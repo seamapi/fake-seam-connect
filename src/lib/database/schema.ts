@@ -4,6 +4,7 @@ import type { HoistedStoreApi } from "zustand-hoist"
 import type {
   AccessCode,
   AccessToken,
+  AcsAccessGroup,
   AcsUser,
   ActionAttempt,
   ApiKey,
@@ -62,6 +63,7 @@ export interface DatabaseState {
   user_identities: UserIdentity[]
   acs_systems: AcsSystem[]
   acs_users: AcsUser[]
+  acs_access_groups: AcsAccessGroup[]
 }
 
 export interface DatabaseMethods {
@@ -297,19 +299,11 @@ export interface DatabaseMethods {
   }) => Endpoint[]
 
   addAcsSystem: (
-    params: Partial<
-      Omit<
-        AcsSystem,
-        | "acs_system_id"
-        | "external_type_display_name"
-        | "system_type"
-        | "system_type_display_name"
-      >
+    params: Pick<
+      AcsSystem,
+      "external_type" | "name" | "workspace_id" | "connected_account_ids"
     > &
-      Pick<
-        AcsSystem,
-        "external_type" | "name" | "workspace_id" | "connected_account_ids"
-      >,
+      Partial<Pick<AcsSystem, "created_at">>,
   ) => AcsSystem
 
   addAcsUser: (
@@ -318,6 +312,18 @@ export interface DatabaseMethods {
     > &
       Pick<AcsUser, "external_type" | "acs_system_id" | "workspace_id">,
   ) => AcsUser
+
+  addAcsAccessGroup: (
+    params: Pick<
+      AcsAccessGroup,
+      "external_type" | "name" | "workspace_id" | "acs_system_id"
+    > &
+      Partial<Pick<AcsAccessGroup, "created_at">>,
+  ) => AcsAccessGroup
+  addAcsUserToAcsAccessGroup: (params: {
+    acs_user_id: string
+    acs_access_group_id: string
+  }) => void
 
   update: (t?: number) => void
 }
