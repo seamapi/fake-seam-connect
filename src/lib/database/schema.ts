@@ -4,6 +4,7 @@ import type { HoistedStoreApi } from "zustand-hoist"
 import type {
   AccessCode,
   AccessToken,
+  AcsUser,
   ActionAttempt,
   ApiKey,
   ClientSession,
@@ -60,6 +61,7 @@ export interface DatabaseState {
   phone_sdk_installations: PhoneSdkInstallation[]
   user_identities: UserIdentity[]
   acs_systems: AcsSystem[]
+  acs_users: AcsUser[]
 }
 
 export interface DatabaseMethods {
@@ -295,13 +297,28 @@ export interface DatabaseMethods {
   }) => Endpoint[]
 
   addAcsSystem: (
-    params: Partial<AcsSystem> &
+    params: Partial<
+      Omit<
+        AcsSystem,
+        | "acs_system_id"
+        | "external_type_display_name"
+        | "system_type"
+        | "system_type_display_name"
+      >
+    > &
       Pick<
         AcsSystem,
         "external_type" | "name" | "workspace_id" | "connected_account_ids"
       > &
       Partial<Pick<AcsSystem, "created_at">>,
   ) => AcsSystem
+
+  addAcsUser: (
+    params: Partial<
+      Omit<AcsUser, "acs_user_id" | "external_type_display_name">
+    > &
+      Pick<AcsUser, "external_type" | "acs_system_id" | "workspace_id">,
+  ) => AcsUser
 
   update: (t?: number) => void
 }

@@ -29,6 +29,7 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import { AcsUser, AcsUserExternalType } from "lib/zod/acs/users.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -76,6 +77,7 @@ const initializer = immer<Database>((set, get) => ({
   phone_invitations: [],
   phone_sdk_installations: [],
   acs_systems: [],
+  acs_users: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -1213,6 +1215,69 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_acs_system
+  },
+
+  addAcsUser({
+    external_type,
+    workspace_id,
+    created_at,
+    acs_system_id,
+    email,
+    email_address,
+    full_name,
+    is_suspended,
+    access_schedule,
+    display_name,
+    hid_acs_system_id,
+    phone_number,
+    user_identity_email_address,
+    user_identity_id,
+    user_identity_phone_number,
+  }) {
+    const USER_TYPE_TO_DISPLAY_NAME: Record<AcsUserExternalType, string> = {
+      pti_user: "PTI user",
+      brivo_user: "Brivo user",
+      hid_credential_manager_user: "HID user",
+      salto_site_user: "Salto site user",
+    }
+
+    const acs_user_id = get()._getNextId("acs_user")
+    const user_email =
+      email ??
+      email_address ??
+      `acs_user_${simpleHash(acs_user_id)}@example.com`
+    const user_full_name = full_name ?? "Fake ACS User"
+
+    const new_acs_user: AcsUser = {
+      acs_user_id,
+      acs_system_id,
+      workspace_id,
+      full_name: user_full_name ?? "Fake ACS User",
+      display_name:
+        display_name ?? user_full_name ?? user_email ?? "Fake Unnamed User",
+      email: user_email,
+      email_address: user_email,
+      created_at: created_at ?? new Date().toISOString(),
+      is_suspended: is_suspended ?? false,
+      ...(access_schedule != null && { access_schedule }),
+      ...(external_type != null && {
+        external_type,
+        external_type_display_name: USER_TYPE_TO_DISPLAY_NAME[external_type],
+      }),
+      ...(hid_acs_system_id != null && { hid_acs_system_id }),
+      ...(phone_number != null && { phone_number }),
+      ...(user_identity_email_address != null && {
+        user_identity_email_address,
+      }),
+      ...(user_identity_id != null && { user_identity_id }),
+      ...(user_identity_phone_number != null && { user_identity_phone_number }),
+    }
+
+    set({
+      acs_users: [...get().acs_users, new_acs_user],
+    })
+
+    return new_acs_user
   },
 
   update() {},
