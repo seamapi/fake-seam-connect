@@ -22,6 +22,7 @@ interface Seed {
     noise_sensor_device_id: string
     noise_threshold_id: string
     acs_system1_id: string
+    acs_user1_id: string
   }
 }
 
@@ -112,6 +113,13 @@ export const getTestDatabase = async (
     connected_account_ids: [ca.connected_account_id],
   })
 
+  const { acs_user_id } = db.addAcsUser({
+    external_type: "pti_user",
+    full_name: "Fake John Doe",
+    workspace_id: ws2.workspace_id,
+    acs_system_id,
+  })
+
   const seed: Seed = {
     ws1: {
       workspace_id: ws1.workspace_id,
@@ -127,6 +135,7 @@ export const getTestDatabase = async (
       noise_sensor_device_id,
       noise_threshold_id,
       acs_system1_id: acs_system_id,
+      acs_user1_id: acs_user_id,
     },
   }
 
