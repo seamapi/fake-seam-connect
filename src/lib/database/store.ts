@@ -28,6 +28,7 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import { AcsSystem, AcsSystemExternalType } from "lib/zod/acs/system.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -74,6 +75,7 @@ const initializer = immer<Database>((set, get) => ({
   noise_thresholds: [],
   phone_invitations: [],
   phone_sdk_installations: [],
+  acs_systems: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -1185,6 +1187,42 @@ const initializer = immer<Database>((set, get) => ({
               endpoint.assa_abloy_credential_service_id,
         ),
     )
+  },
+
+  addAcsSystem({
+    external_type,
+    name,
+    workspace_id,
+    created_at,
+    connected_account_ids,
+  }) {
+    const SYSTEM_TYPE_TO_DISPLAY_NAME: Record<AcsSystemExternalType, string> = {
+      pti_site: "PTI site",
+      alta_org: "Alta org",
+      brivo_account: "Brivo account",
+      salto_site: "Salto site",
+      hid_credential_manager_organization: "HID org",
+      visionline_system: "Visionline",
+      assa_abloy_credential_service: "Assa Abloy Credential Service",
+    }
+
+    const new_acs_system: AcsSystem = {
+      acs_system_id: get()._getNextId("acs_system"),
+      name,
+      workspace_id,
+      created_at: created_at ?? new Date().toISOString(),
+      system_type: external_type,
+      system_type_display_name: SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
+      external_type,
+      external_type_display_name: SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
+      connected_account_ids: connected_account_ids ?? [],
+    }
+
+    set({
+      acs_systems: [...get().acs_systems, new_acs_system],
+    })
+
+    return new_acs_system
   },
 
   update() {},
