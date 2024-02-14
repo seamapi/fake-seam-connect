@@ -14,9 +14,18 @@ export const endpoint_schema_assa_abloy = z.object({
   assa_abloy_credential_service_id: z.string(),
 })
 
+export const public_endpoint_schema_assa_abloy =
+  endpoint_schema_assa_abloy.omit({ invitation_id: true })
+
 export const endpoint_schema = z.discriminatedUnion("endpoint_type", [
   endpoint_schema_hid,
   endpoint_schema_assa_abloy,
 ])
 
+export const public_endpoint_schema = z.discriminatedUnion("endpoint_type", [
+  endpoint_schema_hid,
+  public_endpoint_schema_assa_abloy,
+])
+
 export type Endpoint = z.infer<typeof endpoint_schema>
+export type PublicEndpoint = z.infer<typeof public_endpoint_schema>

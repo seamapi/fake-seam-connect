@@ -2358,7 +2358,6 @@ export type Routes = {
         | {
             endpoint_type: "assa_abloy_credential_service"
             endpoint_id: string
-            invitation_id: string
             is_active: boolean
             seos_tsm_endpoint_id: number | null
             assa_abloy_credential_service_id: string

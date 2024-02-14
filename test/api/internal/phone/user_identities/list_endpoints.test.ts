@@ -69,4 +69,6 @@ test("POST /internal/phone/user_identities/list_endpoints", async (t) => {
     endpoint_id: endpoint.endpoint_id,
     is_active: endpoint.status === "ACTIVE",
   })
+
+  t.falsy((endpoints[0] as any).invitation_id)
 })
