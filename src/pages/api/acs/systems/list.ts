@@ -1,4 +1,3 @@
-import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
@@ -19,7 +18,7 @@ export default withRouteSpec({
   const acs_systems = req.db.acs_systems.filter(
     (acs_system) =>
       acs_system.workspace_id === req.auth.workspace_id &&
-      (!connected_account_id ||
+      (connected_account_id == null ||
         acs_system.connected_account_ids.includes(connected_account_id)),
   )
 
