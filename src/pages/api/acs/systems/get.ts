@@ -17,7 +17,9 @@ export default withRouteSpec({
   const { acs_system_id } = req.commonParams
 
   const acs_system = req.db.acs_systems.find(
-    (acs_system) => acs_system.acs_system_id === acs_system_id,
+    (acs_system) =>
+      acs_system.acs_system_id === acs_system_id &&
+      acs_system.workspace_id === req.auth.workspace_id,
   )
 
   if (acs_system == null) {
