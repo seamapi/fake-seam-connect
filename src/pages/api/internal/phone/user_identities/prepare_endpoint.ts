@@ -2,8 +2,8 @@ import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { endpoint_schema, public_endpoint_schema } from "lib/zod/endpoints.ts"
 import { publicMapEndpoint } from "lib/util/public-mapping/public-map-endpoint.ts"
+import { public_endpoint_schema } from "lib/zod/endpoints.ts"
 
 export default withRouteSpec({
   auth: "client_session",
