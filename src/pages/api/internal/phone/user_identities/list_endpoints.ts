@@ -3,6 +3,7 @@ import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { public_endpoint_schema } from "lib/zod/endpoints.ts"
+import { publicMapEndpoint } from "lib/util/public-mapping/public-map-endpoint.ts"
 
 export default withRouteSpec({
   auth: "client_session",
@@ -36,10 +37,7 @@ export default withRouteSpec({
       client_session_id,
       phone_sdk_installation_id: installation.phone_sdk_installation_id,
     })
-    .map((endpoint) => ({
-      ...endpoint,
-      invitation_id: undefined,
-    }))
+    .map((endpoint) => publicMapEndpoint(endpoint))
 
   res.status(200).json({
     endpoints,

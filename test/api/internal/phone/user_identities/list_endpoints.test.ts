@@ -70,5 +70,7 @@ test("POST /internal/phone/user_identities/list_endpoints", async (t) => {
     is_active: endpoint.status === "ACTIVE",
   })
 
+  t.is(endpoints[0]?.endpoint_type, "assa_abloy_credential_service")
   t.falsy((endpoints[0] as any).invitation_id)
+  t.falsy((endpoints[0] as any).assa_abloy_credential_service_id)
 })

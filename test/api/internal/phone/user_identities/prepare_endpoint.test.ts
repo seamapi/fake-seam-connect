@@ -80,4 +80,7 @@ test("POST /internal/phone/user_identities/prepare_endpoint", async (t) => {
     endpoint_id: invitation.ext_assa_abloy_cs_endpoint_id,
     is_active: true,
   })
+  t.is(prepared_endpoint?.endpoint_type, "assa_abloy_credential_service")
+  t.falsy((prepared_endpoint as any).invitation_id)
+  t.falsy((prepared_endpoint as any).assa_abloy_credential_service_id)
 })
