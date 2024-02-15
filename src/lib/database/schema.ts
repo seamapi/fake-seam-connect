@@ -19,6 +19,7 @@ import type {
 } from "lib/zod/index.ts"
 
 import type { RecursivePartial } from "lib/util/type-helpers.ts"
+import type { AcsSystem } from "lib/zod/acs/system.ts"
 import type {
   AssaAbloyCard,
   CredentialService,
@@ -58,6 +59,7 @@ export interface DatabaseState {
   phone_invitations: PhoneInvitation[]
   phone_sdk_installations: PhoneSdkInstallation[]
   user_identities: UserIdentity[]
+  acs_systems: AcsSystem[]
 }
 
 export interface DatabaseMethods {
@@ -291,6 +293,15 @@ export interface DatabaseMethods {
     phone_sdk_installation_id: string
     client_session_id: string
   }) => Endpoint[]
+
+  addAcsSystem: (
+    params: Partial<AcsSystem> &
+      Pick<
+        AcsSystem,
+        "external_type" | "name" | "workspace_id" | "connected_account_ids"
+      > &
+      Partial<Pick<AcsSystem, "created_at">>,
+  ) => AcsSystem
 
   update: (t?: number) => void
 }

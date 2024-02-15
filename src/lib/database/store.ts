@@ -5,9 +5,11 @@ import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
 import { hoist } from "zustand-hoist"
 
+import { SYSTEM_TYPE_TO_DISPLAY_NAME } from "lib/constants.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
 import type { AccessCode } from "lib/zod/access_code.ts"
 import type { AccessToken } from "lib/zod/access_token.ts"
+import type { AcsSystem } from "lib/zod/acs/system.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
 import type {
@@ -73,6 +75,7 @@ const initializer = immer<Database>((set, get) => ({
   noise_thresholds: [],
   phone_invitations: [],
   phone_sdk_installations: [],
+  acs_systems: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -1184,6 +1187,32 @@ const initializer = immer<Database>((set, get) => ({
               endpoint.assa_abloy_credential_service_id,
         ),
     )
+  },
+
+  addAcsSystem({
+    external_type,
+    name,
+    workspace_id,
+    created_at,
+    connected_account_ids,
+  }) {
+    const new_acs_system: AcsSystem = {
+      acs_system_id: get()._getNextId("acs_system"),
+      name,
+      workspace_id,
+      created_at: created_at ?? new Date().toISOString(),
+      system_type: external_type,
+      system_type_display_name: SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
+      external_type,
+      external_type_display_name: SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
+      connected_account_ids: connected_account_ids ?? [],
+    }
+
+    set({
+      acs_systems: [...get().acs_systems, new_acs_system],
+    })
+
+    return new_acs_system
   },
 
   update() {},

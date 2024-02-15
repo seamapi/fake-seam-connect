@@ -973,6 +973,86 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/acs/systems/get": {
+    route: "/acs/systems/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      acs_system_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      acs_system: {
+        acs_system_id: string
+        external_type:
+          | "pti_site"
+          | "alta_org"
+          | "salto_site"
+          | "brivo_account"
+          | "hid_credential_manager_organization"
+          | "visionline_system"
+          | "assa_abloy_credential_service"
+        external_type_display_name: string
+        /** deprecated: use external_type */
+        system_type:
+          | "pti_site"
+          | "alta_org"
+          | "salto_site"
+          | "brivo_account"
+          | "hid_credential_manager_organization"
+          | "visionline_system"
+          | "assa_abloy_credential_service"
+        /** deprecated: use external_type_display_name */
+        system_type_display_name: string
+        name: string
+        created_at: string
+        workspace_id: string
+        connected_account_ids: string[]
+      }
+      ok: boolean
+    }
+  }
+  "/acs/systems/list": {
+    route: "/acs/systems/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      connected_account_id?: string | undefined
+    }
+    formData: {}
+    jsonResponse: {
+      acs_systems: {
+        acs_system_id: string
+        external_type:
+          | "pti_site"
+          | "alta_org"
+          | "salto_site"
+          | "brivo_account"
+          | "hid_credential_manager_organization"
+          | "visionline_system"
+          | "assa_abloy_credential_service"
+        external_type_display_name: string
+        /** deprecated: use external_type */
+        system_type:
+          | "pti_site"
+          | "alta_org"
+          | "salto_site"
+          | "brivo_account"
+          | "hid_credential_manager_organization"
+          | "visionline_system"
+          | "assa_abloy_credential_service"
+        /** deprecated: use external_type_display_name */
+        system_type_display_name: string
+        name: string
+        created_at: string
+        workspace_id: string
+        connected_account_ids: string[]
+      }[]
+      ok: boolean
+    }
+  }
   "/action_attempts/get": {
     route: "/action_attempts/get"
     method: "GET" | "POST"

@@ -1,5 +1,6 @@
 export * from "./access_code.ts"
 export * from "./access_token.ts"
+export * from "./acs/index.ts"
 export * from "./action_attempt.ts"
 export * from "./api_key.ts"
 export * from "./client_session.ts"
