@@ -28,7 +28,6 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
-import { AcsSystem, AcsSystemExternalType } from "lib/zod/acs/system.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
