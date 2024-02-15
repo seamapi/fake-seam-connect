@@ -12,8 +12,8 @@ import type {
   AcsAccessGroup,
   AcsAccessGroupExternalType,
 } from "lib/zod/acs/access_group.ts"
-import type { AcsSystem, AcsSystemExternalType } from "lib/zod/acs/system.ts"
 import type { AcsUser, AcsUserExternalType } from "lib/zod/acs/users.ts"
+import type { AcsSystem } from "lib/zod/acs/system.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
 import type {
@@ -33,6 +33,7 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import { SYSTEM_TYPE_TO_DISPLAY_NAME } from "lib/constants.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -1202,16 +1203,6 @@ const initializer = immer<Database>((set, get) => ({
     created_at,
     connected_account_ids,
   }) {
-    const SYSTEM_TYPE_TO_DISPLAY_NAME: Record<AcsSystemExternalType, string> = {
-      pti_site: "PTI site",
-      alta_org: "Alta org",
-      brivo_account: "Brivo account",
-      salto_site: "Salto site",
-      hid_credential_manager_organization: "HID org",
-      visionline_system: "Visionline",
-      assa_abloy_credential_service: "Assa Abloy Credential Service",
-    }
-
     const new_acs_system: AcsSystem = {
       acs_system_id: get()._getNextId("acs_system"),
       name,
