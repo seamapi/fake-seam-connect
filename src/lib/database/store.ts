@@ -5,12 +5,16 @@ import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
 import { hoist } from "zustand-hoist"
 
-import { SYSTEM_TYPE_TO_DISPLAY_NAME } from "lib/constants.ts"
+import {
+  ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME,
+  ACS_SYSTEM_TYPE_TO_DISPLAY_NAME,
+  USER_TYPE_TO_DISPLAY_NAME,
+} from "lib/constants.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
 import type { AccessCode } from "lib/zod/access_code.ts"
 import type { AccessToken } from "lib/zod/access_token.ts"
 import type { AcsSystem } from "lib/zod/acs/system.ts"
-import type { AcsUser, AcsUserExternalType } from "lib/zod/acs/users.ts"
+import type { AcsUser } from "lib/zod/acs/users.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
 import type {
@@ -30,6 +34,7 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import { AcsAccessGroup } from "lib/zod/acs/access_group.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -1205,9 +1210,10 @@ const initializer = immer<Database>((set, get) => ({
       workspace_id,
       created_at: created_at ?? new Date().toISOString(),
       system_type: external_type,
-      system_type_display_name: SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
+      system_type_display_name: ACS_SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
       external_type,
-      external_type_display_name: SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
+      external_type_display_name:
+        ACS_SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
       connected_account_ids: connected_account_ids ?? [],
     }
 
@@ -1235,13 +1241,6 @@ const initializer = immer<Database>((set, get) => ({
     user_identity_id,
     user_identity_phone_number,
   }) {
-    const USER_TYPE_TO_DISPLAY_NAME: Record<AcsUserExternalType, string> = {
-      pti_user: "PTI user",
-      brivo_user: "Brivo user",
-      hid_credential_manager_user: "HID user",
-      salto_site_user: "Salto site user",
-    }
-
     const acs_user_id = get()._getNextId("acs_user")
     const user_email =
       email ??
@@ -1288,16 +1287,6 @@ const initializer = immer<Database>((set, get) => ({
     workspace_id,
     created_at,
   }) {
-    const EXTERNAL_TYPE_TYPE_TO_DISPLAY_NAME: Record<
-      AcsAccessGroupExternalType,
-      string
-    > = {
-      pti_unit: "PTI unit",
-      pti_access_level: "PTI access level",
-      salto_access_group: "Salto access group",
-      brivo_group: "Brivo group",
-    }
-
     const new_acs_access_group: AcsAccessGroup = {
       _acs_user_ids: [],
 
@@ -1308,10 +1297,10 @@ const initializer = immer<Database>((set, get) => ({
       created_at: created_at ?? new Date().toISOString(),
       access_group_type: external_type,
       access_group_type_display_name:
-        EXTERNAL_TYPE_TYPE_TO_DISPLAY_NAME[external_type],
+        ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME[external_type],
       external_type,
       external_type_display_name:
-        EXTERNAL_TYPE_TYPE_TO_DISPLAY_NAME[external_type],
+        ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME[external_type],
     }
 
     set({
