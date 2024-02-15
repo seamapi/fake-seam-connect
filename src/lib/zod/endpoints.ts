@@ -15,7 +15,10 @@ export const endpoint_schema_assa_abloy = z.object({
 })
 
 export const public_endpoint_schema_assa_abloy =
-  endpoint_schema_assa_abloy.omit({ invitation_id: true })
+  endpoint_schema_assa_abloy.omit({
+    invitation_id: true,
+    assa_abloy_credential_service_id: true,
+  })
 
 export const endpoint_schema = z.discriminatedUnion("endpoint_type", [
   endpoint_schema_hid,

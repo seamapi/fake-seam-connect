@@ -2,7 +2,8 @@ import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { endpoint_schema } from "lib/zod/endpoints.ts"
+import { publicMapEndpoint } from "lib/util/public-mapping/public-map-endpoint.ts"
+import { public_endpoint_schema } from "lib/zod/endpoints.ts"
 
 export default withRouteSpec({
   auth: "client_session",
@@ -14,7 +15,7 @@ export default withRouteSpec({
     endpoint_id: z.string(),
   }),
   jsonResponse: z.object({
-    endpoint: endpoint_schema.optional(),
+    endpoint: public_endpoint_schema.optional(),
   }),
 } as const)(async (req, res) => {
   const { client_session_id, workspace_id } = req.auth
@@ -42,6 +43,6 @@ export default withRouteSpec({
     .find((endpoint) => endpoint.endpoint_id === endpoint_id)
 
   res.status(200).json({
-    endpoint,
+    endpoint: endpoint != null ? publicMapEndpoint(endpoint) : undefined,
   })
 })
