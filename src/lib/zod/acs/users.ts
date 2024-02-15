@@ -1,7 +1,7 @@
 import { z } from "zod"
 
-import { phone_number } from "../phone-number.ts"
-import { schedule } from "../schedule.ts"
+import { phone_number } from "lib/zod/phone-number.ts"
+import { schedule } from "lib/zod/schedule.ts"
 
 export const acs_user_external_type = z.enum([
   "pti_user",
