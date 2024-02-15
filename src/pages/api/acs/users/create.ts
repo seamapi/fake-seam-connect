@@ -48,7 +48,18 @@ export default withRouteSpec({
       message: "Full name field is required to create a user",
     })
 
-  // TODO: check user_identity when it's implemented
+  if (user_identity_id != null) {
+    const user_identity = req.db.user_identities.find(
+      (ui) => ui.user_identity_id === user_identity_id,
+    )
+
+    if (user_identity == null) {
+      throw new BadRequestException({
+        type: "user_identity_not_found",
+        message: "User identity not found",
+      })
+    }
+  }
 
   const acs_system = req.db.acs_systems.find(
     (acs_system) =>
