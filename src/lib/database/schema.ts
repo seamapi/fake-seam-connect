@@ -110,6 +110,8 @@ export interface DatabaseMethods {
     user_identity_key?: string
     email_address?: string
     created_at?: string
+    phone_number?: string
+    full_name?: string
   }) => UserIdentity
   addEndpoint: (params: {
     assa_abloy_credential_service_id: string

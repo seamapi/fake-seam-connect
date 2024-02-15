@@ -277,7 +277,13 @@ const initializer = immer<Database>((set, get) => ({
       user_identity_id,
       user_identity_key: params.user_identity_key ?? null,
       email_address: params.email_address ?? null,
-      full_name: null,
+      full_name: params.full_name ?? null,
+      display_name:
+        params.full_name ??
+        params.email_address ??
+        params.user_identity_key ??
+        `Fake user with id ${user_identity_id}`,
+      phone_number: params.phone_number ?? null,
       created_at: params.created_at ?? new Date().toISOString(),
     }
 
