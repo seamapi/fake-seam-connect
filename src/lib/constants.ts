@@ -1,6 +1,9 @@
-import { AcsSystemExternalType } from "./zod/acs/system.ts"
+import type { AcsSystemExternalType } from "./zod/acs/system.ts"
 
-export const SYSTEM_TYPE_TO_DISPLAY_NAME: Record<AcsSystemExternalType, string> = {
+export const SYSTEM_TYPE_TO_DISPLAY_NAME: Record<
+  AcsSystemExternalType,
+  string
+> = {
   pti_site: "PTI site",
   alta_org: "Alta org",
   brivo_account: "Brivo account",
