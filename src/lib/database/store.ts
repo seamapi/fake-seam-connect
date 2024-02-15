@@ -5,6 +5,7 @@ import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
 import { hoist } from "zustand-hoist"
 
+import { SYSTEM_TYPE_TO_DISPLAY_NAME } from "lib/constants.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
 import type { AccessCode } from "lib/zod/access_code.ts"
 import type { AccessToken } from "lib/zod/access_token.ts"
@@ -28,7 +29,6 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
-import { SYSTEM_TYPE_TO_DISPLAY_NAME } from "lib/constants.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
