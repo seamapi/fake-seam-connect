@@ -1217,6 +1217,32 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/acs/users/suspend": {
+    route: "/acs/users/suspend"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      acs_user_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/acs/users/unsuspend": {
+    route: "/acs/users/unsuspend"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      acs_user_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/acs/users/update": {
     route: "/acs/users/update"
     method: "PATCH" | "POST"
