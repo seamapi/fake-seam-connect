@@ -4,6 +4,8 @@ import type { HoistedStoreApi } from "zustand-hoist"
 import type {
   AccessCode,
   AccessToken,
+  AcsAccessGroup,
+  AcsUser,
   ActionAttempt,
   ApiKey,
   ClientSession,
@@ -60,6 +62,8 @@ export interface DatabaseState {
   phone_sdk_installations: PhoneSdkInstallation[]
   user_identities: UserIdentity[]
   acs_systems: AcsSystem[]
+  acs_users: AcsUser[]
+  acs_access_groups: AcsAccessGroup[]
 }
 
 export interface DatabaseMethods {
@@ -106,6 +110,8 @@ export interface DatabaseMethods {
     user_identity_key?: string
     email_address?: string
     created_at?: string
+    phone_number?: string
+    full_name?: string
   }) => UserIdentity
   addEndpoint: (params: {
     assa_abloy_credential_service_id: string
@@ -295,13 +301,36 @@ export interface DatabaseMethods {
   }) => Endpoint[]
 
   addAcsSystem: (
-    params: Partial<AcsSystem> &
-      Pick<
-        AcsSystem,
-        "external_type" | "name" | "workspace_id" | "connected_account_ids"
-      > &
+    params: Pick<
+      AcsSystem,
+      "external_type" | "name" | "workspace_id" | "connected_account_ids"
+    > &
       Partial<Pick<AcsSystem, "created_at">>,
   ) => AcsSystem
+
+  addAcsUser: (
+    params: Partial<
+      Omit<AcsUser, "acs_user_id" | "external_type_display_name">
+    > &
+      Pick<AcsUser, "external_type" | "acs_system_id" | "workspace_id">,
+  ) => AcsUser
+  deleteAcsUser: (acs_user_id: AcsUser["acs_user_id"]) => void
+
+  addAcsAccessGroup: (
+    params: Pick<
+      AcsAccessGroup,
+      "external_type" | "name" | "workspace_id" | "acs_system_id"
+    > &
+      Partial<Pick<AcsAccessGroup, "created_at">>,
+  ) => AcsAccessGroup
+  addAcsUserToAcsAccessGroup: (params: {
+    acs_user_id: string
+    acs_access_group_id: string
+  }) => void
+  removeAcsUserFromAcsAccessGroup: (params: {
+    acs_user_id: string
+    acs_access_group_id: string
+  }) => void
 
   update: (t?: number) => void
 }

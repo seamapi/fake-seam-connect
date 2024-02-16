@@ -5,11 +5,17 @@ import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
 import { hoist } from "zustand-hoist"
 
-import { SYSTEM_TYPE_TO_DISPLAY_NAME } from "lib/constants.ts"
+import {
+  ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME,
+  ACS_SYSTEM_TYPE_TO_DISPLAY_NAME,
+  USER_TYPE_TO_DISPLAY_NAME,
+} from "lib/constants.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
 import type { AccessCode } from "lib/zod/access_code.ts"
 import type { AccessToken } from "lib/zod/access_token.ts"
+import type { AcsAccessGroup } from "lib/zod/acs/access_group.ts"
 import type { AcsSystem } from "lib/zod/acs/system.ts"
+import type { AcsUser } from "lib/zod/acs/users.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
 import type {
@@ -76,6 +82,8 @@ const initializer = immer<Database>((set, get) => ({
   phone_invitations: [],
   phone_sdk_installations: [],
   acs_systems: [],
+  acs_users: [],
+  acs_access_groups: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -269,7 +277,13 @@ const initializer = immer<Database>((set, get) => ({
       user_identity_id,
       user_identity_key: params.user_identity_key ?? null,
       email_address: params.email_address ?? null,
-      full_name: null,
+      full_name: params.full_name ?? null,
+      display_name:
+        params.full_name ??
+        params.email_address ??
+        params.user_identity_key ??
+        `Fake user with id ${user_identity_id}`,
+      phone_number: params.phone_number ?? null,
       created_at: params.created_at ?? new Date().toISOString(),
     }
 
@@ -1202,9 +1216,10 @@ const initializer = immer<Database>((set, get) => ({
       workspace_id,
       created_at: created_at ?? new Date().toISOString(),
       system_type: external_type,
-      system_type_display_name: SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
+      system_type_display_name: ACS_SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
       external_type,
-      external_type_display_name: SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
+      external_type_display_name:
+        ACS_SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
       connected_account_ids: connected_account_ids ?? [],
     }
 
@@ -1213,6 +1228,156 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_acs_system
+  },
+
+  addAcsUser({
+    external_type,
+    workspace_id,
+    created_at,
+    acs_system_id,
+    email,
+    email_address,
+    full_name,
+    is_suspended,
+    access_schedule,
+    display_name,
+    hid_acs_system_id,
+    phone_number,
+    user_identity_email_address,
+    user_identity_id,
+    user_identity_phone_number,
+  }) {
+    const acs_user_id = get()._getNextId("acs_user")
+    const user_email =
+      email ??
+      email_address ??
+      `acs_user_${simpleHash(acs_user_id)}@example.com`
+    const user_full_name = full_name ?? "Fake ACS User"
+
+    const new_acs_user: AcsUser = {
+      acs_user_id,
+      acs_system_id,
+      workspace_id,
+      full_name: user_full_name ?? "Fake ACS User",
+      display_name:
+        display_name ?? user_full_name ?? user_email ?? "Fake Unnamed User",
+      email: user_email,
+      email_address: user_email,
+      created_at: created_at ?? new Date().toISOString(),
+      is_suspended: is_suspended ?? false,
+      ...(access_schedule != null && { access_schedule }),
+      ...(external_type != null && {
+        external_type,
+        external_type_display_name: USER_TYPE_TO_DISPLAY_NAME[external_type],
+      }),
+      ...(hid_acs_system_id != null && { hid_acs_system_id }),
+      ...(phone_number != null && { phone_number }),
+      ...(user_identity_email_address != null && {
+        user_identity_email_address,
+      }),
+      ...(user_identity_id != null && { user_identity_id }),
+      ...(user_identity_phone_number != null && { user_identity_phone_number }),
+    }
+
+    set({
+      acs_users: [...get().acs_users, new_acs_user],
+    })
+
+    return new_acs_user
+  },
+  deleteAcsUser(acs_user_id) {
+    const target = get().acs_users.find(
+      (acs_user) => acs_user.acs_user_id === acs_user_id,
+    )
+    if (target == null) {
+      throw new Error("Could not find acs_user with acs_user_id")
+    }
+
+    set({
+      acs_users: [
+        ...get().acs_users.filter((acs_user) => {
+          const is_target = acs_user.acs_user_id === target.acs_user_id
+
+          return !is_target
+        }),
+      ],
+    })
+  },
+
+  addAcsAccessGroup({
+    acs_system_id,
+    external_type,
+    name,
+    workspace_id,
+    created_at,
+  }) {
+    const new_acs_access_group: AcsAccessGroup = {
+      _acs_user_ids: [],
+
+      acs_access_group_id: get()._getNextId("acs_access_group"),
+      acs_system_id,
+      name,
+      workspace_id,
+      created_at: created_at ?? new Date().toISOString(),
+      access_group_type: external_type,
+      access_group_type_display_name:
+        ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME[external_type],
+      external_type,
+      external_type_display_name:
+        ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME[external_type],
+    }
+
+    set({
+      acs_access_groups: [...get().acs_access_groups, new_acs_access_group],
+    })
+
+    return new_acs_access_group
+  },
+  addAcsUserToAcsAccessGroup({ acs_access_group_id, acs_user_id }) {
+    const access_group = get().acs_access_groups.find(
+      (group) => group.acs_access_group_id === acs_access_group_id,
+    )
+    if (access_group == null) {
+      throw new Error("Could not find access group with acs_access_group_id")
+    }
+
+    set({
+      acs_access_groups: [
+        ...get().acs_access_groups.map((access_group) => {
+          if (access_group.acs_access_group_id === acs_access_group_id) {
+            return {
+              ...access_group,
+              _acs_user_ids: [...access_group._acs_user_ids, acs_user_id],
+            }
+          }
+          return access_group
+        }),
+      ],
+    })
+  },
+  removeAcsUserFromAcsAccessGroup({ acs_access_group_id, acs_user_id }) {
+    const access_group = get().acs_access_groups.find(
+      (group) => group.acs_access_group_id === acs_access_group_id,
+    )
+    if (access_group == null) {
+      throw new Error("Could not find access group with acs_access_group_id")
+    }
+
+    set({
+      acs_access_groups: [
+        ...get().acs_access_groups.map((access_group) => {
+          if (access_group.acs_access_group_id === acs_access_group_id) {
+            return {
+              ...access_group,
+              _acs_user_ids: access_group._acs_user_ids.filter(
+                (id) => id !== acs_user_id,
+              ),
+            }
+          }
+          return access_group
+        }),
+      ],
+    })
   },
 
   update() {},
