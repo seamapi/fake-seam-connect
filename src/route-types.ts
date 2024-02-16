@@ -1217,6 +1217,31 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/acs/users/update": {
+    route: "/acs/users/update"
+    method: "PATCH" | "POST"
+    queryParams: {}
+    jsonBody: {
+      access_schedule?:
+        | {
+            starts_at: string
+            ends_at: string
+          }
+        | undefined
+      acs_user_id: string
+      full_name?: string | undefined
+      /** Deprecated: use email_address. */
+      email?: string | undefined
+      phone_number?: string | undefined
+      email_address?: string | undefined
+      hid_acs_system_id?: string | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/action_attempts/get": {
     route: "/action_attempts/get"
     method: "GET" | "POST"
