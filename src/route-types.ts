@@ -1053,6 +1053,20 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/acs/users/add_to_access_group": {
+    route: "/acs/users/add_to_access_group"
+    method: "PUT" | "POST"
+    queryParams: {}
+    jsonBody: {
+      acs_user_id: string
+      acs_access_group_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/acs/users/create": {
     route: "/acs/users/create"
     method: "POST"
@@ -1214,6 +1228,20 @@ export type Routes = {
         email_address?: string | undefined
         phone_number?: string | undefined
       }[]
+      ok: boolean
+    }
+  }
+  "/acs/users/remove_from_access_group": {
+    route: "/acs/users/remove_from_access_group"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {
+      acs_user_id: string
+      acs_access_group_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
       ok: boolean
     }
   }
