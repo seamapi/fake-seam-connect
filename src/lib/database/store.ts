@@ -1303,6 +1303,35 @@ const initializer = immer<Database>((set, get) => ({
       ],
     })
   },
+  updateAcsUser(params) {
+    const target = get().acs_users.find(
+      (acs_user) => acs_user.acs_user_id === params.acs_user_id,
+    )
+    if (target == null) {
+      throw new Error("Could not find acs_user with acs_user_id")
+    }
+
+    const updated: AcsUser = {
+      ...target,
+      ...params,
+    }
+
+    set({
+      acs_users: [
+        ...get().acs_users.map((acs_user) => {
+          const is_target = acs_user.acs_user_id === target.acs_user_id
+
+          if (is_target) {
+            return updated
+          }
+
+          return acs_user
+        }),
+      ],
+    })
+
+    return updated
+  },
 
   addAcsAccessGroup({
     acs_system_id,

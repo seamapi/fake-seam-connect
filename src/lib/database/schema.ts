@@ -315,6 +315,9 @@ export interface DatabaseMethods {
       Pick<AcsUser, "external_type" | "acs_system_id" | "workspace_id">,
   ) => AcsUser
   deleteAcsUser: (acs_user_id: AcsUser["acs_user_id"]) => void
+  updateAcsUser: (
+    params: Pick<AcsUser, "acs_user_id"> & Partial<AcsUser>,
+  ) => AcsUser
 
   addAcsAccessGroup: (
     params: Pick<

@@ -1053,6 +1053,20 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/acs/users/add_to_access_group": {
+    route: "/acs/users/add_to_access_group"
+    method: "PUT" | "POST"
+    queryParams: {}
+    jsonBody: {
+      acs_user_id: string
+      acs_access_group_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/acs/users/create": {
     route: "/acs/users/create"
     method: "POST"
@@ -1214,6 +1228,71 @@ export type Routes = {
         email_address?: string | undefined
         phone_number?: string | undefined
       }[]
+      ok: boolean
+    }
+  }
+  "/acs/users/remove_from_access_group": {
+    route: "/acs/users/remove_from_access_group"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {
+      acs_user_id: string
+      acs_access_group_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/acs/users/suspend": {
+    route: "/acs/users/suspend"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      acs_user_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/acs/users/unsuspend": {
+    route: "/acs/users/unsuspend"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      acs_user_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/acs/users/update": {
+    route: "/acs/users/update"
+    method: "PATCH" | "POST"
+    queryParams: {}
+    jsonBody: {
+      access_schedule?:
+        | {
+            starts_at: string
+            ends_at: string
+          }
+        | undefined
+      acs_user_id: string
+      full_name?: string | undefined
+      /** Deprecated: use email_address. */
+      email?: string | undefined
+      phone_number?: string | undefined
+      email_address?: string | undefined
+      hid_acs_system_id?: string | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
       ok: boolean
     }
   }
