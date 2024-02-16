@@ -314,6 +314,7 @@ export interface DatabaseMethods {
     > &
       Pick<AcsUser, "external_type" | "acs_system_id" | "workspace_id">,
   ) => AcsUser
+  deleteAcsUser: (acs_user_id: AcsUser["acs_user_id"]) => void
 
   addAcsAccessGroup: (
     params: Pick<
@@ -323,6 +324,10 @@ export interface DatabaseMethods {
       Partial<Pick<AcsAccessGroup, "created_at">>,
   ) => AcsAccessGroup
   addAcsUserToAcsAccessGroup: (params: {
+    acs_user_id: string
+    acs_access_group_id: string
+  }) => void
+  removeAcsUserFromAcsAccessGroup: (params: {
     acs_user_id: string
     acs_access_group_id: string
   }) => void

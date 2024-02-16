@@ -1285,6 +1285,24 @@ const initializer = immer<Database>((set, get) => ({
 
     return new_acs_user
   },
+  deleteAcsUser(acs_user_id) {
+    const target = get().acs_users.find(
+      (acs_user) => acs_user.acs_user_id === acs_user_id,
+    )
+    if (target == null) {
+      throw new Error("Could not find acs_user with acs_user_id")
+    }
+
+    set({
+      acs_users: [
+        ...get().acs_users.filter((acs_user) => {
+          const is_target = acs_user.acs_user_id === target.acs_user_id
+
+          return !is_target
+        }),
+      ],
+    })
+  },
 
   addAcsAccessGroup({
     acs_system_id,
@@ -1330,6 +1348,30 @@ const initializer = immer<Database>((set, get) => ({
             return {
               ...access_group,
               _acs_user_ids: [...access_group._acs_user_ids, acs_user_id],
+            }
+          }
+          return access_group
+        }),
+      ],
+    })
+  },
+  removeAcsUserFromAcsAccessGroup({ acs_access_group_id, acs_user_id }) {
+    const access_group = get().acs_access_groups.find(
+      (group) => group.acs_access_group_id === acs_access_group_id,
+    )
+    if (access_group == null) {
+      throw new Error("Could not find access group with acs_access_group_id")
+    }
+
+    set({
+      acs_access_groups: [
+        ...get().acs_access_groups.map((access_group) => {
+          if (access_group.acs_access_group_id === acs_access_group_id) {
+            return {
+              ...access_group,
+              _acs_user_ids: access_group._acs_user_ids.filter(
+                (id) => id !== acs_user_id,
+              ),
             }
           }
           return access_group

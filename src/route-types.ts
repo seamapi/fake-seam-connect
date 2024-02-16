@@ -1111,6 +1111,19 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/acs/users/delete": {
+    route: "/acs/users/delete"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      acs_user_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/acs/users/get": {
     route: "/acs/users/get"
     method: "GET" | "POST"

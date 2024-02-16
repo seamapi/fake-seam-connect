@@ -33,7 +33,7 @@ export default withRouteSpec({
         (user_identity_email_address != null &&
           ui.email_address === user_identity_email_address),
     )
-    .map((ui) => ui.user_identity_id)
+    .map(({ user_identity_id }) => user_identity_id)
 
   const acs_users = req.db.acs_users.filter(
     (u) =>
