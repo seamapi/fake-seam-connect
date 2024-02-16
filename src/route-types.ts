@@ -1156,6 +1156,54 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/acs/users/list": {
+    route: "/acs/users/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      user_identity_id?: string | undefined
+      user_identity_phone_number?: string | undefined
+      user_identity_email_address?: string | undefined
+      acs_system_id?: string | undefined
+    }
+    formData: {}
+    jsonResponse: {
+      acs_users: {
+        acs_user_id: string
+        acs_system_id: string
+        hid_acs_system_id?: string | undefined
+        workspace_id: string
+        created_at: string
+        display_name: string
+        external_type?:
+          | (
+              | "pti_user"
+              | "brivo_user"
+              | "hid_credential_manager_user"
+              | "salto_site_user"
+            )
+          | undefined
+        external_type_display_name?: string | undefined
+        is_suspended: boolean
+        access_schedule?:
+          | {
+              starts_at: string
+              ends_at: string
+            }
+          | undefined
+        user_identity_id?: string | undefined
+        user_identity_email_address?: string | undefined
+        user_identity_phone_number?: string | undefined
+        full_name?: string | undefined
+        /** Deprecated: use email_address. */
+        email?: string | undefined
+        email_address?: string | undefined
+        phone_number?: string | undefined
+      }[]
+      ok: boolean
+    }
+  }
   "/action_attempts/get": {
     route: "/action_attempts/get"
     method: "GET" | "POST"

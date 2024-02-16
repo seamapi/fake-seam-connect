@@ -23,6 +23,7 @@ interface Seed {
     noise_threshold_id: string
     acs_system1_id: string
     acs_user1_id: string
+    acs_access_group1_id: string
   }
 }
 
@@ -120,6 +121,13 @@ export const getTestDatabase = async (
     acs_system_id,
   })
 
+  const { acs_access_group_id } = db.addAcsAccessGroup({
+    acs_system_id,
+    external_type: "pti_unit",
+    name: "Fake Unit 1",
+    workspace_id: ws2.workspace_id,
+  })
+
   const seed: Seed = {
     ws1: {
       workspace_id: ws1.workspace_id,
@@ -136,6 +144,7 @@ export const getTestDatabase = async (
       noise_threshold_id,
       acs_system1_id: acs_system_id,
       acs_user1_id: acs_user_id,
+      acs_access_group1_id: acs_access_group_id,
     },
   }
 
