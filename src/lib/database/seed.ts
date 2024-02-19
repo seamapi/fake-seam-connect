@@ -17,6 +17,7 @@ export interface Seed {
   seam_pk1_token: "seam_pk1_token"
   john_user_identifier_key: "john_user_identifier_key"
   john_user_identity_id: string
+  visionline_acs_system_1: "visionline_acs_system_1"
 }
 
 export const seed = (db: Database): Seed => {
@@ -196,6 +197,14 @@ export const seed = (db: Database): Seed => {
     })
   }
 
+  db.addAcsSystem({
+    acs_system_id: "visionline_acs_system_1",
+    external_type: "visionline_system",
+    name: "Fake Visionline System",
+    workspace_id: "seed_workspace_1",
+    connected_account_ids: ["john_connected_account_id"],
+  })
+
   return {
     john_connected_account_id: "john_connected_account_id",
     jane_connected_account_id: "jane_connected_account_id",
@@ -213,5 +222,6 @@ export const seed = (db: Database): Seed => {
     seam_pk1_token: "seam_pk1_token",
     john_user_identifier_key: "john_user_identifier_key",
     john_user_identity_id: "john_user_identity_id",
+    visionline_acs_system_1: "visionline_acs_system_1",
   }
 }
