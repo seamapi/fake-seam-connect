@@ -35,6 +35,7 @@ import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import { AcsEntrance } from "lib/zod/acs/entrance.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -84,6 +85,7 @@ const initializer = immer<Database>((set, get) => ({
   acs_systems: [],
   acs_users: [],
   acs_access_groups: [],
+  acs_entrances: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -1407,6 +1409,42 @@ const initializer = immer<Database>((set, get) => ({
         }),
       ],
     })
+  },
+
+  addAcsEntrance({
+    acs_system_id,
+    created_at,
+    display_name,
+    visionline_metadata,
+    properties,
+    visionline_door_id,
+  }) {
+    const acs_system = get().acs_systems.find(
+      (system) => system.acs_system_id === acs_system_id,
+    )
+    if (!acs_system) {
+      throw new Error("Could not find acs_system with acs_system_id")
+    }
+
+    const new_acs_entrance: AcsEntrance = {
+      acs_entrance_id: get()._getNextId("acs_entrance"),
+      acs_system_id,
+      created_at: created_at ?? new Date().toISOString(),
+      display_name:
+        visionline_metadata?.door_name ??
+        display_name ??
+        "Fake unnamed entrance",
+      properties: properties ?? {},
+      visionline_door_id: visionline_door_id ?? null,
+      visionline_metadata: visionline_metadata ?? null,
+      workspace_id: acs_system.workspace_id,
+    }
+
+    set({
+      acs_entrances: [...get().acs_entrances, new_acs_entrance],
+    })
+
+    return new_acs_entrance
   },
 
   update() {},

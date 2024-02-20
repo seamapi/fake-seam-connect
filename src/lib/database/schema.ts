@@ -31,6 +31,7 @@ import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 import type { Endpoint } from "lib/zod/endpoints.ts"
 import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
+import { AcsEntrance } from "lib/zod/acs/entrance.ts"
 
 export type WorkspaceId = string
 
@@ -64,6 +65,7 @@ export interface DatabaseState {
   acs_systems: AcsSystem[]
   acs_users: AcsUser[]
   acs_access_groups: AcsAccessGroup[]
+  acs_entrances: AcsEntrance[]
 }
 
 export interface DatabaseMethods {
@@ -334,6 +336,10 @@ export interface DatabaseMethods {
     acs_user_id: string
     acs_access_group_id: string
   }) => void
+
+  addAcsEntrance: (
+    params: Partial<AcsEntrance> & Pick<AcsEntrance, "acs_system_id">,
+  ) => AcsEntrance
 
   update: (t?: number) => void
 }
