@@ -1422,7 +1422,7 @@ const initializer = immer<Database>((set, get) => ({
     const acs_system = get().acs_systems.find(
       (system) => system.acs_system_id === acs_system_id,
     )
-    if (!acs_system) {
+    if (acs_system == null) {
       throw new Error("Could not find acs_system with acs_system_id")
     }
 
