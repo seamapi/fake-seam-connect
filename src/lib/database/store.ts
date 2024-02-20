@@ -1211,9 +1211,10 @@ const initializer = immer<Database>((set, get) => ({
     workspace_id,
     created_at,
     connected_account_ids,
+    acs_system_id,
   }) {
     const new_acs_system: AcsSystem = {
-      acs_system_id: get()._getNextId("acs_system"),
+      acs_system_id: acs_system_id ?? get()._getNextId("acs_system"),
       name,
       workspace_id,
       created_at: created_at ?? new Date().toISOString(),
