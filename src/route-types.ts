@@ -973,6 +973,40 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/acs/entrances/get": {
+    route: "/acs/entrances/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      acs_entrance_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      acs_entrance: {
+        acs_entrance_id: string
+        display_name: string
+        acs_system_id: string
+        created_at: string
+        visionline_metadata: {
+          door_name: string
+          door_category:
+            | "entrance"
+            | "guest"
+            | "elevator reader"
+            | "common"
+            | "common (PMS)"
+          profiles?:
+            | {
+                visionline_door_profile_id: string
+                visionline_door_profile_type: "BLE" | "commonDoor" | "touch"
+              }[]
+            | undefined
+        } | null
+      }
+      ok: boolean
+    }
+  }
   "/acs/systems/get": {
     route: "/acs/systems/get"
     method: "GET" | "POST"
