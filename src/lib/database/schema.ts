@@ -305,7 +305,7 @@ export interface DatabaseMethods {
       AcsSystem,
       "external_type" | "name" | "workspace_id" | "connected_account_ids"
     > &
-      Partial<Pick<AcsSystem, "created_at">>,
+      Partial<Pick<AcsSystem, "created_at" | "acs_system_id">>,
   ) => AcsSystem
 
   addAcsUser: (
