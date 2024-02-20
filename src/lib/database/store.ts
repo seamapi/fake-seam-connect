@@ -16,7 +16,7 @@ import type { AccessToken } from "lib/zod/access_token.ts"
 import type { AcsAccessGroup } from "lib/zod/acs/access_group.ts"
 import type { AcsEntrance } from "lib/zod/acs/entrance.ts"
 import type { AcsSystem } from "lib/zod/acs/system.ts"
-import type { AcsUser } from "lib/zod/acs/users.ts"
+import type { AcsUser } from "lib/zod/acs/user.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
 import type {
