@@ -1025,7 +1025,8 @@ const initializer = immer<Database>((set, get) => ({
       throw new Error("Could not find client session")
     }
 
-    if (client_session.user_identity_ids.length === 0) {
+    const [user_identity_id] = client_session.user_identity_ids
+    if (user_identity_id == null) {
       throw new Error(
         "Could not find client session associated with a user identity!",
       )
@@ -1043,8 +1044,7 @@ const initializer = immer<Database>((set, get) => ({
       ext_sdk_installation_id: params.ext_sdk_installation_id,
       phone_sdk_installation_id: installation_id,
       workspace_id: params.workspace_id,
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      user_identity_id: client_session.user_identity_ids[0]!,
+      user_identity_id,
     }
 
     set({
@@ -1085,7 +1085,8 @@ const initializer = immer<Database>((set, get) => ({
       )
     }
 
-    if (client_session.user_identity_ids.length === 0) {
+    const [user_identity_id] = client_session.user_identity_ids
+    if (user_identity_id == null) {
       throw new Error(
         "Could not find client session associated with a user identity!",
       )
@@ -1098,8 +1099,7 @@ const initializer = immer<Database>((set, get) => ({
       invitation_code: params.invitation_code,
       phone_sdk_installation_id: params.phone_sdk_installation_id,
       workspace_id: params.workspace_id,
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      user_identity_id: client_session.user_identity_ids[0]!,
+      user_identity_id,
 
       assa_abloy_credential_service_id: params.assa_abloy_credential_service_id,
     }
