@@ -174,7 +174,7 @@ export const seed = (db: Database): Seed => {
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: ["john_connected_account_id"],
     user_identifier_key: "john_user_identifier_key",
-    user_identity_id: "john_user_identity_id",
+    user_identity_ids: ["john_user_identity_id"],
     token: "seam_cst1_token",
   })
 

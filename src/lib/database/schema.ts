@@ -102,7 +102,7 @@ export interface DatabaseMethods {
     connected_account_ids?: string[]
     connect_webview_ids?: string[]
     user_identifier_key: string
-    user_identity_id?: string
+    user_identity_ids?: string[]
     token?: string
     created_at?: string
   }) => ClientSession

@@ -261,7 +261,7 @@ const initializer = immer<Database>((set, get) => ({
       client_session_id: cst_id,
       token: params.token ?? `seam_${cst_id}_${simpleHash(cst_id)}`,
       user_identifier_key: params.user_identifier_key ?? null,
-      user_identity_id: params.user_identity_id,
+      user_identity_ids: params.user_identity_ids,
       created_at: params.created_at ?? new Date().toISOString(),
     }
 
@@ -1023,7 +1023,11 @@ const initializer = immer<Database>((set, get) => ({
       (cs) => cs.client_session_id === params.client_session_id,
     )
 
-    if (client_session?.user_identity_id === undefined) {
+    if (client_session == null) {
+      throw new Error("Could not find client session")
+    }
+
+    if (client_session?.user_identity_ids?.length === 0) {
       throw new Error(
         "Could not find client session associated with a user identity!",
       )
@@ -1041,7 +1045,7 @@ const initializer = immer<Database>((set, get) => ({
       ext_sdk_installation_id: params.ext_sdk_installation_id,
       phone_sdk_installation_id: installation_id,
       workspace_id: params.workspace_id,
-      user_identity_id: client_session.user_identity_id,
+      user_identity_id: client_session.user_identity_ids?.[0] ?? "",
     }
 
     set({
@@ -1065,7 +1069,8 @@ const initializer = immer<Database>((set, get) => ({
     return get().phone_sdk_installations.find(
       (installation) =>
         installation.workspace_id === params.workspace_id &&
-        installation.user_identity_id === client_session.user_identity_id &&
+        installation.user_identity_id ===
+          client_session.user_identity_ids![0]! &&
         installation.ext_sdk_installation_id === params.ext_sdk_installation_id,
     )
   },
@@ -1075,7 +1080,10 @@ const initializer = immer<Database>((set, get) => ({
       (cs) => cs.client_session_id === params.client_session_id,
     )
 
-    if (client_session?.user_identity_id === undefined) {
+    if (
+      client_session?.user_identity_ids == null ||
+      client_session.user_identity_ids.length === 0
+    ) {
       throw new Error(
         "Could not find client session associated with a user identity!",
       )
@@ -1088,7 +1096,7 @@ const initializer = immer<Database>((set, get) => ({
       invitation_code: params.invitation_code,
       phone_sdk_installation_id: params.phone_sdk_installation_id,
       workspace_id: params.workspace_id,
-      user_identity_id: client_session.user_identity_id,
+      user_identity_id: client_session.user_identity_ids[0]!,
 
       assa_abloy_credential_service_id: params.assa_abloy_credential_service_id,
     }
@@ -1131,7 +1139,10 @@ const initializer = immer<Database>((set, get) => ({
       (cs) => cs.client_session_id === params.client_session_id,
     )
 
-    if (client_session?.user_identity_id === undefined) {
+    if (
+      client_session?.user_identity_ids === undefined ||
+      client_session.user_identity_ids.length === 0
+    ) {
       throw new Error(
         "Could not find client session associated with a user identity!",
       )
@@ -1139,7 +1150,7 @@ const initializer = immer<Database>((set, get) => ({
 
     return get().enrollment_automations.filter(
       (automation) =>
-        automation.user_identity_id === client_session.user_identity_id,
+        automation.user_identity_id === client_session.user_identity_ids![0],
     )
   },
 
@@ -1159,7 +1170,10 @@ const initializer = immer<Database>((set, get) => ({
       (cs) => cs.client_session_id === params.client_session_id,
     )
 
-    if (client_session?.user_identity_id === undefined) {
+    if (
+      client_session?.user_identity_ids === undefined ||
+      client_session.user_identity_ids.length === 0
+    ) {
       throw new UnauthorizedException({
         type: "unassociated_session",
         message:
@@ -1171,7 +1185,7 @@ const initializer = immer<Database>((set, get) => ({
       (invitation) =>
         invitation.phone_sdk_installation_id ===
           params.phone_sdk_installation_id &&
-        invitation.user_identity_id === client_session.user_identity_id,
+        invitation.user_identity_id === client_session.user_identity_ids![0],
     )
   },
 
@@ -1180,7 +1194,10 @@ const initializer = immer<Database>((set, get) => ({
       (cs) => cs.client_session_id === params.client_session_id,
     )
 
-    if (client_session?.user_identity_id === undefined) {
+    if (
+      client_session?.user_identity_ids === undefined ||
+      client_session.user_identity_ids.length === 0
+    ) {
       throw new Error(
         "Could not find client session associated with a user identity!",
       )
@@ -1190,7 +1207,7 @@ const initializer = immer<Database>((set, get) => ({
       (invitation) =>
         invitation.phone_sdk_installation_id ===
           params.phone_sdk_installation_id &&
-        invitation.user_identity_id === client_session.user_identity_id,
+        invitation.user_identity_id === client_session.user_identity_ids![0],
     )
 
     return get().endpoints.filter(
