@@ -1068,7 +1068,7 @@ const initializer = immer<Database>((set, get) => ({
       (installation) =>
         installation.workspace_id === params.workspace_id &&
         installation.user_identity_id ===
-          client_session.user_identity_ids![0]! &&
+          client_session.user_identity_ids?.[0] &&
         installation.ext_sdk_installation_id === params.ext_sdk_installation_id,
     )
   },
@@ -1094,7 +1094,7 @@ const initializer = immer<Database>((set, get) => ({
       invitation_code: params.invitation_code,
       phone_sdk_installation_id: params.phone_sdk_installation_id,
       workspace_id: params.workspace_id,
-      user_identity_id: client_session.user_identity_ids[0]!,
+      user_identity_id: client_session.user_identity_ids[0] ?? "",
 
       assa_abloy_credential_service_id: params.assa_abloy_credential_service_id,
     }
@@ -1148,7 +1148,7 @@ const initializer = immer<Database>((set, get) => ({
 
     return get().enrollment_automations.filter(
       (automation) =>
-        automation.user_identity_id === client_session.user_identity_ids![0],
+        automation.user_identity_id === client_session.user_identity_ids?.[0],
     )
   },
 
@@ -1183,7 +1183,7 @@ const initializer = immer<Database>((set, get) => ({
       (invitation) =>
         invitation.phone_sdk_installation_id ===
           params.phone_sdk_installation_id &&
-        invitation.user_identity_id === client_session.user_identity_ids![0],
+        invitation.user_identity_id === client_session.user_identity_ids?.[0],
     )
   },
 
@@ -1205,7 +1205,7 @@ const initializer = immer<Database>((set, get) => ({
       (invitation) =>
         invitation.phone_sdk_installation_id ===
           params.phone_sdk_installation_id &&
-        invitation.user_identity_id === client_session.user_identity_ids![0],
+        invitation.user_identity_id === client_session.user_identity_ids?.[0],
     )
 
     return get().endpoints.filter(
