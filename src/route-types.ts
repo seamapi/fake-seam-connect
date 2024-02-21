@@ -1487,8 +1487,7 @@ export type Routes = {
         workspace_id: string
         token: string
         user_identifier_key: string
-        user_identity_id?: string | undefined
-        user_identity_ids?: string[] | undefined
+        user_identity_ids: string[]
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
@@ -1513,8 +1512,7 @@ export type Routes = {
         workspace_id: string
         token: string
         user_identifier_key: string
-        user_identity_id?: string | undefined
-        user_identity_ids?: string[] | undefined
+        user_identity_ids: string[]
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
@@ -1545,8 +1543,7 @@ export type Routes = {
         workspace_id: string
         token: string
         user_identifier_key: string
-        user_identity_id?: string | undefined
-        user_identity_ids?: string[] | undefined
+        user_identity_ids: string[]
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
