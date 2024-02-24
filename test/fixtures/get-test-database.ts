@@ -109,7 +109,7 @@ export const getTestDatabase = async (
   })
 
   const { acs_system_id } = db.addAcsSystem({
-    external_type: "pti_site",
+    external_type: "visionline_system",
     name: "Fake Example Inc",
     workspace_id: ws2.workspace_id,
     connected_account_ids: [ca.connected_account_id],

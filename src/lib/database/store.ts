@@ -1256,6 +1256,13 @@ const initializer = immer<Database>((set, get) => ({
       `acs_user_${simpleHash(acs_user_id)}@example.com`
     const user_full_name = full_name ?? "Fake ACS User"
 
+    const acs_system = get().acs_systems.find(
+      (acs_system) => acs_system.acs_system_id === acs_system_id,
+    )
+    if (acs_system == null) {
+      throw new Error("Could not find acs_system with acs_system_id")
+    }
+
     const new_acs_user: AcsUser = {
       acs_user_id,
       acs_system_id,
@@ -1436,6 +1443,7 @@ const initializer = immer<Database>((set, get) => ({
       properties: properties ?? {},
       visionline_metadata: visionline_metadata ?? null,
       workspace_id: acs_system.workspace_id,
+      _acs_user_ids: [],
     }
 
     set({
@@ -1443,6 +1451,35 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_acs_entrance
+  },
+
+  grantAcsUserAccessToAcsEntrance({ acs_user_id, acs_entrance_id }) {
+    const acs_user = get().acs_users.find(
+      (system) => system.acs_user_id === acs_user_id,
+    )
+    if (acs_user == null) {
+      throw new Error("Could not find acs_user with acs_user_id")
+    }
+
+    const acs_entrance = get().acs_entrances.find(
+      (system) => system.acs_entrance_id === acs_entrance_id,
+    )
+    if (acs_entrance == null) {
+      throw new Error("Could not find acs_entrance with acs_entrance_id")
+    }
+
+    set({
+      acs_entrances: get().acs_entrances.map((acs_entrance) => {
+        if (acs_entrance.acs_entrance_id === acs_entrance_id) {
+          return {
+            ...acs_entrance,
+            _acs_user_ids: [...acs_entrance._acs_user_ids, acs_user_id],
+          }
+        }
+
+        return acs_entrance
+      }),
+    })
   },
 
   update() {},

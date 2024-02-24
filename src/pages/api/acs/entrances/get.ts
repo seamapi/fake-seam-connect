@@ -4,6 +4,8 @@ import { z } from "zod"
 import { withRouteSpec } from "lib/middleware/index.ts"
 import { acs_entrance } from "lib/zod/index.ts"
 
+import { cloneWithoutUnderscoreKeys } from "lib/util/clone-without-underscore-keys.ts"
+
 export default withRouteSpec({
   methods: ["GET", "POST"],
   auth: "cst_ak_pk",
@@ -30,6 +32,6 @@ export default withRouteSpec({
   }
 
   res.status(200).json({
-    acs_entrance,
+    acs_entrance: cloneWithoutUnderscoreKeys(acs_entrance),
   })
 })

@@ -3,6 +3,8 @@ import { z } from "zod"
 import { withRouteSpec } from "lib/middleware/index.ts"
 import { acs_entrance } from "lib/zod/index.ts"
 
+import { cloneWithoutUnderscoreKeys } from "lib/util/clone-without-underscore-keys.ts"
+
 export default withRouteSpec({
   methods: ["GET", "POST"],
   auth: "cst_ak_pk",
@@ -14,7 +16,7 @@ export default withRouteSpec({
     acs_entrances: z.array(acs_entrance),
   }),
 } as const)(async (req, res) => {
-  const { acs_system_id, acs_credential_id } = req.commonParams
+  const { acs_system_id } = req.commonParams
 
   // TODO: add acs_credential_id filter when credentials are implemented
   const acs_entrances = req.db.acs_entrances.filter(
@@ -24,6 +26,6 @@ export default withRouteSpec({
   )
 
   res.status(200).json({
-    acs_entrances,
+    acs_entrances: acs_entrances.map(cloneWithoutUnderscoreKeys),
   })
 })

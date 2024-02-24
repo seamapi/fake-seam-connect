@@ -1011,6 +1011,20 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/acs/entrances/grant_access": {
+    route: "/acs/entrances/grant_access"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      acs_entrance_id: string
+      acs_user_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/acs/entrances/list": {
     route: "/acs/entrances/list"
     method: "GET" | "POST"

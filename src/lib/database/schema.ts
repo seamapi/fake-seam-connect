@@ -340,6 +340,10 @@ export interface DatabaseMethods {
   addAcsEntrance: (
     params: Partial<AcsEntrance> & Pick<AcsEntrance, "acs_system_id">,
   ) => AcsEntrance
+  grantAcsUserAccessToAcsEntrance: (params: {
+    acs_user_id: string
+    acs_entrance_id: string
+  }) => void
 
   update: (t?: number) => void
 }

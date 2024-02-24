@@ -33,4 +33,6 @@ export const acs_entrance = z.object({
     .nullable(),
 })
 
-export type AcsEntrance = z.infer<typeof acs_entrance>
+export type AcsEntrance = z.infer<typeof acs_entrance> & {
+  _acs_user_ids: string[]
+}
