@@ -987,7 +987,11 @@ export type Routes = {
         acs_entrance_id: string
         display_name: string
         acs_system_id: string
+        workspace_id: string
         created_at: string
+        properties: {
+          [x: string]: any
+        }
         visionline_metadata: {
           door_name: string
           door_category:

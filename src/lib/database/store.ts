@@ -1417,7 +1417,6 @@ const initializer = immer<Database>((set, get) => ({
     display_name,
     visionline_metadata,
     properties,
-    visionline_door_id,
   }) {
     const acs_system = get().acs_systems.find(
       (system) => system.acs_system_id === acs_system_id,
@@ -1435,7 +1434,6 @@ const initializer = immer<Database>((set, get) => ({
         display_name ??
         "Fake unnamed entrance",
       properties: properties ?? {},
-      visionline_door_id: visionline_door_id ?? null,
       visionline_metadata: visionline_metadata ?? null,
       workspace_id: acs_system.workspace_id,
     }
