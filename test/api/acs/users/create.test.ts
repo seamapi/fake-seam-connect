@@ -11,7 +11,7 @@ test("POST /acs/users/create", async (t: ExecutionContext) => {
     {
       acs_system_id,
       full_name: "jane doe",
-    },
+    },g
     {
       headers: {
         Authorization: `Bearer ${seed.ws2.cst}`,
