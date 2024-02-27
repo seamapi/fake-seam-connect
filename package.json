@@ -68,7 +68,6 @@
   "devDependencies": {
     "@godaddy/terminus": "^4.12.1",
     "@seamapi/fake-devicedb": "^1.6.0",
-    "@seamapi/http": "^0.3.0",
     "@seamapi/logger": "^1.9.2",
     "@seamapi/types": "^1.121.0",
     "@seamapi/url-search-params-serializer": "^1.1.0",
