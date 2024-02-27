@@ -1,7 +1,10 @@
-export const cloneWithoutUnderscoreKeys = <T extends Record<any, any>>(
+type WithoutUnderscoreKeys<T> = {
+  [K in keyof T as K extends `_${string}` ? never : K]: T[K]
+}
+
+export const cloneWithoutUnderscoreKeys = <T extends object>(
   obj: T,
-  // TODO: define proper return type
-): any =>
+): WithoutUnderscoreKeys<T> =>
   Object.fromEntries(
     Object.entries(obj).filter(([key]) => !key.startsWith("_")),
-  )
+  ) as WithoutUnderscoreKeys<T>
