@@ -63,7 +63,7 @@
   "optionalDependencies": {
     "@seamapi/fake-devicedb": ">=1.0.0-rc.0",
     "zustand": "^4.3.7",
-    "zustand-hoist": "^1.0.0"
+    "zustand-hoist": "^2.0.0"
   },
   "devDependencies": {
     "@godaddy/terminus": "^4.12.1",
@@ -107,6 +107,6 @@
     "typescript": "~5.1.0",
     "zod": "^3.21.4",
     "zustand": "^4.3.7",
-    "zustand-hoist": "^1.0.0"
+    "zustand-hoist": "^2.0.0"
   }
 }
