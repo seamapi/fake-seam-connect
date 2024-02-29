@@ -63,14 +63,13 @@
   "optionalDependencies": {
     "@seamapi/fake-devicedb": ">=1.0.0-rc.0",
     "zustand": "^4.3.7",
-    "zustand-hoist": "^1.0.0"
+    "zustand-hoist": "^2.0.0"
   },
   "devDependencies": {
     "@godaddy/terminus": "^4.12.1",
-    "@seamapi/fake-devicedb": "^1.0.0-rc.0",
-    "@seamapi/http": "^0.3.0",
+    "@seamapi/fake-devicedb": "^1.6.0",
     "@seamapi/logger": "^1.9.2",
-    "@seamapi/types": "^1.26.2",
+    "@seamapi/types": "^1.121.0",
     "@seamapi/url-search-params-serializer": "^1.1.0",
     "@tsconfig/next": "^1.0.5",
     "@types/lodash": "^4.14.202",
@@ -107,6 +106,6 @@
     "typescript": "~5.1.0",
     "zod": "^3.21.4",
     "zustand": "^4.3.7",
-    "zustand-hoist": "^1.0.0"
+    "zustand-hoist": "^2.0.0"
   }
 }

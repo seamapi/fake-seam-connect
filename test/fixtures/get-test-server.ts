@@ -1,6 +1,6 @@
 import { createFake as createFakeDevicedb } from "@seamapi/fake-devicedb"
 import type { Database, Routes } from "@seamapi/fake-seam-connect"
-import { paramsSerializer } from "@seamapi/http/connect"
+import { serializeUrlSearchParams } from "@seamapi/url-search-params-serializer"
 import type { ExecutionContext } from "ava"
 import type { Axios } from "axios"
 import type { NextApiRequest } from "next"
@@ -56,7 +56,7 @@ export const getTestServer = async <TSeed extends boolean>(
   })
   baseUrl = fixture.serverURL
 
-  fixture.axios.defaults.paramsSerializer = paramsSerializer
+  fixture.axios.defaults.paramsSerializer = serializeUrlSearchParams
 
   return {
     ...fixture,
