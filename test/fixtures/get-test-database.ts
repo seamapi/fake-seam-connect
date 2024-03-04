@@ -130,7 +130,6 @@ export const getTestDatabase = async (
   })
 
   const { acs_entrance_id } = db.addAcsEntrance({
-    // TODO: change to visionline system id from main
     acs_system_id,
     visionline_metadata: {
       door_name: "Fake Guest Lock 1",
