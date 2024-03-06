@@ -21,6 +21,7 @@ import type {
 } from "lib/zod/index.ts"
 
 import type { RecursivePartial } from "lib/util/type-helpers.ts"
+import type { AcsEntrance } from "lib/zod/acs/entrance.ts"
 import type { AcsSystem } from "lib/zod/acs/system.ts"
 import type {
   AssaAbloyCard,
@@ -64,6 +65,7 @@ export interface DatabaseState {
   acs_systems: AcsSystem[]
   acs_users: AcsUser[]
   acs_access_groups: AcsAccessGroup[]
+  acs_entrances: AcsEntrance[]
 }
 
 export interface DatabaseMethods {
@@ -333,6 +335,14 @@ export interface DatabaseMethods {
   removeAcsUserFromAcsAccessGroup: (params: {
     acs_user_id: string
     acs_access_group_id: string
+  }) => void
+
+  addAcsEntrance: (
+    params: Partial<AcsEntrance> & Pick<AcsEntrance, "acs_system_id">,
+  ) => AcsEntrance
+  grantAcsUserAccessToAcsEntrance: (params: {
+    acs_user_id: string
+    acs_entrance_id: string
   }) => void
 
   update: (t?: number) => void

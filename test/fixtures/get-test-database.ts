@@ -24,6 +24,7 @@ interface Seed {
     acs_system1_id: string
     acs_user1_id: string
     acs_access_group1_id: string
+    acs_entrance1_id: string
   }
 }
 
@@ -108,7 +109,7 @@ export const getTestDatabase = async (
   })
 
   const { acs_system_id } = db.addAcsSystem({
-    external_type: "pti_site",
+    external_type: "visionline_system",
     name: "Fake Example Inc",
     workspace_id: ws2.workspace_id,
     connected_account_ids: [ca.connected_account_id],
@@ -128,6 +129,14 @@ export const getTestDatabase = async (
     workspace_id: ws2.workspace_id,
   })
 
+  const { acs_entrance_id } = db.addAcsEntrance({
+    acs_system_id,
+    visionline_metadata: {
+      door_name: "Fake Guest Lock 1",
+      door_category: "guest",
+    },
+  })
+
   const seed: Seed = {
     ws1: {
       workspace_id: ws1.workspace_id,
@@ -145,6 +154,7 @@ export const getTestDatabase = async (
       acs_system1_id: acs_system_id,
       acs_user1_id: acs_user_id,
       acs_access_group1_id: acs_access_group_id,
+      acs_entrance1_id: acs_entrance_id,
     },
   }
 

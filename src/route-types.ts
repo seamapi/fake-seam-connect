@@ -973,6 +973,97 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/acs/entrances/get": {
+    route: "/acs/entrances/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      acs_entrance_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      acs_entrance: {
+        acs_entrance_id: string
+        display_name: string
+        acs_system_id: string
+        workspace_id: string
+        created_at: string
+        properties: {
+          [x: string]: any
+        }
+        visionline_metadata: {
+          door_name: string
+          door_category:
+            | "entrance"
+            | "guest"
+            | "elevator reader"
+            | "common"
+            | "common (PMS)"
+          profiles?:
+            | {
+                visionline_door_profile_id: string
+                visionline_door_profile_type: "BLE" | "commonDoor" | "touch"
+              }[]
+            | undefined
+        } | null
+      }
+      ok: boolean
+    }
+  }
+  "/acs/entrances/grant_access": {
+    route: "/acs/entrances/grant_access"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      acs_entrance_id: string
+      acs_user_id: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/acs/entrances/list": {
+    route: "/acs/entrances/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      acs_system_id?: string | undefined
+      acs_credential_id?: string | undefined
+    }
+    formData: {}
+    jsonResponse: {
+      acs_entrances: {
+        acs_entrance_id: string
+        display_name: string
+        acs_system_id: string
+        workspace_id: string
+        created_at: string
+        properties: {
+          [x: string]: any
+        }
+        visionline_metadata: {
+          door_name: string
+          door_category:
+            | "entrance"
+            | "guest"
+            | "elevator reader"
+            | "common"
+            | "common (PMS)"
+          profiles?:
+            | {
+                visionline_door_profile_id: string
+                visionline_door_profile_type: "BLE" | "commonDoor" | "touch"
+              }[]
+            | undefined
+        } | null
+      }[]
+      ok: boolean
+    }
+  }
   "/acs/systems/get": {
     route: "/acs/systems/get"
     method: "GET" | "POST"

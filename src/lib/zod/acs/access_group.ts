@@ -12,9 +12,9 @@ export type AcsAccessGroupExternalType = z.infer<
 >
 
 export const acs_access_group = z.object({
-  acs_access_group_id: z.string().uuid(),
-  acs_system_id: z.string().uuid(),
-  workspace_id: z.string().uuid(),
+  acs_access_group_id: z.string(),
+  acs_system_id: z.string(),
+  workspace_id: z.string(),
   name: z.string(),
   access_group_type: acs_access_group_external_type.describe(
     "deprecated: use external_type",

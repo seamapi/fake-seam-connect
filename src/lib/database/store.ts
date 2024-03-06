@@ -14,8 +14,9 @@ import { simpleHash } from "lib/util/simple-hash.ts"
 import type { AccessCode } from "lib/zod/access_code.ts"
 import type { AccessToken } from "lib/zod/access_token.ts"
 import type { AcsAccessGroup } from "lib/zod/acs/access_group.ts"
+import type { AcsEntrance } from "lib/zod/acs/entrance.ts"
 import type { AcsSystem } from "lib/zod/acs/system.ts"
-import type { AcsUser } from "lib/zod/acs/users.ts"
+import type { AcsUser } from "lib/zod/acs/user.ts"
 import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 import type { ApiKey } from "lib/zod/api_key.ts"
 import type {
@@ -84,6 +85,7 @@ const initializer = immer<Database>((set, get) => ({
   acs_systems: [],
   acs_users: [],
   acs_access_groups: [],
+  acs_entrances: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -1280,6 +1282,13 @@ const initializer = immer<Database>((set, get) => ({
       `acs_user_${simpleHash(acs_user_id)}@example.com`
     const user_full_name = full_name ?? "Fake ACS User"
 
+    const acs_system = get().acs_systems.find(
+      (acs_system) => acs_system.acs_system_id === acs_system_id,
+    )
+    if (acs_system == null) {
+      throw new Error("Could not find acs_system with acs_system_id")
+    }
+
     const new_acs_user: AcsUser = {
       acs_user_id,
       acs_system_id,
@@ -1432,6 +1441,70 @@ const initializer = immer<Database>((set, get) => ({
           return access_group
         }),
       ],
+    })
+  },
+
+  addAcsEntrance({
+    acs_system_id,
+    created_at,
+    display_name,
+    visionline_metadata,
+    properties,
+  }) {
+    const acs_system = get().acs_systems.find(
+      (system) => system.acs_system_id === acs_system_id,
+    )
+    if (acs_system == null) {
+      throw new Error("Could not find acs_system with acs_system_id")
+    }
+
+    const new_acs_entrance: AcsEntrance = {
+      acs_entrance_id: get()._getNextId("acs_entrance"),
+      acs_system_id,
+      created_at: created_at ?? new Date().toISOString(),
+      display_name:
+        visionline_metadata?.door_name ??
+        display_name ??
+        "Fake unnamed entrance",
+      properties: properties ?? {},
+      visionline_metadata: visionline_metadata ?? null,
+      workspace_id: acs_system.workspace_id,
+      _acs_user_ids: [],
+    }
+
+    set({
+      acs_entrances: [...get().acs_entrances, new_acs_entrance],
+    })
+
+    return new_acs_entrance
+  },
+
+  grantAcsUserAccessToAcsEntrance({ acs_user_id, acs_entrance_id }) {
+    const acs_user = get().acs_users.find(
+      (system) => system.acs_user_id === acs_user_id,
+    )
+    if (acs_user == null) {
+      throw new Error("Could not find acs_user with acs_user_id")
+    }
+
+    const acs_entrance = get().acs_entrances.find(
+      (system) => system.acs_entrance_id === acs_entrance_id,
+    )
+    if (acs_entrance == null) {
+      throw new Error("Could not find acs_entrance with acs_entrance_id")
+    }
+
+    set({
+      acs_entrances: get().acs_entrances.map((acs_entrance) => {
+        if (acs_entrance.acs_entrance_id === acs_entrance_id) {
+          return {
+            ...acs_entrance,
+            _acs_user_ids: [...acs_entrance._acs_user_ids, acs_user_id],
+          }
+        }
+
+        return acs_entrance
+      }),
     })
   },
 
