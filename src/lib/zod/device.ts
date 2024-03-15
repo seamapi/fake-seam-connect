@@ -122,6 +122,7 @@ export const thermostat_device_properties = common_device_properties.extend({
 
 export const device = z.object({
   device_id: z.string(),
+  display_name: z.string(),
   device_type,
   capabilities_supported: z.array(z.string()),
   properties: z.union([
@@ -170,5 +171,5 @@ export const unmanaged_device = device
     }),
   })
 
-export type Device = z.infer<typeof device>
+export type Device = z.output<typeof device>
 export type UnmanagedDevice = z.infer<typeof unmanaged_device>
