@@ -122,7 +122,7 @@ export const thermostat_device_properties = common_device_properties.extend({
 
 export const device = z.object({
   device_id: z.string(),
-  display_name: z.string().default("Smart Device"),
+  display_name: z.string(),
   device_type,
   capabilities_supported: z.array(z.string()),
   properties: z.union([
