@@ -74,6 +74,7 @@ export const getTestDatabase = async (
   const device1 = db.addDevice({
     connected_account_id: ca.connected_account_id,
     device_type: "august_lock",
+    display_name: "Front Door",
     name: "Front Door",
     workspace_id: ws2.workspace_id,
     properties: {
@@ -85,6 +86,7 @@ export const getTestDatabase = async (
   const device2 = db.addDevice({
     connected_account_id: ca.connected_account_id,
     device_type: "august_lock",
+    display_name: "Back Door",
     name: "Back Door",
     workspace_id: ws2.workspace_id,
   })
@@ -100,6 +102,7 @@ export const getTestDatabase = async (
     connected_account_id: ca.connected_account_id,
     device_type: "minut_sensor",
     name: "Living Room Noise Sensor",
+    display_name: "Living Room Noise Sensor",
     workspace_id: ws2.workspace_id,
   })
   const { noise_threshold_id } = db.addNoiseThreshold({

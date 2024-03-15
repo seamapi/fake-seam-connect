@@ -46,6 +46,7 @@ export default withRouteSpec({
   req.db.addDevice({
     device_type: "august_lock",
     connected_account_id: connected_account.connected_account_id,
+    display_name: "Front Door",
     name: "Front Door",
     workspace_id: connect_webview.workspace_id,
   })
