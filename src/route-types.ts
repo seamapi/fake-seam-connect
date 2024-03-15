@@ -1939,6 +1939,7 @@ export type Routes = {
     jsonResponse: {
       device: {
         device_id: string
+        display_name: string
         device_type:
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
@@ -2159,6 +2160,7 @@ export type Routes = {
     jsonResponse: {
       devices: {
         device_id: string
+        display_name: string
         device_type:
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
@@ -3021,6 +3023,7 @@ export type Routes = {
     jsonResponse: {
       lock: {
         device_id: string
+        display_name: string
         device_type:
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
@@ -3199,6 +3202,7 @@ export type Routes = {
       }
       device: {
         device_id: string
+        display_name: string
         device_type:
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
@@ -3419,6 +3423,7 @@ export type Routes = {
     jsonResponse: {
       locks: {
         device_id: string
+        display_name: string
         device_type:
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
@@ -3597,6 +3602,7 @@ export type Routes = {
       }[]
       devices: {
         device_id: string
+        display_name: string
         device_type:
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
@@ -4249,6 +4255,7 @@ export type Routes = {
     jsonResponse: {
       thermostat: {
         device_id: string
+        display_name: string
         device_type:
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")
@@ -4522,6 +4529,7 @@ export type Routes = {
     jsonResponse: {
       thermostats: {
         device_id: string
+        display_name: string
         device_type:
           | ("august_lock" | "schlage_lock" | "yale_lock" | "smartthings_lock")
           | ("nest_thermostat" | "ecobee_thermostat")

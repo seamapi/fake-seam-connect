@@ -17,6 +17,10 @@ test("GET /devices/list with api key", async (t: ExecutionContext) => {
   } = await axios.get("/devices/list")
 
   t.is(devices.length, 5)
+
+  for (const device of devices) {
+    t.truthy(device.display_name)
+  }
 })
 
 test("GET /devices/list with filters", async (t: ExecutionContext) => {

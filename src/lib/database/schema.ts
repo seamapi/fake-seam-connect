@@ -169,6 +169,7 @@ export interface DatabaseMethods {
   addDevice: (params: {
     device_id?: string
     device_type: Device["device_type"]
+    display_name: string
     connected_account_id?: string
     workspace_id: string
     name: string
