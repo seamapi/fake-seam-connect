@@ -16,7 +16,6 @@ test("GET /locks/list", async (t: ExecutionContext) => {
   db.addDevice({
     connected_account_id: seed.ws2.connected_account1_id,
     device_type: "ecobee_thermostat",
-    display_name: "Test Thermostat",
     name: "Test Thermostat",
     workspace_id: seed.ws2.workspace_id,
   })
