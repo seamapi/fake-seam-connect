@@ -75,7 +75,6 @@ export const seed = (db: Database): Seed => {
     device_id: "august_device_1",
     connected_account_id: "john_connected_account_id",
     device_type: "august_lock",
-    display_name: "Front Door",
     name: "Front Door",
     workspace_id: "seed_workspace_1",
     properties: {
@@ -96,7 +95,6 @@ export const seed = (db: Database): Seed => {
     device_id: "august_device_2",
     connected_account_id: "john_connected_account_id",
     device_type: "august_lock",
-    display_name: "Back Door",
     name: "Back Door",
     workspace_id: "seed_workspace_1",
     properties: {
@@ -110,7 +108,6 @@ export const seed = (db: Database): Seed => {
     device_id: "ecobee_device_1",
     connected_account_id: "john_connected_account_id",
     device_type: "ecobee_thermostat",
-    display_name: "Thermostat 1",
     name: "Thermostat 1",
     workspace_id: "seed_workspace_1",
     properties: {
@@ -133,7 +130,6 @@ export const seed = (db: Database): Seed => {
   const minut_device = db.addDevice({
     device_id: "minut_device_1",
     device_type: "minut_sensor",
-    display_name: "Minut Sensor 1",
     name: "Minut Sensor 1",
     connected_account_id: "john_connected_account_id",
     workspace_id: "seed_workspace_1",
@@ -159,7 +155,6 @@ export const seed = (db: Database): Seed => {
     device_id: "schlage_device_1",
     connected_account_id: "jane_connected_account_id",
     device_type: "schlage_lock",
-    display_name: "Bathroom Door",
     name: "Bathroom Door",
     workspace_id: "seed_workspace_1",
     properties: {

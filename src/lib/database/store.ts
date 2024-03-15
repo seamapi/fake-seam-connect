@@ -27,7 +27,7 @@ import type { ClientSession } from "lib/zod/client_session.ts"
 import type { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts"
 import type { ConnectWebview } from "lib/zod/connect_webview.ts"
 import type { ConnectedAccount } from "lib/zod/connected_account.ts"
-import type { Device } from "lib/zod/device.ts"
+import { type Device, device } from "lib/zod/device.ts"
 import type { Endpoint } from "lib/zod/endpoints.ts"
 import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { Event } from "lib/zod/event.ts"
@@ -369,7 +369,7 @@ const initializer = immer<Database>((set, get) => ({
   },
 
   addDevice(params) {
-    const new_device: Device = {
+    const new_device: Device = device.parse({
       device_id: params.device_id ?? get()._getNextId("device"),
       is_managed: true,
       device_type: params.device_type,
@@ -396,7 +396,7 @@ const initializer = immer<Database>((set, get) => ({
       workspace_id: params.workspace_id,
       errors: params.errors ?? [],
       warnings: params.warnings ?? [],
-    }
+    })
 
     set({
       devices: [...get().devices, new_device],
@@ -1039,7 +1039,6 @@ const initializer = immer<Database>((set, get) => ({
       workspace_id: params.workspace_id,
       device_type: "android_phone",
       name: "Android Phone",
-      display_name: "Android Phone",
     })
 
     const installation_id = get()._getNextId("sdk_installation")
