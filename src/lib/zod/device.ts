@@ -36,6 +36,9 @@ export const device_type = z.union([
 export const common_device_properties = z.object({
   online: z.boolean(),
   name: z.string(),
+  appearance: z.object({
+    name: z.string(),
+  }),
   model: z.object({
     display_name: z.string(),
     manufacturer_display_name: z.string(),

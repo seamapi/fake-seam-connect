@@ -379,6 +379,9 @@ const initializer = immer<Database>((set, get) => ({
       created_at: params.created_at ?? new Date().toISOString(),
       properties: {
         name: params.name,
+        appearance: {
+          name: params.name,
+        },
         online: true,
         ...params.properties,
         model: {
