@@ -1950,6 +1950,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -1966,6 +1969,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -2014,6 +2020,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -2171,6 +2180,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -2187,6 +2199,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -2235,6 +2250,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3034,6 +3052,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3050,6 +3071,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3098,6 +3122,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3213,6 +3240,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3229,6 +3259,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3277,6 +3310,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3434,6 +3470,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3450,6 +3489,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3498,6 +3540,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3613,6 +3658,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3629,6 +3677,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -3677,6 +3728,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -4266,6 +4320,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -4282,6 +4339,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -4330,6 +4390,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -4540,6 +4603,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -4556,6 +4622,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
@@ -4604,6 +4673,9 @@ export type Routes = {
           | {
               online: boolean
               name: string
+              appearance: {
+                name: string
+              }
               model: {
                 display_name: string
                 manufacturer_display_name: string
