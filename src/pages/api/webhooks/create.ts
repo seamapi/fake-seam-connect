@@ -1,10 +1,10 @@
 import { BadRequestException } from "nextlove"
 import { z } from "zod"
 
-import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { webhook } from "lib/zod/webhook.ts"
 import { SEAM_EVENT_LIST } from "lib/constants.ts"
+import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { cloneWithoutUnderscoreKeys } from "lib/util/clone-without-underscore-keys.ts"
+import { webhook } from "lib/zod/webhook.ts"
 
 export default withRouteSpec({
   auth: "cst_ak_pk",

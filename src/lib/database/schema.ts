@@ -32,7 +32,7 @@ import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 import type { Endpoint } from "lib/zod/endpoints.ts"
 import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
-import { Webhook } from "lib/zod/webhook.ts"
+import type { Webhook } from "lib/zod/webhook.ts"
 
 export type WorkspaceId = string
 
