@@ -32,6 +32,7 @@ import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 import type { Endpoint } from "lib/zod/endpoints.ts"
 import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
+import { Webhook } from "lib/zod/webhook.ts"
 
 export type WorkspaceId = string
 
@@ -66,6 +67,7 @@ export interface DatabaseState {
   acs_users: AcsUser[]
   acs_access_groups: AcsAccessGroup[]
   acs_entrances: AcsEntrance[]
+  webhooks: Webhook[]
 }
 
 export interface DatabaseMethods {
@@ -345,6 +347,10 @@ export interface DatabaseMethods {
     acs_user_id: string
     acs_entrance_id: string
   }) => void
+
+  addWebhook: (
+    params: { workspace_id: string } & Pick<Webhook, "event_types" | "url">,
+  ) => Webhook
 
   update: (t?: number) => void
 }
