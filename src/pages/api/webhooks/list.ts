@@ -1,9 +1,8 @@
 import { z } from "zod"
 
-import { webhook } from "lib/zod/webhook.ts"
-
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { cloneWithoutUnderscoreKeys } from "lib/util/clone-without-underscore-keys.ts"
+import { webhook } from "lib/zod/webhook.ts"
 
 export default withRouteSpec({
   auth: "cst_ak_pk",
