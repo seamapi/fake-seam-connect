@@ -351,6 +351,7 @@ export interface DatabaseMethods {
   addWebhook: (
     params: { workspace_id: string } & Pick<Webhook, "event_types" | "url">,
   ) => Webhook
+  deleteWebhook: (webhook_id: string) => void
 
   update: (t?: number) => void
 }

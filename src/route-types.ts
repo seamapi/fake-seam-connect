@@ -4942,6 +4942,19 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/webhooks/delete": {
+    route: "/webhooks/delete"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      webhook_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/webhooks/get": {
     route: "/webhooks/get"
     method: "GET" | "POST"

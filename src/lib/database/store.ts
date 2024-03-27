@@ -1536,6 +1536,24 @@ const initializer = immer<Database>((set, get) => ({
 
     return new_webhook
   },
+  deleteWebhook(webhook_id) {
+    const target = get().webhooks.find(
+      (webhook) => webhook.webhook_id === webhook_id,
+    )
+    if (target == null) {
+      throw new Error("Could not find webhook with webhook_id")
+    }
+
+    set({
+      webhooks: [
+        ...get().webhooks.filter((webhook) => {
+          const is_target = webhook.webhook_id === target.webhook_id
+
+          return !is_target
+        }),
+      ],
+    })
+  },
 
   update() {},
 }))
