@@ -1,3 +1,5 @@
+import { randomBytes } from "node:crypto"
+
 import { enableMapSet } from "immer"
 import ms from "ms"
 import { UnauthorizedException } from "nextlove"
@@ -8,6 +10,7 @@ import { hoist } from "zustand-hoist"
 import {
   ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME,
   ACS_SYSTEM_TYPE_TO_DISPLAY_NAME,
+  SEAM_EVENT_LIST,
   USER_TYPE_TO_DISPLAY_NAME,
 } from "lib/constants.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
@@ -34,6 +37,7 @@ import type { Event } from "lib/zod/event.ts"
 import type { NoiseThreshold } from "lib/zod/noise_threshold.ts"
 import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
+import type { Webhook } from "lib/zod/webhook.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
 
@@ -86,6 +90,7 @@ const initializer = immer<Database>((set, get) => ({
   acs_users: [],
   acs_access_groups: [],
   acs_entrances: [],
+  webhooks: [],
 
   _getNextId(type) {
     const count = (get()._counters[type] ?? 0) + 1
@@ -1509,6 +1514,44 @@ const initializer = immer<Database>((set, get) => ({
 
         return acs_entrance
       }),
+    })
+  },
+
+  addWebhook({ url, workspace_id, event_types }) {
+    const random_string = randomBytes(32).toString("hex").slice(0, 32)
+    const should_include_all_events =
+      event_types == null || event_types[0] === "*"
+    const new_webhook: Webhook = {
+      _workspace_id: workspace_id,
+      webhook_id: get()._getNextId("webhook"),
+      url,
+      event_types: should_include_all_events ? SEAM_EVENT_LIST : event_types,
+      secret: `fake_secret_${random_string}`,
+      created_at: new Date().toISOString(),
+    }
+
+    set({
+      webhooks: [...get().webhooks, new_webhook],
+    })
+
+    return new_webhook
+  },
+  deleteWebhook(webhook_id) {
+    const target = get().webhooks.find(
+      (webhook) => webhook.webhook_id === webhook_id,
+    )
+    if (target == null) {
+      throw new Error("Could not find webhook with webhook_id")
+    }
+
+    set({
+      webhooks: [
+        ...get().webhooks.filter((webhook) => {
+          const is_target = webhook.webhook_id === target.webhook_id
+
+          return !is_target
+        }),
+      ],
     })
   },
 

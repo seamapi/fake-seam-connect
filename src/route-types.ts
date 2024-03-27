@@ -4921,6 +4921,78 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/webhooks/create": {
+    route: "/webhooks/create"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      url: string
+      event_types?: string[]
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      webhook: {
+        webhook_id: string
+        url: string
+        event_types?: string[] | undefined
+        secret?: string | undefined
+        created_at: string
+      }
+      ok: boolean
+    }
+  }
+  "/webhooks/delete": {
+    route: "/webhooks/delete"
+    method: "DELETE" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      webhook_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/webhooks/get": {
+    route: "/webhooks/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
+      webhook_id: string
+    }
+    formData: {}
+    jsonResponse: {
+      webhook: {
+        webhook_id: string
+        url: string
+        event_types?: string[] | undefined
+        secret?: string | undefined
+        created_at: string
+      }
+      ok: boolean
+    }
+  }
+  "/webhooks/list": {
+    route: "/webhooks/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      webhooks: {
+        webhook_id: string
+        url: string
+        event_types?: string[] | undefined
+        secret?: string | undefined
+        created_at: string
+      }[]
+      ok: boolean
+    }
+  }
   "/workspaces/get": {
     route: "/workspaces/get"
     method: "GET" | "POST"
