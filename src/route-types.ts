@@ -4962,6 +4962,24 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/webhooks/list": {
+    route: "/webhooks/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      webhooks: {
+        webhook_id: string
+        url: string
+        event_types?: string[] | undefined
+        secret?: string | undefined
+        created_at: string
+      }[]
+      ok: boolean
+    }
+  }
   "/workspaces/get": {
     route: "/workspaces/get"
     method: "GET" | "POST"
