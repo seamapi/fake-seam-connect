@@ -3,7 +3,7 @@ import test, { type ExecutionContext } from "ava"
 import { getTestServer } from "fixtures/get-test-server.ts"
 import { seed } from "lib/database/seed.ts"
 
-test("GET /workspaces/create", async (t: ExecutionContext) => {
+test("POST /workspaces/create", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
   const seed_result = seed(db)
 

@@ -2,7 +2,7 @@ import test, { type ExecutionContext } from "ava"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
 
-test("GET /internal/workspaces/create", async (t: ExecutionContext) => {
+test("POST /internal/workspaces/create", async (t: ExecutionContext) => {
   const { axios } = await getTestServer(t)
 
   const {
