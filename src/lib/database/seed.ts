@@ -1,4 +1,5 @@
 import { hashLongToken } from "lib/tokens/generate-api-key.ts"
+
 import type { Database } from "./schema.ts"
 
 export interface Seed {
