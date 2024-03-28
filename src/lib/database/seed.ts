@@ -1,3 +1,4 @@
+import { hashLongToken } from "lib/tokens/generate-api-key.ts"
 import type { Database } from "./schema.ts"
 
 export interface Seed {
@@ -18,6 +19,7 @@ export interface Seed {
   john_user_identifier_key: "john_user_identifier_key"
   john_user_identity_id: string
   visionline_acs_system_1: "visionline_acs_system_1"
+  seam_at1_token: "seam_at1_shorttoken_longtoken"
 }
 
 export const seed = (db: Database): Seed => {
@@ -205,6 +207,16 @@ export const seed = (db: Database): Seed => {
     connected_account_ids: ["john_connected_account_id"],
   })
 
+  const long_token = "longtoken"
+  const short_token = "shorttoken"
+  const long_token_hash = hashLongToken(long_token)
+  db.addAccessToken({
+    access_token_name: "Seeded Fake Access Token",
+    email: "john@example.com",
+    long_token_hash,
+    short_token,
+  })
+
   return {
     john_connected_account_id: "john_connected_account_id",
     jane_connected_account_id: "jane_connected_account_id",
@@ -220,6 +232,7 @@ export const seed = (db: Database): Seed => {
     seam_apikey2_token: "seam_apikey2_token",
     seam_cst1_token: "seam_cst1_token",
     seam_pk1_token: "seam_pk1_token",
+    seam_at1_token: "seam_at1_shorttoken_longtoken",
     john_user_identifier_key: "john_user_identifier_key",
     john_user_identity_id: "john_user_identity_id",
     visionline_acs_system_1: "visionline_acs_system_1",
