@@ -2,7 +2,7 @@ import { createHash, randomBytes } from "node:crypto"
 import { promisify } from "node:util"
 
 import bs58 from "bs58"
-import { padStart } from "lodash"
+import _ from "lodash"
 
 const bytes_for_8char_base58 = 6 // Math.ceil(Math.log2(58 ** 8)/8)
 const bytes_for_24char_base58 = 18 // Math.ceil(Math.log2(58 ** 24)/8)
@@ -14,8 +14,11 @@ export const generateAPIKey = async () => {
   const short_token_bytes = await promisify(randomBytes)(bytes_for_8char_base58)
   const long_token_bytes = await promisify(randomBytes)(bytes_for_24char_base58)
 
-  let short_token = padStart(bs58.encode(short_token_bytes), 8, "0").slice(0, 8)
-  const long_token = padStart(bs58.encode(long_token_bytes), 24, "0").slice(
+  let short_token = _.padStart(bs58.encode(short_token_bytes), 8, "0").slice(
+    0,
+    8,
+  )
+  const long_token = _.padStart(bs58.encode(long_token_bytes), 24, "0").slice(
     0,
     24,
   )
