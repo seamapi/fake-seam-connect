@@ -4993,6 +4993,31 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/workspaces/create": {
+    route: "/workspaces/create"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      workspace_name: string
+      connect_partner_name: string
+      is_sandbox: boolean
+      webview_primary_button_color?: string | undefined
+      webview_logo_shape?: ("circle" | "square") | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      workspace: {
+        workspace_id: string
+        name: string
+        publishable_key: string
+        created_at: string
+        is_sandbox: boolean
+        connect_partner_name: string | null
+      }
+      ok: boolean
+    }
+  }
   "/workspaces/get": {
     route: "/workspaces/get"
     method: "GET" | "POST"

@@ -1,30 +1,16 @@
 import test, { type ExecutionContext } from "ava"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
+import { seed } from "lib/database/seed.ts"
 
-test("GET /workspaces/create", async (t: ExecutionContext) => {
-  const { axios } = await getTestServer(t)
-
-  const {
-    data: { user_with_pat },
-  } = await axios.post(
-    "/internal/integration_fixturing/create_user_with_pat",
-    {
-      access_token_name: "test",
-      email: "email",
-    },
-    {
-      auth: {
-        username: "seamtest",
-        password: "seamtest",
-      },
-    },
-  )
+test("POST /workspaces/create", async (t: ExecutionContext) => {
+  const { axios, db } = await getTestServer(t, { seed: false })
+  const seed_result = seed(db)
 
   const {
     data: { workspace },
   } = await axios.post(
-    "/internal/workspaces/create",
+    "/workspaces/create",
     {
       connect_partner_name: "Test",
       is_sandbox: true,
@@ -32,7 +18,7 @@ test("GET /workspaces/create", async (t: ExecutionContext) => {
     },
     {
       headers: {
-        Authorization: `Bearer ${user_with_pat.pat}`,
+        Authorization: `Bearer ${seed_result.seam_at1_token}`,
       },
     },
   )
