@@ -14,7 +14,7 @@ test("POST /workspaces/create", async (t: ExecutionContext) => {
     {
       connect_partner_name: "Test",
       is_sandbox: true,
-      workspace_name: "Test",
+      name: "Test",
     },
     {
       headers: {

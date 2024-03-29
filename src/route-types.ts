@@ -4998,11 +4998,11 @@ export type Routes = {
     method: "POST"
     queryParams: {}
     jsonBody: {
-      workspace_name: string
       connect_partner_name: string
       is_sandbox: boolean
       webview_primary_button_color?: string | undefined
       webview_logo_shape?: ("circle" | "square") | undefined
+      name: string
     }
     commonParams: {}
     formData: {}
