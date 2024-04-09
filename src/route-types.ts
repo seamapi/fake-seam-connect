@@ -2124,6 +2124,9 @@ export type Routes = {
           message: string
         }[]
         created_at: string
+        custom_metadata: {
+          [x: string]: string | number | null | boolean
+        }
       }
       ok: boolean
     }
@@ -2354,6 +2357,9 @@ export type Routes = {
           message: string
         }[]
         created_at: string
+        custom_metadata: {
+          [x: string]: string | number | null | boolean
+        }
       }[]
       ok: boolean
     }
@@ -3226,6 +3232,9 @@ export type Routes = {
           message: string
         }[]
         created_at: string
+        custom_metadata: {
+          [x: string]: string | number | null | boolean
+        }
       }
       device: {
         device_id: string
@@ -3414,6 +3423,9 @@ export type Routes = {
           message: string
         }[]
         created_at: string
+        custom_metadata: {
+          [x: string]: string | number | null | boolean
+        }
       }
       ok: boolean
     }
@@ -3644,6 +3656,9 @@ export type Routes = {
           message: string
         }[]
         created_at: string
+        custom_metadata: {
+          [x: string]: string | number | null | boolean
+        }
       }[]
       devices: {
         device_id: string
@@ -3832,6 +3847,9 @@ export type Routes = {
           message: string
         }[]
         created_at: string
+        custom_metadata: {
+          [x: string]: string | number | null | boolean
+        }
       }[]
       ok: boolean
     }
@@ -4494,6 +4512,9 @@ export type Routes = {
           message: string
         }[]
         created_at: string
+        custom_metadata: {
+          [x: string]: string | number | null | boolean
+        }
       }
       ok: boolean
     }
@@ -4777,6 +4798,9 @@ export type Routes = {
           message: string
         }[]
         created_at: string
+        custom_metadata: {
+          [x: string]: string | number | null | boolean
+        }
       }[]
       ok: boolean
     }

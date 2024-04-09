@@ -21,6 +21,7 @@ test("GET /devices/list with api key", async (t: ExecutionContext) => {
   for (const device of devices) {
     t.truthy(device.display_name)
     t.truthy("appearance" in device.properties)
+    t.truthy("custom_metadata" in device)
   }
 })
 

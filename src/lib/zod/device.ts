@@ -2,6 +2,7 @@ import { z } from "zod"
 
 import { climate_setting } from "lib/zod/climate_setting.ts"
 import { climate_setting_schedule } from "lib/zod/climate_setting_schedule.ts"
+import { custom_metadata } from "lib/zod/custom-metadata.ts"
 
 export const LOCK_DEVICE_TYPES = [
   "august_lock",
@@ -150,6 +151,7 @@ export const device = z.object({
     }),
   ),
   created_at: z.string(),
+  custom_metadata,
 })
 
 export const unmanaged_device = device
