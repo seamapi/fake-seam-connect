@@ -404,6 +404,7 @@ const initializer = immer<Database>((set, get) => ({
       workspace_id: params.workspace_id,
       errors: params.errors ?? [],
       warnings: params.warnings ?? [],
+      custom_metadata: params.custom_metadata ?? {},
     }
 
     set({
