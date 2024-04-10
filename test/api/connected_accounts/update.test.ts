@@ -18,7 +18,7 @@ test("POST /connected_accounts/update", async (t: ExecutionContext) => {
   })
 
   t.is(connected_account.automatically_manage_new_devices, true)
-  t.falsy(connected_account.custom_metadata)
+  t.true(Object.keys(connected_account.custom_metadata ?? {}).length === 0)
 
   await axios.post(
     "/connected_accounts/update",
