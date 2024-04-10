@@ -477,6 +477,7 @@ const initializer = immer<Database>((set, get) => ({
       account_type_display_name: params?.account_type ?? "Unknown",
       automatically_manage_new_devices:
         params?.automatically_manage_new_devices ?? true,
+      custom_metadata: params.custom_metadata ?? {},
     }
 
     if (params.provider === "assa_abloy_credential_service") {

@@ -30,8 +30,8 @@ test("GET /connected_accounts/get", async (t: ExecutionContext) => {
     },
   })
 
-  t.is(
-    connected_account_get_res.data.connected_account.user_identifier.email,
-    connected_account_email,
-  )
+  const { connected_account } = connected_account_get_res.data
+
+  t.is(connected_account.user_identifier.email, connected_account_email)
+  t.truthy(connected_account.custom_metadata)
 })

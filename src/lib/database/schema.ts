@@ -159,6 +159,7 @@ export interface DatabaseMethods {
     created_at?: string
     account_type?: string
     automatically_manage_new_devices?: boolean
+    custom_metadata?: ConnectedAccount["custom_metadata"]
   }) => ConnectedAccount
   updateConnectedAccount: (params: {
     connected_account_id: string
