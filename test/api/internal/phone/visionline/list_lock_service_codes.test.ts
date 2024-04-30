@@ -22,5 +22,5 @@ test("POST /internal/phone/visionline/list_lock_service_codes", async (t) => {
   )
 
   t.is(status, 200)
-  t.deepEqual(data.list_lock_service_codes_response.lock_service_codes, [1])
+  t.deepEqual(data.list_lock_service_codes_response.lock_service_codes, ["1"])
 })
