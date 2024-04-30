@@ -8,13 +8,15 @@ export default withRouteSpec({
   commonParams: z.object({}),
   jsonResponse: z.object({
     list_lock_service_codes_response: z.object({
-      lock_service_codes: z.array(z.number().int()),
+      lock_service_codes: z.array(
+        z.string().regex(/^\d+$/, "Lock service codes must be integer strings"),
+      ),
     }),
   }),
 } as const)(async (_, res) => {
   res.status(200).json({
     list_lock_service_codes_response: {
-      lock_service_codes: [1],
+      lock_service_codes: ["1"],
     },
   })
 })
