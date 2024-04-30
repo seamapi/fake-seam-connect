@@ -2864,7 +2864,7 @@ export type Routes = {
     formData: {}
     jsonResponse: {
       list_lock_service_codes_response: {
-        lock_service_codes: number[]
+        lock_service_codes: string[]
       }
       ok: boolean
     }
