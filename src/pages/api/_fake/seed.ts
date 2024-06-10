@@ -6,7 +6,6 @@ import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 export default withRouteSpec({
   auth: "none",
   methods: ["GET"],
-  jsonBody: z.any().optional(),
   jsonResponse: z.literal(seed),
 } as const)(async (_, res) => {
   res.status(200).json(seed)
