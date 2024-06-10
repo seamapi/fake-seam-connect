@@ -23,14 +23,32 @@ export type Routes = {
       ok: boolean
     }
   }
-  "/_fake/seed": {
-    route: "/_fake/seed"
+  "/_fake/default_seed": {
+    route: "/_fake/default_seed"
     method: "GET"
     queryParams: {}
-    jsonBody: any | undefined
+    jsonBody: {}
     commonParams: {}
     formData: {}
     jsonResponse: {
+      john_connected_account_id: "john_connected_account_id"
+      jane_connected_account_id: "jane_connected_account_id"
+      john_assa_cs_connected_account_id: "john_assa_cs_connected_account_id"
+      seed_workspace_1: "seed_workspace_1"
+      seed_workspace_2: "seed_workspace_2"
+      august_device_1: "august_device_1"
+      august_device_2: "august_device_2"
+      ecobee_device_1: "ecobee_device_1"
+      minut_device_1: "minut_device_1"
+      schlage_device_1: "schlage_device_id"
+      seam_apikey1_token: "seam_apikey1_token"
+      seam_apikey2_token: "seam_apikey2_token"
+      seam_cst1_token: "seam_cst1_token"
+      seam_pk1_token: "seam_pk1_token"
+      seam_at1_token: "seam_at1_shorttoken_longtoken"
+      john_user_identifier_key: "john_user_identifier_key"
+      john_user_identity_id: "john_user_identity_id"
+      visionline_acs_system_1: "visionline_acs_system_1"
       ok: boolean
     }
   }
