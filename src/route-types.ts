@@ -23,6 +23,17 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/_fake/seed": {
+    route: "/_fake/seed"
+    method: "GET"
+    queryParams: {}
+    jsonBody: any | undefined
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/access_codes/create": {
     route: "/access_codes/create"
     method: "POST"
