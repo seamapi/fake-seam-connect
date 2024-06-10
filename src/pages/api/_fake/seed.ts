@@ -7,7 +7,7 @@ export default withRouteSpec({
   auth: "none",
   methods: ["GET"],
   jsonBody: z.any().optional(),
-  jsonResponse: z.object({}),
+  jsonResponse: z.literal(seed),
 } as const)(async (_, res) => {
   res.status(200).json(seed)
 })
