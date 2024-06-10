@@ -42,7 +42,7 @@ export const seed: Seed = {
   john_user_identifier_key: "john_user_identifier_key",
   john_user_identity_id: "john_user_identity_id",
   visionline_acs_system_1: "visionline_acs_system_1",
-}
+} as const
 
 export const seedDatabase = (db: Database): Seed => {
   if (
@@ -229,13 +229,13 @@ export const seedDatabase = (db: Database): Seed => {
     connected_account_ids: [seed.john_connected_account_id],
   })
 
-  const [, , short_token, long_token] = seed.seam_at1_token.split("_")
-  const long_token_hash = hashLongToken(long_token!)
+  const [, , short_token = "", long_token = ""] = seed.seam_at1_token.split("_")
+  const long_token_hash = hashLongToken(long_token)
   db.addAccessToken({
     access_token_name: "Seeded Fake Access Token",
     email: "john@example.com",
     long_token_hash,
-    short_token: short_token!,
+    short_token,
   })
 
   return seed
