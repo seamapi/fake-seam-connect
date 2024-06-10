@@ -3,7 +3,7 @@ import {
   type Database,
   type DatabaseState,
   type Seed,
-  seedDatabase as seedDatabase,
+  seedDatabase,
   type ZustandDatabase,
 } from "lib/database/index.ts"
 

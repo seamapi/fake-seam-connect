@@ -230,12 +230,12 @@ export const seedDatabase = (db: Database): Seed => {
   })
 
   const [, , short_token, long_token] = seed.seam_at1_token.split("_")
-  const long_token_hash = hashLongToken(long_token as string)
+  const long_token_hash = hashLongToken(long_token!)
   db.addAccessToken({
     access_token_name: "Seeded Fake Access Token",
     email: "john@example.com",
     long_token_hash,
-    short_token: short_token as string,
+    short_token: short_token!,
   })
 
   return seed

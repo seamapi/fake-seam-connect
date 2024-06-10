@@ -1,7 +1,7 @@
 import { z } from "zod"
 
-import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { seed } from "lib/database/seed.ts"
+import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
   auth: "none",
