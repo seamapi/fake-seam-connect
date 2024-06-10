@@ -4,11 +4,11 @@ import {
   getTestServer,
   type SimpleAxiosError,
 } from "fixtures/get-test-server.ts"
-import { seed } from "lib/database/seed.ts"
+import { seedDatabase } from "lib/database/seed.ts"
 
 test("GET /devices/list with api key", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
@@ -27,7 +27,7 @@ test("GET /devices/list with api key", async (t: ExecutionContext) => {
 
 test("GET /devices/list with filters", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
@@ -60,7 +60,7 @@ test("GET /devices/list with filters", async (t: ExecutionContext) => {
 
 test("GET /devices/list with empty device_ids", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
@@ -75,7 +75,7 @@ test("GET /devices/list with empty device_ids", async (t: ExecutionContext) => {
 
 test("GET /devices/list with empty connected_account_ids", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
@@ -90,7 +90,7 @@ test("GET /devices/list with empty connected_account_ids", async (t: ExecutionCo
 
 test("GET /devices/list with empty device_types", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
@@ -105,7 +105,7 @@ test("GET /devices/list with empty device_types", async (t: ExecutionContext) =>
 
 test("GET /devices/list with simulated workspace outage", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 

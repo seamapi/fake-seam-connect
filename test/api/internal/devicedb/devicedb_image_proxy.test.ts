@@ -6,11 +6,11 @@ import {
   getTestServer,
   type SimpleAxiosError,
 } from "fixtures/get-test-server.ts"
-import { seed } from "lib/database/seed.ts"
+import { seedDatabase } from "lib/database/seed.ts"
 
 test("GET /internal/devicedb_image_proxy", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const { seam_apikey1_token } = seed(db)
+  const { seam_apikey1_token } = seedDatabase(db)
   axios.defaults.headers.common.Authorization = `Bearer ${seam_apikey1_token}`
 
   const {

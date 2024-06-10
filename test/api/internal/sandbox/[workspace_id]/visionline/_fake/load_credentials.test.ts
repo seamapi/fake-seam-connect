@@ -1,11 +1,11 @@
 import test from "ava"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
-import { seed } from "lib/database/seed.ts"
+import { seedDatabase } from "lib/database/seed.ts"
 
 test("POST /api/internal/sandbox/:workspace_id/visionline/_fake/load_credentials", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const { seam_cst1_token } = seed(db)
+  const { seam_cst1_token } = seedDatabase(db)
 
   const client_session = db.getClientSession(seam_cst1_token)
 
