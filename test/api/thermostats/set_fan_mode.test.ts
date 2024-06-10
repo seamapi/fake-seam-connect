@@ -2,12 +2,12 @@ import test from "ava"
 import type { z } from "zod"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
-import { seed } from "lib/database/seed.ts"
+import { seedDatabase } from "lib/database/seed.ts"
 import type { thermostat_device_properties } from "lib/zod/device.ts"
 
 test("POST /thermostats/set_fan_mode with api key", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 

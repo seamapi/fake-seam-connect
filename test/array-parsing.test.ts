@@ -1,11 +1,11 @@
 import test, { type ExecutionContext } from "ava"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
-import { seed } from "lib/database/seed.ts"
+import { seedDatabase } from "lib/database/seed.ts"
 
 test("multi array param", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
@@ -25,7 +25,7 @@ test("multi array param", async (t: ExecutionContext) => {
 
 test("csv array param", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
@@ -43,7 +43,7 @@ test("csv array param", async (t: ExecutionContext) => {
 
 test.failing("index array param", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
@@ -61,7 +61,7 @@ test.failing("index array param", async (t: ExecutionContext) => {
 
 test("empty array param", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 

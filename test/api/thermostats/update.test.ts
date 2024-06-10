@@ -1,11 +1,11 @@
 import test from "ava"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
-import { seed } from "lib/database/seed.ts"
+import { seedDatabase } from "lib/database/seed.ts"
 
 test("POST /thermostats/update with api key", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
@@ -37,7 +37,7 @@ test("POST /thermostats/update with api key", async (t) => {
 
 test("POST /thermostats/update does not throw on manual_override_allowed", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 

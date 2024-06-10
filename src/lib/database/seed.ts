@@ -18,12 +18,33 @@ export interface Seed {
   seam_cst1_token: "seam_cst1_token"
   seam_pk1_token: "seam_pk1_token"
   john_user_identifier_key: "john_user_identifier_key"
-  john_user_identity_id: string
+  john_user_identity_id: "john_user_identity_id"
   visionline_acs_system_1: "visionline_acs_system_1"
   seam_at1_token: "seam_at1_shorttoken_longtoken"
 }
 
-export const seed = (db: Database): Seed => {
+export const seed: Seed = {
+  john_connected_account_id: "john_connected_account_id",
+  jane_connected_account_id: "jane_connected_account_id",
+  john_assa_cs_connected_account_id: "john_assa_cs_connected_account_id",
+  seed_workspace_1: "seed_workspace_1",
+  seed_workspace_2: "seed_workspace_2",
+  august_device_1: "august_device_1",
+  august_device_2: "august_device_2",
+  ecobee_device_1: "ecobee_device_1",
+  minut_device_1: "minut_device_1",
+  schlage_device_1: "schlage_device_id",
+  seam_apikey1_token: "seam_apikey1_token",
+  seam_apikey2_token: "seam_apikey2_token",
+  seam_cst1_token: "seam_cst1_token",
+  seam_pk1_token: "seam_pk1_token",
+  seam_at1_token: "seam_at1_shorttoken_longtoken",
+  john_user_identifier_key: "john_user_identifier_key",
+  john_user_identity_id: "john_user_identity_id",
+  visionline_acs_system_1: "visionline_acs_system_1",
+}
+
+export const seedDatabase = (db: Database): Seed => {
   if (
     db.connected_accounts.some(
       (ca) => ca.user_identifier?.email === "john@example.com",
@@ -36,50 +57,50 @@ export const seed = (db: Database): Seed => {
 
   db.addWorkspace({
     name: "My Workspace",
-    workspace_id: "seed_workspace_1",
-    publishable_key: "seam_pk1_token",
+    workspace_id: seed.seed_workspace_1,
+    publishable_key: seed.seam_pk1_token,
     is_sandbox: true,
   })
   db.addApiKey({
     name: "Seed API Key 1",
-    token: "seam_apikey1_token",
-    workspace_id: "seed_workspace_1",
+    token: seed.seam_apikey1_token,
+    workspace_id: seed.seed_workspace_1,
   })
   db.addWorkspace({
     name: "Empty Workspace",
-    workspace_id: "seed_workspace_2",
+    workspace_id: seed.seed_workspace_2,
   })
   db.addApiKey({
     name: "Seed API Key 2",
-    token: "seam_apikey2_token",
-    workspace_id: "seed_workspace_2",
+    token: seed.seam_apikey2_token,
+    workspace_id: seed.seed_workspace_2,
   })
 
   const cw = db.addConnectWebview({
-    workspace_id: "seed_workspace_1",
+    workspace_id: seed.seed_workspace_1,
   })
 
   db.addConnectedAccount({
     provider: "august",
-    workspace_id: "seed_workspace_1",
+    workspace_id: seed.seed_workspace_1,
     user_identifier: {
       email: "john@example.com",
     },
-    connected_account_id: "john_connected_account_id",
+    connected_account_id: seed.john_connected_account_id,
   })
 
   db.updateConnectWebview({
     connect_webview_id: cw.connect_webview_id,
-    connected_account_id: "john_connected_account_id",
+    connected_account_id: seed.john_connected_account_id,
     status: "authorized",
   })
 
   db.addDevice({
-    device_id: "august_device_1",
-    connected_account_id: "john_connected_account_id",
+    device_id: seed.august_device_1,
+    connected_account_id: seed.john_connected_account_id,
     device_type: "august_lock",
     name: "Front Door",
-    workspace_id: "seed_workspace_1",
+    workspace_id: seed.seed_workspace_1,
     properties: {
       name: "Fake August Lock 1",
       manufacturer: "august",
@@ -89,17 +110,17 @@ export const seed = (db: Database): Seed => {
 
   db.addEvent({
     event_type: "device.connected",
-    workspace_id: "seed_workspace_1",
-    connected_account_id: "john_connected_account_id",
-    device_id: "august_device_1",
+    workspace_id: seed.seed_workspace_1,
+    connected_account_id: seed.john_connected_account_id,
+    device_id: seed.august_device_1,
   })
 
   db.addDevice({
-    device_id: "august_device_2",
-    connected_account_id: "john_connected_account_id",
+    device_id: seed.august_device_2,
+    connected_account_id: seed.john_connected_account_id,
     device_type: "august_lock",
     name: "Back Door",
-    workspace_id: "seed_workspace_1",
+    workspace_id: seed.seed_workspace_1,
     properties: {
       name: "Fake August Lock 2",
       manufacturer: "august",
@@ -108,11 +129,11 @@ export const seed = (db: Database): Seed => {
   })
 
   db.addDevice({
-    device_id: "ecobee_device_1",
-    connected_account_id: "john_connected_account_id",
+    device_id: seed.ecobee_device_1,
+    connected_account_id: seed.john_connected_account_id,
     device_type: "ecobee_thermostat",
     name: "Thermostat 1",
-    workspace_id: "seed_workspace_1",
+    workspace_id: seed.seed_workspace_1,
     properties: {
       is_cooling_available: true,
       is_heating_available: true,
@@ -131,11 +152,11 @@ export const seed = (db: Database): Seed => {
   })
 
   const minut_device = db.addDevice({
-    device_id: "minut_device_1",
+    device_id: seed.minut_device_1,
     device_type: "minut_sensor",
     name: "Minut Sensor 1",
-    connected_account_id: "john_connected_account_id",
-    workspace_id: "seed_workspace_1",
+    connected_account_id: seed.john_connected_account_id,
+    workspace_id: seed.seed_workspace_1,
   })
   db.addNoiseThreshold({
     device_id: minut_device.device_id,
@@ -147,95 +168,75 @@ export const seed = (db: Database): Seed => {
 
   db.addConnectedAccount({
     provider: "schlage",
-    workspace_id: "seed_workspace_1",
+    workspace_id: seed.seed_workspace_1,
     user_identifier: {
       email: "jane@example.com",
     },
-    connected_account_id: "jane_connected_account_id",
+    connected_account_id: seed.jane_connected_account_id,
   })
 
   db.addDevice({
-    device_id: "schlage_device_1",
-    connected_account_id: "jane_connected_account_id",
+    device_id: seed.schlage_device_1,
+    connected_account_id: seed.jane_connected_account_id,
     device_type: "schlage_lock",
     name: "Bathroom Door",
-    workspace_id: "seed_workspace_1",
+    workspace_id: seed.seed_workspace_1,
     properties: {
       locked: true,
     },
   })
 
   db.addUserIdentity({
-    workspace_id: "seed_workspace_1",
-    user_identity_id: "john_user_identity_id",
-    user_identity_key: "john_user_identifier_key",
+    workspace_id: seed.seed_workspace_1,
+    user_identity_id: seed.john_user_identity_id,
+    user_identity_key: seed.john_user_identifier_key,
     email_address: "jane@example.com",
   })
 
   db.addClientSession({
-    workspace_id: "seed_workspace_1",
+    workspace_id: seed.seed_workspace_1,
     connect_webview_ids: [cw.connect_webview_id],
-    connected_account_ids: ["john_connected_account_id"],
-    user_identifier_key: "john_user_identifier_key",
-    user_identity_ids: ["john_user_identity_id"],
-    token: "seam_cst1_token",
+    connected_account_ids: [seed.john_connected_account_id],
+    user_identifier_key: seed.john_user_identifier_key,
+    user_identity_ids: [seed.john_user_identity_id],
+    token: seed.seam_cst1_token,
   })
 
   const connected_account = db.addConnectedAccount({
     provider: "assa_abloy_credential_service",
-    workspace_id: "seed_workspace_1",
+    workspace_id: seed.seed_workspace_1,
     user_identifier: {
       email: "john@example.com",
     },
-    connected_account_id: "john_assa_cs_connected_account_id",
+    connected_account_id: seed.john_assa_cs_connected_account_id,
   })
 
   if (connected_account.assa_abloy_credential_service_id !== undefined) {
     db.addEnrollmentAutomation({
       assa_abloy_credential_service_id:
         connected_account.assa_abloy_credential_service_id,
-      user_identity_id: "john_user_identity_id",
-      workspace_id: "seed_workspace_1",
+      user_identity_id: seed.john_user_identity_id,
+      workspace_id: seed.seed_workspace_1,
       enrollment_automation_id: "john_assa_cs_enrollment_automation_id",
     })
   }
 
   db.addAcsSystem({
-    acs_system_id: "visionline_acs_system_1",
+    acs_system_id: seed.visionline_acs_system_1,
     external_type: "visionline_system",
     name: "Fake Visionline System",
-    workspace_id: "seed_workspace_1",
-    connected_account_ids: ["john_connected_account_id"],
+    workspace_id: seed.seed_workspace_1,
+    connected_account_ids: [seed.john_connected_account_id],
   })
 
-  const long_token = "longtoken"
-  const short_token = "shorttoken"
-  const long_token_hash = hashLongToken(long_token)
+  const [, , short_token, long_token] = seed.seam_at1_token.split("_")
+  const long_token_hash = hashLongToken(long_token as string)
   db.addAccessToken({
     access_token_name: "Seeded Fake Access Token",
     email: "john@example.com",
     long_token_hash,
-    short_token,
+    short_token: short_token as string,
   })
 
-  return {
-    john_connected_account_id: "john_connected_account_id",
-    jane_connected_account_id: "jane_connected_account_id",
-    john_assa_cs_connected_account_id: "john_assa_cs_connected_account_id",
-    seed_workspace_1: "seed_workspace_1",
-    seed_workspace_2: "seed_workspace_2",
-    august_device_1: "august_device_1",
-    august_device_2: "august_device_2",
-    ecobee_device_1: "ecobee_device_1",
-    minut_device_1: "minut_device_1",
-    schlage_device_1: "schlage_device_id",
-    seam_apikey1_token: "seam_apikey1_token",
-    seam_apikey2_token: "seam_apikey2_token",
-    seam_cst1_token: "seam_cst1_token",
-    seam_pk1_token: "seam_pk1_token",
-    seam_at1_token: "seam_at1_shorttoken_longtoken",
-    john_user_identifier_key: "john_user_identifier_key",
-    john_user_identity_id: "john_user_identity_id",
-    visionline_acs_system_1: "visionline_acs_system_1",
-  }
+  return seed
 }

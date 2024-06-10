@@ -3,11 +3,11 @@ import test from "ava"
 import type { Axios } from "axios"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
-import { seed } from "lib/database/seed.ts"
+import { seedDatabase } from "lib/database/seed.ts"
 
 test("GET /internal/devicedb/v1/device_models/list", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const { seam_apikey1_token } = seed(db)
+  const { seam_apikey1_token } = seedDatabase(db)
   axios.defaults.headers.common.Authorization = `Bearer ${seam_apikey1_token}`
 
   const { data, status } = await (axios as Axios).get<
@@ -19,7 +19,7 @@ test("GET /internal/devicedb/v1/device_models/list", async (t) => {
 
 test("GET /internal/devicedb/v1/device_models/get", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const { seam_apikey1_token } = seed(db)
+  const { seam_apikey1_token } = seedDatabase(db)
   axios.defaults.headers.common.Authorization = `Bearer ${seam_apikey1_token}`
 
   const {
@@ -44,7 +44,7 @@ test("GET /internal/devicedb/v1/device_models/get", async (t) => {
 
 test("GET /internal/devicedb/v1/manufacturers/list", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const { seam_apikey1_token } = seed(db)
+  const { seam_apikey1_token } = seedDatabase(db)
   axios.defaults.headers.common.Authorization = `Bearer ${seam_apikey1_token}`
 
   const { data, status } = await (axios as Axios).get<
@@ -56,7 +56,7 @@ test("GET /internal/devicedb/v1/manufacturers/list", async (t) => {
 
 test("GET /internal/devicedb/v1/manufacturers/get", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const { seam_apikey1_token } = seed(db)
+  const { seam_apikey1_token } = seedDatabase(db)
   axios.defaults.headers.common.Authorization = `Bearer ${seam_apikey1_token}`
 
   const {
@@ -81,7 +81,7 @@ test("GET /internal/devicedb/v1/manufacturers/get", async (t) => {
 
 test("GET /internal/devicedb/v1/device_models/list (with client session token)", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const { seam_cst1_token } = seed(db)
+  const { seam_cst1_token } = seedDatabase(db)
   axios.defaults.headers.common.Authorization = `Bearer ${seam_cst1_token}`
   const { data, status } = await (axios as Axios).get<
     RouteResponse<"/v1/device_models/list">

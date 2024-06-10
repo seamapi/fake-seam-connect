@@ -5,12 +5,12 @@ import {
   getTestServer,
   type SimpleAxiosError,
 } from "fixtures/get-test-server.ts"
-import { seed } from "lib/database/seed.ts"
+import { seedDatabase } from "lib/database/seed.ts"
 import type { thermostat_device_properties } from "lib/zod/device.ts"
 
 test("POST /thermostats/heat_cool with api key", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
@@ -63,7 +63,7 @@ test("POST /thermostats/heat_cool with api key", async (t) => {
 
 test("POST /thermostats/heat_cool (below min_heating_cooling_delta_celsius)", async (t) => {
   const { axios, db } = await getTestServer(t, { seed: false })
-  const seed_result = seed(db)
+  const seed_result = seedDatabase(db)
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
