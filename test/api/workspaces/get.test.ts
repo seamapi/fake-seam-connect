@@ -14,5 +14,6 @@ test("GET /workspaces/get", async (t: ExecutionContext) => {
   })
 
   t.truthy(workspace)
+  t.truthy(workspace.company_name)
   t.is(workspace.workspace_id, seed.ws2.workspace_id)
 })
