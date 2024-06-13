@@ -40,6 +40,7 @@ import type { UserIdentity } from "lib/zod/user_identity.ts"
 import type { Webhook } from "lib/zod/webhook.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import { getCurrentlyTriggeringNoiseThresholds } from "lib/util/get-currently-triggering-noise-thresholds.ts"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -400,6 +401,16 @@ const initializer = immer<Database>((set, get) => ({
           status: "full",
           ...params.properties?.battery,
         },
+        noise_level_decibels:
+          params?.properties && "noise_level_decibels" in params?.properties
+            ? params.properties?.noise_level_decibels
+            : undefined,
+        currently_triggering_noise_threshold_ids:
+          getCurrentlyTriggeringNoiseThresholds({
+            // @ts-expect-error  Shallow type
+            properties: params.properties ?? {},
+            noise_thresholds: get().noise_thresholds,
+          }),
       },
       workspace_id: params.workspace_id,
       errors: params.errors ?? [],

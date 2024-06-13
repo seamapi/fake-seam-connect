@@ -125,3 +125,26 @@ test("GET /devices/list with simulated workspace outage", async (t: ExecutionCon
   })
   t.is(status, 200)
 })
+
+test("GET /devices/list with currently_triggering_noise_threshold_ids", async (t: ExecutionContext) => {
+  const { axios, db } = await getTestServer(t, { seed: false })
+  const seed_result = seedDatabase(db)
+
+  axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
+
+  const device_id = seed_result.minut_device_1
+  const device = db.devices.find((d) => d.device_id === device_id)
+  const noise_threshold = db.noise_thresholds[0]
+
+  if (!device || !device.properties || !noise_threshold) {
+    t.fail("device not found")
+    return
+  }
+
+  t.true(
+    "currently_triggering_noise_threshold_ids" in device?.properties &&
+      (
+        device?.properties?.currently_triggering_noise_threshold_ids ?? []
+      ).includes(noise_threshold.noise_threshold_id),
+  )
+})

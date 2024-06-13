@@ -2140,6 +2140,64 @@ export type Routes = {
               min_heating_cooling_delta_celsius: number
               min_heating_cooling_delta_fahrenheit: number
             }
+          | {
+              online: boolean
+              name: string
+              appearance: {
+                name: string
+              }
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              manufacturer?: string | undefined
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              noise_level_decibels?: number | undefined
+              currently_triggering_noise_threshold_ids?: string[] | undefined
+              minut_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    latest_sensor_values: {
+                      temperature: {
+                        time: string
+                        value: number
+                      }
+                      sound: {
+                        time: string
+                        value: number
+                      }
+                      humidity: {
+                        time: string
+                        value: number
+                      }
+                      pressure: {
+                        time: string
+                        value: number
+                      }
+                      accelerometer_z: {
+                        time: string
+                        value: number
+                      }
+                    }
+                  }
+                | undefined
+              noiseaware_metadata?:
+                | {
+                    device_model: "indoor" | "outdoor"
+                    noise_level_nrs: number
+                    noise_level_decibel: number
+                    device_name: string
+                    device_id: string
+                  }
+                | undefined
+            }
         location?: any
         connected_account_id?: string | undefined
         is_managed: boolean
@@ -2372,6 +2430,64 @@ export type Routes = {
               max_heating_set_point_fahrenheit: number
               min_heating_cooling_delta_celsius: number
               min_heating_cooling_delta_fahrenheit: number
+            }
+          | {
+              online: boolean
+              name: string
+              appearance: {
+                name: string
+              }
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              manufacturer?: string | undefined
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              noise_level_decibels?: number | undefined
+              currently_triggering_noise_threshold_ids?: string[] | undefined
+              minut_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    latest_sensor_values: {
+                      temperature: {
+                        time: string
+                        value: number
+                      }
+                      sound: {
+                        time: string
+                        value: number
+                      }
+                      humidity: {
+                        time: string
+                        value: number
+                      }
+                      pressure: {
+                        time: string
+                        value: number
+                      }
+                      accelerometer_z: {
+                        time: string
+                        value: number
+                      }
+                    }
+                  }
+                | undefined
+              noiseaware_metadata?:
+                | {
+                    device_model: "indoor" | "outdoor"
+                    noise_level_nrs: number
+                    noise_level_decibel: number
+                    device_name: string
+                    device_id: string
+                  }
+                | undefined
             }
         location?: any
         connected_account_id?: string | undefined
@@ -3248,6 +3364,64 @@ export type Routes = {
               min_heating_cooling_delta_celsius: number
               min_heating_cooling_delta_fahrenheit: number
             }
+          | {
+              online: boolean
+              name: string
+              appearance: {
+                name: string
+              }
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              manufacturer?: string | undefined
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              noise_level_decibels?: number | undefined
+              currently_triggering_noise_threshold_ids?: string[] | undefined
+              minut_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    latest_sensor_values: {
+                      temperature: {
+                        time: string
+                        value: number
+                      }
+                      sound: {
+                        time: string
+                        value: number
+                      }
+                      humidity: {
+                        time: string
+                        value: number
+                      }
+                      pressure: {
+                        time: string
+                        value: number
+                      }
+                      accelerometer_z: {
+                        time: string
+                        value: number
+                      }
+                    }
+                  }
+                | undefined
+              noiseaware_metadata?:
+                | {
+                    device_model: "indoor" | "outdoor"
+                    noise_level_nrs: number
+                    noise_level_decibel: number
+                    device_name: string
+                    device_id: string
+                  }
+                | undefined
+            }
         location?: any
         connected_account_id?: string | undefined
         is_managed: boolean
@@ -3438,6 +3612,64 @@ export type Routes = {
               max_heating_set_point_fahrenheit: number
               min_heating_cooling_delta_celsius: number
               min_heating_cooling_delta_fahrenheit: number
+            }
+          | {
+              online: boolean
+              name: string
+              appearance: {
+                name: string
+              }
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              manufacturer?: string | undefined
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              noise_level_decibels?: number | undefined
+              currently_triggering_noise_threshold_ids?: string[] | undefined
+              minut_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    latest_sensor_values: {
+                      temperature: {
+                        time: string
+                        value: number
+                      }
+                      sound: {
+                        time: string
+                        value: number
+                      }
+                      humidity: {
+                        time: string
+                        value: number
+                      }
+                      pressure: {
+                        time: string
+                        value: number
+                      }
+                      accelerometer_z: {
+                        time: string
+                        value: number
+                      }
+                    }
+                  }
+                | undefined
+              noiseaware_metadata?:
+                | {
+                    device_model: "indoor" | "outdoor"
+                    noise_level_nrs: number
+                    noise_level_decibel: number
+                    device_name: string
+                    device_id: string
+                  }
+                | undefined
             }
         location?: any
         connected_account_id?: string | undefined
@@ -3672,6 +3904,64 @@ export type Routes = {
               min_heating_cooling_delta_celsius: number
               min_heating_cooling_delta_fahrenheit: number
             }
+          | {
+              online: boolean
+              name: string
+              appearance: {
+                name: string
+              }
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              manufacturer?: string | undefined
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              noise_level_decibels?: number | undefined
+              currently_triggering_noise_threshold_ids?: string[] | undefined
+              minut_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    latest_sensor_values: {
+                      temperature: {
+                        time: string
+                        value: number
+                      }
+                      sound: {
+                        time: string
+                        value: number
+                      }
+                      humidity: {
+                        time: string
+                        value: number
+                      }
+                      pressure: {
+                        time: string
+                        value: number
+                      }
+                      accelerometer_z: {
+                        time: string
+                        value: number
+                      }
+                    }
+                  }
+                | undefined
+              noiseaware_metadata?:
+                | {
+                    device_model: "indoor" | "outdoor"
+                    noise_level_nrs: number
+                    noise_level_decibel: number
+                    device_name: string
+                    device_id: string
+                  }
+                | undefined
+            }
         location?: any
         connected_account_id?: string | undefined
         is_managed: boolean
@@ -3862,6 +4152,64 @@ export type Routes = {
               max_heating_set_point_fahrenheit: number
               min_heating_cooling_delta_celsius: number
               min_heating_cooling_delta_fahrenheit: number
+            }
+          | {
+              online: boolean
+              name: string
+              appearance: {
+                name: string
+              }
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              manufacturer?: string | undefined
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              noise_level_decibels?: number | undefined
+              currently_triggering_noise_threshold_ids?: string[] | undefined
+              minut_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    latest_sensor_values: {
+                      temperature: {
+                        time: string
+                        value: number
+                      }
+                      sound: {
+                        time: string
+                        value: number
+                      }
+                      humidity: {
+                        time: string
+                        value: number
+                      }
+                      pressure: {
+                        time: string
+                        value: number
+                      }
+                      accelerometer_z: {
+                        time: string
+                        value: number
+                      }
+                    }
+                  }
+                | undefined
+              noiseaware_metadata?:
+                | {
+                    device_model: "indoor" | "outdoor"
+                    noise_level_nrs: number
+                    noise_level_decibel: number
+                    device_name: string
+                    device_id: string
+                  }
+                | undefined
             }
         location?: any
         connected_account_id?: string | undefined
@@ -4528,6 +4876,64 @@ export type Routes = {
               min_heating_cooling_delta_celsius: number
               min_heating_cooling_delta_fahrenheit: number
             }
+          | {
+              online: boolean
+              name: string
+              appearance: {
+                name: string
+              }
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              manufacturer?: string | undefined
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              noise_level_decibels?: number | undefined
+              currently_triggering_noise_threshold_ids?: string[] | undefined
+              minut_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    latest_sensor_values: {
+                      temperature: {
+                        time: string
+                        value: number
+                      }
+                      sound: {
+                        time: string
+                        value: number
+                      }
+                      humidity: {
+                        time: string
+                        value: number
+                      }
+                      pressure: {
+                        time: string
+                        value: number
+                      }
+                      accelerometer_z: {
+                        time: string
+                        value: number
+                      }
+                    }
+                  }
+                | undefined
+              noiseaware_metadata?:
+                | {
+                    device_model: "indoor" | "outdoor"
+                    noise_level_nrs: number
+                    noise_level_decibel: number
+                    device_name: string
+                    device_id: string
+                  }
+                | undefined
+            }
         location?: any
         connected_account_id?: string | undefined
         is_managed: boolean
@@ -4813,6 +5219,64 @@ export type Routes = {
               max_heating_set_point_fahrenheit: number
               min_heating_cooling_delta_celsius: number
               min_heating_cooling_delta_fahrenheit: number
+            }
+          | {
+              online: boolean
+              name: string
+              appearance: {
+                name: string
+              }
+              model: {
+                display_name: string
+                manufacturer_display_name: string
+              }
+              manufacturer?: string | undefined
+              battery?:
+                | {
+                    level: number
+                    status: "critical" | "low" | "good" | "full"
+                  }
+                | undefined
+              image_url?: string | undefined
+              noise_level_decibels?: number | undefined
+              currently_triggering_noise_threshold_ids?: string[] | undefined
+              minut_metadata?:
+                | {
+                    device_id: string
+                    device_name: string
+                    latest_sensor_values: {
+                      temperature: {
+                        time: string
+                        value: number
+                      }
+                      sound: {
+                        time: string
+                        value: number
+                      }
+                      humidity: {
+                        time: string
+                        value: number
+                      }
+                      pressure: {
+                        time: string
+                        value: number
+                      }
+                      accelerometer_z: {
+                        time: string
+                        value: number
+                      }
+                    }
+                  }
+                | undefined
+              noiseaware_metadata?:
+                | {
+                    device_model: "indoor" | "outdoor"
+                    noise_level_nrs: number
+                    noise_level_decibel: number
+                    device_name: string
+                    device_id: string
+                  }
+                | undefined
             }
         location?: any
         connected_account_id?: string | undefined
