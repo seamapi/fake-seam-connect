@@ -402,7 +402,8 @@ const initializer = immer<Database>((set, get) => ({
           ...params.properties?.battery,
         },
         noise_level_decibels:
-          params?.properties && "noise_level_decibels" in params?.properties
+          params?.properties != null &&
+          "noise_level_decibels" in params?.properties
             ? params.properties?.noise_level_decibels
             : undefined,
         currently_triggering_noise_threshold_ids:

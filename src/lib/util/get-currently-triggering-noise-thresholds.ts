@@ -73,7 +73,7 @@ export const getCurrentlyTriggeringNoiseThresholds = ({
   const is_minut = "minut_metadata" in properties
   const is_noise_aware = "noiseaware_metadata" in properties
 
-  if (!noise_level_decibels) {
+  if (noise_level_decibels == null) {
     if (is_minut) {
       noise_level_decibels = formatAsNumber(
         properties?.minut_metadata?.latest_sensor_values?.sound?.value,
@@ -87,7 +87,7 @@ export const getCurrentlyTriggeringNoiseThresholds = ({
     }
   }
 
-  if (!noise_level_decibels) {
+  if (noise_level_decibels == null) {
     return []
   }
 

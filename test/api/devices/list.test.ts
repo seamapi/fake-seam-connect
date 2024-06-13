@@ -136,7 +136,7 @@ test("GET /devices/list with currently_triggering_noise_threshold_ids", async (t
   const device = db.devices.find((d) => d.device_id === device_id)
   const noise_threshold = db.noise_thresholds[0]
 
-  if (!device || !device.properties || !noise_threshold) {
+  if (device?.properties == null || noise_threshold == null) {
     t.fail("device not found")
     return
   }
