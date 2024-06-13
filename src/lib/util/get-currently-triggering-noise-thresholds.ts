@@ -59,7 +59,7 @@ export const getCurrentlyTriggeringNoiseThresholds = ({
   properties: Device["properties"]
   noise_thresholds: NoiseThreshold[]
 }): string[] => {
-  let noise_level_decibels: number | undefined =
+  const noise_level_decibels: number | undefined =
     "noise_level_decibels" in properties
       ? properties.noise_level_decibels
       : undefined
