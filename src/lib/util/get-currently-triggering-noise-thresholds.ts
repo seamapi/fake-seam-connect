@@ -16,12 +16,6 @@ export const NOISE_SENSOR_DEVICE_TYPE_LIST = Object.values(
   NOISE_SENSOR_DEVICE_TYPE,
 ) as NoiseSensorDeviceTypeFromMapping[]
 
-function formatAsNumber(
-  value: number | string | undefined,
-): number | undefined {
-  return Number.isNaN(Number(value)) ? undefined : Number(value)
-}
-
 function isCurrentTimeInRange(starts_daily_at: string, ends_daily_at: string) {
   const starts_daily_at_zoned = ZonedTime.from(starts_daily_at)
   const ends_daily_at_zoned = ZonedTime.from(ends_daily_at)
@@ -69,23 +63,6 @@ export const getCurrentlyTriggeringNoiseThresholds = ({
     "noise_level_decibels" in properties
       ? properties.noise_level_decibels
       : undefined
-
-  const is_minut = "minut_metadata" in properties
-  const is_noise_aware = "noiseaware_metadata" in properties
-
-  if (noise_level_decibels == null) {
-    if (is_minut) {
-      noise_level_decibels = formatAsNumber(
-        properties?.minut_metadata?.latest_sensor_values?.sound?.value,
-      )
-    } else if (is_noise_aware) {
-      noise_level_decibels = formatAsNumber(
-        properties?.noiseaware_metadata?.noise_level_decibel,
-      )
-    } else {
-      noise_level_decibels = undefined
-    }
-  }
 
   if (noise_level_decibels == null) {
     return []
