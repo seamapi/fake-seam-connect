@@ -127,39 +127,43 @@ export const thermostat_device_properties = common_device_properties.extend({
 export const noise_sensor_device_properties = common_device_properties.extend({
   noise_level_decibels: z.number().optional(),
   currently_triggering_noise_threshold_ids: z.array(z.string()).optional(),
-  minut_metadata: z.object({
-    device_id: z.string(),
-    device_name: z.string(),
-    latest_sensor_values: z.object({
-      temperature: z.object({
-        time: z.string(),
-        value: z.number(),
+  minut_metadata: z
+    .object({
+      device_id: z.string(),
+      device_name: z.string(),
+      latest_sensor_values: z.object({
+        temperature: z.object({
+          time: z.string(),
+          value: z.number(),
+        }),
+        sound: z.object({
+          time: z.string(),
+          value: z.number(),
+        }),
+        humidity: z.object({
+          time: z.string(),
+          value: z.number(),
+        }),
+        pressure: z.object({
+          time: z.string(),
+          value: z.number(),
+        }),
+        accelerometer_z: z.object({
+          time: z.string(),
+          value: z.number(),
+        }),
       }),
-      sound: z.object({
-        time: z.string(),
-        value: z.number(),
-      }),
-      humidity: z.object({
-        time: z.string(),
-        value: z.number(),
-      }),
-      pressure: z.object({
-        time: z.string(),
-        value: z.number(),
-      }),
-      accelerometer_z: z.object({
-        time: z.string(),
-        value: z.number(),
-      }),
-    }),
-  }).optional(),
-  noiseaware_metadata: z.object({
-    device_model: z.enum(["indoor", "outdoor"]),
-    noise_level_nrs: z.number(),
-    noise_level_decibel: z.number(),
-    device_name: z.string(),
-    device_id: z.string(),
-  }).optional(),
+    })
+    .optional(),
+  noiseaware_metadata: z
+    .object({
+      device_model: z.enum(["indoor", "outdoor"]),
+      noise_level_nrs: z.number(),
+      noise_level_decibel: z.number(),
+      device_name: z.string(),
+      device_id: z.string(),
+    })
+    .optional(),
 })
 
 export const device = z.object({
@@ -181,13 +185,13 @@ export const device = z.object({
     z.object({
       error_code: z.string(),
       message: z.string(),
-    })
+    }),
   ),
   warnings: z.array(
     z.object({
       warning_code: z.string(),
       message: z.string(),
-    })
+    }),
   ),
   created_at: z.string(),
   custom_metadata,

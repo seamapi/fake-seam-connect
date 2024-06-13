@@ -1,7 +1,8 @@
-import { Device } from "lib/zod/device.ts"
-import { NoiseThreshold } from "lib/zod/noise_threshold.ts"
 import { DateTime } from "luxon"
 import { ZonedTime } from "zoned-time"
+
+import type { Device } from "lib/zod/device.ts"
+import type { NoiseThreshold } from "lib/zod/noise_threshold.ts"
 
 export const NOISE_SENSOR_DEVICE_TYPE = {
   NOISEAWARE_ACTIVITY_ZONE: "noiseaware_activity_zone",
@@ -25,7 +26,7 @@ function isCurrentTimeInRange(starts_daily_at: string, ends_daily_at: string) {
   const starts_daily_at_zoned = ZonedTime.from(starts_daily_at)
   const ends_daily_at_zoned = ZonedTime.from(ends_daily_at)
 
-  let now = DateTime.now().setZone(
+  const now = DateTime.now().setZone(
     starts_daily_at_zoned.getTimeZone().toString(),
   )
 
