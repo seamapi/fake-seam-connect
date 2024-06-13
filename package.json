@@ -73,6 +73,7 @@
     "@seamapi/url-search-params-serializer": "^1.1.0",
     "@tsconfig/next": "^1.0.5",
     "@types/lodash": "^4.14.202",
+    "@types/luxon": "^3.4.2",
     "@types/node": "^20.8.10",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
@@ -92,6 +93,7 @@
     "isomorphic-fetch": "^3.0.0",
     "landlubber": "^1.0.0",
     "lodash": "^4.17.21",
+    "luxon": "^3.4.4",
     "minisearch": "^6.1.0",
     "mkdirp": "^3.0.0",
     "ms": "^2.1.3",
@@ -105,6 +107,7 @@
     "typed-axios-instance": "^3.1.0",
     "typescript": "~5.1.0",
     "zod": "^3.21.4",
+    "zoned-time": "^1.1.2",
     "zustand": "^4.3.7",
     "zustand-hoist": "^2.0.0"
   }

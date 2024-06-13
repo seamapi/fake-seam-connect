@@ -13,6 +13,7 @@ import {
   SEAM_EVENT_LIST,
   USER_TYPE_TO_DISPLAY_NAME,
 } from "lib/constants.ts"
+import { getCurrentlyTriggeringNoiseThresholds } from "lib/util/get-currently-triggering-noise-thresholds.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
 import type { AccessCode } from "lib/zod/access_code.ts"
 import type { AccessToken } from "lib/zod/access_token.ts"
@@ -404,6 +405,17 @@ const initializer = immer<Database>((set, get) => ({
           status: "full",
           ...params.properties?.battery,
         },
+        noise_level_decibels:
+          params?.properties != null &&
+          "noise_level_decibels" in params?.properties
+            ? params.properties?.noise_level_decibels
+            : undefined,
+        currently_triggering_noise_threshold_ids:
+          getCurrentlyTriggeringNoiseThresholds({
+            // @ts-expect-error  Shallow type
+            properties: params.properties ?? {},
+            noise_thresholds: get().noise_thresholds,
+          }),
       },
       workspace_id: params.workspace_id,
       errors: params.errors ?? [],

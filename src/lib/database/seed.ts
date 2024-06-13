@@ -151,19 +151,23 @@ export const seedDatabase = (db: Database): Seed => {
     },
   })
 
-  const minut_device = db.addDevice({
+  db.addNoiseThreshold({
+    device_id: seed.minut_device_1,
+    noise_threshold_decibels: 60,
+    name: "builtin_normal_hours",
+    starts_daily_at: "00:00:00[America/Los_Angeles]",
+    ends_daily_at: "23:00:00[America/Los_Angeles]",
+  })
+
+  db.addDevice({
     device_id: seed.minut_device_1,
     device_type: "minut_sensor",
     name: "Minut Sensor 1",
     connected_account_id: seed.john_connected_account_id,
     workspace_id: seed.seed_workspace_1,
-  })
-  db.addNoiseThreshold({
-    device_id: minut_device.device_id,
-    noise_threshold_decibels: 60,
-    name: "builtin_normal_hours",
-    starts_daily_at: "00:00:00[America/Los_Angeles]",
-    ends_daily_at: "00:00:00[America/Los_Angeles]",
+    properties: {
+      noise_level_decibels: 70,
+    },
   })
 
   db.addConnectedAccount({
