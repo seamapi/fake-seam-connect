@@ -98,8 +98,6 @@ export const getCurrentlyTriggeringNoiseThresholds = ({
     const is_noise_level_above_threshold =
       noise_level_decibels >= Number(noise_threshold.noise_threshold_decibels)
 
-      console.log(is_noise_level_above_threshold)
-
     if (
       is_noise_level_above_threshold &&
       isCurrentTimeInRange(starts_daily_at, ends_daily_at)
