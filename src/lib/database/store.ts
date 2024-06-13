@@ -133,6 +133,10 @@ const initializer = immer<Database>((set, get) => ({
       created_at: params.created_at ?? new Date().toISOString(),
       is_sandbox: params.is_sandbox ?? false,
       connect_partner_name: params.connect_partner_name ?? null,
+      company_name:
+        params.company_name ??
+        params.connect_partner_name ??
+        "Fake Company Name",
     }
     set({
       workspaces: [...get().workspaces, new_workspace],

@@ -3058,6 +3058,8 @@ export type Routes = {
         publishable_key: string
         created_at: string
         is_sandbox: boolean
+        company_name: string
+        /** deprecated: use company_name */
         connect_partner_name: string | null
       }
       ok: boolean
@@ -5066,6 +5068,8 @@ export type Routes = {
         publishable_key: string
         created_at: string
         is_sandbox: boolean
+        company_name: string
+        /** deprecated: use company_name */
         connect_partner_name: string | null
       }
       ok: boolean
@@ -5085,6 +5089,8 @@ export type Routes = {
         publishable_key: string
         created_at: string
         is_sandbox: boolean
+        company_name: string
+        /** deprecated: use company_name */
         connect_partner_name: string | null
       }
       ok: boolean
@@ -5104,6 +5110,8 @@ export type Routes = {
         publishable_key: string
         created_at: string
         is_sandbox: boolean
+        company_name: string
+        /** deprecated: use company_name */
         connect_partner_name: string | null
       }[]
       ok: boolean
