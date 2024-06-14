@@ -16,9 +16,42 @@ export const withRouteSpec = createWithRouteSpec({
   shouldValidateGetRequestBody: false,
   globalMiddlewares: [withCors, withDb, withBaseUrl, withRequestId],
   addOkStatus: true,
+  securitySchemas: {
+    client_session: {
+      type: "apiKey",
+      in: "header",
+      name: "client-session-token",
+    },
+    pat_with_workspace: {
+      type: "http",
+      scheme: "bearer",
+      bearerFormat: "API Token",
+    },
+    pat_without_workspace: {
+      type: "http",
+      scheme: "bearer",
+      bearerFormat: "API Token",
+    },
+    console_session: {
+      type: "http",
+      scheme: "bearer",
+      bearerFormat: "Console Session Token",
+    },
+    api_key: {
+      type: "http",
+      scheme: "bearer",
+      bearerFormat: "API Key",
+    },
+  },
+
   authMiddlewareMap: {
     admin: withAdminAuth,
-    access_token: withAccessToken,
+    access_token: withAccessToken({ require_workspace_id: true }),
+    pat_with_workspace: withAccessToken({ require_workspace_id: true }),
+    pat_without_workspace: withAccessToken({ require_workspace_id: false }),
+    session_or_access_token_optional_workspace_id: withAccessToken({
+      require_workspace_id: false,
+    }),
     api_key: withApiKey,
     client_session: withCst,
     cst_ak_pk: withCSTOrApiKeyOrPublishableKey,

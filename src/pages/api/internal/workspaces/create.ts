@@ -24,7 +24,7 @@ export const jsonBody = z.object({
 
 export const route_spec = {
   methods: ["POST"],
-  auth: "access_token",
+  auth: "session_or_access_token_optional_workspace_id",
   jsonBody,
   jsonResponse: z.object({
     workspace,
