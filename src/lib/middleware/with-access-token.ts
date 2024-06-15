@@ -21,9 +21,11 @@ export const withAccessToken =
     require_workspace_id: RequiresWorkspaceId
   }): Middleware<
     {
-      auth: RequiresWorkspaceId extends true
-        ? { type: "access_token" }
-        : { type: "access_token_without_workspace" }
+      auth: {
+        type: RequiresWorkspaceId extends true
+          ? "access_token"
+          : "access_token_without_workspace"
+      }
     },
     {
       db: Database

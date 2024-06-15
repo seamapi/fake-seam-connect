@@ -6,7 +6,7 @@ import { withSimulatedOutage } from "./with-simulated-outage.ts"
 
 export const withApiKey: Middleware<
   {
-    auth: { auth_mode: "api_key"; workspace_id: string }
+    auth: { auth_mode: "api_key"; type?: "api_key"; workspace_id: string }
   },
   {
     db: Database

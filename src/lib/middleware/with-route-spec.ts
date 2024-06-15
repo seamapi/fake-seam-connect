@@ -9,6 +9,7 @@ import { withCst } from "./with-cst.ts"
 import { withCSTOrApiKeyOrPublishableKey } from "./with-cst-or-api-key-or-publishable-key.ts"
 import { withDb } from "./with-db.ts"
 import { withRequestId } from "./with-request-id.ts"
+import { withSessionAuth } from "./wtih-session.auth.ts"
 
 export const withRouteSpec = createWithRouteSpec({
   apiName: "Fake Seam Connect",
@@ -49,11 +50,10 @@ export const withRouteSpec = createWithRouteSpec({
     access_token: withAccessToken({ require_workspace_id: true }),
     pat_with_workspace: withAccessToken({ require_workspace_id: true }),
     pat_without_workspace: withAccessToken({ require_workspace_id: false }),
-    session_or_access_token_optional_workspace_id: withAccessToken({
-      require_workspace_id: false,
-    }),
+    console_session: withSessionAuth({ require_workspace_id: false }),
     api_key: withApiKey,
     client_session: withCst,
     cst_ak_pk: withCSTOrApiKeyOrPublishableKey,
+    // only for get_or_create and create client session token
   },
 } as const)

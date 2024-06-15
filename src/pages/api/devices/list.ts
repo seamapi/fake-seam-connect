@@ -15,7 +15,7 @@ export const common_params = z.object({
 })
 
 export default withRouteSpec({
-  auth: "cst_ak_pk",
+  auth: ["console_session", "cst_ak_pk"],
   methods: ["GET", "POST"],
   commonParams: common_params,
   jsonResponse: z.object({
@@ -42,12 +42,18 @@ export default withRouteSpec({
     manufacturer,
   })
 
-  if (req.auth.auth_mode === "client_session_token") {
+  // If the user is not an admin, filter out devices that they don't have access to
+  if (
+    req.auth.auth_mode === "client_session_token" ||
+    req.auth.type === "user_session"
+  ) {
     const auth_connected_account_ids = req.auth.connected_account_ids
 
     devices = devices.filter((d) =>
       auth_connected_account_ids.includes(d.connected_account_id ?? ""),
     )
+
+    console.log("devices", devices.length)
   }
 
   res.status(200).json({

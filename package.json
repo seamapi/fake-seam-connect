@@ -91,6 +91,7 @@
     "get-port": "^5.1.1",
     "immer": "^9.0.21",
     "isomorphic-fetch": "^3.0.0",
+    "jsonwebtoken": "^9.0.2",
     "landlubber": "^1.0.0",
     "lodash": "^4.17.21",
     "luxon": "^3.4.4",
@@ -110,5 +111,8 @@
     "zoned-time": "^1.1.2",
     "zustand": "^4.3.7",
     "zustand-hoist": "^2.0.0"
+  },
+  "dependencies": {
+    "@types/jsonwebtoken": "^9.0.6"
   }
 }

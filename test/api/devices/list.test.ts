@@ -1,10 +1,33 @@
 import test, { type ExecutionContext } from "ava"
+import jwt from "jsonwebtoken"
 
 import {
   getTestServer,
   type SimpleAxiosError,
 } from "fixtures/get-test-server.ts"
 import { seedDatabase } from "lib/database/seed.ts"
+
+test("GET /devices/list with Console Session", async (t: ExecutionContext) => {
+  const { axios, db } = await getTestServer(t, { seed: false })
+  const seed_result = seedDatabase(db)
+
+  const token = jwt.sign(
+    {
+      user_identity_id: seed_result.john_user_identity_id,
+    },
+    "secret",
+  )
+
+  axios.defaults.headers.common.Authorization = "Bearer " + token
+
+  const {
+    data: { devices },
+  } = await axios.get("/devices/list")
+
+  t.is(devices.length, 4)
+
+  t.is(seed_result.seed_workspace_1, "seed_workspace_1")
+})
 
 test("GET /devices/list with api key", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })

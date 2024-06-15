@@ -9,7 +9,7 @@ import { withSimulatedOutage } from "./with-simulated-outage.ts"
 export const withCSTOrApiKeyOrPublishableKey: Middleware<
   {
     auth:
-      | { auth_mode: "api_key"; workspace_id: string }
+      | { auth_mode: "api_key"; type?: "api_key"; workspace_id: string }
       | {
           auth_mode: "client_session_token"
           workspace_id: string
@@ -17,7 +17,10 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
           connected_account_ids: string[]
           connect_webview_ids: string[]
         }
-      | { auth_mode: "publishable_key"; workspace_id: string }
+      | {
+          auth_mode: "publishable_key"
+          workspace_id: string
+        }
   },
   {
     db: Database
