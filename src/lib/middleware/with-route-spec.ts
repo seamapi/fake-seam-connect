@@ -4,9 +4,9 @@ import { withAccessToken } from "./with-access-token.ts"
 import { withAdminAuth } from "./with-admin-auth.ts"
 import { withApiKey } from "./with-api-key.ts"
 import { withBaseUrl } from "./with-base-url.ts"
+import { withClientSession } from "./with-client-session.ts"
 import { withCors } from "./with-cors.ts"
-import { withCst } from "./with-cst.ts"
-import { withCSTOrApiKeyOrPublishableKey } from "./with-cst-or-api-key-or-publishable-key.ts"
+import { withClientSessionOrApiKeyOrPublishableKey } from "./with-cst-or-api-key-or-publishable-key.ts"
 import { withDb } from "./with-db.ts"
 import { withRequestId } from "./with-request-id.ts"
 import { withSessionAuth } from "./with-session-auth.ts"
@@ -52,8 +52,8 @@ export const withRouteSpec = createWithRouteSpec({
     pat_without_workspace: withAccessToken({ require_workspace_id: false }),
     console_session: withSessionAuth({ require_workspace_id: true }),
     api_key: withApiKey,
-    client_session: withCst,
-    cst_ak_pk: withCSTOrApiKeyOrPublishableKey,
+    client_session: withClientSession,
+    cst_ak_pk: withClientSessionOrApiKeyOrPublishableKey,
     // only for get_or_create and create client session token
   },
 } as const)

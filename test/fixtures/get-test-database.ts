@@ -94,6 +94,7 @@ export const getTestDatabase = async (
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: [ca.connected_account_id],
     user_identifier_key: "seed_client_session_user",
+    user_identity_ids: ["john_user_identity_id"],
   })
 
   const { device_id: noise_sensor_device_id } = db.addDevice({

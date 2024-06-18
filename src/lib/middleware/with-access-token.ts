@@ -1,7 +1,7 @@
 import { HttpException, type Middleware, UnauthorizedException } from "nextlove"
+import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
 
 import type { Database } from "lib/database/index.ts"
-import type { AuthenticatedRequest } from "src/types/index.ts"
 
 import { hashLongToken } from "lib/tokens/generate-api-key.ts"
 

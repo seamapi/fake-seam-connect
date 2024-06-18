@@ -30,7 +30,8 @@ export default withRouteSpec({
     device_types,
     manufacturer,
   } = req.commonParams
-  const { workspace_id } = req.auth as { workspace_id: string }
+
+  const { workspace_id } = req.auth
 
   let devices = getManagedDevicesWithFilter(req.db, {
     workspace_id,

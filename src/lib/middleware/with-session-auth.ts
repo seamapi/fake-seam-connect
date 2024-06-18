@@ -5,9 +5,9 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from "nextlove"
+import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
 
 import type { Database } from "lib/database/index.ts"
-import type { AuthenticatedRequest } from "src/types/index.ts"
 
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
 
@@ -34,6 +34,7 @@ export const withSessionAuth =
   (next) =>
   async (req, res) => {
     const token = req.headers.authorization?.split("Bearer ")?.[1]
+
     if (token == null) return res.status(401).end("Unauthorized")
 
     const workspace_id_from_header = req.headers["seam-workspace"]

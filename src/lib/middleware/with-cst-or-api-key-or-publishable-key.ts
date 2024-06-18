@@ -1,13 +1,13 @@
 import { HttpException, type Middleware, NotFoundException } from "nextlove"
+import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
 
 import type { Database } from "lib/database/index.ts"
-import type { AuthenticatedRequest } from "src/types/index.ts"
 
 import { withApiKey } from "./with-api-key.ts"
-import { withCst } from "./with-cst.ts"
+import { withClientSession } from "./with-client-session.ts"
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
 
-export const withCSTOrApiKeyOrPublishableKey: Middleware<
+export const withClientSessionOrApiKeyOrPublishableKey: Middleware<
   {
     auth: Extract<
       AuthenticatedRequest["auth"],
@@ -71,7 +71,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
 
   if (is_cst) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    return withCst(next)(req as any, res)
+    return withClientSession(next)(req as any, res)
   }
 
   if (is_api_key) {
@@ -87,6 +87,6 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
   })
 }
 
-withCSTOrApiKeyOrPublishableKey.securitySchema = {
+withClientSessionOrApiKeyOrPublishableKey.securitySchema = {
   type: "apiKey",
 }
