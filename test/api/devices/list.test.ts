@@ -18,7 +18,7 @@ test("GET /devices/list with Console Session", async (t: ExecutionContext) => {
     "secret",
   )
 
-  axios.defaults.headers.common.Authorization = "Bearer " + token
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`
 
   axios.defaults.headers.common["seam-workspace"] = seed_result.seed_workspace_1
 
