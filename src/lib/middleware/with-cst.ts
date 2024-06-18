@@ -1,18 +1,13 @@
-import { HttpException, type Middleware, NotFoundException } from "nextlove"
+import { HttpException, type Middleware, UnauthorizedException } from "nextlove"
 
 import type { Database } from "lib/database/index.ts"
+import type { AuthenticatedRequest } from "src/types/index.ts"
 
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
 
 export const withCst: Middleware<
   {
-    auth: {
-      auth_mode: "client_session_token"
-      workspace_id: string
-      client_session_id: string
-      connected_account_ids: string[]
-      connect_webview_ids: string[]
-    }
+    auth: Extract<AuthenticatedRequest["auth"], { type: "client_session" }>
   },
   {
     db: Database
@@ -22,6 +17,7 @@ export const withCst: Middleware<
     req.headers.authorization?.split("Bearer ")?.[1] ??
     (req.headers["client-session-token"] as string | null) ??
     (req.headers["seam-client-session-token"] as string | null)
+
   if (token == null) return res.status(401).end("Unauthorized")
 
   const is_cst = token.includes("seam_cst")
@@ -33,18 +29,21 @@ export const withCst: Middleware<
 
   if (is_cst) {
     const cst = req.db.client_sessions.find((cst) => cst.token === token)
-    if (cst == null)
-      throw new NotFoundException({
+
+    if (cst === null || typeof cst === "undefined") {
+      throw new UnauthorizedException({
         type: "client_session_token_not_found",
         message: "Client session token not found",
       })
-
+    }
     req.auth = {
-      auth_mode: "client_session_token",
+      type: "client_session",
       workspace_id: cst.workspace_id,
       client_session_id: cst.client_session_id,
       connected_account_ids: cst.connected_account_ids ?? [],
       connect_webview_ids: cst.connect_webview_ids ?? [],
+      publishable_key: null,
+      method: "api_key",
     }
     // Cannot run middleware after auth middleware.
     // UPSTREAM: https://github.com/seamapi/nextlove/issues/118

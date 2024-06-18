@@ -7,6 +7,7 @@ import {
 } from "nextlove"
 
 import type { Database } from "lib/database/index.ts"
+import type { AuthenticatedRequest } from "src/types/index.ts"
 
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
 
@@ -17,15 +18,14 @@ export const withSessionAuth =
     require_workspace_id: RequiresWorkspaceId
   }): Middleware<
     {
-      auth: {
-        type: RequiresWorkspaceId extends true
-          ? "user_session"
-          : "user_session_without_workspace"
-        workspace_id: string
-        client_session_id: string
-        connected_account_ids: string[]
-        connect_webview_ids: string[]
-      }
+      auth: Extract<
+        AuthenticatedRequest["auth"],
+        {
+          type: RequiresWorkspaceId extends true
+            ? "user_session"
+            : "user_session_without_workspace"
+        }
+      >
     },
     {
       db: Database
@@ -44,10 +44,7 @@ export const withSessionAuth =
         ? workspace_id_from_header
         : ""
 
-    if (
-      (typeof workspace_id === "undefined" || workspace_id.length === 0) &&
-      require_workspace_id
-    ) {
+    if (workspace_id.length === 0 && require_workspace_id) {
       throw new UnauthorizedException({
         type: "missing_workspace_id",
         message: "Workspace ID is required",
@@ -78,18 +75,29 @@ export const withSessionAuth =
         })
       }
 
-      ;(req.auth as {
-        type: "user_session"
-        workspace_id: string
-        client_session_id: string
-        connected_account_ids: string[]
-        connect_webview_ids: string[]
-      }) = {
-        type: "user_session",
-        workspace_id: cst.workspace_id,
-        client_session_id: cst.client_session_id,
-        connected_account_ids: cst.connected_account_ids ?? [],
-        connect_webview_ids: cst.connect_webview_ids ?? [],
+      if (require_workspace_id) {
+        ;(req.auth as Extract<
+          AuthenticatedRequest["auth"],
+          {
+            type: "user_session"
+          }
+        >) = {
+          type: "user_session",
+          workspace_id: cst.workspace_id,
+          client_session_id: cst.client_session_id,
+          connected_account_ids: cst.connected_account_ids ?? [],
+          connect_webview_ids: cst.connect_webview_ids ?? [],
+        }
+      } else {
+        ;(req.auth as Extract<
+          AuthenticatedRequest["auth"],
+          { type: "user_session_without_workspace" }
+        >) = {
+          type: "user_session_without_workspace",
+          client_session_id: cst.client_session_id,
+          connect_webview_ids: cst.connect_webview_ids ?? [],
+          connected_account_ids: cst.connected_account_ids ?? [],
+        }
       }
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

@@ -1,6 +1,7 @@
 import { HttpException, type Middleware, UnauthorizedException } from "nextlove"
 
 import type { Database } from "lib/database/index.ts"
+import type { AuthenticatedRequest } from "src/types/index.ts"
 
 import { hashLongToken } from "lib/tokens/generate-api-key.ts"
 
@@ -23,8 +24,11 @@ export const withAccessToken =
     {
       auth: {
         type: RequiresWorkspaceId extends true
-          ? "access_token"
-          : "access_token_without_workspace"
+          ? Extract<AuthenticatedRequest["auth"], { type: "access_token" }>
+          : Extract<
+              AuthenticatedRequest["auth"],
+              { type: "access_token_without_workspace" }
+            >
       }
     },
     {
@@ -75,12 +79,20 @@ export const withAccessToken =
         })
 
       if (require_workspace_id) {
-        ;(req.auth as { type: "access_token" }) = {
+        ;(req.auth as unknown as Extract<
+          AuthenticatedRequest["auth"],
+          { type: "access_token" }
+        >) = {
           type: "access_token",
+          workspace_id: workspace_id as string,
         }
       } else {
-        ;(req.auth as { type: "access_token_without_workspace" }) = {
+        ;(req.auth as unknown as Extract<
+          AuthenticatedRequest["auth"],
+          { type: "access_token_without_workspace" }
+        >) = {
           type: "access_token_without_workspace",
+          user_id: access_token.user_id,
         }
       }
 

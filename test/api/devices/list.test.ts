@@ -20,6 +20,8 @@ test("GET /devices/list with Console Session", async (t: ExecutionContext) => {
 
   axios.defaults.headers.common.Authorization = "Bearer " + token
 
+  axios.defaults.headers.common["seam-workspace"] = seed_result.seed_workspace_1
+
   const {
     data: { devices },
   } = await axios.get("/devices/list")

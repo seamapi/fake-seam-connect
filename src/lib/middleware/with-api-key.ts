@@ -1,12 +1,13 @@
-import type { Middleware } from "nextlove"
+import { type Middleware, UnauthorizedException } from "nextlove"
 
 import type { Database } from "lib/database/index.ts"
+import type { AuthenticatedRequest } from "src/types/index.ts"
 
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
 
 export const withApiKey: Middleware<
   {
-    auth: { auth_mode: "api_key"; type?: "api_key"; workspace_id: string }
+    auth: Extract<AuthenticatedRequest["auth"], { type: "api_key" }>
   },
   {
     db: Database
@@ -29,17 +30,16 @@ export const withApiKey: Middleware<
   const api_key = req.db.api_keys.find((key) => key.token === token)
 
   if (api_key == null) {
-    return res.status(401).end("Invalid API Key (not found)")
+    throw new UnauthorizedException({
+      type: "invalid_api_key",
+      message: "Invalid API Key (not found)",
+    })
   }
 
-  req.auth = { auth_mode: "api_key", workspace_id: api_key.workspace_id }
+  req.auth = { type: "api_key", workspace_id: api_key.workspace_id }
 
   // Cannot run middleware after auth middleware.
   // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return withSimulatedOutage(next as unknown as any)(req as unknown as any, res)
-}
-
-withApiKey.securitySchema = {
-  type: "apiKey",
 }

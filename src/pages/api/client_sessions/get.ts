@@ -19,7 +19,7 @@ export default withRouteSpec({
   const { commonParams, auth } = req
 
   const is_client_session =
-    req.auth.auth_mode === "client_session_token" && "client_session_id" in auth
+    req.auth.type === "client_session" && "client_session_id" in auth
 
   if (
     is_client_session &&

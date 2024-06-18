@@ -15,7 +15,7 @@ export const common_params = z.object({
 })
 
 export default withRouteSpec({
-  auth: ["console_session", "cst_ak_pk"],
+  auth: ["api_key", "console_session", "client_session"],
   methods: ["GET", "POST"],
   commonParams: common_params,
   jsonResponse: z.object({
@@ -30,7 +30,7 @@ export default withRouteSpec({
     device_types,
     manufacturer,
   } = req.commonParams
-  const { workspace_id } = req.auth
+  const { workspace_id } = req.auth as { workspace_id: string }
 
   let devices = getManagedDevicesWithFilter(req.db, {
     workspace_id,
@@ -43,17 +43,12 @@ export default withRouteSpec({
   })
 
   // If the user is not an admin, filter out devices that they don't have access to
-  if (
-    req.auth.auth_mode === "client_session_token" ||
-    req.auth.type === "user_session"
-  ) {
+  if (req.auth.type === "client_session" || req.auth.type === "user_session") {
     const auth_connected_account_ids = req.auth.connected_account_ids
 
     devices = devices.filter((d) =>
       auth_connected_account_ids.includes(d.connected_account_id ?? ""),
     )
-
-    console.log("devices", devices.length)
   }
 
   res.status(200).json({

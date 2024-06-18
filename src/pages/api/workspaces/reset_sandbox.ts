@@ -6,7 +6,7 @@ import { action_attempt } from "lib/zod/index.ts"
 
 export default withRouteSpec({
   methods: ["POST"],
-  auth: "cst_ak_pk",
+  auth: ["client_session"],
   jsonResponse: z.object({
     action_attempt,
   }),

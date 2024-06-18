@@ -43,7 +43,7 @@ test("POST /workspaces/reset_sandbox", async (t: ExecutionContext) => {
     validateStatus: () => true,
   })
 
-  t.is(devices_res.status, 404)
+  t.is(devices_res.status, 401)
   t.is((devices_res.data as any).error.type, "client_session_token_not_found")
 
   t.is(db.devices.filter((d) => d.workspace_id === ws2.workspace_id).length, 0)
