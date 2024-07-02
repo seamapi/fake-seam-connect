@@ -89,7 +89,7 @@ export const withAccessToken =
           { type: "access_token" }
         >) = {
           type: "access_token",
-          workspace_id: workspace_id as string,
+          workspace_id ,
         }
       } else {
         ;(req.auth as unknown as Extract<
