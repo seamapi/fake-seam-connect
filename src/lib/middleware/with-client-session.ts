@@ -44,7 +44,9 @@ export const withClientSession: Middleware<
   }
 
   if (is_cst) {
-    const client_session_token = req.db.client_sessions.find((cst) => cst.token === token)
+    const client_session_token = req.db.client_sessions.find(
+      (cst) => cst.token === token,
+    )
 
     if (cst === null || typeof cst === "undefined") {
       throw new UnauthorizedException({
