@@ -21,7 +21,7 @@ export const withRouteSpec = createWithRouteSpec({
     client_session: {
       type: "apiKey",
       in: "header",
-      name: "client-session-token",
+      name: "Client Session Token",
     },
     pat_with_workspace: {
       type: "http",
@@ -47,10 +47,10 @@ export const withRouteSpec = createWithRouteSpec({
 
   authMiddlewareMap: {
     admin: withAdminAuth,
-    access_token: withAccessToken({ require_workspace_id: true }),
-    pat_with_workspace: withAccessToken({ require_workspace_id: true }),
-    pat_without_workspace: withAccessToken({ require_workspace_id: false }),
-    console_session: withSessionAuth({ require_workspace_id: true }),
+    access_token: withAccessToken({ is_workspace_id_required: true }),
+    pat_with_workspace: withAccessToken({ is_workspace_id_required: true }),
+    pat_without_workspace: withAccessToken({ is_workspace_id_required: false }),
+    console_session: withSessionAuth({ is_workspace_id_required: true }),
     api_key: withApiKey,
     client_session: withClientSession,
     cst_ak_pk: withClientSessionOrApiKeyOrPublishableKey,

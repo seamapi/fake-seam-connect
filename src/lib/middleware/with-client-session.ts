@@ -48,7 +48,10 @@ export const withClientSession: Middleware<
       (cst) => cst.token === token,
     )
 
-    if (cst === null || typeof cst === "undefined") {
+    if (
+      client_session_token === null ||
+      typeof client_session_token === "undefined"
+    ) {
       throw new UnauthorizedException({
         type: "client_session_token_not_found",
         message: "Client session token not found",
@@ -56,10 +59,10 @@ export const withClientSession: Middleware<
     }
     req.auth = {
       type: "client_session",
-      workspace_id: cst.workspace_id,
-      client_session_id: cst.client_session_id,
-      connected_account_ids: cst.connected_account_ids ?? [],
-      connect_webview_ids: cst.connect_webview_ids ?? [],
+      workspace_id: client_session_token.workspace_id,
+      client_session_id: client_session_token.client_session_id,
+      connected_account_ids: client_session_token.connected_account_ids ?? [],
+      connect_webview_ids: client_session_token.connect_webview_ids ?? [],
       publishable_key: null,
       method: "api_key",
     }

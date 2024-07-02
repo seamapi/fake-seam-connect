@@ -33,7 +33,7 @@ export default withRouteSpec({
 
   if (
     req.auth.type === "client_session" &&
-    req.auth.publishable_key !== null &&
+    req.auth.method === "publishable_key" &&
     user_identifier_key == null
   ) {
     throw new BadRequestException({

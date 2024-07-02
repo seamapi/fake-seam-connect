@@ -13,9 +13,9 @@ import { withSimulatedOutage } from "./with-simulated-outage.ts"
 
 export const withSessionAuth =
   <RequiresWorkspaceId extends boolean>({
-    require_workspace_id,
+    is_workspace_id_required,
   }: {
-    require_workspace_id: RequiresWorkspaceId
+    is_workspace_id_required: RequiresWorkspaceId
   }): Middleware<
     {
       auth: Extract<
@@ -45,7 +45,7 @@ export const withSessionAuth =
         ? workspace_id_from_header
         : ""
 
-    if (workspace_id.length === 0 && require_workspace_id) {
+    if (workspace_id.length === 0 && is_workspace_id_required) {
       throw new UnauthorizedException({
         type: "missing_workspace_id",
         message: "Workspace ID is required",
@@ -76,7 +76,7 @@ export const withSessionAuth =
         })
       }
 
-      if (require_workspace_id) {
+      if (is_workspace_id_required) {
         ;(req.auth as Extract<
           AuthenticatedRequest["auth"],
           {

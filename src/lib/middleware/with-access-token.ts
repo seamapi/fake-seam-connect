@@ -17,9 +17,9 @@ export const extractLongTokenHash = (token: string) =>
 
 export const withAccessToken =
   <RequiresWorkspaceId extends boolean>({
-    require_workspace_id,
+    is_workspace_id_required,
   }: {
-    require_workspace_id: RequiresWorkspaceId
+    is_workspace_id_required: RequiresWorkspaceId
   }): Middleware<
     {
       auth: {
@@ -55,7 +55,7 @@ export const withAccessToken =
 
     if (
       (typeof workspace_id === "undefined" || workspace_id.length === 0) &&
-      require_workspace_id
+      is_workspace_id_required
     ) {
       throw new UnauthorizedException({
         type: "missing_workspace_id",
@@ -78,7 +78,7 @@ export const withAccessToken =
           message: "Access token not found",
         })
 
-      if (require_workspace_id) {
+      if (is_workspace_id_required) {
         ;(req.auth as unknown as Extract<
           AuthenticatedRequest["auth"],
           { type: "access_token" }
