@@ -5,7 +5,7 @@ import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
 
 export default withRouteSpec({
-  auth: "none",
+  auth: ["none"],
   methods: ["POST"],
   jsonBody: z.object({
     connect_webview_id: z.string(),
@@ -32,8 +32,9 @@ export default withRouteSpec({
   })
 
   const relevant_cs = req.db.client_sessions.find((cs) =>
-    cs.connect_webview_ids.includes(connect_webview.connect_webview_id),
+    cs.workspace_id.includes(connect_webview.workspace_id),
   )
+
   if (relevant_cs != null) {
     req.db.updateClientSession({
       client_session_id: relevant_cs.client_session_id,

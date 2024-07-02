@@ -7,7 +7,7 @@ import { getUnmanagedDevicesWithFilter } from "lib/util/devices.ts"
 import { common_params } from "pages/api/devices/list.ts"
 
 export default withRouteSpec({
-  auth: "cst_ak_pk",
+  auth: ["client_session", "api_key"],
   methods: ["GET", "POST"],
   commonParams: common_params,
   jsonResponse: z.object({
@@ -34,7 +34,7 @@ export default withRouteSpec({
     manufacturer,
   })
 
-  if (req.auth.auth_mode === "client_session_token") {
+  if (req.auth.type === "client_session") {
     const auth_connected_account_ids = req.auth.connected_account_ids
 
     devices = devices.filter((d) =>

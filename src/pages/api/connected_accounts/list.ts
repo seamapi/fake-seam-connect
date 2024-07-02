@@ -14,7 +14,7 @@ export default withRouteSpec({
   res.status(200).json({
     connected_accounts: req.db.connected_accounts
       .filter((ca) =>
-        req.auth.auth_mode === "client_session_token"
+        req.auth.type === "client_session"
           ? req.auth.connected_account_ids.includes(ca.connected_account_id)
           : true,
       )

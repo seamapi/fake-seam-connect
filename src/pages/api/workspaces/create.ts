@@ -6,7 +6,7 @@ import { jsonBody } from "pages/api/internal/workspaces/create.ts"
 
 export const route_spec = {
   methods: ["POST"],
-  auth: "access_token",
+  auth: "pat_without_workspace",
   jsonBody: jsonBody
     .omit({ workspace_name: true })
     .extend({ name: z.string() }),

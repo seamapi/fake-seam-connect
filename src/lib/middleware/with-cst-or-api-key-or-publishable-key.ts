@@ -1,23 +1,23 @@
 import { HttpException, type Middleware, NotFoundException } from "nextlove"
+import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
 
 import type { Database } from "lib/database/index.ts"
 
 import { withApiKey } from "./with-api-key.ts"
-import { withCst } from "./with-cst.ts"
+import { withClientSession } from "./with-client-session.ts"
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
 
-export const withCSTOrApiKeyOrPublishableKey: Middleware<
+export const withClientSessionOrApiKeyOrPublishableKey: Middleware<
   {
-    auth:
-      | { auth_mode: "api_key"; workspace_id: string }
+    auth: Extract<
+      AuthenticatedRequest["auth"],
       | {
-          auth_mode: "client_session_token"
-          workspace_id: string
-          client_session_id: string
-          connected_account_ids: string[]
-          connect_webview_ids: string[]
+          type: "api_key"
         }
-      | { auth_mode: "publishable_key"; workspace_id: string }
+      | {
+          type: "client_session"
+        }
+    >
   },
   {
     db: Database
@@ -43,6 +43,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
     const workspace = req.db.workspaces.find(
       (ws) => ws.publishable_key === token,
     )
+
     if (workspace == null)
       throw new NotFoundException({
         type: "workspace_not_found",
@@ -50,8 +51,13 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
       })
 
     req.auth = {
-      auth_mode: "publishable_key",
+      type: "client_session",
       workspace_id: workspace.workspace_id,
+      publishable_key: workspace.publishable_key,
+      method: "publishable_key",
+      client_session_id: "test",
+      connect_webview_ids: [],
+      connected_account_ids: [],
     }
     // Cannot run middleware after auth middleware.
     // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
@@ -65,7 +71,7 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
 
   if (is_cst) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    return withCst(next)(req as any, res)
+    return withClientSession(next)(req as any, res)
   }
 
   if (is_api_key) {
@@ -81,6 +87,6 @@ export const withCSTOrApiKeyOrPublishableKey: Middleware<
   })
 }
 
-withCSTOrApiKeyOrPublishableKey.securitySchema = {
+withClientSessionOrApiKeyOrPublishableKey.securitySchema = {
   type: "apiKey",
 }
