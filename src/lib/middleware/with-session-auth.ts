@@ -39,8 +39,7 @@ export const withSessionAuth =
 
     const workspace_id_from_header = req.headers["seam-workspace"]
     const workspace_id =
-      workspace_id_from_header !== null &&
-      typeof workspace_id_from_header !== "undefined" &&
+      workspace_id_from_header != null &&
       !Array.isArray(workspace_id_from_header)
         ? workspace_id_from_header
         : ""

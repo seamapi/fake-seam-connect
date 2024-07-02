@@ -51,10 +51,15 @@ export const withAccessToken =
       })
     }
 
-    const workspace_id = req.headers["seam-workspace"]
+    const workspace_id_from_header = req.headers["seam-workspace"]
+    const workspace_id =
+      workspace_id_from_header != null &&
+      !Array.isArray(workspace_id_from_header)
+        ? workspace_id_from_header
+        : ""
 
     if (
-      (typeof workspace_id === "undefined" || workspace_id.length === 0) &&
+      (workspace_id == null || workspace_id.length === 0) &&
       is_workspace_id_required
     ) {
       throw new UnauthorizedException({
