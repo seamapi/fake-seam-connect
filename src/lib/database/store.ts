@@ -7,6 +7,8 @@ import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
 import { hoist } from "zustand-hoist"
 
+import type { UserSession } from "lib/zod/index.ts"
+
 import {
   ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME,
   ACS_SYSTEM_TYPE_TO_DISPLAY_NAME,
@@ -87,6 +89,8 @@ const initializer = immer<Database>((set, get) => ({
   noise_thresholds: [],
   phone_invitations: [],
   phone_sdk_installations: [],
+  user_sessions: [],
+  user_workspaces: [],
   acs_systems: [],
   acs_users: [],
   acs_access_groups: [],
@@ -143,6 +147,20 @@ const initializer = immer<Database>((set, get) => ({
       workspaces: [...get().workspaces, new_workspace],
     })
     return new_workspace
+  },
+
+  addUserWorkspace(params) {
+    const new_user_workspace = {
+      user_id: params.user_id,
+      workspace_id: params.workspace_id,
+      created_at: params.created_at ?? new Date().toISOString(),
+      user_workspace_id: params.user_workspace_id,
+      is_owner: params.is_owner ?? false,
+    }
+    set({
+      user_workspaces: [...get().user_workspaces, new_user_workspace],
+    })
+    return new_user_workspace
   },
 
   resetSandboxWorkspace(workspace_id) {
@@ -1533,6 +1551,23 @@ const initializer = immer<Database>((set, get) => ({
         return acs_entrance
       }),
     })
+  },
+
+  addUserSession(params) {
+    const user_session_id = get()._getNextId("user_session")
+    const new_user_session: UserSession = {
+      user_session_id,
+      user_id: params.user_id,
+      created_at: params.created_at ?? new Date().toISOString(),
+      key: params.key,
+      is_admin_session: params.is_admin_session ?? false,
+    }
+
+    set({
+      user_sessions: [...get().user_sessions, new_user_session],
+    })
+
+    return new_user_session
   },
 
   addWebhook({ url, workspace_id, event_types }) {

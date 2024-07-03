@@ -24,16 +24,11 @@ export type AuthenticatedRequest = Request & {
     | {
         type: "user_session"
         workspace_id: string
-        client_session_id: string
-        connected_account_ids: string[]
-        connect_webview_ids: string[]
+        user_id: string
       }
     | {
         type: "user_session_without_workspace"
-        connected_account_ids: string[]
-        client_session_id: string
-        connect_webview_ids: string[]
-      }
+        user_id: string
     | {
         type: "cst_ak_pk"
         workspace_id: string

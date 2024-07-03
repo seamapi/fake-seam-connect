@@ -44,7 +44,7 @@ export default withRouteSpec({
   })
 
   // If the user is not an admin, filter out devices that they don't have access to
-  if (req.auth.type === "client_session" || req.auth.type === "user_session") {
+  if (req.auth.type === "client_session") {
     const auth_connected_account_ids = req.auth.connected_account_ids
 
     devices = devices.filter((d) =>

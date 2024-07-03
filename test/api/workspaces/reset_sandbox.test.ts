@@ -10,16 +10,26 @@ test("POST /workspaces/reset_sandbox", async (t: ExecutionContext) => {
     db,
   } = await getTestServer(t)
 
-  const cs = db.client_sessions.find((cs) => cs.token === ws2.cst)
+  const userWorkspace = db.user_workspaces.find(
+    (uw) => uw.workspace_id === ws2.workspace_id,
+  )
+
+  if (userWorkspace == null) {
+    throw new Error("User workspace not found")
+  }
+
+  const user_session = db.user_sessions.find(
+    (us) => us.user_id === userWorkspace.user_id,
+  )
 
   const token = jwt.sign(
-    { user_identity_id: cs?.user_identity_ids[0] },
+    { user_id: user_session?.user_id, key: user_session?.key },
     "secret",
   )
 
   t.is(db.devices.filter((d) => d.workspace_id === ws2.workspace_id).length, 3)
   t.is(
-    db.client_sessions.filter((cs) => cs.workspace_id === ws2.workspace_id)
+    db.user_workspaces.filter((uw) => uw.workspace_id === ws2.workspace_id)
       .length,
     1,
   )
@@ -54,13 +64,7 @@ test("POST /workspaces/reset_sandbox", async (t: ExecutionContext) => {
     validateStatus: () => true,
   })
 
-  t.is(devices_res.status, 401)
-  t.is((devices_res.data as any).error.type, "unauthorized")
+  t.is(devices_res.status, 200)
 
   t.is(db.devices.filter((d) => d.workspace_id === ws2.workspace_id).length, 0)
-  t.is(
-    db.client_sessions.filter((cs) => cs.workspace_id === ws2.workspace_id)
-      .length,
-    0,
-  )
 })

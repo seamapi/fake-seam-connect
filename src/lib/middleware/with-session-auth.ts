@@ -64,14 +64,18 @@ export const withSessionAuth =
         })
       }
 
-      const cst = req.db.client_sessions.find((cst) =>
-        cst.user_identity_ids.includes(decodedJwt.user_identity_id as string),
+      const user_session = req.db.user_sessions.find(
+        (us) => us.user_id === decodedJwt.user_id,
       )
 
-      if (cst == null) {
+      const user_workspace = req.db.user_workspaces.find(
+        (uw) => uw.user_id === decodedJwt.user_id,
+      )
+
+      if (user_session == null) {
         throw new NotFoundException({
-          type: "client_session_token_not_found",
-          message: "Client session token not found",
+          type: "user session_not_found",
+          message: "User Session not found",
         })
       }
 
@@ -83,10 +87,8 @@ export const withSessionAuth =
           }
         >) = {
           type: "user_session",
-          workspace_id: cst.workspace_id,
-          client_session_id: cst.client_session_id,
-          connected_account_ids: cst.connected_account_ids ?? [],
-          connect_webview_ids: cst.connect_webview_ids ?? [],
+          workspace_id: workspace_id ?? user_workspace?.workspace_id,
+          user_id: user_session.user_id,
         }
       } else {
         ;(req.auth as Extract<
@@ -94,9 +96,7 @@ export const withSessionAuth =
           { type: "user_session_without_workspace" }
         >) = {
           type: "user_session_without_workspace",
-          client_session_id: cst.client_session_id,
-          connect_webview_ids: cst.connect_webview_ids ?? [],
-          connected_account_ids: cst.connected_account_ids ?? [],
+          user_id: user_session.user_id,
         }
       }
 
