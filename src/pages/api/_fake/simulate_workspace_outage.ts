@@ -1,6 +1,6 @@
+import type { Routes } from "@seamapi/fake-seam-connect"
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
-import type { Routes } from "@seamapi/fake-seam-connect"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
@@ -27,7 +27,7 @@ export default withRouteSpec({
   }
 
   req.db.simulateWorkspaceOutage(workspace_id, {
-    routes: routes as (keyof Routes)[],
+    routes: routes as Array<keyof Routes>,
   })
 
   res.status(200).json({})

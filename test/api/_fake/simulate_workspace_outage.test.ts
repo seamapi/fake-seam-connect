@@ -1,6 +1,6 @@
 import test, { type ExecutionContext } from "ava"
 
-import { SimpleAxiosError, getTestServer } from "fixtures/get-test-server.ts"
+import { getTestServer,type SimpleAxiosError } from "fixtures/get-test-server.ts"
 import { seedDatabase } from "lib/database/seed.ts"
 
 test("POST /_fake/simulate_outage", async (t: ExecutionContext) => {
