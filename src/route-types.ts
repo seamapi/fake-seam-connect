@@ -52,6 +52,20 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/_fake/simulate_workspace_outage": {
+    route: "/_fake/simulate_workspace_outage"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      workspace_id: string
+      routes: string[]
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/access_codes/create": {
     route: "/access_codes/create"
     method: "POST"
