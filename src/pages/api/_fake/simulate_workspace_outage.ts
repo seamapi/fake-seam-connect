@@ -19,7 +19,7 @@ export default withRouteSpec({
     (w) => w.workspace_id === workspace_id,
   )
 
-  if (!workspace) {
+  if (workspace == null) {
     throw new NotFoundException({
       type: "workspace_not_found",
       message: "Workspace not found",
