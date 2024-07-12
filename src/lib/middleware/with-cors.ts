@@ -37,6 +37,7 @@ const access_control_allow_headers = [
   "seam-workspace",
   "authorization",
   "user-agent",
+  "seam-lts-version",
   "seam-sdk-version",
   "seam-sdk-name",
   "seam-publishable-key",
