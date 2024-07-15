@@ -1,8 +1,8 @@
+import type { Device } from "@seamapi/types/connect"
 import { BadRequestException } from "nextlove"
 import { z } from "zod"
 
 import type { ClimateSetting } from "lib/zod/climate_setting.ts"
-import type { Device } from "lib/zod/device.ts"
 
 export type ClimateSettingMode = Pick<
   ClimateSetting,

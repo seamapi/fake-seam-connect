@@ -1,5 +1,6 @@
+import type { Device, UnmanagedDevice } from "@seamapi/types/connect"
+
 import type { ZustandDatabase } from "lib/database/schema.ts"
-import type { Device, UnmanagedDevice } from "lib/zod/device.ts"
 
 interface DeviceFilters {
   device_id?: string

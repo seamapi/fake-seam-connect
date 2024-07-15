@@ -1,6 +1,5 @@
+import { schemas } from "@seamapi/types/connect"
 import { z } from "zod"
-
-import { unmanaged_device } from "lib/zod/index.ts"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { getUnmanagedDevicesWithFilter } from "lib/util/devices.ts"
@@ -11,7 +10,7 @@ export default withRouteSpec({
   methods: ["GET", "POST"],
   commonParams: common_params,
   jsonResponse: z.object({
-    devices: z.array(unmanaged_device),
+    devices: z.array(schemas.unmanaged_device),
   }),
 } as const)(async (req, res) => {
   const {

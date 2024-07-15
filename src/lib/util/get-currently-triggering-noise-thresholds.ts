@@ -1,7 +1,7 @@
+import type { Device } from "@seamapi/types/connect"
 import { DateTime } from "luxon"
 import { ZonedTime } from "zoned-time"
 
-import type { Device } from "lib/zod/device.ts"
 import type { NoiseThreshold } from "lib/zod/noise_threshold.ts"
 
 export const NOISE_SENSOR_DEVICE_TYPE = {
