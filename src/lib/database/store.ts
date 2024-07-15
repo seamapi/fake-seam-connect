@@ -461,7 +461,7 @@ const initializer = immer<Database>((set, get) => ({
       ...target,
       ...params,
       properties: { ...target.properties, ...(params.properties ?? {}) },
-    } as any
+    } 
 
     set({
       devices: [
