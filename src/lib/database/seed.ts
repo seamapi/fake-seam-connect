@@ -101,6 +101,9 @@ export const seedDatabase = (db: Database): Seed => {
     device_type: "august_lock",
     name: "Front Door",
     workspace_id: seed.seed_workspace_1,
+    can_remotely_lock: true,
+    can_remotely_unlock: true,
+    can_program_online_access_codes: true,
     properties: {
       name: "Fake August Lock 1",
       manufacturer: "august",
@@ -121,6 +124,9 @@ export const seedDatabase = (db: Database): Seed => {
     device_type: "august_lock",
     name: "Back Door",
     workspace_id: seed.seed_workspace_1,
+    can_remotely_lock: true,
+    can_remotely_unlock: true,
+    can_program_online_access_codes: true,
     properties: {
       name: "Fake August Lock 2",
       manufacturer: "august",
@@ -185,6 +191,9 @@ export const seedDatabase = (db: Database): Seed => {
     device_type: "schlage_lock",
     name: "Bathroom Door",
     workspace_id: seed.seed_workspace_1,
+    can_remotely_lock: true,
+    can_remotely_unlock: true,
+    can_program_online_access_codes: true,
     properties: {
       locked: true,
     },
