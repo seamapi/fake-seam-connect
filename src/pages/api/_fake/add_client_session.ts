@@ -10,7 +10,7 @@ export default withRouteSpec({
   jsonBody: client_session
     .partial()
     .required({ workspace_id: true, user_identifier_key: true }),
-  jsonResponse: z.object({client_session,}),
+  jsonResponse: z.object({ client_session }),
 } as const)(async (req, res) => {
   const { workspace_id, ...client_session_create_payload } = req.body
 
