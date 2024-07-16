@@ -2,7 +2,7 @@ import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { ActionAttempt } from "lib/zod/action_attempt.ts"
+import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 
 export default withRouteSpec({
   auth: "none",
