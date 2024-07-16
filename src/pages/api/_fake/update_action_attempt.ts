@@ -7,20 +7,21 @@ import type { ActionAttempt } from "lib/zod/action_attempt.ts"
 export default withRouteSpec({
   auth: "none",
   methods: ["PATCH", "POST"],
-  jsonBody: z.object({
-    action_attempt_id: z.string(),
-    status: z.enum(["success", "error", "pending"]).optional(),
-    result: z.any().optional(),
-    error: z
-      .union([
-        z.object({
-          type: z.string(),
-          message: z.string(),
-        }),
-        z.null(),
-      ])
-      .optional(),
-  }),
+  jsonBody: z.union([
+    z.object({
+      status: z.literal("success"),
+      action_attempt_id: z.string(),
+      result: z.any(),
+    }),
+    z.object({
+      status: z.literal("error"),
+      action_attempt_id: z.string(),
+      error: z.object({
+        type: z.string(),
+        message: z.string(),
+      }),
+    }),
+  ]),
   jsonResponse: z.object({}),
 } as const)(async (req, res) => {
   const { action_attempt_id, ...action_attempt_update_payload } = req.body
@@ -38,7 +39,7 @@ export default withRouteSpec({
 
   req.db.updateActionAttempt({
     action_attempt_id,
-    ...(action_attempt_update_payload as Partial<ActionAttempt>),
+    ...action_attempt_update_payload,
   })
 
   res.status(200).json({})

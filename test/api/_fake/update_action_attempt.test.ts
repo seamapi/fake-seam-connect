@@ -27,6 +27,7 @@ test("PATCH /_fake/update_action_attempt", async (t: ExecutionContext) => {
   const payload = {
     action_attempt_id,
     status: "success" as const,
+    result: {},
   }
 
   const { status } = await axios.patch("/_fake/update_action_attempt", payload)
@@ -39,6 +40,7 @@ test("PATCH /_fake/update_action_attempt", async (t: ExecutionContext) => {
 
   t.truthy(updated_action_attempt)
   t.is(updated_action_attempt?.status, "success")
+  t.deepEqual(updated_action_attempt?.result, {})
 })
 
 test("PATCH /_fake/update_action_attempt - invalid action_attempt_id", async (t: ExecutionContext) => {
@@ -47,6 +49,7 @@ test("PATCH /_fake/update_action_attempt - invalid action_attempt_id", async (t:
   const payload = {
     action_attempt_id: "non-existent-action-attempt-id",
     status: "success" as const,
+    result: {},
   }
 
   const err = await t.throwsAsync<SimpleAxiosError>(

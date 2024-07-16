@@ -70,17 +70,20 @@ export type Routes = {
     route: "/_fake/update_action_attempt"
     method: "PATCH" | "POST"
     queryParams: {}
-    jsonBody: {
-      action_attempt_id: string
-      status?: ("success" | "error" | "pending") | undefined
-      result?: any | undefined
-      error?:
-        | ({
+    jsonBody:
+      | {
+          status: "success"
+          action_attempt_id: string
+          result?: any
+        }
+      | {
+          status: "error"
+          action_attempt_id: string
+          error: {
             type: string
             message: string
-          } | null)
-        | undefined
-    }
+          }
+        }
     commonParams: {}
     formData: {}
     jsonResponse: {
