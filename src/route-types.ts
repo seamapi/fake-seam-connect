@@ -1,4 +1,25 @@
 export type Routes = {
+  "/_fake/add_client_session": {
+    route: "/_fake/add_client_session"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      client_session_id?: string | undefined
+      device_count?: (number | undefined) | undefined
+      workspace_id: string
+      token?: string | undefined
+      user_identifier_key: string
+      user_identity_ids?: string[] | undefined
+      connect_webview_ids?: string[] | undefined
+      connected_account_ids?: string[] | undefined
+      created_at?: string | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/_fake/complete_connect_webview": {
     route: "/_fake/complete_connect_webview"
     method: "POST"
