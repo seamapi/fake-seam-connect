@@ -10,7 +10,6 @@ export default withRouteSpec({
   jsonBody: z.object({
     action_attempt_id: z.string(),
     status: z.enum(["success", "error", "pending"]).optional(),
-    action_type: z.string().optional(),
     result: z.any().optional(),
     error: z
       .union([
