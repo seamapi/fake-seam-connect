@@ -178,6 +178,9 @@ export interface DatabaseMethods {
     workspace_id: string
     name: string
     properties?: Partial<Device["properties"]>
+    can_remotely_lock?: boolean
+    can_remotely_unlock?: boolean
+    can_program_online_access_codes?: boolean
     errors?: Device["errors"]
     warnings?: Device["warnings"]
     created_at?: string

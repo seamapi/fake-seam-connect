@@ -1,3 +1,4 @@
+import { schemas } from "@seamapi/types/connect"
 import { z } from "zod"
 
 import { climate_setting } from "lib/zod/climate_setting.ts"
@@ -166,36 +167,44 @@ export const noise_sensor_device_properties = common_device_properties.extend({
     .optional(),
 })
 
-export const device = z.object({
-  device_id: z.string(),
-  display_name: z.string(),
-  device_type,
-  capabilities_supported: z.array(z.string()),
-  properties: z.union([
-    common_device_properties,
-    lock_device_properties,
-    thermostat_device_properties,
-    noise_sensor_device_properties,
-  ]),
-  location: z.any(),
-  connected_account_id: z.string().optional(),
-  is_managed: z.boolean(),
-  workspace_id: z.string(),
-  errors: z.array(
-    z.object({
-      error_code: z.string(),
-      message: z.string(),
+export const device = z
+  .object({
+    device_id: z.string(),
+    display_name: z.string(),
+    device_type,
+    capabilities_supported: z.array(z.string()),
+    properties: z.union([
+      common_device_properties,
+      lock_device_properties,
+      thermostat_device_properties,
+      noise_sensor_device_properties,
+    ]),
+    location: z.any(),
+    connected_account_id: z.string().optional(),
+    is_managed: z.boolean(),
+    workspace_id: z.string(),
+    errors: z.array(
+      z.object({
+        error_code: z.string(),
+        message: z.string(),
+      }),
+    ),
+    warnings: z.array(
+      z.object({
+        warning_code: z.string(),
+        message: z.string(),
+      }),
+    ),
+    created_at: z.string(),
+    custom_metadata,
+  })
+  .merge(
+    schemas.device.pick({
+      can_remotely_lock: true,
+      can_remotely_unlock: true,
+      can_program_online_access_codes: true,
     }),
-  ),
-  warnings: z.array(
-    z.object({
-      warning_code: z.string(),
-      message: z.string(),
-    }),
-  ),
-  created_at: z.string(),
-  custom_metadata,
-})
+  )
 
 export const unmanaged_device = device
   .pick({
