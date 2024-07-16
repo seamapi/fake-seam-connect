@@ -73,7 +73,6 @@ export type Routes = {
     jsonBody: {
       action_attempt_id: string
       status?: ("success" | "error" | "pending") | undefined
-      action_type?: string | undefined
       result?: any | undefined
       error?:
         | ({
