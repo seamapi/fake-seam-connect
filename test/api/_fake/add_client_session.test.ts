@@ -1,6 +1,9 @@
 import test, { type ExecutionContext } from "ava"
 
-import { getTestServer, type SimpleAxiosError } from "fixtures/get-test-server.ts"
+import {
+  getTestServer,
+  type SimpleAxiosError,
+} from "fixtures/get-test-server.ts"
 
 test("POST /_fake/add_client_session", async (t: ExecutionContext) => {
   const { axios, seed, db } = await getTestServer(t)
@@ -33,8 +36,8 @@ test("POST /_fake/add_client_session - invalid workspace_id", async (t: Executio
     user_identifier_key: "some-user-identifier-key",
   }
 
-  const err = await t.throwsAsync<SimpleAxiosError>(async () =>
-    await axios.post("/_fake/add_client_session", payload),
+  const err = await t.throwsAsync<SimpleAxiosError>(
+    async () => await axios.post("/_fake/add_client_session", payload),
   )
 
   t.is(err?.status, 404)
