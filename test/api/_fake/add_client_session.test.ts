@@ -15,17 +15,16 @@ test("POST /_fake/add_client_session", async (t: ExecutionContext) => {
     user_identifier_key: "some-new-user-identifier-key",
   }
 
-  const add_client_session_res = await axios.post(
-    "/_fake/add_client_session",
-    payload,
-  )
+  const {
+    status,
+    data: { client_session },
+  } = await axios.post("/_fake/add_client_session", payload)
 
-  t.is(add_client_session_res.status, 200)
+  t.is(status, 200)
   t.is(db.client_sessions.length, initialClientSessionsCount + 1)
 
-  const addedSession = db.client_sessions[db.client_sessions.length - 1]
-  t.is(addedSession?.workspace_id, payload.workspace_id)
-  t.is(addedSession?.user_identifier_key, payload.user_identifier_key)
+  t.is(client_session.workspace_id, payload.workspace_id)
+  t.is(client_session.user_identifier_key, payload.user_identifier_key)
 })
 
 test("POST /_fake/add_client_session - invalid workspace_id", async (t: ExecutionContext) => {
