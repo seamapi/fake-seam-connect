@@ -101,8 +101,8 @@ export interface DatabaseMethods {
     created_at?: string
   }) => AccessToken
   addClientSession: (
-    params: Pick<ClientSession, "workspace_id" | "user_identifier_key"> &
-      Partial<Omit<ClientSession, "workspace_id">>,
+    params: Partial<ClientSession> &
+      Pick<ClientSession, "workspace_id" | "user_identifier_key">,
   ) => ClientSession
   addUserIdentity: (params: {
     workspace_id: WorkspaceId
