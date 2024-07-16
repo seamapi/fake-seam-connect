@@ -1,6 +1,6 @@
 import test, { type ExecutionContext } from "ava"
 
-import { getTestServer, SimpleAxiosError } from "fixtures/get-test-server.ts"
+import { getTestServer, type SimpleAxiosError } from "fixtures/get-test-server.ts"
 
 test("POST /_fake/add_client_session", async (t: ExecutionContext) => {
   const { axios, seed, db } = await getTestServer(t)
@@ -34,7 +34,7 @@ test("POST /_fake/add_client_session - invalid workspace_id", async (t: Executio
   }
 
   const err = await t.throwsAsync<SimpleAxiosError>(async () =>
-    axios.post("/_fake/add_client_session", payload),
+    await axios.post("/_fake/add_client_session", payload),
   )
 
   t.is(err?.status, 404)
