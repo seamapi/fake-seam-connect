@@ -17,6 +17,17 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: {
+      client_session: {
+        client_session_id: string
+        device_count?: number | undefined
+        workspace_id: string
+        token: string
+        user_identifier_key: string
+        user_identity_ids: string[]
+        connect_webview_ids: string[]
+        connected_account_ids: string[]
+        created_at: string
+      }
       ok: boolean
     }
   }
