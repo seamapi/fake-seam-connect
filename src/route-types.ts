@@ -66,6 +66,30 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/_fake/update_action_attempt": {
+    route: "/_fake/update_action_attempt"
+    method: "PATCH" | "POST"
+    queryParams: {}
+    jsonBody:
+      | {
+          status: "success"
+          action_attempt_id: string
+          result?: any
+        }
+      | {
+          status: "error"
+          action_attempt_id: string
+          error: {
+            type: string
+            message: string
+          }
+        }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/access_codes/create": {
     route: "/access_codes/create"
     method: "POST"
