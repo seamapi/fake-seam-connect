@@ -421,6 +421,9 @@ const initializer = immer<Database>((set, get) => ({
       errors: params.errors ?? [],
       warnings: params.warnings ?? [],
       custom_metadata: params.custom_metadata ?? {},
+      can_remotely_lock: params.can_remotely_lock,
+      can_remotely_unlock: params.can_remotely_unlock,
+      can_program_online_access_codes: params.can_program_online_access_codes,
     }
 
     set({
