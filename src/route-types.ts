@@ -84,6 +84,10 @@ export type Routes = {
             message: string
           }
         }
+      | {
+          status: "pending"
+          action_attempt_id: string
+        }
     commonParams: {}
     formData: {}
     jsonResponse: {
