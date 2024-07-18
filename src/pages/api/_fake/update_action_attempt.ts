@@ -37,7 +37,7 @@ export default withRouteSpec({
     (a) => a.action_attempt_id === action_attempt_id,
   )
 
-  if (!action_attempt) {
+  if (action_attempt == null) {
     throw new NotFoundException({
       type: "action_attempt_not_found",
       message: "Action attempt not found",
