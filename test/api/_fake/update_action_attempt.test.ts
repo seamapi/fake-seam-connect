@@ -24,23 +24,51 @@ test("PATCH /_fake/update_action_attempt", async (t: ExecutionContext) => {
     },
   )
 
-  const payload = {
+  // status: success
+  await axios.patch("/_fake/update_action_attempt", {
     action_attempt_id,
-    status: "success" as const,
+    status: "success",
     result: {},
-  }
+  })
 
-  const { status } = await axios.patch("/_fake/update_action_attempt", payload)
-
-  t.is(status, 200)
-
-  const updated_action_attempt = db.action_attempts.find(
+  let updated_action_attempt = db.action_attempts.find(
     (a) => a.action_attempt_id === action_attempt_id,
   )
 
   t.truthy(updated_action_attempt)
   t.is(updated_action_attempt?.status, "success")
   t.deepEqual(updated_action_attempt?.result, {})
+
+  // status: error
+  const action_attempt_error = { message: "error message", type: "error type" }
+
+  await axios.patch("/_fake/update_action_attempt", {
+    action_attempt_id,
+    status: "error",
+    error: action_attempt_error,
+  })
+
+  updated_action_attempt = db.action_attempts.find(
+    (a) => a.action_attempt_id === action_attempt_id,
+  )
+
+  t.is(updated_action_attempt?.status, "error")
+  t.is(updated_action_attempt?.result, null)
+  t.deepEqual(updated_action_attempt?.error, action_attempt_error)
+
+  // status: pending
+  await axios.patch("/_fake/update_action_attempt", {
+    action_attempt_id,
+    status: "pending",
+  })
+
+  updated_action_attempt = db.action_attempts.find(
+    (a) => a.action_attempt_id === action_attempt_id,
+  )
+
+  t.is(updated_action_attempt?.status, "pending")
+  t.is(updated_action_attempt?.result, null)
+  t.is(updated_action_attempt?.error, null)
 })
 
 test("PATCH /_fake/update_action_attempt - invalid action_attempt_id", async (t: ExecutionContext) => {
