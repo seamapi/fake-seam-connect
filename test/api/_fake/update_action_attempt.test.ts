@@ -53,8 +53,8 @@ test("PATCH /_fake/update_action_attempt", async (t: ExecutionContext) => {
   )
 
   t.is(updated_action_attempt?.status, "error")
+  t.is(updated_action_attempt?.result, null)
   t.deepEqual(updated_action_attempt?.error, action_attempt_error)
-  t.deepEqual(updated_action_attempt?.result, null)
 
   // status: pending
   await axios.patch("/_fake/update_action_attempt", {
@@ -67,8 +67,8 @@ test("PATCH /_fake/update_action_attempt", async (t: ExecutionContext) => {
   )
 
   t.is(updated_action_attempt?.status, "pending")
-  t.deepEqual(updated_action_attempt?.result, null)
-  t.deepEqual(updated_action_attempt?.error, null)
+  t.is(updated_action_attempt?.result, null)
+  t.is(updated_action_attempt?.error, null)
 })
 
 test("PATCH /_fake/update_action_attempt - invalid action_attempt_id", async (t: ExecutionContext) => {
