@@ -1,6 +1,7 @@
 import type { Fake as FakeDevicedb } from "@seamapi/fake-devicedb"
 import { createDatabase, type Database } from "@seamapi/fake-seam-connect"
 import type { ExecutionContext } from "ava"
+
 import { seed as dbSeed } from "lib/database/seed.ts"
 
 export interface DatabaseFixture<TSeed = true> {
