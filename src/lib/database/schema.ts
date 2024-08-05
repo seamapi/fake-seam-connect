@@ -17,6 +17,8 @@ import type {
   NoiseThreshold,
   PhoneInvitation,
   PhoneSdkInstallation,
+  UserSession,
+  UserWorkspace,
   Workspace,
 } from "lib/zod/index.ts"
 
@@ -63,6 +65,8 @@ export interface DatabaseState {
   phone_invitations: PhoneInvitation[]
   phone_sdk_installations: PhoneSdkInstallation[]
   user_identities: UserIdentity[]
+  user_sessions: UserSession[]
+  user_workspaces: UserWorkspace[]
   acs_systems: AcsSystem[]
   acs_users: AcsUser[]
   acs_access_groups: AcsAccessGroup[]
@@ -354,6 +358,17 @@ export interface DatabaseMethods {
     acs_entrance_id: string
   }) => void
 
+  addUserWorkspace: (
+    params: Partial<UserWorkspace> &
+      Pick<
+        UserWorkspace,
+        "workspace_id" | "is_owner" | "user_id" | "user_workspace_id"
+      >,
+  ) => UserWorkspace
+
+  addUserSession: (
+    params: Pick<UserSession, "user_id" | "key"> & Partial<UserSession>,
+  ) => UserSession
   addWebhook: (
     params: { workspace_id: string } & Pick<Webhook, "event_types" | "url">,
   ) => Webhook

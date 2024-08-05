@@ -8,6 +8,7 @@ export interface Seed {
   john_assa_cs_connected_account_id: "john_assa_cs_connected_account_id"
   seed_workspace_1: "seed_workspace_1"
   seed_workspace_2: "seed_workspace_2"
+  john_user_workspace_1: "john_user_workspace_1"
   august_device_1: "august_device_1"
   august_device_2: "august_device_2"
   ecobee_device_1: "ecobee_device_1"
@@ -19,6 +20,8 @@ export interface Seed {
   seam_pk1_token: "seam_pk1_token"
   john_user_identifier_key: "john_user_identifier_key"
   john_user_identity_id: "john_user_identity_id"
+  john_user_id: "john_user_id"
+  john_user_key: "john_user_key"
   visionline_acs_system_1: "visionline_acs_system_1"
   seam_at1_token: "seam_at1_shorttoken_longtoken"
 }
@@ -29,6 +32,7 @@ export const seed: Seed = {
   john_assa_cs_connected_account_id: "john_assa_cs_connected_account_id",
   seed_workspace_1: "seed_workspace_1",
   seed_workspace_2: "seed_workspace_2",
+  john_user_workspace_1: "john_user_workspace_1",
   august_device_1: "august_device_1",
   august_device_2: "august_device_2",
   ecobee_device_1: "ecobee_device_1",
@@ -41,6 +45,8 @@ export const seed: Seed = {
   seam_at1_token: "seam_at1_shorttoken_longtoken",
   john_user_identifier_key: "john_user_identifier_key",
   john_user_identity_id: "john_user_identity_id",
+  john_user_id: "john_user_id",
+  john_user_key: "john_user_key",
   visionline_acs_system_1: "visionline_acs_system_1",
 } as const
 
@@ -78,6 +84,19 @@ export const seedDatabase = (db: Database): Seed => {
 
   const cw = db.addConnectWebview({
     workspace_id: seed.seed_workspace_1,
+  })
+
+  db.addUserSession({
+    user_id: seed.john_user_id,
+    is_admin_session: false,
+    key: seed.john_user_key,
+  })
+
+  db.addUserWorkspace({
+    user_id: seed.john_user_id,
+    workspace_id: seed.seed_workspace_2,
+    user_workspace_id: seed.john_user_workspace_1,
+    is_owner: true,
   })
 
   db.addConnectedAccount({

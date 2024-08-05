@@ -17,7 +17,7 @@ export const common_params = z
   )
 
 export default withRouteSpec({
-  auth: "cst_ak_pk",
+  auth: ["api_key", "console_session", "client_session"],
   methods: ["GET", "POST"],
   commonParams: common_params,
   jsonResponse: z.object({
@@ -40,7 +40,7 @@ export default withRouteSpec({
     })
   }
 
-  if (req.auth.auth_mode === "client_session_token") {
+  if (req.auth.type === "client_session") {
     if (
       !req.auth.connected_account_ids.includes(
         device.connected_account_id ?? "",

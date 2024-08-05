@@ -5,7 +5,7 @@ import { connect_webview, device_provider } from "lib/zod/index.ts"
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
-  auth: "cst_ak_pk",
+  auth: ["client_session", "api_key"],
   methods: ["POST"],
   jsonBody: z.object({
     accepted_providers: z.array(device_provider).optional(),
@@ -31,7 +31,7 @@ export default withRouteSpec({
     device_selection_mode,
     custom_redirect_failure_url,
   })
-  if (req.auth.auth_mode === "client_session_token") {
+  if (req.auth.type === "client_session") {
     req.db.updateClientSession({
       client_session_id: req.auth.client_session_id,
       connect_webview_ids: req.auth.connect_webview_ids.concat(

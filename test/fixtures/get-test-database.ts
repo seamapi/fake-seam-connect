@@ -2,6 +2,8 @@ import type { Fake as FakeDevicedb } from "@seamapi/fake-devicedb"
 import { createDatabase, type Database } from "@seamapi/fake-seam-connect"
 import type { ExecutionContext } from "ava"
 
+import { seed as dbSeed } from "lib/database/seed.ts"
+
 export interface DatabaseFixture<TSeed = true> {
   db: Database
   seed: TSeed extends true ? Seed : never
@@ -94,6 +96,19 @@ export const getTestDatabase = async (
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: [ca.connected_account_id],
     user_identifier_key: "seed_client_session_user",
+  })
+
+  db.addUserSession({
+    user_id: dbSeed.john_user_id,
+    is_admin_session: false,
+    key: dbSeed.john_user_key,
+  })
+
+  db.addUserWorkspace({
+    user_id: dbSeed.john_user_id,
+    workspace_id: ws2.workspace_id,
+    user_workspace_id: dbSeed.john_user_workspace_1,
+    is_owner: true,
   })
 
   const { device_id: noise_sensor_device_id } = db.addDevice({

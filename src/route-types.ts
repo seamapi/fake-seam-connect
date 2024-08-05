@@ -36,6 +36,7 @@ export type Routes = {
       john_assa_cs_connected_account_id: "john_assa_cs_connected_account_id"
       seed_workspace_1: "seed_workspace_1"
       seed_workspace_2: "seed_workspace_2"
+      john_user_workspace_1: "john_user_workspace_1"
       august_device_1: "august_device_1"
       august_device_2: "august_device_2"
       ecobee_device_1: "ecobee_device_1"
@@ -48,6 +49,8 @@ export type Routes = {
       seam_at1_token: "seam_at1_shorttoken_longtoken"
       john_user_identifier_key: "john_user_identifier_key"
       john_user_identity_id: "john_user_identity_id"
+      john_user_id: "john_user_id"
+      john_user_key: "john_user_key"
       visionline_acs_system_1: "visionline_acs_system_1"
       ok: boolean
     }
