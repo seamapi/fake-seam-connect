@@ -61,7 +61,7 @@ export default withRouteSpec({
     })
   }
 
-  let workspace_id = null
+  let workspace_id: string | null = null
   if (token != null && publishable_key == null) {
     const api_key = req.db.api_keys.find((a) => a.token === token)
 
