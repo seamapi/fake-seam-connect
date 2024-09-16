@@ -14,6 +14,7 @@ import {
   ACS_SYSTEM_TYPE_TO_DISPLAY_NAME,
   SEAM_EVENT_LIST,
   USER_TYPE_TO_DISPLAY_NAME,
+  EVENT_TO_DESCRIPTION_MAP,
 } from "lib/constants.ts"
 import { getCurrentlyTriggeringNoiseThresholds } from "lib/util/get-currently-triggering-noise-thresholds.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
@@ -1056,6 +1057,7 @@ const initializer = immer<Database>((set, get) => ({
       event_id: get()._getNextId("event"),
       created_at: params?.created_at ?? new Date().toISOString(),
       occurred_at: params?.occurred_at ?? new Date().toISOString(),
+      event_description: EVENT_TO_DESCRIPTION_MAP[params.event_type] ?? "",
       ...params,
     }
 

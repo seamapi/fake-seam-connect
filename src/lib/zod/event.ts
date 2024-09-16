@@ -9,6 +9,7 @@ export const event = z.object({
   workspace_id: z.string(),
   created_at: z.string().datetime(),
   occurred_at: z.string().datetime(),
+  event_description: z.string(),
 })
 
 export const connect_webview_event = z.object({
