@@ -12,9 +12,9 @@ import type { UserSession } from "lib/zod/index.ts"
 import {
   ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME,
   ACS_SYSTEM_TYPE_TO_DISPLAY_NAME,
+  EVENT_TO_DESCRIPTION_MAP,
   SEAM_EVENT_LIST,
   USER_TYPE_TO_DISPLAY_NAME,
-  EVENT_TO_DESCRIPTION_MAP,
 } from "lib/constants.ts"
 import { getCurrentlyTriggeringNoiseThresholds } from "lib/util/get-currently-triggering-noise-thresholds.ts"
 import { simpleHash } from "lib/util/simple-hash.ts"
