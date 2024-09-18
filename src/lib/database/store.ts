@@ -12,6 +12,7 @@ import type { UserSession } from "lib/zod/index.ts"
 import {
   ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME,
   ACS_SYSTEM_TYPE_TO_DISPLAY_NAME,
+  EVENT_TO_DESCRIPTION_MAP,
   SEAM_EVENT_LIST,
   USER_TYPE_TO_DISPLAY_NAME,
 } from "lib/constants.ts"
@@ -1056,6 +1057,7 @@ const initializer = immer<Database>((set, get) => ({
       event_id: get()._getNextId("event"),
       created_at: params?.created_at ?? new Date().toISOString(),
       occurred_at: params?.occurred_at ?? new Date().toISOString(),
+      event_description: EVENT_TO_DESCRIPTION_MAP[params.event_type] ?? "",
       ...params,
     }
 

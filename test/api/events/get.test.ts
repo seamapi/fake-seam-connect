@@ -30,6 +30,7 @@ test("GET /events/get", async (t: ExecutionContext) => {
 
   t.truthy(events_get_request.data.event)
   t.is(events_get_request.data.event.device_id, device_id)
+  t.truthy(events_get_request.data.event.event_description)
 
   // Test 200 response (event_type)
   events_get_request = await axios.get("/events/get", {

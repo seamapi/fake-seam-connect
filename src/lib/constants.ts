@@ -87,3 +87,11 @@ export const SEAM_EVENT_LIST = [
   "enrollment_automation.deleted",
   "client_session.deleted",
 ]
+
+export const EVENT_TO_DESCRIPTION_MAP: Record<string, string> = {
+  "device.connected": "A new device has been connected to Seam",
+  "access_code.created": "An access code has been created.",
+  "access_code.deleted": "An access code has been deleted.",
+  "lock.locked": "A lock device was locked.",
+  "lock.unlocked": "A lock device was unlocked.",
+}

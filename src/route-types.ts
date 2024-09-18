@@ -2741,6 +2741,7 @@ export type Routes = {
         workspace_id: string
         created_at: string
         occurred_at: string
+        event_description: string
       }
       ok: boolean
     }
@@ -2772,6 +2773,7 @@ export type Routes = {
         workspace_id: string
         created_at: string
         occurred_at: string
+        event_description: string
       }[]
       ok: boolean
     }
