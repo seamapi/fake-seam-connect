@@ -31,6 +31,6 @@ export default withRouteSpec({
   }
 
   res.status(200).json({
-    workspaces: workspaces,
+    workspaces,
   })
 })
