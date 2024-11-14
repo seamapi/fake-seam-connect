@@ -266,6 +266,7 @@ export const seedDatabase = (db: Database): Seed => {
   db.addAccessToken({
     access_token_name: "Seeded Fake Access Token",
     email: "john@example.com",
+    user_id: seed.john_user_id,
     long_token_hash,
     short_token,
   })

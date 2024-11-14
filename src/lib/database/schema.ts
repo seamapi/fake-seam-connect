@@ -102,6 +102,7 @@ export interface DatabaseMethods {
     email: string
     short_token: string
     long_token_hash: string
+    user_id?: string
     created_at?: string
   }) => AccessToken
   addClientSession: (params: {
