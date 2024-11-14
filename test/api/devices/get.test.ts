@@ -1,4 +1,5 @@
-import test, { ExecutionContext } from "ava"
+import test, { type ExecutionContext } from "ava"
+
 import { getTestServer } from "fixtures/get-test-server.ts"
 
 test("GET /devices/get with access token auth", async (t: ExecutionContext) => {
@@ -8,7 +9,7 @@ test("GET /devices/get with access token auth", async (t: ExecutionContext) => {
     data: { device },
   } = await axios.get("/devices/get", {
     params: {
-      device_id: seed.ws2.device1_id
+      device_id: seed.ws2.device1_id,
     },
     headers: {
       Authorization: `Bearer ${seed.ws2.seam_at1_token}`,
