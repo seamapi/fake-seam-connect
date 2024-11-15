@@ -28,19 +28,13 @@ export const withClientSessionOrApiKeyOrPublishableKey: Middleware<
     (req.headers["client-session-token"] as string | null) ??
     (req.headers["seam-client-session-token"] as string | null) ??
     (req.headers["seam-publishable-key"] as string | null)
-  console.log("🚀 ~ token:", token)
   if (token == null) return res.status(401).end("Unauthorized")
 
   const is_cst = token.includes("seam_cst")
-  console.log("🚀 ~ is_cst:", is_cst)
   const is_pub_key = token.includes("seam_pk")
-  console.log("🚀 ~ is_pub_key:", is_pub_key)
   const is_api_key = !is_cst && !is_pub_key
-  console.log("🚀 ~ is_api_key:", is_api_key)
   const long_token = token.split("_")?.[2]
-  console.log("🚀 ~ long_token:", long_token)
   const short_token = token.split("_")?.[1]
-  console.log("🚀 ~ short_token:", short_token)
 
   if (short_token == null || long_token == null)
     return res.status(400).end("malformed token")
