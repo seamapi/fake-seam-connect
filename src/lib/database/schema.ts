@@ -9,7 +9,6 @@ import type {
   ActionAttempt,
   ApiKey,
   ClientSession,
-  ClimateSettingSchedule,
   ConnectedAccount,
   ConnectWebview,
   Device,
@@ -30,7 +29,6 @@ import type {
   CredentialService,
   SimulatedEvent,
 } from "lib/zod/assa_abloy_credential_service.ts"
-import type { ClimateSetting } from "lib/zod/climate_setting.ts"
 import type { Endpoint } from "lib/zod/endpoints.ts"
 import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"
@@ -54,7 +52,6 @@ export interface DatabaseState {
   connected_accounts: ConnectedAccount[]
   devices: Device[]
   events: Event[]
-  climate_setting_schedules: ClimateSettingSchedule[]
   action_attempts: ActionAttempt[]
   noise_thresholds: NoiseThreshold[]
   simulatedWorkspaceOutages: Record<
@@ -215,29 +212,7 @@ export interface DatabaseMethods {
     original_access_code_id: string
     pulled_backup_access_code_id: string
   }) => void
-  findClimateSettingSchedule: (params: {
-    climate_setting_schedule_id: string
-    device_id?: string
-  }) => ClimateSettingSchedule | undefined
-  addClimateSettingSchedule: (
-    params: {
-      workspace_id: string
-      device_id: string
-      schedule_type: ClimateSettingSchedule["schedule_type"]
-      schedule_starts_at: string
-      schedule_ends_at: string
-      created_at?: string
-      name: string
-    } & Partial<ClimateSetting>,
-  ) => ClimateSettingSchedule
-  updateClimateSettingSchedule: (
-    params: Pick<ClimateSettingSchedule, "climate_setting_schedule_id"> &
-      Partial<ClimateSettingSchedule>,
-  ) => ClimateSettingSchedule
-  deleteClimateSettingSchedule: (
-    climate_setting_schedule_id: ClimateSettingSchedule["climate_setting_schedule_id"],
-  ) => void
-
+  
   addActionAttempt: (params: Partial<ActionAttempt>) => ActionAttempt
   findActionAttempt: (
     params: Pick<ActionAttempt, "action_attempt_id">,

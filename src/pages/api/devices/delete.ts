@@ -29,16 +29,6 @@ export default withRouteSpec({
     req.db.deleteAccessCode(access_code_id)
   }
 
-  const device_climate_setting_schedules =
-    req.db.climate_setting_schedules.filter(
-      (climate_setting) => climate_setting.device_id === device_id,
-    )
-  for (const {
-    climate_setting_schedule_id,
-  } of device_climate_setting_schedules) {
-    req.db.deleteClimateSettingSchedule(climate_setting_schedule_id)
-  }
-
   req.db.deleteDevice(device_id)
 
   res.status(200).json({})
