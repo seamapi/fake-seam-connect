@@ -18,7 +18,7 @@ export default withRouteSpec({
   let workspaces: Workspace[]
 
   if ("user_id" in req.auth) {
-    const auth = req.auth as Extract<typeof req.auth, { user_id: string }>
+    const auth = req.auth 
 
     workspaces = req.db.workspaces.filter((w) =>
       req.db.user_workspaces.some(
@@ -27,7 +27,7 @@ export default withRouteSpec({
       ),
     )
   } else {
-    const auth = req.auth as Extract<typeof req.auth, { workspace_id: string }>
+    const auth = req.auth 
 
     workspaces = req.db.workspaces.filter(
       (w) => w.workspace_id === auth.workspace_id,
