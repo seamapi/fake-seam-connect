@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken"
 import test, { type ExecutionContext } from "ava"
+import jwt from "jsonwebtoken"
 
 import { getTestServer } from "fixtures/get-test-server.ts"
 
