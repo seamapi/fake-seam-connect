@@ -17,7 +17,17 @@ export default withRouteSpec({
 } as const)(async (req, res) => {
   let workspaces: Workspace[]
 
-  if ("user_id" in req.auth) {
+  if (
+    req.auth.type === "api_key" ||
+    req.auth.type === "client_session" ||
+    req.auth.type === "access_token"
+  ) {
+    const auth = req.auth
+
+    workspaces = req.db.workspaces.filter(
+      (w) => w.workspace_id === auth.workspace_id,
+    )
+  } else {
     const auth = req.auth
 
     workspaces = req.db.workspaces.filter((w) =>
@@ -25,12 +35,6 @@ export default withRouteSpec({
         (uw) =>
           uw.workspace_id === w.workspace_id && uw.user_id === auth.user_id,
       ),
-    )
-  } else {
-    const auth = req.auth
-
-    workspaces = req.db.workspaces.filter(
-      (w) => w.workspace_id === auth.workspace_id,
     )
   }
 
