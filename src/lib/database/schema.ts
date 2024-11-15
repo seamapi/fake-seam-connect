@@ -212,7 +212,7 @@ export interface DatabaseMethods {
     original_access_code_id: string
     pulled_backup_access_code_id: string
   }) => void
-  
+
   addActionAttempt: (params: Partial<ActionAttempt>) => ActionAttempt
   findActionAttempt: (
     params: Pick<ActionAttempt, "action_attempt_id">,

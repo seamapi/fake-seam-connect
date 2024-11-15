@@ -24,13 +24,13 @@ export const withClientSessionOrApiKeyOrPublishableKey: Middleware<
   }
 > = (next) => async (req, res) => {
   const token =
-  req.headers.authorization?.split("Bearer ")?.[1] ??
-  (req.headers["client-session-token"] as string | null) ??
-  (req.headers["seam-client-session-token"] as string | null) ??
-  (req.headers["seam-publishable-key"] as string | null)
+    req.headers.authorization?.split("Bearer ")?.[1] ??
+    (req.headers["client-session-token"] as string | null) ??
+    (req.headers["seam-client-session-token"] as string | null) ??
+    (req.headers["seam-publishable-key"] as string | null)
   console.log("🚀 ~ token:", token)
   if (token == null) return res.status(401).end("Unauthorized")
-    
+
   const is_cst = token.includes("seam_cst")
   console.log("🚀 ~ is_cst:", is_cst)
   const is_pub_key = token.includes("seam_pk")
