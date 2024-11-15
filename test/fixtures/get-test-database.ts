@@ -29,6 +29,8 @@ interface Seed {
     acs_access_group1_id: string
     acs_entrance1_id: string
     seam_at1_token: string
+    user1_id: string
+    user1_key: string
   }
 }
 
@@ -183,6 +185,8 @@ export const getTestDatabase = async (
       acs_access_group1_id: acs_access_group_id,
       acs_entrance1_id: acs_entrance_id,
       seam_at1_token: dbSeed.seam_at1_token,
+      user1_id: dbSeed.john_user_id,
+      user1_key: dbSeed.john_user_key,
     },
   }
 
