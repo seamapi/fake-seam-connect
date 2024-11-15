@@ -17,16 +17,20 @@ export default withRouteSpec({
 } as const)(async (req, res) => {
   let workspaces: Workspace[]
 
-  if (req.auth.type === "api_key" || req.auth.type === "client_session") {
-    workspaces = req.db.workspaces.filter(
-      (w) => w.workspace_id === req.auth.workspace_id,
-    )
-  } else {
+  if ("user_id" in req.auth) {
+    const auth = req.auth as Extract<typeof req.auth, { user_id: string }>
+
     workspaces = req.db.workspaces.filter((w) =>
       req.db.user_workspaces.some(
         (uw) =>
-          uw.workspace_id === w.workspace_id && uw.user_id === req.auth.user_id,
+          uw.workspace_id === w.workspace_id && uw.user_id === auth.user_id,
       ),
+    )
+  } else {
+    const auth = req.auth as Extract<typeof req.auth, { workspace_id: string }>
+
+    workspaces = req.db.workspaces.filter(
+      (w) => w.workspace_id === auth.workspace_id,
     )
   }
 
