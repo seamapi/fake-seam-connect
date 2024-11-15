@@ -8,6 +8,8 @@ export default withRouteSpec({
   auth: [
     "pat_with_workspace",
     "pat_without_workspace",
+    "user_session",
+    "user_session_without_workspace",
     "api_key",
     "client_session",
   ],
