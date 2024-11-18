@@ -38,16 +38,6 @@ export const withRouteSpec = createWithRouteSpec({
       scheme: "bearer",
       bearerFormat: "Console Session Token",
     },
-    user_session: {
-      type: "http",
-      scheme: "bearer",
-      bearerFormat: "User Session Token",
-    },
-    user_session_without_workspace: {
-      type: "http",
-      scheme: "bearer",
-      bearerFormat: "User Session Token",
-    },
     api_key: {
       type: "http",
       scheme: "bearer",
@@ -61,10 +51,6 @@ export const withRouteSpec = createWithRouteSpec({
     pat_with_workspace: withAccessToken({ is_workspace_id_required: true }),
     pat_without_workspace: withAccessToken({ is_workspace_id_required: false }),
     console_session: withSessionAuth({ is_workspace_id_required: true }),
-    user_session: withSessionAuth({ is_workspace_id_required: true }),
-    user_session_without_workspace: withSessionAuth({
-      is_workspace_id_required: false,
-    }),
     api_key: withApiKey,
     client_session: withClientSession,
     cst_ak_pk: withClientSessionOrApiKeyOrPublishableKey,
