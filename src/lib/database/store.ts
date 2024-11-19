@@ -621,7 +621,7 @@ const initializer = immer<Database>((set, get) => ({
       is_offline_access_code: false,
       ...params,
       common_code_key:
-        "common_code_key" in params ? params?.common_code_key ?? null : null,
+        "common_code_key" in params ? (params?.common_code_key ?? null) : null,
     }
 
     set({
