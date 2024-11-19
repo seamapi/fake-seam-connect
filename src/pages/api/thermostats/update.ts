@@ -15,7 +15,7 @@ import {
 import { climate_setting } from "lib/zod/climate_setting.ts"
 
 export default withRouteSpec({
-  auth: "cst_ak_pk",
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
   methods: ["PATCH", "POST"],
   jsonBody: z.object({
     device_id: z.string(),

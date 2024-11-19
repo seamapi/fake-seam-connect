@@ -5,7 +5,7 @@ import { withRouteSpec } from "lib/middleware/index.ts"
 
 export default withRouteSpec({
   methods: ["PUT", "POST"],
-  auth: "cst_ak_pk",
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
   jsonBody: z.object({
     acs_user_id: z.string(),
     acs_access_group_id: z.string(),

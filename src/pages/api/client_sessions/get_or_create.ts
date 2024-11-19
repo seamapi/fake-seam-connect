@@ -6,7 +6,7 @@ import { withRouteSpec } from "lib/middleware/index.ts"
 import { client_session } from "lib/zod/client_session.ts"
 
 export default withRouteSpec({
-  auth: "cst_ak_pk",
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
   methods: ["POST", "PUT"],
   middlewares: [],
   jsonBody: z.union([

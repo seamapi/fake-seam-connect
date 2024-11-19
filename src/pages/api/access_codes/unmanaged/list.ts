@@ -5,7 +5,7 @@ import { access_code } from "lib/zod/index.ts"
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
-  auth: "cst_ak_pk",
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
   methods: ["GET", "POST"],
   commonParams: z.object({
     device_id: z.string(),

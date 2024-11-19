@@ -23,7 +23,7 @@ const json_body = z
   )
 
 export default withRouteSpec({
-  auth: "cst_ak_pk",
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
   methods: ["POST"],
   jsonBody: json_body,
   jsonResponse: z.object({
