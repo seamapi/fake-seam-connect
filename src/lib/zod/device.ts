@@ -2,7 +2,6 @@ import { schemas } from "@seamapi/types/connect"
 import { z } from "zod"
 
 import { climate_setting } from "lib/zod/climate_setting.ts"
-import { climate_setting_schedule } from "lib/zod/climate_setting_schedule.ts"
 import { custom_metadata } from "lib/zod/custom-metadata.ts"
 
 export const LOCK_DEVICE_TYPES = [
@@ -105,8 +104,6 @@ export const thermostat_device_properties = common_device_properties.extend({
   is_temporary_manual_override_active: z.boolean(),
   current_climate_setting: climate_setting,
   default_climate_setting: z.optional(climate_setting),
-  is_climate_setting_schedule_active: z.boolean(),
-  active_climate_setting_schedule: z.optional(climate_setting_schedule),
   fan_mode_setting,
 
   is_cooling_available: z.boolean(),

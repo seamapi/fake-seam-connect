@@ -16,9 +16,7 @@ const json_body = z
   })
   .merge(
     create_ac_json_body.omit({
-      common_code_key: true,
       device_id: true,
-      sync: true,
     }),
   )
 
@@ -59,8 +57,8 @@ export default withRouteSpec({
       workspace_id: req.auth.workspace_id,
       ...(starts_at != null && ends_at != null
         ? {
-            starts_at: new Date(starts_at).toISOString(),
-            ends_at: new Date(ends_at).toISOString(),
+            starts_at: new Date(starts_at as string).toISOString(),
+            ends_at: new Date(ends_at as string).toISOString(),
             type: "time_bound",
           }
         : { type: "ongoing" }),

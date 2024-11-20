@@ -31,7 +31,6 @@ import type {
   CredentialService,
 } from "lib/zod/assa_abloy_credential_service.ts"
 import type { ClientSession } from "lib/zod/client_session.ts"
-import type { ClimateSettingSchedule } from "lib/zod/climate_setting_schedule.ts"
 import type { ConnectWebview } from "lib/zod/connect_webview.ts"
 import type { ConnectedAccount } from "lib/zod/connected_account.ts"
 import type { Device } from "lib/zod/device.ts"
@@ -85,7 +84,6 @@ const initializer = immer<Database>((set, get) => ({
   devices: [],
   events: [],
   access_codes: [],
-  climate_setting_schedules: [],
   action_attempts: [],
   noise_thresholds: [],
   phone_invitations: [],
@@ -203,9 +201,6 @@ const initializer = immer<Database>((set, get) => ({
 
     set({
       access_codes: filterByDeviceIds(db_state.access_codes),
-      climate_setting_schedules: filterByDeviceIds(
-        db_state.climate_setting_schedules,
-      ),
       noise_thresholds: filterByDeviceIds(db_state.noise_thresholds),
       devices: filterByWorkspaceId(db_state.devices),
       client_sessions: filterByWorkspaceId(db_state.client_sessions),
@@ -626,7 +621,7 @@ const initializer = immer<Database>((set, get) => ({
       is_offline_access_code: false,
       ...params,
       common_code_key:
-        "common_code_key" in params ? params?.common_code_key ?? null : null,
+        "common_code_key" in params ? (params?.common_code_key ?? null) : null,
     }
 
     set({
@@ -702,95 +697,6 @@ const initializer = immer<Database>((set, get) => ({
         }
         return ac
       }),
-    })
-  },
-
-  addClimateSettingSchedule(params) {
-    const new_climate_setting_schedule: ClimateSettingSchedule = {
-      climate_setting_schedule_id: get()._getNextId("climate_setting_schedule"),
-      created_at: params.created_at ?? new Date().toISOString(),
-      ...params,
-    }
-
-    set({
-      climate_setting_schedules: [
-        ...get().climate_setting_schedules,
-        new_climate_setting_schedule,
-      ],
-    })
-
-    return new_climate_setting_schedule
-  },
-
-  findClimateSettingSchedule(params) {
-    return get().climate_setting_schedules.find((climate_setting_schedule) => {
-      const is_target_id =
-        climate_setting_schedule.climate_setting_schedule_id ===
-        params.climate_setting_schedule_id
-      const is_target_device =
-        climate_setting_schedule.device_id === params.device_id
-
-      return is_target_id || is_target_device
-    })
-  },
-
-  updateClimateSettingSchedule(params) {
-    const target = get().climate_setting_schedules.find(
-      (climate_setting_schedule) =>
-        climate_setting_schedule.climate_setting_schedule_id ===
-        params.climate_setting_schedule_id,
-    )
-    if (target == null) {
-      throw new Error(
-        "Could not find climate_setting_schedule with climate_setting_schedule_id",
-      )
-    }
-
-    const updated: ClimateSettingSchedule = { ...target, ...params }
-
-    set({
-      climate_setting_schedules: [
-        ...get().climate_setting_schedules.map((climate_setting_schedule) => {
-          const is_target =
-            climate_setting_schedule.climate_setting_schedule_id ===
-            target.climate_setting_schedule_id
-
-          if (is_target) {
-            return updated
-          }
-
-          return climate_setting_schedule
-        }),
-      ],
-    })
-
-    return updated
-  },
-
-  deleteClimateSettingSchedule(climate_setting_schedule_id) {
-    const target = get().climate_setting_schedules.find(
-      (climate_setting_schedule) =>
-        climate_setting_schedule.climate_setting_schedule_id ===
-        climate_setting_schedule_id,
-    )
-    if (target == null) {
-      throw new Error(
-        "Could not find climate_setting_schedule with climate_setting_schedule_id",
-      )
-    }
-
-    set({
-      climate_setting_schedules: [
-        ...get().climate_setting_schedules.filter(
-          (climate_setting_schedule) => {
-            const is_target =
-              climate_setting_schedule.climate_setting_schedule_id ===
-              target.climate_setting_schedule_id
-
-            return !is_target
-          },
-        ),
-      ],
     })
   },
 
