@@ -4,7 +4,7 @@ import { z } from "zod"
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
-  auth: "cst_ak_pk",
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
   methods: ["DELETE", "POST"],
   jsonBody: z.object({
     connected_account_id: z.string(),

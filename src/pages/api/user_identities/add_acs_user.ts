@@ -4,7 +4,7 @@ import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export const route_spec = {
   methods: ["POST", "PUT"],
-  auth: "cst_ak_pk",
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
   commonParams: z.object({
     user_identity_id: z.string().uuid(),
     acs_user_id: z.string().uuid(),

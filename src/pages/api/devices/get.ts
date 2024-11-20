@@ -17,7 +17,7 @@ export const common_params = z
   )
 
 export default withRouteSpec({
-  auth: ["api_key", "console_session", "client_session"],
+  auth: ["api_key", "console_session", "client_session", "pat_with_workspace"],
   methods: ["GET", "POST"],
   commonParams: common_params,
   jsonResponse: z.object({

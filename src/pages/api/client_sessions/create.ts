@@ -1,4 +1,8 @@
-import { BadRequestException, UnauthorizedException } from "nextlove"
+import {
+  BadRequestException,
+  HttpException,
+  UnauthorizedException,
+} from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
@@ -24,8 +28,6 @@ export default withRouteSpec({
     ok: z.literal(true),
   }),
 } as const)(async (req, res) => {
-  // TODO if pubkey, fail if connect_webview_ids or connected_account_ids are provided
-
   const user_identifier_key =
     req.body?.user_identifier_key ??
     (req.headers["user-identifier-key"] as string | undefined) ??
@@ -58,6 +60,20 @@ export default withRouteSpec({
     throw new UnauthorizedException({
       type: "missing_user_identifier_key",
       message: "You must provide a user_identifier_key when using an api key",
+    })
+  }
+
+  const { connect_webview_ids, connected_account_ids } = req.body
+
+  if (
+    publishable_key != null &&
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    (connect_webview_ids != null || connected_account_ids != null)
+  ) {
+    throw new HttpException(403, {
+      type: "publishable_keys_must_create_empty_client_sessions",
+      message:
+        "You cannot specify connect_webview_ids or connected_account_ids when using a publishable key",
     })
   }
 
@@ -120,8 +136,8 @@ export default withRouteSpec({
 
   const client_session = req.db.addClientSession({
     workspace_id,
-    connect_webview_ids: req.body?.connect_webview_ids,
-    connected_account_ids: req.body?.connected_account_ids,
+    connect_webview_ids,
+    connected_account_ids,
     user_identifier_key,
   })
   const device_count = req.db.devices.filter(

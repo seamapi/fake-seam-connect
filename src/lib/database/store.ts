@@ -267,7 +267,7 @@ const initializer = immer<Database>((set, get) => ({
     const new_access_token: AccessToken = {
       access_token_id,
       email: params.email,
-      user_id,
+      user_id: params.user_id ?? user_id,
       access_token_name: params.access_token_name,
       long_token_hash: params.long_token_hash,
       short_token: params.short_token,

@@ -6,7 +6,7 @@ import { acs_user } from "lib/zod/index.ts"
 
 export default withRouteSpec({
   methods: ["POST"],
-  auth: "cst_ak_pk",
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
   jsonBody: z
     .object({
       acs_system_id: z.string(),

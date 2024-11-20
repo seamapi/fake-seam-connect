@@ -32,7 +32,7 @@ const jsonBody = z
 
 export default withRouteSpec({
   methods: ["POST"],
-  auth: "cst_ak_pk",
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
   jsonBody,
   jsonResponse: z.object({
     climate_setting_schedule,

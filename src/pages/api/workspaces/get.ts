@@ -6,7 +6,7 @@ import { workspace } from "lib/zod/index.ts"
 
 export default withRouteSpec({
   methods: ["GET", "POST"],
-  auth: "cst_ak_pk",
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
   jsonResponse: z.object({
     workspace,
   }),
