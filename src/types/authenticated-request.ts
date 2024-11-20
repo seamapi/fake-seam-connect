@@ -30,9 +30,4 @@ export type AuthenticatedRequest = Request & {
         type: "user_session_without_workspace"
         user_id: string
       }
-    | {
-        type: "cst_ak_pk"
-        workspace_id: string
-        connected_account_ids: string[]
-      }
 }

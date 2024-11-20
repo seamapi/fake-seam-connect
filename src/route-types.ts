@@ -46,7 +46,7 @@ export type Routes = {
       seam_apikey2_token: "seam_apikey2_token"
       seam_cst1_token: "seam_cst1_token"
       seam_pk1_token: "seam_pk1_token"
-      seam_at1_token: "seam_at1_shorttoken_longtoken"
+      seam_at1_token: "seam_at1_longtoken"
       john_user_identifier_key: "john_user_identifier_key"
       john_user_identity_id: "john_user_identity_id"
       john_user_id: "john_user_id"

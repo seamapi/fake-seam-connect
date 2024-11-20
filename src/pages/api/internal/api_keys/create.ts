@@ -4,7 +4,7 @@ import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { api_key } from "lib/zod/api_key.ts"
 
 const route_spec = {
-  auth: "cst_ak_pk", // TODO: session_or_access_token_and_workspace
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"], // TODO: session_or_access_token_and_workspace
   methods: ["POST"],
   jsonBody: z.object({
     name: z.string(),

@@ -3,6 +3,7 @@ import { createDatabase, type Database } from "@seamapi/fake-seam-connect"
 import type { ExecutionContext } from "ava"
 
 import { seed as dbSeed } from "lib/database/seed.ts"
+import { hashLongToken } from "lib/tokens/generate-api-key.ts"
 
 export interface DatabaseFixture<TSeed = true> {
   db: Database
@@ -27,6 +28,9 @@ interface Seed {
     acs_user1_id: string
     acs_access_group1_id: string
     acs_entrance1_id: string
+    seam_at1_token: string
+    user1_id: string
+    user1_key: string
   }
 }
 
@@ -152,6 +156,16 @@ export const getTestDatabase = async (
     },
   })
 
+  const [, short_token = "", long_token = ""] = dbSeed.seam_at1_token.split("_")
+  const long_token_hash = hashLongToken(long_token)
+  db.addAccessToken({
+    access_token_name: "Seeded Fake Access Token",
+    email: "john@example.com",
+    user_id: dbSeed.john_user_id,
+    long_token_hash,
+    short_token,
+  })
+
   const seed: Seed = {
     ws1: {
       workspace_id: ws1.workspace_id,
@@ -170,6 +184,9 @@ export const getTestDatabase = async (
       acs_user1_id: acs_user_id,
       acs_access_group1_id: acs_access_group_id,
       acs_entrance1_id: acs_entrance_id,
+      seam_at1_token: dbSeed.seam_at1_token,
+      user1_id: dbSeed.john_user_id,
+      user1_key: dbSeed.john_user_key,
     },
   }
 

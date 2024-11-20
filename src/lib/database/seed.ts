@@ -23,7 +23,7 @@ export interface Seed {
   john_user_id: "john_user_id"
   john_user_key: "john_user_key"
   visionline_acs_system_1: "visionline_acs_system_1"
-  seam_at1_token: "seam_at1_shorttoken_longtoken"
+  seam_at1_token: "seam_at1_longtoken"
 }
 
 export const seed: Seed = {
@@ -42,7 +42,7 @@ export const seed: Seed = {
   seam_apikey2_token: "seam_apikey2_token",
   seam_cst1_token: "seam_cst1_token",
   seam_pk1_token: "seam_pk1_token",
-  seam_at1_token: "seam_at1_shorttoken_longtoken",
+  seam_at1_token: "seam_at1_longtoken",
   john_user_identifier_key: "john_user_identifier_key",
   john_user_identity_id: "john_user_identity_id",
   john_user_id: "john_user_id",
@@ -261,11 +261,12 @@ export const seedDatabase = (db: Database): Seed => {
     connected_account_ids: [seed.john_connected_account_id],
   })
 
-  const [, , short_token = "", long_token = ""] = seed.seam_at1_token.split("_")
+  const [, short_token = "", long_token = ""] = seed.seam_at1_token.split("_")
   const long_token_hash = hashLongToken(long_token)
   db.addAccessToken({
     access_token_name: "Seeded Fake Access Token",
     email: "john@example.com",
+    user_id: seed.john_user_id,
     long_token_hash,
     short_token,
   })

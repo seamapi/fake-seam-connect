@@ -5,7 +5,7 @@ import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { getDevicesWithFilter } from "lib/util/devices.ts"
 
 export default withRouteSpec({
-  auth: "cst_ak_pk",
+  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
   methods: ["POST", "PATCH"],
   commonParams: z.object({
     device_id: z.string(),
