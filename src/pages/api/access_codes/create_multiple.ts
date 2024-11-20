@@ -70,7 +70,7 @@ export default withRouteSpec({
 
     created_access_codes.push(access_code)
 
-    if (use_backup_access_code_pool === true) {
+    if (use_backup_access_code_pool) {
       const code = Math.random().toString().slice(-4)
       req.db.addAccessCode({
         code,
