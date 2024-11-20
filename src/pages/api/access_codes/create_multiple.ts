@@ -16,9 +16,7 @@ const json_body = z
   })
   .merge(
     create_ac_json_body.omit({
-      common_code_key: true,
       device_id: true,
-      sync: true,
     }),
   )
 
