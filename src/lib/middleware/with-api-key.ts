@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken"
 import { type Middleware, UnauthorizedException } from "nextlove"
 import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
 
@@ -13,30 +14,62 @@ export const withApiKey: Middleware<
     db: Database
   }
 > = (next) => async (req, res) => {
-  if (req.db == null) {
-    return res
-      .status(500)
-      .end(
-        "The withApiKey middleware requires req.db. Use it with the withDb middleware.",
-      )
+  if (req.headers.authorization == null) {
+    throw new UnauthorizedException({
+      type: "unauthorized",
+      message: "No Authorization header",
+    })
   }
 
   const token = req.headers.authorization?.split("Bearer ")?.[1]
-  if (token == null) return res.status(401).end("Unauthorized")
+  if (token == null) {
+    throw new UnauthorizedException({
+      type: "unauthorized",
+      message: "No token provided",
+    })
+  }
 
-  // TODO: Validate authorization.
-  // If relevant, add the user or the decoded JWT to the request on req.auth.
+  if (token.startsWith("seam_cst1")) {
+    throw new UnauthorizedException({
+      type: "client_session_token_used_for_api_key",
+      message: "A client session token was used instead of an API key",
+    })
+  }
+
+  if (token.startsWith("seam_at")) {
+    throw new UnauthorizedException({
+      type: "access_token_used_for_api_key",
+      message: "An access token was used instead of an API key",
+    })
+  }
+
+  let decodedJwt
+  try {
+    decodedJwt = jwt.decode(token)
+  } catch {}
+  if (decodedJwt != null) {
+    throw new UnauthorizedException({
+      type: "unauthorized",
+      message: "A JWT was used instead of an API key",
+    })
+  }
 
   const api_key = req.db.api_keys.find((key) => key.token === token)
 
   if (api_key == null) {
     throw new UnauthorizedException({
-      type: "invalid_api_key",
-      message: "Invalid API Key (not found)",
+      type: "unauthorized",
+      message: "API Key not found",
     })
   }
 
-  req.auth = { type: "api_key", workspace_id: api_key.workspace_id }
+  req.auth = {
+    type: "api_key",
+    api_key_id: api_key.api_key_id,
+    api_key_short_token: api_key.short_token,
+    token,
+    workspace_id: api_key.workspace_id,
+  }
 
   // Cannot run middleware after auth middleware.
   // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
