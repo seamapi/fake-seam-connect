@@ -26,7 +26,6 @@ export type AuthenticatedRequest = Request & {
         user_id: string
         user_session_id: string
         workspace_id: string
-        sandbox: boolean
       }
     | {
         type: "user_session_without_workspace"

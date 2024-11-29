@@ -108,8 +108,6 @@ export const withSessionAuth =
         user_session_id: user_session.user_session_id,
         workspace_id,
         user_id,
-        sandbox: req.db.workspaces.find((w) => w.workspace_id === workspace_id)
-          ?.is_sandbox,
       }
     } else {
       ;(req.auth as Extract<
