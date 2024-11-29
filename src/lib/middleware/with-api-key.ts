@@ -1,10 +1,10 @@
+import jwt from "jsonwebtoken"
 import { type Middleware, UnauthorizedException } from "nextlove"
 import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
 
 import type { Database } from "lib/database/index.ts"
 
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
-import jwt from "jsonwebtoken"
 
 export const withApiKey: Middleware<
   {
