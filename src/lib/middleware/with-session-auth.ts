@@ -1,10 +1,8 @@
 import jwt from "jsonwebtoken"
 import {
   BadRequestException,
-  HttpException,
   InternalServerErrorException,
   type Middleware,
-  NotFoundException,
   UnauthorizedException,
 } from "nextlove"
 import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
@@ -48,10 +46,10 @@ export const withSessionAuth =
 
     const workspace_id_from_header = req.headers["seam-workspace"]
     const workspace_id =
-      workspace_id_from_header != null &&
-      !Array.isArray(workspace_id_from_header)
-        ? workspace_id_from_header
-        : ""
+    workspace_id_from_header != null &&
+    !Array.isArray(workspace_id_from_header)
+    ? workspace_id_from_header
+    : ""
 
     if (workspace_id.length === 0 && is_workspace_id_required) {
       throw new BadRequestException({
@@ -123,6 +121,8 @@ export const withSessionAuth =
       }
     }
 
+    // Cannot run middleware after auth middleware.
+    // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return withSimulatedOutage(next as unknown as any)(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
