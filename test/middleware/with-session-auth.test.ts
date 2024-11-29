@@ -1,7 +1,10 @@
 import test from "ava"
 import jwt from "jsonwebtoken"
 
-import { getTestServer, type SimpleAxiosError } from "fixtures/get-test-server.ts"
+import {
+  getTestServer,
+  type SimpleAxiosError,
+} from "fixtures/get-test-server.ts"
 import { seedDatabase } from "lib/database/seed.ts"
 
 test("withSessionAuth middleware - successful auth", async (t) => {
