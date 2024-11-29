@@ -1,7 +1,7 @@
 import test from "ava"
 import jwt from "jsonwebtoken"
 
-import { getTestServer, SimpleAxiosError } from "fixtures/get-test-server.ts"
+import { getTestServer, type SimpleAxiosError } from "fixtures/get-test-server.ts"
 import { seedDatabase } from "lib/database/seed.ts"
 
 test("withApiKey middleware - successful auth", async (t) => {
@@ -59,10 +59,7 @@ test("withApiKey middleware - successful auth", async (t) => {
     }),
   )
   t.is(accessTokenErr?.status, 401)
-  t.is(
-    accessTokenErr?.response.error.type,
-    "access_token_used_for_api_key",
-  )
+  t.is(accessTokenErr?.response.error.type, "access_token_used_for_api_key")
 
   // Test using JWT instead of API key
   const token = jwt.sign({ some: "payload" }, "secret")
