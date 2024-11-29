@@ -93,9 +93,9 @@ export const seedDatabase = (db: Database): Seed => {
   })
 
   db.addUserWorkspace({
-    user_id: seed.john_user_id,
-    workspace_id: seed.seed_workspace_2,
     user_workspace_id: seed.john_user_workspace_1,
+    user_id: seed.john_user_id,
+    workspace_id: seed.seed_workspace_1,
     is_owner: true,
   })
 
