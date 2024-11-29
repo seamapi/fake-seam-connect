@@ -9,8 +9,9 @@ import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
 
 import type { Database } from "lib/database/index.ts"
 
+import type { UserWorkspace } from "lib/zod/user_workspace.ts"
+
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
-import { UserWorkspace } from "lib/zod/user_workspace.ts"
 
 export const withSessionAuth =
   <RequiresWorkspaceId extends boolean>({
@@ -46,10 +47,10 @@ export const withSessionAuth =
 
     const workspace_id_from_header = req.headers["seam-workspace"]
     const workspace_id =
-    workspace_id_from_header != null &&
-    !Array.isArray(workspace_id_from_header)
-    ? workspace_id_from_header
-    : ""
+      workspace_id_from_header != null &&
+      !Array.isArray(workspace_id_from_header)
+        ? workspace_id_from_header
+        : ""
 
     if (workspace_id.length === 0 && is_workspace_id_required) {
       throw new BadRequestException({
