@@ -83,7 +83,7 @@ export const withSessionAuth =
       })
     }
 
-    let user_workspace: UserWorkspace
+    let user_workspace: UserWorkspace | undefined
     if (workspace_id.length !== 0) {
       user_workspace = req.db.user_workspaces.find(
         (uw) => uw.user_id === user_id && uw.workspace_id === workspace_id,
@@ -92,7 +92,7 @@ export const withSessionAuth =
       if (user_workspace == null) {
         throw new UnauthorizedException({
           type: "unauthorized",
-          message: "Session not found",
+          message: "User does not have access to this workspace",
         })
       }
     }
@@ -106,7 +106,7 @@ export const withSessionAuth =
       >) = {
         type: "user_session",
         user_session_id: user_session.user_session_id,
-        workspace_id: workspace_id ?? user_workspace?.workspace_id,
+        workspace_id,
         user_id,
         sandbox: req.db.workspaces.find((w) => w.workspace_id === workspace_id)
           ?.is_sandbox,
