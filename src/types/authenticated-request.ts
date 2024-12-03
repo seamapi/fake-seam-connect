@@ -2,7 +2,10 @@ export type AuthenticatedRequest = Request & {
   auth:
     | {
         type: "api_key"
+        api_key_id: string
+        api_key_short_token: string
         workspace_id: string
+        token: string
       }
     | {
         type: "access_token"
