@@ -1,6 +1,5 @@
 import {
   BadRequestException,
-  HttpException,
   type Middleware,
   UnauthorizedException,
 } from "nextlove"
@@ -72,15 +71,19 @@ export const withAccessToken =
           "When using access token authentication, you must provide the Seam-Workspace header",
       })
     }
+    const workspace = req.db.workspaces.find(
+      (w) => w.workspace_id === workspace_id,
+    )
 
     const long_token_hash = extractLongTokenHash(token)
 
     const access_token = req.db.access_tokens.find(
-      (token) =>
-        token.long_token_hash === long_token_hash &&
-        (!is_workspace_id_provided || token.workspace_id === workspace_id),
+      (token) => token.long_token_hash === long_token_hash,
     )
-    if (access_token == null) {
+    if (
+      access_token == null ||
+      (is_workspace_id_required && workspace == null)
+    ) {
       throw new UnauthorizedException({
         type: "unauthorized",
         message: "Access token not found",
@@ -97,7 +100,7 @@ export const withAccessToken =
         access_token_short_token: access_token.short_token,
         token,
         user_id: access_token.user_id,
-        workspace_id: access_token.workspace_id,
+        workspace_id,
       }
     } else {
       ;(req.auth as unknown as Extract<
