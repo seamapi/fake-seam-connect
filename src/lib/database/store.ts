@@ -284,11 +284,12 @@ const initializer = immer<Database>((set, get) => ({
       connected_account_ids: params.connected_account_ids ?? [],
       connect_webview_ids: params.connect_webview_ids ?? [],
       client_session_id: cst_id,
-      token: params.token ?? `seam_${cst_id}_${simpleHash(cst_id)}`,
+      token: params.token ?? `seam_cst1${cst_id}_${simpleHash(cst_id)}`,
       user_identifier_key: params.user_identifier_key ?? null,
       user_identity_ids: params.user_identity_ids ?? [],
       created_at: params.created_at ?? new Date().toISOString(),
-      expires_at: new Date(Date.now() + ms("1 year")).toISOString(),
+      expires_at:
+        params.expires_at ?? new Date(Date.now() + ms("1 year")).toISOString(),
     }
 
     set({

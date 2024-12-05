@@ -67,7 +67,7 @@ export const seedDatabase = (db: Database): Seed => {
     publishable_key: seed.seam_pk1_token,
     is_sandbox: true,
   })
-  db.addApiKey({
+  const api_key_1 = db.addApiKey({
     name: "Seed API Key 1",
     token: seed.seam_apikey1_token,
     workspace_id: seed.seed_workspace_1,
@@ -232,6 +232,7 @@ export const seedDatabase = (db: Database): Seed => {
     user_identifier_key: seed.john_user_identifier_key,
     user_identity_ids: [seed.john_user_identity_id],
     token: seed.seam_cst1_token,
+    api_key_id: api_key_1.api_key_id,
   })
 
   const connected_account = db.addConnectedAccount({
