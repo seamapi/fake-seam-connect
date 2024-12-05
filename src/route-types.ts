@@ -1565,6 +1565,10 @@ export type Routes = {
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
+        expires_at: string
+        publishable_key?: string | undefined
+        api_key_id?: string | undefined
+        revoked_at?: string | undefined
       }
       ok: boolean
     }
@@ -1590,6 +1594,10 @@ export type Routes = {
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
+        expires_at: string
+        publishable_key?: string | undefined
+        api_key_id?: string | undefined
+        revoked_at?: string | undefined
       }
       ok: boolean
     }
@@ -1621,6 +1629,10 @@ export type Routes = {
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
+        expires_at: string
+        publishable_key?: string | undefined
+        api_key_id?: string | undefined
+        revoked_at?: string | undefined
       }
       ok: boolean
     }
