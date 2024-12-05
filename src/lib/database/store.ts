@@ -279,6 +279,7 @@ const initializer = immer<Database>((set, get) => ({
   addClientSession(params) {
     const cst_id = get()._getNextId("cst")
     const new_cst: ClientSession = {
+      ...params,
       workspace_id: params.workspace_id,
       connected_account_ids: params.connected_account_ids ?? [],
       connect_webview_ids: params.connect_webview_ids ?? [],
@@ -287,6 +288,7 @@ const initializer = immer<Database>((set, get) => ({
       user_identifier_key: params.user_identifier_key ?? null,
       user_identity_ids: params.user_identity_ids ?? [],
       created_at: params.created_at ?? new Date().toISOString(),
+      expires_at: new Date(Date.now() + ms("1 year")).toISOString(),
     }
 
     set({

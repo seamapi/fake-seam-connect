@@ -17,12 +17,16 @@ export type AuthenticatedRequest = Request & {
       }
     | {
         type: "client_session"
-        connected_account_ids: string[]
+        client_session_id: string
         workspace_id: string
         publishable_key: string | null
-        client_session_id: string
-        connect_webview_ids: string[]
+        api_key_id: string | null
         method: "publishable_key" | "api_key"
+        connected_account_ids: string[]
+        connect_webview_ids: string[]
+        user_identity_ids: string[]
+        third_party_account_ids: string[]
+        sandbox: boolean
       }
     | {
         type: "user_session"

@@ -102,15 +102,9 @@ export interface DatabaseMethods {
     user_id?: string
     created_at?: string
   }) => AccessToken
-  addClientSession: (params: {
-    workspace_id: WorkspaceId
-    connected_account_ids?: string[]
-    connect_webview_ids?: string[]
-    user_identifier_key: string
-    user_identity_ids?: string[]
-    token?: string
-    created_at?: string
-  }) => ClientSession
+  addClientSession: (
+    params: Pick<ClientSession, "workspace_id"> & Partial<ClientSession>,
+  ) => ClientSession
   addUserIdentity: (params: {
     workspace_id: WorkspaceId
     user_identity_id?: string
