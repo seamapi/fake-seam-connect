@@ -40,7 +40,7 @@ export const withAccessToken =
   (next) =>
   async (req, res) => {
     const token = req.headers.authorization?.split("Bearer ")?.[1]
-    if (!token) {
+    if (token == null) {
       throw new UnauthorizedException({
         type: "unauthorized",
         message:
