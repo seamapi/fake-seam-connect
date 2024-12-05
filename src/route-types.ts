@@ -1560,12 +1560,12 @@ export type Routes = {
         device_count?: number | undefined
         workspace_id: string
         token: string
-        user_identifier_key: string
         user_identity_ids: string[]
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
         expires_at: string
+        user_identifier_key?: string | undefined
         publishable_key?: string | undefined
         api_key_id?: string | undefined
         revoked_at?: string | undefined
@@ -1589,12 +1589,12 @@ export type Routes = {
         device_count?: number | undefined
         workspace_id: string
         token: string
-        user_identifier_key: string
         user_identity_ids: string[]
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
         expires_at: string
+        user_identifier_key?: string | undefined
         publishable_key?: string | undefined
         api_key_id?: string | undefined
         revoked_at?: string | undefined
@@ -1624,12 +1624,12 @@ export type Routes = {
         device_count?: number | undefined
         workspace_id: string
         token: string
-        user_identifier_key: string
         user_identity_ids: string[]
         connect_webview_ids: string[]
         connected_account_ids: string[]
         created_at: string
         expires_at: string
+        user_identifier_key?: string | undefined
         publishable_key?: string | undefined
         api_key_id?: string | undefined
         revoked_at?: string | undefined

@@ -22,10 +22,9 @@ export type AuthenticatedRequest = Request & {
         publishable_key: string | null
         api_key_id: string | null
         method: "publishable_key" | "api_key"
-        connected_account_ids: string[]
         connect_webview_ids: string[]
         user_identity_ids: string[]
-        third_party_account_ids: string[]
+        connected_account_ids: string[]
         sandbox: boolean
       }
     | {
