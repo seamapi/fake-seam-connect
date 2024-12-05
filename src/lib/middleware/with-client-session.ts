@@ -1,3 +1,4 @@
+import type { NextApiRequest } from "next"
 import {
   BadRequestException,
   type Middleware,
@@ -8,7 +9,6 @@ import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
 import type { Database } from "lib/database/index.ts"
 
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
-import type { NextApiRequest } from "next"
 
 const getCSTFromHeaders = (headers: NextApiRequest["headers"]) => {
   let client_session_token =
