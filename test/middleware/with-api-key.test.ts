@@ -25,7 +25,7 @@ test("withApiKey middleware - successful auth", async (t) => {
   )
 
   t.is(missingAuthErr?.status, 401)
-  t.is(missingAuthErr?.response, "Unauthorized")
+  t.is(missingAuthErr?.response.error.type, "unauthorized")
 
   // Test invalid API key
   const invalidKeyErr = await t.throwsAsync<SimpleAxiosError>(

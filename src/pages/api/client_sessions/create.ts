@@ -139,6 +139,7 @@ export default withRouteSpec({
     connect_webview_ids,
     connected_account_ids,
     user_identifier_key,
+    publishable_key,
   })
   const device_count = req.db.devices.filter(
     (d) =>
