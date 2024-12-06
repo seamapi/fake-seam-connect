@@ -80,7 +80,7 @@ export default withRouteSpec({
   let workspace_id: string | null = null
   let api_key
   if (token != null && publishable_key == null) {
-     api_key = req.db.api_keys.find((a) => a.token === token)
+    api_key = req.db.api_keys.find((a) => a.token === token)
 
     if (api_key == null) {
       throw new BadRequestException({
