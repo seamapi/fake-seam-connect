@@ -48,4 +48,9 @@ test("POST /client_sessions/create api key", async (t: ExecutionContext) => {
 
   t.truthy(client_session)
   t.is(client_session.user_identifier_key, "hello_world")
+  t.is(
+    client_session.api_key_id,
+    api_key?.api_key_id,
+    "Client session is correctly associated with the api key that was used to create it",
+  )
 })
