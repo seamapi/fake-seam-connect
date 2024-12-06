@@ -95,11 +95,18 @@ export const getTestDatabase = async (
     workspace_id: ws2.workspace_id,
   })
 
+  const api_key_1 = db.addApiKey({
+    name: "Seed API Key 1",
+    token: dbSeed.seam_apikey1_token,
+    workspace_id: ws2.workspace_id,
+  })
+
   const client_session = db.addClientSession({
     workspace_id: ws2.workspace_id,
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: [ca.connected_account_id],
     user_identifier_key: "seed_client_session_user",
+    api_key_id: api_key_1.api_key_id,
   })
 
   db.addUserSession({
