@@ -32,7 +32,7 @@ test("withClientSession middleware - successful auth", async (t) => {
   )
 
   t.is(missingAuthErr?.status, 401)
-  t.is(missingAuthErr?.response, "Unauthorized")
+  t.is(missingAuthErr?.response.error.type, "unauthorized")
 
   // Test invalid client session token format
   const invalidTokenErr = await t.throwsAsync<SimpleAxiosError>(
