@@ -9,11 +9,18 @@ export type AuthenticatedRequest = Request & {
       }
     | {
         type: "access_token"
+        access_token_id: string
+        access_token_short_token: string
+        user_id: string
         workspace_id: string
+        token: string
       }
     | {
         type: "access_token_without_workspace"
+        access_token_id: string
+        access_token_short_token: string
         user_id: string
+        token: string
       }
     | {
         type: "client_session"
