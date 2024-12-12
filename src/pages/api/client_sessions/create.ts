@@ -78,8 +78,9 @@ export default withRouteSpec({
   }
 
   let workspace_id: string | null = null
+  let api_key
   if (token != null && publishable_key == null) {
-    const api_key = req.db.api_keys.find((a) => a.token === token)
+    api_key = req.db.api_keys.find((a) => a.token === token)
 
     if (api_key == null) {
       throw new BadRequestException({
@@ -140,6 +141,7 @@ export default withRouteSpec({
     connected_account_ids,
     user_identifier_key,
     publishable_key,
+    api_key_id: api_key?.api_key_id,
   })
   const device_count = req.db.devices.filter(
     (d) =>
