@@ -9,7 +9,7 @@ export default withRouteSpec({
     "pat_with_workspace",
     "api_key",
     "client_session",
-    "console_session",
+    "console_session_with_workspace",
     "pat_without_workspace",
   ],
   jsonResponse: z.object({

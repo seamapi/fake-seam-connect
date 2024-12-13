@@ -5,7 +5,12 @@ import { withRouteSpec } from "lib/middleware/index.ts"
 
 export default withRouteSpec({
   methods: ["POST"],
-  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
+  auth: [
+    "client_session",
+    "pat_with_workspace",
+    "console_session_with_workspace",
+    "api_key",
+  ],
   jsonBody: z.object({
     acs_user_id: z.string(),
   }),

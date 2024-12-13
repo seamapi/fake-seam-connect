@@ -14,7 +14,12 @@ const forwardedHeaders = [
 
 export default withRouteSpec({
   methods: ["GET", "OPTIONS"],
-  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
+  auth: [
+    "client_session",
+    "pat_with_workspace",
+    "console_session_with_workspace",
+    "api_key",
+  ],
   queryParams: z
     .object({
       path: z.string().array(),

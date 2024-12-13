@@ -35,7 +35,12 @@ const device_providers: Array<z.infer<typeof device_provider>> = [
 ]
 
 export default withRouteSpec({
-  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
+  auth: [
+    "client_session",
+    "pat_with_workspace",
+    "console_session_with_workspace",
+    "api_key",
+  ],
   methods: ["GET", "POST"],
   commonParams: z.object({
     provider_category: provider_category.optional(),

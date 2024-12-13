@@ -7,7 +7,12 @@ import { cloneWithoutUnderscoreKeys } from "lib/util/clone-without-underscore-ke
 
 export default withRouteSpec({
   methods: ["GET", "POST"],
-  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
+  auth: [
+    "client_session",
+    "pat_with_workspace",
+    "console_session_with_workspace",
+    "api_key",
+  ],
   commonParams: z.object({
     acs_system_id: z.string().optional(),
     acs_credential_id: z.string().optional(),

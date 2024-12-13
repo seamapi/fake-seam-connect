@@ -35,13 +35,13 @@ export type AuthenticatedRequest = Request & {
         sandbox: boolean
       }
     | {
-        type: "user_session"
+        type: "console_session_with_workspace"
         user_id: string
         user_session_id: string
         workspace_id: string
       }
     | {
-        type: "user_session_without_workspace"
+        type: "console_session_without_workspace"
         user_id: string
         user_session_id: string
       }
