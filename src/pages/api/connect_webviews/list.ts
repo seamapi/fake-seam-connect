@@ -5,7 +5,12 @@ import { connect_webview } from "lib/zod/index.ts"
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
-  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
+  auth: [
+    "client_session",
+    "pat_with_workspace",
+    "console_session_with_workspace",
+    "api_key",
+  ],
   methods: ["GET", "POST"],
   jsonResponse: z.object({
     connect_webviews: z.array(connect_webview),

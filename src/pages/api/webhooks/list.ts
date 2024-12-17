@@ -5,7 +5,12 @@ import { cloneWithoutUnderscoreKeys } from "lib/util/clone-without-underscore-ke
 import { webhook } from "lib/zod/webhook.ts"
 
 export default withRouteSpec({
-  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
+  auth: [
+    "client_session",
+    "pat_with_workspace",
+    "console_session_with_workspace",
+    "api_key",
+  ],
   methods: ["GET", "POST"],
   jsonResponse: z.object({
     webhooks: z.array(webhook),

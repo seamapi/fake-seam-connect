@@ -5,7 +5,12 @@ import { acs_system } from "lib/zod/index.ts"
 
 export default withRouteSpec({
   methods: ["GET", "POST"],
-  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
+  auth: [
+    "client_session",
+    "pat_with_workspace",
+    "console_session_with_workspace",
+    "api_key",
+  ],
   commonParams: z.object({
     connected_account_id: z.string().optional(),
   }),

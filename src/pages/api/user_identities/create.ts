@@ -13,7 +13,12 @@ export const user_identity = z.object({
 })
 
 export default withRouteSpec({
-  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
+  auth: [
+    "client_session",
+    "pat_with_workspace",
+    "console_session_with_workspace",
+    "api_key",
+  ],
   methods: ["POST"],
   commonParams: z.object({
     user_identity_key: user_identity.shape.user_identity_key.optional(),

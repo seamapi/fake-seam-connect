@@ -24,8 +24,8 @@ export const withSessionAuth =
         AuthenticatedRequest["auth"],
         {
           type: RequiresWorkspaceId extends true
-            ? "user_session"
-            : "user_session_without_workspace"
+            ? "console_session_with_workspace"
+            : "console_session_without_workspace"
         }
       >
     },
@@ -101,10 +101,10 @@ export const withSessionAuth =
       ;(req.auth as Extract<
         AuthenticatedRequest["auth"],
         {
-          type: "user_session"
+          type: "console_session_with_workspace"
         }
       >) = {
-        type: "user_session",
+        type: "console_session_with_workspace",
         user_session_id: user_session.user_session_id,
         workspace_id,
         user_id,
@@ -112,9 +112,9 @@ export const withSessionAuth =
     } else {
       ;(req.auth as Extract<
         AuthenticatedRequest["auth"],
-        { type: "user_session_without_workspace" }
+        { type: "console_session_without_workspace" }
       >) = {
-        type: "user_session_without_workspace",
+        type: "console_session_without_workspace",
         user_session_id: user_session.user_session_id,
         user_id,
       }

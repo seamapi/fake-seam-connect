@@ -11,7 +11,12 @@ export const jsonBody = z.object({
 
 export default withRouteSpec({
   methods: ["POST"],
-  auth: ["client_session", "pat_with_workspace", "console_session", "api_key"],
+  auth: [
+    "client_session",
+    "pat_with_workspace",
+    "console_session_with_workspace",
+    "api_key",
+  ],
   jsonBody,
   jsonResponse: z.object({
     action_attempt,
