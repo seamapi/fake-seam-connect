@@ -9,7 +9,7 @@ const route_spec = {
     "pat_with_workspace",
     "console_session_with_workspace",
     "api_key",
-  ], // TODO: session_or_access_token_and_workspace
+  ],
   methods: ["POST"],
   jsonBody: z.object({
     name: z.string(),
