@@ -47,6 +47,11 @@ export const withRouteSpec = createWithRouteSpec({
       scheme: "bearer",
       bearerFormat: "API Key",
     },
+    publishable_key: {
+      type: "apiKey",
+      in: "header",
+      name: "seam-publishable-key",
+    },
   },
 
   authMiddlewareMap: {
@@ -62,5 +67,6 @@ export const withRouteSpec = createWithRouteSpec({
     }),
     api_key: withApiKey,
     client_session: withClientSession,
+    publishable_key: withPublishableKey,
   },
 } as const)
