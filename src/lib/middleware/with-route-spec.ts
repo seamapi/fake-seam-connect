@@ -9,6 +9,7 @@ import { withCors } from "./with-cors.ts"
 import { withDb } from "./with-db.ts"
 import { withRequestId } from "./with-request-id.ts"
 import { withSessionAuth } from "./with-session-auth.ts"
+import { withPublishableKey } from "./with-publishable-key.ts"
 
 export const withRouteSpec = createWithRouteSpec({
   apiName: "Fake Seam Connect",
