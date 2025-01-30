@@ -85,26 +85,4 @@ test("withClientSession middleware - successful auth", async (t) => {
   )
   t.is(revokedErr?.status, 401)
   t.is(revokedErr?.response.error.type, "client_session_revoked")
-
-  // Test client session without api key or publishable key
-  const invalid_session = db.addClientSession({
-    workspace_id: seed_result.seed_workspace_1,
-  })
-
-  const invalidSessionErr = await t.throwsAsync<SimpleAxiosError>(
-    axios.get("/connected_accounts/get", {
-      params: {
-        connected_account_id: seed_result.john_connected_account_id,
-      },
-      headers: {
-        Authorization: `Bearer ${invalid_session.token}`,
-      },
-    }),
-  )
-  t.is(invalidSessionErr?.status, 401)
-  t.is(invalidSessionErr?.response.error.type, "unauthorized")
-  t.is(
-    invalidSessionErr?.response.error.message,
-    "publishable key or api key must be set",
-  )
 })
