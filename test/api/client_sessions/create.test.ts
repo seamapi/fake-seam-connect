@@ -54,3 +54,34 @@ test("POST /client_sessions/create api key", async (t: ExecutionContext) => {
     "Client session is correctly associated with the api key that was used to create it",
   )
 })
+
+test("POST /client_sessions/create with PAT with workspace", async (t) => {
+  const { axios, db } = await getTestServer(t, { seed: false })
+  const seed_result = seedDatabase(db)
+
+  const {
+    data: { client_session },
+  } = await axios.post(
+    "/client_sessions/create",
+    {
+      user_identifier_key: "john@example.com",
+    },
+    {
+      headers: {
+        "Authorization": `Bearer ${seed_result.seam_at1_token}`,
+        "Seam-Workspace": seed_result.seed_workspace_1,
+      },
+    },
+  )
+
+  t.truthy(client_session.token)
+  t.truthy(client_session.created_at)
+
+  // Verify that the CST can be used to authenticate requests
+  axios.defaults.headers.common["authorization"] =
+    `Bearer ${client_session.token}`
+  const {
+    data: { devices },
+  } = await axios.get("/devices/list")
+  t.is(devices.length, 0)
+})
