@@ -68,7 +68,7 @@ test("POST /client_sessions/create with PAT with workspace", async (t) => {
     },
     {
       headers: {
-        "Authorization": `Bearer ${seed_result.seam_at1_token}`,
+        Authorization: `Bearer ${seed_result.seam_at1_token}`,
         "Seam-Workspace": seed_result.seed_workspace_1,
       },
     },
