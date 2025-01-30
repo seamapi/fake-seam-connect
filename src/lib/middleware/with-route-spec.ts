@@ -7,6 +7,7 @@ import { withBaseUrl } from "./with-base-url.ts"
 import { withClientSession } from "./with-client-session.ts"
 import { withCors } from "./with-cors.ts"
 import { withDb } from "./with-db.ts"
+import { withPublishableKey } from "./with-publishable-key.ts"
 import { withRequestId } from "./with-request-id.ts"
 import { withSessionAuth } from "./with-session-auth.ts"
 
@@ -47,6 +48,11 @@ export const withRouteSpec = createWithRouteSpec({
       scheme: "bearer",
       bearerFormat: "API Key",
     },
+    publishable_key: {
+      type: "apiKey",
+      in: "header",
+      name: "seam-publishable-key",
+    },
   },
 
   authMiddlewareMap: {
@@ -62,5 +68,6 @@ export const withRouteSpec = createWithRouteSpec({
     }),
     api_key: withApiKey,
     client_session: withClientSession,
+    publishable_key: withPublishableKey,
   },
 } as const)
