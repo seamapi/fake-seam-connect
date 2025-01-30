@@ -78,8 +78,7 @@ test("POST /client_sessions/create with PAT with workspace", async (t) => {
   t.truthy(client_session.created_at)
 
   // Verify that the CST can be used to authenticate requests
-  axios.defaults.headers.common.Authorization =
-    `Bearer ${client_session.token}`
+  axios.defaults.headers.common.Authorization = `Bearer ${client_session.token}`
   const {
     data: { devices },
   } = await axios.get("/devices/list")
