@@ -37,10 +37,10 @@ export default withRouteSpec({
   commonParams: common_params,
   jsonResponse: z.object({
     devices: z.array(device),
-    pagination: {
+    pagination: z.object({
       has_next_page: z.boolean(),
       next_page_cursor: z.string().nullable(),
-    },
+    }),
   }),
 } as const)(async (req, res) => {
   const { page_cursor } = req.commonParams
