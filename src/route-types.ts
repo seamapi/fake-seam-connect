@@ -2284,7 +2284,7 @@ export type Routes = {
         | undefined
       manufacturer?: string | undefined
       limit?: number
-      page_cursor?: string | undefined
+      page_cursor?: (string | undefined) | null
     }
     formData: {}
     jsonResponse: {
@@ -2619,7 +2619,7 @@ export type Routes = {
         | undefined
       manufacturer?: string | undefined
       limit?: number
-      page_cursor?: string | undefined
+      page_cursor?: (string | undefined) | null
     }
     formData: {}
     jsonResponse: {
@@ -3700,7 +3700,7 @@ export type Routes = {
         | undefined
       manufacturer?: string | undefined
       limit?: number
-      page_cursor?: string | undefined
+      page_cursor?: (string | undefined) | null
     }
     formData: {}
     jsonResponse: {

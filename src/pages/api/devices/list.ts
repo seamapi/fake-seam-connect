@@ -17,6 +17,7 @@ export const common_params = z.object({
   page_cursor: z
     .string()
     .optional()
+    .nullable()
     .transform((page_cursor) => {
       if (page_cursor == null) return page_cursor
       return page_cursor_schema.parse(
