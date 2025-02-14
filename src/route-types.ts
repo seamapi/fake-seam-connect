@@ -2283,6 +2283,8 @@ export type Routes = {
           )[]
         | undefined
       manufacturer?: string | undefined
+      limit?: number
+      page_cursor?: string | undefined
     }
     formData: {}
     jsonResponse: {
@@ -2512,6 +2514,10 @@ export type Routes = {
         can_remotely_unlock?: boolean | undefined
         can_program_online_access_codes?: boolean | undefined
       }[]
+      pagination: {
+        has_next_page: boolean
+        next_page_cursor: string | null
+      }
       ok: boolean
     }
   }
@@ -2612,6 +2618,8 @@ export type Routes = {
           )[]
         | undefined
       manufacturer?: string | undefined
+      limit?: number
+      page_cursor?: string | undefined
     }
     formData: {}
     jsonResponse: {
@@ -3691,6 +3699,8 @@ export type Routes = {
           )[]
         | undefined
       manufacturer?: string | undefined
+      limit?: number
+      page_cursor?: string | undefined
     }
     formData: {}
     jsonResponse: {
