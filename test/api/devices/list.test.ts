@@ -51,6 +51,79 @@ test("GET /devices/list with api key", async (t: ExecutionContext) => {
   }
 })
 
+test("GET /devices/list with limit", async (t: ExecutionContext) => {
+  const { axios, db } = await getTestServer(t, { seed: false })
+  const seed_result = seedDatabase(db)
+
+  axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
+
+  const {
+    data: { devices },
+  } = await axios.get("/devices/list", { params: { limit: 2 } })
+
+  t.is(devices.length, 2)
+})
+
+test.only("GET /devices/list with pages", async (t: ExecutionContext) => {
+  const { axios, db } = await getTestServer(t, { seed: false })
+  const seed_result = seedDatabase(db)
+
+  axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
+
+  const {
+    data: {
+      devices,
+      pagination: { has_next_page, next_page_cursor },
+    },
+  } = await axios.get("/devices/list")
+  t.false(has_next_page)
+  t.is(next_page_cursor, null)
+  t.is(devices.length, 5)
+
+  const {
+    data: {
+      devices: page1,
+      pagination: { has_next_page: has_page_2, next_page_cursor: page2_cursor },
+    },
+  } = await axios.get("/devices/list", { params: { limit: 2 } })
+
+  t.is(page1.length, 2)
+  t.true(has_page_2)
+  t.truthy(page2_cursor)
+
+  t.deepEqual(page1, [devices[0], devices[1]])
+
+  const {
+    data: {
+      devices: page2,
+      pagination: { has_next_page: has_page_3, next_page_cursor: page3_cursor },
+    },
+  } = await axios.get("/devices/list", {
+    params: { page_cursor: page2_cursor },
+  })
+
+  t.is(page2.length, 2)
+  t.true(has_page_3)
+  t.truthy(page3_cursor)
+
+  t.deepEqual(page2, [devices[2], devices[3]])
+
+  const {
+    data: {
+      devices: page3,
+      pagination: { has_next_page: has_page_4, next_page_cursor: page4_cursor },
+    },
+  } = await axios.get("/devices/list", {
+    params: { page_cursor: page3_cursor },
+  })
+
+  t.is(page3.length, 1)
+  t.false(has_page_4)
+  t.is(page4_cursor, null)
+
+  t.deepEqual(page3, [devices[4]])
+})
+
 test("GET /devices/list with filters", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
   const seed_result = seedDatabase(db)
