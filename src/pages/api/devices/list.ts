@@ -95,14 +95,13 @@ export default withRouteSpec({
   const page = devices.slice(startIdx, endIdx)
   const next_device = devices[endIdx]
   const has_next_page = next_device != null
-  const searchParams = new URLSearchParams(req.query)
-  searchParams.delete("page_cursor")
+
   const next_page_cursor = has_next_page
     ? Buffer.from(
         JSON.stringify({
           device_id: next_device.device_id,
           created_at: next_device.created_at,
-          query: searchParams.toString(),
+          query: page_cursor?.query ?? getPageCursorQuery(req.query),
         }),
         "utf8",
       ).toString("base64")
@@ -113,3 +112,9 @@ export default withRouteSpec({
     pagination: { has_next_page, next_page_cursor },
   })
 })
+
+const getPageCursorQuery = (query: Record<string, string>): string => {
+  const searchParams = new URLSearchParams(query)
+  searchParams.delete("page_cursor")
+  return searchParams.toString()
+}
