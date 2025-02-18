@@ -45,6 +45,7 @@ export default withRouteSpec({
     pagination: z.object({
       has_next_page: z.boolean(),
       next_page_cursor: z.string().nullable(),
+      next_page_url: z.string().url().nullable(),
     }),
   }),
 } as const)(async (req, res) => {
@@ -117,11 +118,36 @@ export default withRouteSpec({
       ).toString("base64")
     : null
 
+  const next_page_url = getNextPageUrl(next_page_cursor, { req })
+
   res.status(200).json({
     devices: page,
-    pagination: { has_next_page, next_page_cursor },
+    pagination: { has_next_page, next_page_cursor, next_page_url },
   })
 })
+
+const getNextPageUrl = (
+  next_page_cursor: string | null,
+  {
+    req,
+  }: {
+    req: {
+      url?: string
+      commonParams: Record<string, unknown>
+      baseUrl: string | undefined
+    }
+  },
+): string | null => {
+  if (req.url == null || req.baseUrl == null) return null
+  if (next_page_cursor == null) return null
+  const { page_cursor, ...params } = req.commonParams
+  const query = serializeUrlSearchParams(params)
+  const url = new URL([req.baseUrl, req.url].join(""))
+  url.search = query
+  url.searchParams.set("next_page_cursor", next_page_cursor)
+  url.searchParams.sort()
+  return url.toString()
+}
 
 const getPageCursorQueryHash = (params: Record<string, unknown>): string => {
   const query = serializeUrlSearchParams(params)

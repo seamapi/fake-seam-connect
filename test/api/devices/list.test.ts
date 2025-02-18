@@ -75,23 +75,32 @@ test("GET /devices/list with pages", async (t: ExecutionContext) => {
   const {
     data: {
       devices,
-      pagination: { has_next_page, next_page_cursor },
+      pagination: { has_next_page, next_page_cursor, next_page_url },
     },
   } = await axios.get("/devices/list")
   t.false(has_next_page)
   t.is(next_page_cursor, null)
+  t.is(next_page_url, null)
   t.is(devices.length, 5)
 
   const {
     data: {
       devices: page1,
-      pagination: { has_next_page: has_page_2, next_page_cursor: page2_cursor },
+      pagination: {
+        has_next_page: has_page_2,
+        next_page_cursor: page2_cursor,
+        next_page_url: page2_url,
+      },
     },
   } = await axios.get("/devices/list", { params })
 
   t.is(page1.length, 2)
   t.true(has_page_2)
   t.truthy(page2_cursor)
+
+  const url = new URL(page2_url)
+  t.is(url.pathname, "/devices/list")
+  t.deepEqual(url.searchParams.getAll("limit"), ["2"])
 
   t.deepEqual(page1, [devices[0], devices[1]])
 
@@ -152,6 +161,18 @@ test("GET /devices/list validates query hash", async (t: ExecutionContext) => {
     /parameters identical/,
   )
 
+  const err_empty = await t.throwsAsync<SimpleAxiosError>(
+    async () =>
+      await axios.get("/devices/list", {
+        params: { page_cursor: next_page_cursor },
+      }),
+  )
+  t.is(err_empty?.status, 400)
+  t.regex(
+    (err_empty?.response?.error?.message as string) ?? "",
+    /parameters identical/,
+  )
+
   const err_post = await t.throwsAsync<SimpleAxiosError>(
     async () =>
       await axios.post("/devices/list", {
@@ -165,6 +186,37 @@ test("GET /devices/list validates query hash", async (t: ExecutionContext) => {
     (err_post?.response?.error?.message as string) ?? "",
     /parameters identical/,
   )
+})
+
+test("GET /devices/list handles array params", async (t: ExecutionContext) => {
+  const { axios, db } = await getTestServer(t, { seed: false })
+  const seed_result = seedDatabase(db)
+
+  axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
+
+  const {
+    data: {
+      pagination: { has_next_page, next_page_cursor, next_page_url },
+    },
+  } = await axios.get("/devices/list", {
+    params: { limit: 1, device_types: ["august_lock", "schlage_lock"] },
+  })
+
+  t.true(has_next_page)
+  t.truthy(next_page_cursor)
+
+  if (next_page_url == null) {
+    t.fail("Null next_page_url")
+    return
+  }
+
+  const url = new URL(next_page_url)
+  t.is(url.pathname, "/devices/list")
+  t.deepEqual(url.searchParams.getAll("limit"), ["1"])
+  t.deepEqual(url.searchParams.getAll("device_types"), [
+    "august_lock",
+    "schlage_lock",
+  ])
 })
 
 test("GET /devices/list with filters", async (t: ExecutionContext) => {

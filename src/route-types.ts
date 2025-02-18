@@ -2517,6 +2517,7 @@ export type Routes = {
       pagination: {
         has_next_page: boolean
         next_page_cursor: string | null
+        next_page_url: string | null
       }
       ok: boolean
     }
