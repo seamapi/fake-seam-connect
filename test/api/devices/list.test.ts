@@ -64,9 +64,11 @@ test("GET /devices/list with limit", async (t: ExecutionContext) => {
   t.is(devices.length, 2)
 })
 
-test.only("GET /devices/list with pages", async (t: ExecutionContext) => {
+test("GET /devices/list with pages", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
   const seed_result = seedDatabase(db)
+
+  const params = { limit: 2 }
 
   axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
 
@@ -85,7 +87,7 @@ test.only("GET /devices/list with pages", async (t: ExecutionContext) => {
       devices: page1,
       pagination: { has_next_page: has_page_2, next_page_cursor: page2_cursor },
     },
-  } = await axios.get("/devices/list", { params: { limit: 2 } })
+  } = await axios.get("/devices/list", { params })
 
   t.is(page1.length, 2)
   t.true(has_page_2)
@@ -99,7 +101,7 @@ test.only("GET /devices/list with pages", async (t: ExecutionContext) => {
       pagination: { has_next_page: has_page_3, next_page_cursor: page3_cursor },
     },
   } = await axios.get("/devices/list", {
-    params: { page_cursor: page2_cursor },
+    params: { ...params, page_cursor: page2_cursor },
   })
 
   t.is(page2.length, 2)
@@ -114,7 +116,7 @@ test.only("GET /devices/list with pages", async (t: ExecutionContext) => {
       pagination: { has_next_page: has_page_4, next_page_cursor: page4_cursor },
     },
   } = await axios.get("/devices/list", {
-    params: { page_cursor: page3_cursor },
+    params: { ...params, page_cursor: page3_cursor },
   })
 
   t.is(page3.length, 1)
@@ -122,6 +124,47 @@ test.only("GET /devices/list with pages", async (t: ExecutionContext) => {
   t.is(page4_cursor, null)
 
   t.deepEqual(page3, [devices[4]])
+})
+
+test("GET /devices/list validates query hash", async (t: ExecutionContext) => {
+  const { axios, db } = await getTestServer(t, { seed: false })
+  const seed_result = seedDatabase(db)
+
+  axios.defaults.headers.common.Authorization = `Bearer ${seed_result.seam_apikey1_token}`
+
+  const {
+    data: {
+      pagination: { has_next_page, next_page_cursor },
+    },
+  } = await axios.get("/devices/list", { params: { limit: 2 } })
+
+  t.true(has_next_page)
+
+  const err = await t.throwsAsync<SimpleAxiosError>(
+    async () =>
+      await axios.get("/devices/list", {
+        params: { limit: 3, page_cursor: next_page_cursor },
+      }),
+  )
+  t.is(err?.status, 400)
+  t.regex(
+    (err?.response?.error?.message as string) ?? "",
+    /parameters identical/,
+  )
+
+  const err_post = await t.throwsAsync<SimpleAxiosError>(
+    async () =>
+      await axios.post("/devices/list", {
+        limit: 3,
+        device_types: ["august_lock"],
+        page_cursor: next_page_cursor,
+      }),
+  )
+  t.is(err_post?.status, 400)
+  t.regex(
+    (err_post?.response?.error?.message as string) ?? "",
+    /parameters identical/,
+  )
 })
 
 test("GET /devices/list with filters", async (t: ExecutionContext) => {

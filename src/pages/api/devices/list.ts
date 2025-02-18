@@ -1,4 +1,8 @@
+import { createHash } from "node:crypto"
+
+import { serializeUrlSearchParams } from "@seamapi/url-search-params-serializer"
 import { sortBy } from "lodash"
+import { BadRequestException } from "nextlove"
 import { z } from "zod"
 
 import { device, device_type } from "lib/zod/index.ts"
@@ -29,7 +33,7 @@ export const common_params = z.object({
 const page_cursor_schema = z.object({
   created_at: z.coerce.date(),
   device_id: z.string(),
-  query: z.string(),
+  query_hash: z.string(),
 })
 
 export default withRouteSpec({
@@ -44,13 +48,7 @@ export default withRouteSpec({
     }),
   }),
 } as const)(async (req, res) => {
-  const { page_cursor } = req.commonParams
-  const params =
-    page_cursor == null
-      ? req.commonParams
-      : common_params
-          .omit({ page_cursor: true })
-          .parse(Object.fromEntries(new URLSearchParams(page_cursor.query)))
+  const { page_cursor, ...params } = req.commonParams
 
   const {
     device_ids,
@@ -96,12 +94,24 @@ export default withRouteSpec({
   const next_device = devices[endIdx]
   const has_next_page = next_device != null
 
+  const query_hash = getPageCursorQueryHash(params)
+  if (
+    page_cursor?.query_hash != null &&
+    page_cursor.query_hash !== query_hash
+  ) {
+    throw new BadRequestException({
+      type: "mismatched_page_parameters",
+      message:
+        "When using next_page_cursor, the request send parameters identical to the initial request.",
+    })
+  }
+
   const next_page_cursor = has_next_page
     ? Buffer.from(
         JSON.stringify({
           device_id: next_device.device_id,
           created_at: next_device.created_at,
-          query: page_cursor?.query ?? getPageCursorQuery(req.query),
+          query_hash,
         }),
         "utf8",
       ).toString("base64")
@@ -113,8 +123,7 @@ export default withRouteSpec({
   })
 })
 
-const getPageCursorQuery = (query: Record<string, string>): string => {
-  const searchParams = new URLSearchParams(query)
-  searchParams.delete("page_cursor")
-  return searchParams.toString()
+const getPageCursorQueryHash = (params: Record<string, unknown>): string => {
+  const query = serializeUrlSearchParams(params)
+  return createHash("sha256").update(query).digest("hex")
 }
