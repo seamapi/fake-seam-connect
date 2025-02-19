@@ -42,7 +42,7 @@ export async function startServer(
     middlewares: [
       (next) => (req: ApiRequest, res) => {
         req.db = database
-        req.baseUrl = baseUrl
+        req.baseUrl = baseUrl.replace(/\/+$/, "")
         return next(req, res)
       },
     ],

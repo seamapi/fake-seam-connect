@@ -59,7 +59,8 @@ test.failing("index array param", async (t: ExecutionContext) => {
   t.is(devices.length, 2)
 })
 
-test("empty array param", async (t: ExecutionContext) => {
+// UPSTREAM: nextlove will parse device_ids= to [''] but it should parse to []
+test.failing("empty array param", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
   const seed_result = seedDatabase(db)
 
