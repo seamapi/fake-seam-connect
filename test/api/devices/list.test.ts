@@ -98,6 +98,11 @@ test("GET /devices/list with pages", async (t: ExecutionContext) => {
   t.true(has_page_2)
   t.truthy(page2_cursor)
 
+  if (page2_url == null) {
+    t.fail("Null next_page_url")
+    return
+  }
+
   const url = new URL(page2_url)
   t.is(url.pathname, "/devices/list")
   t.deepEqual(url.searchParams.getAll("limit"), ["2"])
