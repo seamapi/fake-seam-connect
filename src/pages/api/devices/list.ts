@@ -113,13 +113,13 @@ export default withRouteSpec({
 
   let next_page_cursor = null
   if (has_next_page) {
-    const next_page_cursor_data: PageCursorSchema = [
+    const next_page_cursor_data = page_cursor_schema.parse([
       query_hash,
       {
         device_id: next_device.device_id,
         created_at: next_device.created_at,
       },
-    ]
+    ])
     next_page_cursor = Buffer.from(
       JSON.stringify(next_page_cursor_data),
       "utf8",
