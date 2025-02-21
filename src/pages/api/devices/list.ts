@@ -39,8 +39,6 @@ const page_cursor_schema = z.tuple([
   }),
 ])
 
-type PageCursorSchema = z.infer<typeof page_cursor_schema>
-
 export default withRouteSpec({
   auth: ["console_session_with_workspace", "client_session", "api_key"],
   methods: ["GET", "POST"],
