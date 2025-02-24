@@ -20,6 +20,7 @@ export const common_params = z.object({
   limit: z.coerce.number().int().positive().default(500),
   page_cursor: z
     .string()
+    .base64()
     .optional()
     .nullable()
     .transform((page_cursor) => {
@@ -30,11 +31,13 @@ export const common_params = z.object({
     }),
 })
 
-const page_cursor_schema = z.object({
-  created_at: z.coerce.date(),
-  device_id: z.string(),
-  query_hash: z.string(),
-})
+const page_cursor_schema = z.tuple([
+  z.string(),
+  z.object({
+    created_at: z.coerce.date(),
+    device_id: z.string(),
+  }),
+])
 
 export default withRouteSpec({
   auth: ["console_session_with_workspace", "client_session", "api_key"],
@@ -44,12 +47,23 @@ export default withRouteSpec({
     devices: z.array(device),
     pagination: z.object({
       has_next_page: z.boolean(),
-      next_page_cursor: z.string().nullable(),
+      next_page_cursor: z.string().base64().nullable(),
       next_page_url: z.string().url().nullable(),
     }),
   }),
 } as const)(async (req, res) => {
   const { page_cursor, ...params } = req.commonParams
+
+  const query_hash = getPageCursorQueryHash(params)
+  const page_cursor_query_hash = page_cursor?.[0]
+  const page_cursor_pointer = page_cursor?.[1]
+  if (page_cursor_query_hash != null && page_cursor_query_hash !== query_hash) {
+    throw new BadRequestException({
+      type: "mismatched_page_parameters",
+      message:
+        "When using next_page_cursor, the request must send parameters identical to the initial request.",
+    })
+  }
 
   const {
     device_ids,
@@ -84,7 +98,7 @@ export default withRouteSpec({
 
   devices = sortBy(devices, ["created_at", "device_id"])
 
-  const device_id = page_cursor?.device_id
+  const device_id = page_cursor_pointer?.device_id
   const startIdx =
     device_id == null
       ? 0
@@ -95,28 +109,20 @@ export default withRouteSpec({
   const next_device = devices[endIdx]
   const has_next_page = next_device != null
 
-  const query_hash = getPageCursorQueryHash(params)
-  if (
-    page_cursor?.query_hash != null &&
-    page_cursor.query_hash !== query_hash
-  ) {
-    throw new BadRequestException({
-      type: "mismatched_page_parameters",
-      message:
-        "When using next_page_cursor, the request send parameters identical to the initial request.",
-    })
+  let next_page_cursor = null
+  if (has_next_page) {
+    const next_page_cursor_data = page_cursor_schema.parse([
+      query_hash,
+      {
+        device_id: next_device.device_id,
+        created_at: next_device.created_at,
+      },
+    ])
+    next_page_cursor = Buffer.from(
+      JSON.stringify(next_page_cursor_data),
+      "utf8",
+    ).toString("base64")
   }
-
-  const next_page_cursor = has_next_page
-    ? Buffer.from(
-        JSON.stringify({
-          device_id: next_device.device_id,
-          created_at: next_device.created_at,
-          query_hash,
-        }),
-        "utf8",
-      ).toString("base64")
-    : null
 
   const next_page_url = getNextPageUrl(next_page_cursor, { req })
 
