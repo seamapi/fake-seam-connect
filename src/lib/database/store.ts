@@ -300,7 +300,7 @@ const initializer = immer<Database>((set, get) => ({
   },
 
   addBridgeClientSession(params) {
-    const bridge_client_session_id = get()._getNextId("bcsid")
+    const bridge_client_session_id = get()._getNextId("bcs")
 
     const bridge_client_session: BridgeClientSession = {
       created_at: new Date().toISOString(),
