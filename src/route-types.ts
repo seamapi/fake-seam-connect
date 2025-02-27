@@ -52,6 +52,7 @@ export type Routes = {
       john_user_id: "john_user_id"
       john_user_key: "john_user_key"
       visionline_acs_system_1: "visionline_acs_system_1"
+      bridge_client_session_token: "bcs1_token"
       ok: boolean
     }
   }
