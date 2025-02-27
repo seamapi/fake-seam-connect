@@ -235,6 +235,18 @@ export const seedDatabase = (db: Database): Seed => {
     api_key_id: api_key_1.api_key_id,
   })
 
+  db.addBridgeClientSession({
+    bridge_client_session_id: "bridge_client_session_1",
+    bridge_client_session_token: "bridge_client_session_1_token",
+    pairing_code: "123456",
+    pairing_code_expires_at: new Date().toISOString(),
+    tailscale_hostname: "bridge_client_session_1_tailscale_host",
+    tailscale_auth_key: ["bridge_client_session_1_tailscale_key"],
+    bridge_client_name: "bridge_1",
+    bridge_client_time_zone: "America/Los_Angeles",
+    bridge_client_machine_identifier_key: "bridge_client_session_1_machine",
+  })
+
   const connected_account = db.addConnectedAccount({
     provider: "assa_abloy_credential_service",
     workspace_id: seed.seed_workspace_1,
