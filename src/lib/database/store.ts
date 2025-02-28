@@ -7,7 +7,7 @@ import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
 import { hoist } from "zustand-hoist"
 
-import type { UserSession } from "lib/zod/index.ts"
+import type { BridgeClientSession, UserSession } from "lib/zod/index.ts"
 
 import {
   ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME,
@@ -71,6 +71,7 @@ const initializer = immer<Database>((set, get) => ({
   simulatedWorkspaceOutages: {},
   simulatedEvents: {},
   client_sessions: [],
+  bridge_client_sessions: [],
   assa_abloy_credential_services: [],
   assa_abloy_cards: [],
   endpoints: [],
@@ -296,6 +297,33 @@ const initializer = immer<Database>((set, get) => ({
     })
 
     return new_cst
+  },
+
+  addBridgeClientSession(params) {
+    const bridge_client_session_id = get()._getNextId("bcs")
+
+    const bridge_client_session: BridgeClientSession = {
+      created_at: new Date().toISOString(),
+      bridge_client_session_id,
+      bridge_client_session_token: `${bridge_client_session_id}_token`,
+      pairing_code: "123456",
+      pairing_code_expires_at: new Date().toISOString(),
+      tailscale_hostname: `${bridge_client_session_id}_tailscale_host`,
+      tailscale_auth_key: [`${bridge_client_session_id}_tailscale_auth`],
+      bridge_client_name: `${bridge_client_session_id}_bridge`,
+      bridge_client_time_zone: "America/Los_Angeles",
+      bridge_client_machine_identifier_key: `${bridge_client_session_id}_key`,
+      ...params,
+    }
+
+    set({
+      bridge_client_sessions: [
+        ...get().bridge_client_sessions,
+        bridge_client_session,
+      ],
+    })
+
+    return bridge_client_session
   },
 
   addUserIdentity(params) {

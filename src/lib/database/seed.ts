@@ -24,6 +24,7 @@ export interface Seed {
   john_user_key: "john_user_key"
   visionline_acs_system_1: "visionline_acs_system_1"
   seam_at1_token: "seam_at1_longtoken"
+  bridge_client_session_token: "bcs1_token"
 }
 
 export const seed: Seed = {
@@ -48,6 +49,7 @@ export const seed: Seed = {
   john_user_id: "john_user_id",
   john_user_key: "john_user_key",
   visionline_acs_system_1: "visionline_acs_system_1",
+  bridge_client_session_token: "bcs1_token",
 } as const
 
 export const seedDatabase = (db: Database): Seed => {
@@ -233,6 +235,18 @@ export const seedDatabase = (db: Database): Seed => {
     user_identity_ids: [seed.john_user_identity_id],
     token: seed.seam_cst1_token,
     api_key_id: api_key_1.api_key_id,
+  })
+
+  db.addBridgeClientSession({
+    bridge_client_session_id: "bcs1",
+    bridge_client_session_token: "bcs1_token",
+    pairing_code: "123456",
+    pairing_code_expires_at: new Date().toISOString(),
+    tailscale_hostname: "bcs1_tailscale_host",
+    tailscale_auth_key: ["bcs1_tailscale_key"],
+    bridge_client_name: "bridge_1",
+    bridge_client_time_zone: "America/Los_Angeles",
+    bridge_client_machine_identifier_key: "bcs1_machine",
   })
 
   const connected_account = db.addConnectedAccount({

@@ -8,6 +8,7 @@ import type {
   AcsUser,
   ActionAttempt,
   ApiKey,
+  BridgeClientSession,
   ClientSession,
   ConnectedAccount,
   ConnectWebview,
@@ -49,6 +50,7 @@ export interface DatabaseState {
   enrollment_automations: EnrollmentAutomation[]
   connect_webviews: ConnectWebview[]
   client_sessions: ClientSession[]
+  bridge_client_sessions: BridgeClientSession[]
   connected_accounts: ConnectedAccount[]
   devices: Device[]
   events: Event[]
@@ -105,6 +107,9 @@ export interface DatabaseMethods {
   addClientSession: (
     params: Pick<ClientSession, "workspace_id"> & Partial<ClientSession>,
   ) => ClientSession
+  addBridgeClientSession: (
+    params: Partial<BridgeClientSession>,
+  ) => BridgeClientSession
   addUserIdentity: (params: {
     workspace_id: WorkspaceId
     user_identity_id?: string

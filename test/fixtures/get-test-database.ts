@@ -32,6 +32,10 @@ interface Seed {
     user1_id: string
     user1_key: string
   }
+  bridge_client_session: {
+    bridge_client_session_id: string
+    bridge_client_session_token: string
+  }
 }
 
 export const getTestDatabase = async (
@@ -107,6 +111,18 @@ export const getTestDatabase = async (
     connected_account_ids: [ca.connected_account_id],
     user_identifier_key: "seed_client_session_user",
     api_key_id: api_key_1.api_key_id,
+  })
+
+  const bridge_client_session = db.addBridgeClientSession({
+    bridge_client_session_id: "bcs1",
+    bridge_client_session_token: "bcs1_token",
+    pairing_code: "123456",
+    pairing_code_expires_at: new Date().toISOString(),
+    tailscale_hostname: "bcs1_tailscale_host",
+    tailscale_auth_key: ["bcs1_tailscale_key"],
+    bridge_client_name: "bridge_1",
+    bridge_client_time_zone: "America/Los_Angeles",
+    bridge_client_machine_identifier_key: "bcs1_machine",
   })
 
   db.addUserSession({
@@ -194,6 +210,11 @@ export const getTestDatabase = async (
       seam_at1_token: dbSeed.seam_at1_token,
       user1_id: dbSeed.john_user_id,
       user1_key: dbSeed.john_user_key,
+    },
+    bridge_client_session: {
+      bridge_client_session_id: bridge_client_session.bridge_client_session_id,
+      bridge_client_session_token:
+        bridge_client_session.bridge_client_session_token,
     },
   }
 
