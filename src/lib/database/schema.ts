@@ -110,6 +110,10 @@ export interface DatabaseMethods {
   addBridgeClientSession: (
     params: Partial<BridgeClientSession>,
   ) => BridgeClientSession
+  updateBridgeClientSession: (params: {
+    bridge_client_session_id: string
+    pairing_code_expires_at?: string
+  }) => void
   addUserIdentity: (params: {
     workspace_id: WorkspaceId
     user_identity_id?: string
