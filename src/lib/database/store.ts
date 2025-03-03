@@ -326,6 +326,20 @@ const initializer = immer<Database>((set, get) => ({
     return bridge_client_session
   },
 
+  updateBridgeClientSession(params) {
+    set({
+      bridge_client_sessions: get().bridge_client_sessions.map((bcs) => {
+        if (bcs.bridge_client_session_id === params.bridge_client_session_id) {
+          return {
+            ...bcs,
+            ...params,
+          }
+        }
+        return bcs
+      }),
+    })
+  },
+
   addUserIdentity(params) {
     const user_identity_id = params.user_identity_id ?? get()._getNextId("uid")
     const new_user_identity: UserIdentity = {
