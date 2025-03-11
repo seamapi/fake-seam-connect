@@ -31,14 +31,18 @@ export default withRouteSpec({
     })
   }
 
+  const pairing_code = Math.floor(100000 + Math.random() * 900000).toString()
+
   db.updateBridgeClientSession({
     bridge_client_session_id: bridge_client_session.bridge_client_session_id,
+    pairing_code,
     pairing_code_expires_at,
   })
 
   res.status(200).json({
     bridge_client_session: {
       ...bridge_client_session,
+      pairing_code,
       pairing_code_expires_at,
     },
   })

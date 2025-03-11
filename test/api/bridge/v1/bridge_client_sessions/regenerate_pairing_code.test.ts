@@ -26,7 +26,7 @@ test("POST /bridge/v1/bridge_client_sessions/regenerate_pairing_code", async (t:
   )
 
   t.false(
-    updated_bridge_client_session.pairing_code_expires_at ===
-      bridge_client_session.pairing_code_expires_at,
+    updated_bridge_client_session.pairing_code ===
+      bridge_client_session.pairing_code,
   )
 })
