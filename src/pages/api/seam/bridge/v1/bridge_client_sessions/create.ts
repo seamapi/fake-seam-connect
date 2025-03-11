@@ -31,7 +31,7 @@ export default withRouteSpec({
   } = body
 
   const bridge_client_session_token = `${bridge_client_name}_token`
-  const pairing_code = "123456"
+  const pairing_code = Math.floor(100000 + Math.random() * 900000).toString()
 
   const pairing_code_expires_at = new Date(
     new Date().getTime() + 3 * 60 * 1000,
