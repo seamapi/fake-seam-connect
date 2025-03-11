@@ -112,6 +112,7 @@ export interface DatabaseMethods {
   ) => BridgeClientSession
   updateBridgeClientSession: (params: {
     bridge_client_session_id: string
+    pairing_code?: string
     pairing_code_expires_at?: string
   }) => void
   addUserIdentity: (params: {
