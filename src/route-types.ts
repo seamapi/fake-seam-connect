@@ -4440,7 +4440,7 @@ export type Routes = {
         pairing_code: string
         pairing_code_expires_at: string
         tailscale_hostname: string
-        tailscale_auth_key: string[]
+        tailscale_auth_key: string | null
         bridge_client_name: string
         bridge_client_time_zone: string
         bridge_client_machine_identifier_key: string
@@ -4463,7 +4463,7 @@ export type Routes = {
         pairing_code: string
         pairing_code_expires_at: string
         tailscale_hostname: string
-        tailscale_auth_key: string[]
+        tailscale_auth_key: string | null
         bridge_client_name: string
         bridge_client_time_zone: string
         bridge_client_machine_identifier_key: string
@@ -4486,7 +4486,7 @@ export type Routes = {
         pairing_code: string
         pairing_code_expires_at: string
         tailscale_hostname: string
-        tailscale_auth_key: string[]
+        tailscale_auth_key: string | null
         bridge_client_name: string
         bridge_client_time_zone: string
         bridge_client_machine_identifier_key: string
