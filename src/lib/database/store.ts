@@ -309,7 +309,7 @@ const initializer = immer<Database>((set, get) => ({
       pairing_code: Math.floor(100000 + Math.random() * 900000).toString(),
       pairing_code_expires_at: new Date().toISOString(),
       tailscale_hostname: `${bridge_client_session_id}_tailscale_host`,
-      tailscale_auth_key: [`${bridge_client_session_id}_tailscale_auth`],
+      tailscale_auth_key: `${bridge_client_session_id}_tailscale_auth`,
       bridge_client_name: `${bridge_client_session_id}_bridge`,
       bridge_client_time_zone: "America/Los_Angeles",
       bridge_client_machine_identifier_key: `${bridge_client_session_id}_key`,

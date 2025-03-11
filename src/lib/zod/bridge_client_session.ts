@@ -7,7 +7,7 @@ export const bridge_client_session = z.object({
   pairing_code: z.string().length(6),
   pairing_code_expires_at: z.string().datetime(),
   tailscale_hostname: z.string(),
-  tailscale_auth_key: z.array(z.string()),
+  tailscale_auth_key: z.string().nullable(),
   bridge_client_name: z.string(),
   bridge_client_time_zone: z.string(),
   bridge_client_machine_identifier_key: z.string(),
