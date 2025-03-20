@@ -56,6 +56,19 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/_fake/enter_bridge_pairing_code": {
+    route: "/_fake/enter_bridge_pairing_code"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      pairing_code: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/_fake/simulate_enter_bridge_pairing_code": {
     route: "/_fake/simulate_enter_bridge_pairing_code"
     method: "POST"

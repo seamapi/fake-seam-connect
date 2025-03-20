@@ -3,11 +3,9 @@ import test, { type ExecutionContext } from "ava"
 import {
   getTestServer,
 } from "fixtures/get-test-server.ts"
-import { seedDatabase } from "lib/database/seed.ts"
 
 test("POST /_fake/enter_bridge_pairing_code", async (t: ExecutionContext) => {
-  const { axios, db, seed } = await getTestServer(t)
-  const seed_result = seedDatabase(db)
+  const { axios, seed } = await getTestServer(t)
 
   const { data } = await axios.get(
     "/seam/bridge/v1/bridge_client_sessions/get",
