@@ -27,8 +27,8 @@ export default withRouteSpec({
     })
   }
 
-  bridge_client_session.tailscale_auth_key = `ts-auth-${randomUUID()}`
   bridge_client_session._ext_tailscale_auth_key_id = `ts-id-${randomUUID()}`
+  bridge_client_session.tailscale_auth_key = `ts-auth-${randomUUID()}`
 
   const now = Temporal.Now.plainDateTimeISO()
   bridge_client_session._tailscale_auth_key_expires_at = now
