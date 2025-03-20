@@ -1,8 +1,6 @@
 import test, { type ExecutionContext } from "ava"
 
-import {
-  getTestServer,
-} from "fixtures/get-test-server.ts"
+import { getTestServer } from "fixtures/get-test-server.ts"
 
 test("POST /_fake/enter_bridge_pairing_code", async (t: ExecutionContext) => {
   const { axios, seed } = await getTestServer(t)
