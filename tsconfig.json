@@ -6,7 +6,7 @@
     "strict": true,
     "esModuleInterop": true,
     "moduleResolution": "NodeNext",
-    "module": "NodeNext",
+    "module": "esnext",
     "allowJs": false,
     "target": "es2021",
     "declaration": true,
