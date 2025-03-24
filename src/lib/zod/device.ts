@@ -3,7 +3,11 @@ import { z } from "zod"
 
 import { custom_metadata } from "lib/zod/custom-metadata.ts"
 
-import { climate_preset, climate_setting, type ClimatePreset } from "./climate_preset.ts"
+import {
+  climate_preset,
+  climate_setting,
+  type ClimatePreset,
+} from "./climate_preset.ts"
 
 export const LOCK_DEVICE_TYPES = [
   "august_lock",
@@ -230,4 +234,8 @@ export type { Device }
 
 export type UnmanagedDevice = z.infer<typeof unmanaged_device>
 
-export type ThermostatDevice = Device & { properties: Device["properties"] & { available_climate_presets: ClimatePreset[] } }
+export type ThermostatDevice = Device & {
+  properties: Device["properties"] & {
+    available_climate_presets: ClimatePreset[]
+  }
+}

@@ -27,27 +27,14 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "@seamapi/fake-seam-connect": [
-        "./src/index.ts"
-      ],
-      "fixtures/*": [
-        "./test/fixtures/*"
-      ],
-      "lib/*": [
-        "./src/lib/*"
-      ],
-      "nsm/*": [
-        "./.nsm/*"
-      ],
-      "pages/*": [
-        "./src/pages/*"
-      ]
+      "@seamapi/fake-seam-connect": ["./src/index.ts"],
+      "fixtures/*": ["./test/fixtures/*"],
+      "lib/*": ["./src/lib/*"],
+      "nsm/*": ["./.nsm/*"],
+      "pages/*": ["./src/pages/*"]
     }
   },
-  "files": [
-    "src/index.ts",
-    "src/server.ts"
-  ],
+  "files": ["src/index.ts", "src/server.ts"],
   "include": [
     "src/**/*",
     "next-env.d.ts",

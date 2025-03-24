@@ -74,7 +74,11 @@ const disposableRouteSpec = withRouteSpec({
   methods: ["POST", "GET", "PATCH", "DELETE"],
   jsonBody: z.object({}),
   jsonResponse: z.object({}),
-} as const);
+} as const)
 
-export type RouteSpecRequest = Parameters<Parameters<typeof disposableRouteSpec>[0]>[0]
-export type RouteSpecResponse = Parameters<Parameters<typeof disposableRouteSpec>[0]>[1]
+export type RouteSpecRequest = Parameters<
+  Parameters<typeof disposableRouteSpec>[0]
+>[0]
+export type RouteSpecResponse = Parameters<
+  Parameters<typeof disposableRouteSpec>[0]
+>[1]

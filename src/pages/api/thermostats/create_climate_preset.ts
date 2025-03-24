@@ -3,7 +3,11 @@ import { BadRequestException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { normalizeClimateSetting, returnOrThrowIfNotThermostatDevice, throwIfClimateSettingNotAllowed } from "lib/util/thermostats.ts"
+import {
+  normalizeClimateSetting,
+  returnOrThrowIfNotThermostatDevice,
+  throwIfClimateSettingNotAllowed,
+} from "lib/util/thermostats.ts"
 import { climate_preset, type ClimatePreset } from "lib/zod/climate_preset.ts"
 
 export default withRouteSpec({
@@ -29,7 +33,7 @@ export default withRouteSpec({
         can_delete: true,
         display_name: true,
         manual_override_allowed: true,
-      })
+      }),
     ),
   jsonResponse: z.object({}),
 } as const)(async (req, res) => {
@@ -43,16 +47,19 @@ export default withRouteSpec({
     can_delete: true,
   }) as ClimatePreset
 
-  const { properties } = returnOrThrowIfNotThermostatDevice(req, device_id);
+  const { properties } = returnOrThrowIfNotThermostatDevice(req, device_id)
 
-  throwIfClimateSettingNotAllowed(climate_preset, properties as unknown as Device["properties"])
+  throwIfClimateSettingNotAllowed(
+    climate_preset,
+    properties as unknown as Device["properties"],
+  )
 
   const available_climate_presets = properties.available_climate_presets ?? []
 
   if (
     available_climate_presets.some(
       (preset) =>
-        preset.climate_preset_key === climate_preset.climate_preset_key
+        preset.climate_preset_key === climate_preset.climate_preset_key,
     )
   ) {
     throw new BadRequestException({

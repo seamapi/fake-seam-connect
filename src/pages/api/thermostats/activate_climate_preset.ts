@@ -33,12 +33,14 @@ export default withRouteSpec({
     body: { device_id, climate_preset_key },
   } = req
 
-  const device = returnOrThrowIfNotThermostatDevice(req, device_id);
+  const device = returnOrThrowIfNotThermostatDevice(req, device_id)
 
-  const { properties: { available_climate_presets: existing_climate_presets } } = device;
+  const {
+    properties: { available_climate_presets: existing_climate_presets },
+  } = device
 
   const active_climate_preset = existing_climate_presets?.find(
-    (preset) => preset.climate_preset_key === climate_preset_key
+    (preset) => preset.climate_preset_key === climate_preset_key,
   )
 
   if (active_climate_preset == null) {
@@ -61,6 +63,5 @@ export default withRouteSpec({
     },
   })
 
-
-  res.status(200).json({ action_attempt, });
+  res.status(200).json({ action_attempt })
 })

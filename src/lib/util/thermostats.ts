@@ -1,10 +1,14 @@
 import type { Device } from "@seamapi/types/connect"
-import _ from "lodash";
+import _ from "lodash"
 import { BadRequestException, NotFoundException } from "nextlove"
 
-import type { RouteSpecRequest } from "lib/middleware/with-route-spec.ts";
+import type { RouteSpecRequest } from "lib/middleware/with-route-spec.ts"
 import type { ClimatePreset, ClimateSetting } from "lib/zod/climate_preset.ts"
-import { THERMOSTAT_DEVICE_TYPES, type ThermostatDevice, type ThermostatDeviceType } from "lib/zod/device.ts";
+import {
+  THERMOSTAT_DEVICE_TYPES,
+  type ThermostatDevice,
+  type ThermostatDeviceType,
+} from "lib/zod/device.ts"
 
 /**
  * Derive a climate preset from a list of available climate presets and a partial climate preset.
@@ -14,12 +18,12 @@ import { THERMOSTAT_DEVICE_TYPES, type ThermostatDevice, type ThermostatDeviceTy
  */
 export function deriveClimateSetting(
   partial: Partial<ClimateSetting>,
-  available_climate_presets: ClimateSetting[]
+  available_climate_presets: ClimateSetting[],
 ): ClimateSetting {
   let current_climate_setting: ClimateSetting | undefined
   if (typeof partial.climate_preset_key === "string") {
     current_climate_setting = available_climate_presets.find(
-      (preset) => preset.climate_preset_key === partial.climate_preset_key
+      (preset) => preset.climate_preset_key === partial.climate_preset_key,
     )
     if (current_climate_setting !== undefined) {
       return { ...current_climate_setting, ...partial }
@@ -59,7 +63,7 @@ export function deriveClimateSetting(
         preset.cooling_set_point_celsius !== undefined &&
         compareTemperaturesWithinTolerance(
           preset.cooling_set_point_celsius,
-          partial.cooling_set_point_celsius
+          partial.cooling_set_point_celsius,
         ) !== 0
       )
         return false
@@ -68,7 +72,7 @@ export function deriveClimateSetting(
         preset.cooling_set_point_fahrenheit !== undefined &&
         compareTemperaturesWithinTolerance(
           preset.cooling_set_point_fahrenheit,
-          partial.cooling_set_point_fahrenheit
+          partial.cooling_set_point_fahrenheit,
         ) !== 0
       )
         return false
@@ -77,7 +81,7 @@ export function deriveClimateSetting(
         preset.heating_set_point_celsius !== undefined &&
         compareTemperaturesWithinTolerance(
           preset.heating_set_point_celsius,
-          partial.heating_set_point_celsius
+          partial.heating_set_point_celsius,
         ) !== 0
       )
         return false
@@ -86,7 +90,7 @@ export function deriveClimateSetting(
         preset.heating_set_point_fahrenheit !== undefined &&
         compareTemperaturesWithinTolerance(
           preset.heating_set_point_fahrenheit,
-          partial.heating_set_point_fahrenheit
+          partial.heating_set_point_fahrenheit,
         ) !== 0
       )
         return false
@@ -112,7 +116,7 @@ export function deriveClimateSetting(
  *
  */
 export const normalizeClimateSetting = (
-  preset: ClimateSetting
+  preset: ClimateSetting,
 ): Omit<
   ClimateSetting,
   "cooling_set_point_fahrenheit" | "heating_set_point_fahrenheit"
@@ -164,11 +168,11 @@ export const normalizeClimateSetting = (
 }
 
 export const deriveAutomaticHeatingEnabledFromHvacModeSetting = (
-  hvac_mode_setting?: ClimateSetting["hvac_mode_setting"]
+  hvac_mode_setting?: ClimateSetting["hvac_mode_setting"],
 ) => hvac_mode_setting === "heat" || hvac_mode_setting === "heat_cool"
 
 export const deriveAutomaticCoolingEnabledFromHvacModeSetting = (
-  hvac_mode_setting?: ClimateSetting["hvac_mode_setting"]
+  hvac_mode_setting?: ClimateSetting["hvac_mode_setting"],
 ) => hvac_mode_setting === "cool" || hvac_mode_setting === "heat_cool"
 
 /**
@@ -179,7 +183,7 @@ export const deriveAutomaticCoolingEnabledFromHvacModeSetting = (
  *
  */
 const normalizeCoolingSetPoints = (
-  preset: Partial<ClimateSetting>
+  preset: Partial<ClimateSetting>,
 ): Partial<ClimateSetting> => {
   const setPoints: Partial<ClimateSetting> = {}
 
@@ -187,7 +191,7 @@ const normalizeCoolingSetPoints = (
     setPoints.cooling_set_point_celsius = preset.cooling_set_point_celsius
   } else if (preset.cooling_set_point_fahrenheit !== undefined) {
     setPoints.cooling_set_point_celsius = convertToCelsius(
-      preset.cooling_set_point_fahrenheit
+      preset.cooling_set_point_fahrenheit,
     )
   }
 
@@ -195,7 +199,7 @@ const normalizeCoolingSetPoints = (
     setPoints.cooling_set_point_fahrenheit = preset.cooling_set_point_fahrenheit
   } else if (preset.cooling_set_point_celsius !== undefined) {
     setPoints.cooling_set_point_fahrenheit = convertToFahrenheit(
-      preset.cooling_set_point_celsius
+      preset.cooling_set_point_celsius,
     )
   }
   return setPoints
@@ -209,7 +213,7 @@ const normalizeCoolingSetPoints = (
  *
  */
 const normalizeHeatingSetPoints = (
-  preset: Partial<ClimateSetting>
+  preset: Partial<ClimateSetting>,
 ): Partial<ClimateSetting> => {
   const setPoints: Partial<ClimateSetting> = {}
 
@@ -217,7 +221,7 @@ const normalizeHeatingSetPoints = (
     setPoints.heating_set_point_celsius = preset.heating_set_point_celsius
   } else if (preset.heating_set_point_fahrenheit !== undefined) {
     setPoints.heating_set_point_celsius = convertToCelsius(
-      preset.heating_set_point_fahrenheit
+      preset.heating_set_point_fahrenheit,
     )
   }
 
@@ -225,7 +229,7 @@ const normalizeHeatingSetPoints = (
     setPoints.heating_set_point_fahrenheit = preset.heating_set_point_fahrenheit
   } else if (preset.heating_set_point_celsius !== undefined) {
     setPoints.heating_set_point_fahrenheit = convertToFahrenheit(
-      preset.heating_set_point_celsius
+      preset.heating_set_point_celsius,
     )
   }
 
@@ -239,7 +243,7 @@ export const convertToCelsius = (fahrenheit: number) =>
 
 export function compareTemperaturesWithinTolerance(
   a: number,
-  b: number
+  b: number,
 ): number {
   if (Math.abs(a - b) < 0.01) return 0
   return a - b
@@ -265,7 +269,7 @@ export function checkTemperatureThresholds(
   temperature_thresholds: {
     lower_limit_celsius: number | null
     upper_limit_celsius: number | null
-  }
+  },
 ): {
   threshold_exceeded: boolean
   threshold_temperature: number | null
@@ -299,7 +303,7 @@ export function checkTemperatureThresholds(
 
 export function isSameClimateSetting(
   currentSetting: undefined | ClimatePreset | ClimateSetting,
-  desiredSetting: ClimatePreset | ClimateSetting
+  desiredSetting: ClimatePreset | ClimateSetting,
 ): boolean {
   if (currentSetting === undefined) {
     return false
@@ -308,12 +312,11 @@ export function isSameClimateSetting(
   return (
     currentSetting.hvac_mode_setting === desiredSetting.hvac_mode_setting &&
     currentSetting.heating_set_point_celsius ===
-    desiredSetting.heating_set_point_celsius &&
+      desiredSetting.heating_set_point_celsius &&
     currentSetting.cooling_set_point_celsius ===
-    desiredSetting.cooling_set_point_celsius
+      desiredSetting.cooling_set_point_celsius
   )
 }
-
 
 /**
  *
@@ -325,7 +328,7 @@ export function isSameClimateSetting(
  */
 export const throwIfClimateSettingNotAllowed = (
   climate_setting: Partial<ClimateSetting>,
-  properties: Device["properties"]
+  properties: Device["properties"],
 ) => {
   const {
     hvac_mode_setting,
@@ -339,30 +342,33 @@ export const throwIfClimateSettingNotAllowed = (
     properties.current_climate_setting === undefined
       ? false
       : properties.current_climate_setting.hvac_mode_setting === "heat" ||
-      properties.current_climate_setting.hvac_mode_setting === "heat_cool"
+        properties.current_climate_setting.hvac_mode_setting === "heat_cool"
 
   const automatic_cooling_enabled =
     properties.current_climate_setting === undefined
       ? false
       : properties.current_climate_setting.hvac_mode_setting === "cool" ||
-      properties.current_climate_setting.hvac_mode_setting === "heat_cool"
+        properties.current_climate_setting.hvac_mode_setting === "heat_cool"
 
   const is_heating_available =
     properties.available_hvac_mode_settings === undefined
       ? false
       : properties.available_hvac_mode_settings.includes("heat") ||
-      properties.available_hvac_mode_settings.includes("heat_cool")
+        properties.available_hvac_mode_settings.includes("heat_cool")
   const is_cooling_available =
     properties.available_hvac_mode_settings === undefined
       ? false
       : properties.available_hvac_mode_settings.includes("cool") ||
-      properties.available_hvac_mode_settings.includes("heat_cool")
+        properties.available_hvac_mode_settings.includes("heat_cool")
 
   // check against available modes
 
   if (
     hvac_mode_setting != null &&
-    !(available_hvac_mode_settings != null && available_hvac_mode_settings.includes(hvac_mode_setting)) &&
+    !(
+      available_hvac_mode_settings != null &&
+      available_hvac_mode_settings.includes(hvac_mode_setting)
+    ) &&
     hvac_mode_setting !== "off"
   ) {
     throw new BadRequestException({
@@ -383,15 +389,15 @@ export const throwIfClimateSettingNotAllowed = (
         !_.inRange(
           heating_set_point_celsius,
           min_heating_set_point_celsius,
-          max_heating_set_point_celsius
+          max_heating_set_point_celsius,
         )
       ) {
         throw new BadRequestException({
           type: "heating_set_point_out_of_range",
           message: `Heating set point out of range for this thermostat. The supported range is ${min_heating_set_point_celsius}°C/${convertToFahrenheit(
-            min_heating_set_point_celsius
+            min_heating_set_point_celsius,
           )}°F to ${max_heating_set_point_celsius}°C/${convertToFahrenheit(
-            max_heating_set_point_celsius
+            max_heating_set_point_celsius,
           )}°F`,
         })
       }
@@ -415,15 +421,15 @@ export const throwIfClimateSettingNotAllowed = (
         !_.inRange(
           cooling_set_point_celsius,
           min_cooling_set_point_celsius,
-          max_cooling_set_point_celsius
+          max_cooling_set_point_celsius,
         )
       ) {
         throw new BadRequestException({
           type: "cooling_set_point_out_of_range",
           message: `Cooling set point out of range for this thermostat. The supported range is ${min_cooling_set_point_celsius}°C/${convertToFahrenheit(
-            min_cooling_set_point_celsius
+            min_cooling_set_point_celsius,
           )}°F to ${max_cooling_set_point_celsius}°C/${convertToFahrenheit(
-            max_cooling_set_point_celsius
+            max_cooling_set_point_celsius,
           )}°F`,
         })
       }
@@ -448,12 +454,12 @@ export const throwIfClimateSettingNotAllowed = (
       if (
         min_heating_cooling_delta_celsius != null &&
         Math.abs(heating_set_point_celsius - cooling_set_point_celsius) <
-        min_heating_cooling_delta_celsius
+          min_heating_cooling_delta_celsius
       ) {
         throw new BadRequestException({
           type: "invalid_heating_cooling_delta",
           message: `Difference between set points must be more than ${min_heating_cooling_delta_celsius}°C/${convertToFahrenheit(
-            min_heating_cooling_delta_celsius
+            min_heating_cooling_delta_celsius,
           )}°F  for this thermostat`,
         })
       }
@@ -478,7 +484,10 @@ export const throwIfClimateSettingNotAllowed = (
   }
 }
 
-export const returnOrThrowIfNotThermostatDevice = (req: RouteSpecRequest, device_id: Device["device_id"]) => {
+export const returnOrThrowIfNotThermostatDevice = (
+  req: RouteSpecRequest,
+  device_id: Device["device_id"],
+) => {
   const device = req.db.devices.find((device) => {
     if (
       !THERMOSTAT_DEVICE_TYPES.includes(
@@ -498,7 +507,7 @@ export const returnOrThrowIfNotThermostatDevice = (req: RouteSpecRequest, device
     })
   }
 
-  const { properties } = device;
+  const { properties } = device
 
   if (!("available_climate_presets" in properties)) {
     throw new BadRequestException({
@@ -507,5 +516,5 @@ export const returnOrThrowIfNotThermostatDevice = (req: RouteSpecRequest, device
     })
   }
 
-  return device as ThermostatDevice;
+  return device as ThermostatDevice
 }

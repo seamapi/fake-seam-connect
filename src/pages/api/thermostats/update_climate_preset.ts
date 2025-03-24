@@ -3,7 +3,11 @@ import { BadRequestException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { normalizeClimateSetting, returnOrThrowIfNotThermostatDevice, throwIfClimateSettingNotAllowed } from "lib/util/thermostats.ts"
+import {
+  normalizeClimateSetting,
+  returnOrThrowIfNotThermostatDevice,
+  throwIfClimateSettingNotAllowed,
+} from "lib/util/thermostats.ts"
 import { climate_preset, type ClimatePreset } from "lib/zod/climate_preset.ts"
 
 export default withRouteSpec({
@@ -28,7 +32,7 @@ export default withRouteSpec({
         can_edit: true,
         can_delete: true,
         display_name: true,
-      })
+      }),
     ),
   jsonResponse: z.object({}),
 } as const)(async (req, res) => {
@@ -42,8 +46,11 @@ export default withRouteSpec({
     can_delete: true,
   }) as ClimatePreset
 
-  const { properties } = returnOrThrowIfNotThermostatDevice(req, device_id);
-  throwIfClimateSettingNotAllowed(climate_preset, properties as unknown as Device["properties"])
+  const { properties } = returnOrThrowIfNotThermostatDevice(req, device_id)
+  throwIfClimateSettingNotAllowed(
+    climate_preset,
+    properties as unknown as Device["properties"],
+  )
 
   const {
     current_climate_setting: existing_current_climate_setting,
@@ -61,12 +68,10 @@ export default withRouteSpec({
     (preset) =>
       !preset.can_edit ||
       !preset.can_delete ||
-      preset.climate_preset_key !== climate_preset.climate_preset_key
+      preset.climate_preset_key !== climate_preset.climate_preset_key,
   )
 
-  if (
-    available_climate_presets.length === existing_climate_presets.length
-  ) {
+  if (available_climate_presets.length === existing_climate_presets.length) {
     throw new BadRequestException({
       type: "climate_preset_not_found",
       message: `Cannot find a climate preset with key ${climate_preset.climate_preset_key}`,
@@ -75,7 +80,7 @@ export default withRouteSpec({
 
   const current_climate_setting =
     existing_current_climate_setting?.climate_preset_key ===
-      climate_preset.climate_preset_key
+    climate_preset.climate_preset_key
       ? climate_preset
       : existing_current_climate_setting
 
@@ -89,7 +94,6 @@ export default withRouteSpec({
       available_climate_presets,
     },
   })
-
 
   res.status(200).json({})
 })

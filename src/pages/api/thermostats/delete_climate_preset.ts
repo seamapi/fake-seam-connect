@@ -1,9 +1,12 @@
-import _ from "lodash";
-import { BadRequestException } from "nextlove";
+import _ from "lodash"
+import { BadRequestException } from "nextlove"
 import { z } from "zod"
 
-import { type RouteSpecRequest, withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { returnOrThrowIfNotThermostatDevice } from "lib/util/thermostats.ts";
+import {
+  type RouteSpecRequest,
+  withRouteSpec,
+} from "lib/middleware/with-route-spec.ts"
+import { returnOrThrowIfNotThermostatDevice } from "lib/util/thermostats.ts"
 
 export default withRouteSpec({
   description: `
@@ -35,9 +38,14 @@ export default withRouteSpec({
     body: { device_id, climate_preset_key },
   } = req
 
-  const { properties } = returnOrThrowIfNotThermostatDevice(req as RouteSpecRequest, device_id);
+  const { properties } = returnOrThrowIfNotThermostatDevice(
+    req as RouteSpecRequest,
+    device_id,
+  )
 
-  const climatePresetExists = properties.available_climate_presets.some((preset) => preset.climate_preset_key === climate_preset_key);
+  const climatePresetExists = properties.available_climate_presets.some(
+    (preset) => preset.climate_preset_key === climate_preset_key,
+  )
 
   if (!climatePresetExists) {
     throw new BadRequestException({
@@ -46,7 +54,9 @@ export default withRouteSpec({
     })
   }
 
-  const climatePresetIsUsed = properties.current_climate_setting != null && properties.current_climate_setting.climate_preset_key === climate_preset_key;
+  const climatePresetIsUsed =
+    properties.current_climate_setting != null &&
+    properties.current_climate_setting.climate_preset_key === climate_preset_key
 
   if (climatePresetIsUsed) {
     throw new BadRequestException({
@@ -54,9 +64,13 @@ export default withRouteSpec({
       message: `The climate preset with key ${climate_preset_key} is currently in use and cannot be deleted`,
       data: {
         schedules_using_climate_preset: [
-          _.pick(properties.active_thermostat_schedule, ["ends_at", "starts_at", "thermostat_schedule_id"])
-        ]
-      }
+          _.pick(properties.active_thermostat_schedule, [
+            "ends_at",
+            "starts_at",
+            "thermostat_schedule_id",
+          ]),
+        ],
+      },
     })
   }
 
@@ -70,9 +84,9 @@ export default withRouteSpec({
         (preset) =>
           !preset.can_edit ||
           !preset.can_delete ||
-          preset.climate_preset_key !== climate_preset_key
+          preset.climate_preset_key !== climate_preset_key,
       ),
-    }
+    },
   })
 
   res.status(200).json({})
