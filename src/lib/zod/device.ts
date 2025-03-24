@@ -1,8 +1,9 @@
-import { schemas } from "@seamapi/types/connect"
+import { type Device, schemas } from "@seamapi/types/connect"
 import { z } from "zod"
 
-import { climate_setting } from "lib/zod/climate_setting.ts"
 import { custom_metadata } from "lib/zod/custom-metadata.ts"
+
+import { climate_preset, climate_setting, type ClimatePreset } from "./climate_preset.ts"
 
 export const LOCK_DEVICE_TYPES = [
   "august_lock",
@@ -105,7 +106,7 @@ export const thermostat_device_properties = common_device_properties.extend({
   current_climate_setting: climate_setting,
   default_climate_setting: z.optional(climate_setting),
   fan_mode_setting,
-
+  available_climate_presets: z.array(climate_preset),
   is_cooling_available: z.boolean(),
   min_cooling_set_point_celsius: z.number(),
   min_cooling_set_point_fahrenheit: z.number(),
@@ -225,5 +226,8 @@ export const unmanaged_device = device
     }),
   })
 
-export type Device = z.output<typeof device>
+export type { Device }
+
 export type UnmanagedDevice = z.infer<typeof unmanaged_device>
+
+export type ThermostatDevice = Device & { properties: Device["properties"] & { available_climate_presets: ClimatePreset[] } }

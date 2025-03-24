@@ -1,4 +1,5 @@
 import { createWithRouteSpec } from "nextlove"
+import { z } from "zod"
 
 import { withAccessToken } from "./with-access-token.ts"
 import { withAdminAuth } from "./with-admin-auth.ts"
@@ -64,3 +65,16 @@ export const withRouteSpec = createWithRouteSpec({
     client_session: withClientSession,
   },
 } as const)
+
+/**
+ * only used for typing has no purpose
+ */
+const disposableRouteSpec = withRouteSpec({
+  auth: ["pat_with_workspace", "console_session_with_workspace", "api_key"],
+  methods: ["POST", "GET", "PATCH", "DELETE"],
+  jsonBody: z.object({}),
+  jsonResponse: z.object({}),
+} as const);
+
+export type RouteSpecRequest = Parameters<Parameters<typeof disposableRouteSpec>[0]>[0]
+export type RouteSpecResponse = Parameters<Parameters<typeof disposableRouteSpec>[0]>[1]
