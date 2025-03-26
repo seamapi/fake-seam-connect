@@ -1,5 +1,5 @@
 import { Temporal } from "@js-temporal/polyfill"
-import { randomUUID } from "crypto"
+import { randomUUID } from "node:crypto"
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
