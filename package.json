@@ -67,6 +67,7 @@
   },
   "devDependencies": {
     "@godaddy/terminus": "^4.12.1",
+    "@js-temporal/polyfill": "^0.4.4",
     "@seamapi/fake-devicedb": "^1.6.0",
     "@seamapi/logger": "^1.9.2",
     "@seamapi/types": "^1.200.0",

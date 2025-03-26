@@ -56,6 +56,32 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/_fake/enter_bridge_pairing_code": {
+    route: "/_fake/enter_bridge_pairing_code"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      pairing_code: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/_fake/simulate_enter_bridge_pairing_code": {
+    route: "/_fake/simulate_enter_bridge_pairing_code"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      pairing_code: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
   "/_fake/simulate_workspace_outage": {
     route: "/_fake/simulate_workspace_outage"
     method: "POST"
@@ -4437,10 +4463,12 @@ export type Routes = {
         created_at: string
         bridge_client_session_id: string
         bridge_client_session_token: string
+        _ext_tailscale_auth_key_id: string | null
         pairing_code: string
         pairing_code_expires_at: string
         tailscale_hostname: string
         tailscale_auth_key: string | null
+        _tailscale_auth_key_expires_at: string | null
         bridge_client_name: string
         bridge_client_time_zone: string
         bridge_client_machine_identifier_key: string
@@ -4460,10 +4488,12 @@ export type Routes = {
         created_at: string
         bridge_client_session_id: string
         bridge_client_session_token: string
+        _ext_tailscale_auth_key_id: string | null
         pairing_code: string
         pairing_code_expires_at: string
         tailscale_hostname: string
         tailscale_auth_key: string | null
+        _tailscale_auth_key_expires_at: string | null
         bridge_client_name: string
         bridge_client_time_zone: string
         bridge_client_machine_identifier_key: string
@@ -4483,10 +4513,12 @@ export type Routes = {
         created_at: string
         bridge_client_session_id: string
         bridge_client_session_token: string
+        _ext_tailscale_auth_key_id: string | null
         pairing_code: string
         pairing_code_expires_at: string
         tailscale_hostname: string
         tailscale_auth_key: string | null
+        _tailscale_auth_key_expires_at: string | null
         bridge_client_name: string
         bridge_client_time_zone: string
         bridge_client_machine_identifier_key: string

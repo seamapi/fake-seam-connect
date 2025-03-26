@@ -243,7 +243,7 @@ export const seedDatabase = (db: Database): Seed => {
     pairing_code: "123456",
     pairing_code_expires_at: new Date().toISOString(),
     tailscale_hostname: "bcs1_tailscale_host",
-    tailscale_auth_key: "bcs1_tailscale_key",
+    tailscale_auth_key: null,
     bridge_client_name: "bridge_1",
     bridge_client_time_zone: "America/Los_Angeles",
     bridge_client_machine_identifier_key: "bcs1_machine",
