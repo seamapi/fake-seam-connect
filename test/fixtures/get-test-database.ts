@@ -67,12 +67,30 @@ export const getTestDatabase = async (
     workspace_id: ws2.workspace_id,
   })
 
+  const bridge_client_session = db.addBridgeClientSession({
+    bridge_client_session_id: "bcs1",
+    bridge_client_session_token: "bcs1_token",
+    pairing_code: "123456",
+    pairing_code_expires_at: new Date().toISOString(),
+    tailscale_hostname: "bcs1_tailscale_host",
+    tailscale_auth_key: null,
+    bridge_client_name: "bridge_1",
+    bridge_client_time_zone: "America/Los_Angeles",
+    bridge_client_machine_identifier_key: "bcs1_machine",
+  })
+
+  const bridge = db.addBridge({
+    workspace_id: ws2.workspace_id,
+    bridge_client_session_id: bridge_client_session.bridge_client_session_id,
+  })
+
   const ca = db.addConnectedAccount({
     provider: "august",
     workspace_id: ws2.workspace_id,
     user_identifier: {
       email: "john@example.com",
     },
+    bridge_id: bridge.bridge_id,
   })
 
   db.updateConnectWebview({
@@ -113,18 +131,6 @@ export const getTestDatabase = async (
     api_key_id: api_key_1.api_key_id,
   })
 
-  const bridge_client_session = db.addBridgeClientSession({
-    bridge_client_session_id: "bcs1",
-    bridge_client_session_token: "bcs1_token",
-    pairing_code: "123456",
-    pairing_code_expires_at: new Date().toISOString(),
-    tailscale_hostname: "bcs1_tailscale_host",
-    tailscale_auth_key: null,
-    bridge_client_name: "bridge_1",
-    bridge_client_time_zone: "America/Los_Angeles",
-    bridge_client_machine_identifier_key: "bcs1_machine",
-  })
-
   db.addUserSession({
     user_id: dbSeed.john_user_id,
     is_admin_session: false,
@@ -154,7 +160,7 @@ export const getTestDatabase = async (
     external_type: "visionline_system",
     name: "Fake Example Inc",
     workspace_id: ws2.workspace_id,
-    connected_account_ids: [ca.connected_account_id],
+    third_party_account_id: ca.connected_account_id,
   })
 
   const { acs_user_id } = db.addAcsUser({

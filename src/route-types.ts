@@ -1200,7 +1200,7 @@ export type Routes = {
         name: string
         created_at: string
         workspace_id: string
-        connected_account_ids: string[]
+        third_party_account_id: string
       }
       ok: boolean
     }
@@ -1240,7 +1240,7 @@ export type Routes = {
         name: string
         created_at: string
         workspace_id: string
-        connected_account_ids: string[]
+        third_party_account_id: string
       }[]
       ok: boolean
     }
@@ -1949,6 +1949,7 @@ export type Routes = {
             }
           | undefined
         assa_abloy_credential_service_id?: string | undefined
+        bridge_id: string | null
       }
       ok: boolean
     }
@@ -1979,6 +1980,7 @@ export type Routes = {
             }
           | undefined
         assa_abloy_credential_service_id?: string | undefined
+        bridge_id: string | null
       }[]
       ok: boolean
     }
@@ -2017,6 +2019,7 @@ export type Routes = {
             }
           | undefined
         assa_abloy_credential_service_id?: string | undefined
+        bridge_id: string | null
       }
       ok: boolean
     }
@@ -4523,6 +4526,27 @@ export type Routes = {
         bridge_client_time_zone: string
         bridge_client_machine_identifier_key: string
       }
+      ok: boolean
+    }
+  }
+  "/seam/bridge/v1/bridge_connected_systems/list": {
+    route: "/seam/bridge/v1/bridge_connected_systems/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      bridge_connected_systems: {
+        bridge_id: string
+        bridge_created_at: string
+        connected_account_id: string
+        connected_account_created_at: string
+        acs_system_id: string
+        acs_system_display_name: string
+        workspace_id: string
+        workspace_display_name: string
+      }[]
       ok: boolean
     }
   }

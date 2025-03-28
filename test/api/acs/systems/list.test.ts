@@ -22,8 +22,9 @@ test("GET /acs/systems/list", async (t: ExecutionContext) => {
   })
 
   t.true(
-    acs_systems_list_res.data.acs_systems.every((acs_system) =>
-      acs_system.connected_account_ids.includes(connected_account_id),
+    acs_systems_list_res.data.acs_systems.every(
+      (acs_system) =>
+        acs_system.third_party_account_id === connected_account_id,
     ),
   )
 
