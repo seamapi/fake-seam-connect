@@ -7,7 +7,7 @@ import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
 import { hoist } from "zustand-hoist"
 
-import type { BridgeClientSession, UserSession } from "lib/zod/index.ts"
+import type { Bridge, BridgeClientSession, UserSession } from "lib/zod/index.ts"
 
 import {
   ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME,
@@ -72,6 +72,7 @@ const initializer = immer<Database>((set, get) => ({
   simulatedEvents: {},
   client_sessions: [],
   bridge_client_sessions: [],
+  bridges: [],
   assa_abloy_credential_services: [],
   assa_abloy_cards: [],
   endpoints: [],
@@ -342,6 +343,24 @@ const initializer = immer<Database>((set, get) => ({
     })
   },
 
+  addBridge(params) {
+    const bridge_id = get()._getNextId("bid")
+
+    const new_bridge: Bridge = {
+      ...params,
+      bridge_id,
+      created_at: new Date().toISOString(),
+      workspace_id: params.workspace_id,
+      bridge_client_session_id: params.bridge_client_session_id,
+    }
+
+    set({
+      bridges: [...get().bridges, new_bridge],
+    })
+
+    return new_bridge
+  },
+
   addUserIdentity(params) {
     const user_identity_id = params.user_identity_id ?? get()._getNextId("uid")
     const new_user_identity: UserIdentity = {
@@ -557,6 +576,7 @@ const initializer = immer<Database>((set, get) => ({
       automatically_manage_new_devices:
         params?.automatically_manage_new_devices ?? true,
       custom_metadata: params.custom_metadata ?? {},
+      bridge_id: params.bridge_id ?? null,
     }
 
     if (params.provider === "assa_abloy_credential_service") {
@@ -1237,7 +1257,7 @@ const initializer = immer<Database>((set, get) => ({
     name,
     workspace_id,
     created_at,
-    connected_account_ids,
+    third_party_account_id,
     acs_system_id,
   }) {
     const new_acs_system: AcsSystem = {
@@ -1250,7 +1270,7 @@ const initializer = immer<Database>((set, get) => ({
       external_type,
       external_type_display_name:
         ACS_SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
-      connected_account_ids: connected_account_ids ?? [],
+      third_party_account_id,
     }
 
     set({

@@ -24,7 +24,7 @@ export default withRouteSpec({
     (acs_system) =>
       acs_system.workspace_id === req.auth.workspace_id &&
       (connected_account_id == null ||
-        acs_system.connected_account_ids.includes(connected_account_id)),
+        acs_system.third_party_account_id === connected_account_id),
   )
 
   res.status(200).json({
