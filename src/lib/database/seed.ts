@@ -183,7 +183,7 @@ export const seedDatabase = (db: Database): Seed => {
     noise_threshold_decibels: 60,
     name: "builtin_normal_hours",
     starts_daily_at: "00:00:00[America/Los_Angeles]",
-    ends_daily_at: "23:00:00[America/Los_Angeles]",
+    ends_daily_at: "23:59:59[America/Los_Angeles]",
   })
 
   db.addDevice({
