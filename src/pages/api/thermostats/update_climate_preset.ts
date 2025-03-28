@@ -19,12 +19,15 @@ export default withRouteSpec({
   Updates a specified [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) for a specified [thermostat](https://docs.seam.co/latest/capability-guides/thermostats).
   `,
   methods: ["POST", "PATCH"],
-  auth: ["client_session", "pat_with_workspace", "console_session_with_workspace", "api_key"],
+  auth: [
+    "client_session",
+    "pat_with_workspace",
+    "console_session_with_workspace",
+    "api_key",
+  ],
   jsonBody: z
     .object({
-      device_id: z
-        .string()
-        .describe("ID of the desired thermostat device."),
+      device_id: z.string().describe("ID of the desired thermostat device."),
     })
     .merge(
       climate_preset.omit({
@@ -42,7 +45,8 @@ export default withRouteSpec({
   const { properties } = returnOrThrowIfNotThermostatDevice(req, device_id)
 
   const existing_climate_preset = properties.available_climate_presets.find(
-    (preset) => preset.climate_preset_key === draft_climate_preset.climate_preset_key,
+    (preset) =>
+      preset.climate_preset_key === draft_climate_preset.climate_preset_key,
   )
 
   if (existing_climate_preset == null) {
@@ -85,7 +89,7 @@ export default withRouteSpec({
 
   const current_climate_setting =
     existing_current_climate_setting?.climate_preset_key ===
-      climate_preset.climate_preset_key
+    climate_preset.climate_preset_key
       ? climate_preset
       : existing_current_climate_setting
 

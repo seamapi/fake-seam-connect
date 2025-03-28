@@ -24,9 +24,7 @@ export default withRouteSpec({
     "api_key",
   ],
   jsonBody: z.object({
-    device_id: z
-      .string()
-      .describe("ID of the desired thermostat device."),
+    device_id: z.string().describe("ID of the desired thermostat device."),
     climate_preset_key: z
       .string()
       .describe("Climate preset key of the desired climate preset."),

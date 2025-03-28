@@ -227,8 +227,8 @@ const initializer = immer<Database>((set, get) => ({
 
         return "assa_abloy_credential_service_id" in endpoint
           ? !ws_credential_service_ids.includes(
-            endpoint.assa_abloy_credential_service_id,
-          )
+              endpoint.assa_abloy_credential_service_id,
+            )
           : true
       }),
       workspaces: filterByWorkspaceId(db_state.workspaces),
@@ -424,7 +424,7 @@ const initializer = immer<Database>((set, get) => ({
         },
         noise_level_decibels:
           params?.properties != null &&
-            "noise_level_decibels" in params?.properties
+          "noise_level_decibels" in params?.properties
             ? params.properties?.noise_level_decibels
             : undefined,
         currently_triggering_noise_threshold_ids:
@@ -1030,7 +1030,7 @@ const initializer = immer<Database>((set, get) => ({
       (installation) =>
         installation.workspace_id === params.workspace_id &&
         installation.user_identity_id ===
-        client_session.user_identity_ids?.[0] &&
+          client_session.user_identity_ids?.[0] &&
         installation.ext_sdk_installation_id === params.ext_sdk_installation_id,
     )
   },
@@ -1148,7 +1148,7 @@ const initializer = immer<Database>((set, get) => ({
     return get().phone_invitations.filter(
       (invitation) =>
         invitation.phone_sdk_installation_id ===
-        params.phone_sdk_installation_id &&
+          params.phone_sdk_installation_id &&
         invitation.user_identity_id === client_session.user_identity_ids?.[0],
     )
   },
@@ -1173,7 +1173,7 @@ const initializer = immer<Database>((set, get) => ({
     const invitations = get().phone_invitations.filter(
       (invitation) =>
         invitation.phone_sdk_installation_id ===
-        params.phone_sdk_installation_id &&
+          params.phone_sdk_installation_id &&
         invitation.user_identity_id === client_session.user_identity_ids[0],
     )
 
@@ -1184,7 +1184,7 @@ const initializer = immer<Database>((set, get) => ({
           (invitation) =>
             invitation.invitation_id === endpoint.invitation_id &&
             invitation.assa_abloy_credential_service_id ===
-            endpoint.assa_abloy_credential_service_id,
+              endpoint.assa_abloy_credential_service_id,
         ),
     )
   },
@@ -1522,5 +1522,5 @@ const initializer = immer<Database>((set, get) => ({
     })
   },
 
-  update() { },
+  update() {},
 }))

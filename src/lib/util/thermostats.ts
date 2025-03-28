@@ -312,9 +312,9 @@ export function isSameClimateSetting(
   return (
     currentSetting.hvac_mode_setting === desiredSetting.hvac_mode_setting &&
     currentSetting.heating_set_point_celsius ===
-    desiredSetting.heating_set_point_celsius &&
+      desiredSetting.heating_set_point_celsius &&
     currentSetting.cooling_set_point_celsius ===
-    desiredSetting.cooling_set_point_celsius
+      desiredSetting.cooling_set_point_celsius
   )
 }
 
@@ -342,24 +342,24 @@ export const throwIfClimateSettingNotAllowed = (
     properties.current_climate_setting === undefined
       ? false
       : properties.current_climate_setting.hvac_mode_setting === "heat" ||
-      properties.current_climate_setting.hvac_mode_setting === "heat_cool"
+        properties.current_climate_setting.hvac_mode_setting === "heat_cool"
 
   const automatic_cooling_enabled =
     properties.current_climate_setting === undefined
       ? false
       : properties.current_climate_setting.hvac_mode_setting === "cool" ||
-      properties.current_climate_setting.hvac_mode_setting === "heat_cool"
+        properties.current_climate_setting.hvac_mode_setting === "heat_cool"
 
   const is_heating_available =
     properties.available_hvac_mode_settings === undefined
       ? false
       : properties.available_hvac_mode_settings.includes("heat") ||
-      properties.available_hvac_mode_settings.includes("heat_cool")
+        properties.available_hvac_mode_settings.includes("heat_cool")
   const is_cooling_available =
     properties.available_hvac_mode_settings === undefined
       ? false
       : properties.available_hvac_mode_settings.includes("cool") ||
-      properties.available_hvac_mode_settings.includes("heat_cool")
+        properties.available_hvac_mode_settings.includes("heat_cool")
 
   // check against available modes
 
@@ -454,7 +454,7 @@ export const throwIfClimateSettingNotAllowed = (
       if (
         min_heating_cooling_delta_celsius != null &&
         Math.abs(heating_set_point_celsius - cooling_set_point_celsius) <
-        min_heating_cooling_delta_celsius
+          min_heating_cooling_delta_celsius
       ) {
         throw new BadRequestException({
           type: "invalid_heating_cooling_delta",

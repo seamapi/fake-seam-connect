@@ -2,7 +2,10 @@
 import test from "ava"
 import type { z } from "zod"
 
-import { getTestServer, type SimpleAxiosError } from "fixtures/get-test-server.ts"
+import {
+  getTestServer,
+  type SimpleAxiosError,
+} from "fixtures/get-test-server.ts"
 import { seedDatabase } from "lib/database/seed.ts"
 import type { thermostat_device_properties } from "lib/zod/device.ts"
 
@@ -28,17 +31,11 @@ test("POST /thermostats/create_climate_preset with api key", async (t) => {
     return device.properties as z.infer<typeof thermostat_device_properties>
   }
 
+  let deviceProps = await getCurrentDeviceProps(ecobee_device_1)
 
-  let deviceProps = await getCurrentDeviceProps(ecobee_device_1);
+  t.is(deviceProps.available_climate_presets.length, 0)
 
-  t.is(
-    deviceProps.available_climate_presets.length,
-    0
-  )
-
-  const {
-    status,
-  } = await axios.post(
+  const { status } = await axios.post(
     "/thermostats/create_climate_preset",
     {
       climate_preset_key: "testpresett",
@@ -56,12 +53,11 @@ test("POST /thermostats/create_climate_preset with api key", async (t) => {
 
   t.is(status, 200)
 
+  deviceProps = await getCurrentDeviceProps(ecobee_device_1)
+  t.is(deviceProps.available_climate_presets.length, 1)
 
-  deviceProps = await getCurrentDeviceProps(ecobee_device_1);
-  t.is(deviceProps.available_climate_presets.length, 1);
-
-  const climatePreset = deviceProps.available_climate_presets[0];
-  t.is(climatePreset?.climate_preset_key, "testpresett");
+  const climatePreset = deviceProps.available_climate_presets[0]
+  t.is(climatePreset?.climate_preset_key, "testpresett")
 
   try {
     await axios.post(
@@ -82,7 +78,7 @@ test("POST /thermostats/create_climate_preset with api key", async (t) => {
 
     t.fail("Should have thrown an error")
   } catch (error) {
-    const err = error as SimpleAxiosError;
-    t.is(err.response.error.type, "climate_preset_exists");
+    const err = error as SimpleAxiosError
+    t.is(err.response.error.type, "climate_preset_exists")
   }
 })

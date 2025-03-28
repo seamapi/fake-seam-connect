@@ -19,12 +19,15 @@ export default withRouteSpec({
   Creates a [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) for a specified [thermostat](https://docs.seam.co/latest/capability-guides/thermostats).
   `,
   methods: ["POST"],
-  auth: ["client_session", "pat_with_workspace", "console_session_with_workspace", "api_key"],
+  auth: [
+    "client_session",
+    "pat_with_workspace",
+    "console_session_with_workspace",
+    "api_key",
+  ],
   jsonBody: z
     .object({
-      device_id: z
-        .string()
-        .describe("ID of the desired thermostat device."),
+      device_id: z.string().describe("ID of the desired thermostat device."),
     })
     .merge(
       climate_preset.omit({

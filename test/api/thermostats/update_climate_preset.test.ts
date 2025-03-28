@@ -2,7 +2,10 @@
 import test from "ava"
 import type { z } from "zod"
 
-import { getTestServer, type SimpleAxiosError } from "fixtures/get-test-server.ts"
+import {
+  getTestServer,
+  type SimpleAxiosError,
+} from "fixtures/get-test-server.ts"
 import { seedDatabase } from "lib/database/seed.ts"
 import type { thermostat_device_properties } from "lib/zod/device.ts"
 
@@ -38,13 +41,9 @@ test("POST /thermostats/update_climate_preset with api key", async (t) => {
     },
   )
 
+  let deviceProps = await getCurrentDeviceProps(ecobee_device_1)
 
-  let deviceProps = await getCurrentDeviceProps(ecobee_device_1);
-
-  t.is(
-    deviceProps.available_climate_presets.length,
-    1
-  )
+  t.is(deviceProps.available_climate_presets.length, 1)
 
   try {
     await axios.post(
@@ -62,8 +61,8 @@ test("POST /thermostats/update_climate_preset with api key", async (t) => {
 
     t.fail("Should have thrown an error")
   } catch (error) {
-    const err = error as SimpleAxiosError;
-    t.is(err.response.error.type, "climate_preset_not_found");
+    const err = error as SimpleAxiosError
+    t.is(err.response.error.type, "climate_preset_not_found")
   }
 
   await axios.post(
@@ -73,7 +72,7 @@ test("POST /thermostats/update_climate_preset with api key", async (t) => {
       device_id: ecobee_device_1,
       name: "Test Preset",
       cooling_set_point_celsius: 17,
-      manual_override_allowed: true // type requires it
+      manual_override_allowed: true, // type requires it
     },
     {
       headers: {
@@ -82,8 +81,8 @@ test("POST /thermostats/update_climate_preset with api key", async (t) => {
     },
   )
 
-  deviceProps = await getCurrentDeviceProps(ecobee_device_1);
-  t.is(deviceProps.available_climate_presets.length, 1);
-  t.is(deviceProps.available_climate_presets[0]?.name, "Test Preset");
-  t.is(deviceProps.available_climate_presets[0]?.cooling_set_point_celsius, 17);
+  deviceProps = await getCurrentDeviceProps(ecobee_device_1)
+  t.is(deviceProps.available_climate_presets.length, 1)
+  t.is(deviceProps.available_climate_presets[0]?.name, "Test Preset")
+  t.is(deviceProps.available_climate_presets[0]?.cooling_set_point_celsius, 17)
 })
