@@ -70,7 +70,7 @@ export const withRouteSpec = createWithRouteSpec({
  * only used for typing has no purpose
  */
 const disposableRouteSpec = withRouteSpec({
-  auth: ["pat_with_workspace", "console_session_with_workspace", "api_key"],
+  auth: ["client_session", "pat_with_workspace", "console_session_with_workspace", "api_key"],
   methods: ["POST", "GET", "PATCH", "DELETE"],
   jsonBody: z.object({}),
   jsonResponse: z.object({}),

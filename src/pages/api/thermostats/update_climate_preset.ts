@@ -19,12 +19,11 @@ export default withRouteSpec({
   Updates a specified [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) for a specified [thermostat](https://docs.seam.co/latest/capability-guides/thermostats).
   `,
   methods: ["POST", "PATCH"],
-  auth: ["pat_with_workspace", "console_session_with_workspace", "api_key"],
+  auth: ["client_session", "pat_with_workspace", "console_session_with_workspace", "api_key"],
   jsonBody: z
     .object({
       device_id: z
         .string()
-        .uuid()
         .describe("ID of the desired thermostat device."),
     })
     .merge(
@@ -40,13 +39,26 @@ export default withRouteSpec({
     body: { device_id, ...draft_climate_preset },
   } = req
 
+  const { properties } = returnOrThrowIfNotThermostatDevice(req, device_id)
+
+  const existing_climate_preset = properties.available_climate_presets.find(
+    (preset) => preset.climate_preset_key === draft_climate_preset.climate_preset_key,
+  )
+
+  if (existing_climate_preset == null) {
+    throw new BadRequestException({
+      type: "climate_preset_not_found",
+      message: `Cannot find a climate preset with key ${draft_climate_preset.climate_preset_key}`,
+    })
+  }
+
   const climate_preset = normalizeClimateSetting({
+    ...existing_climate_preset,
     ...draft_climate_preset,
     can_edit: true,
     can_delete: true,
   }) as ClimatePreset
 
-  const { properties } = returnOrThrowIfNotThermostatDevice(req, device_id)
   throwIfClimateSettingNotAllowed(
     climate_preset,
     properties as unknown as Device["properties"],
@@ -56,13 +68,6 @@ export default withRouteSpec({
     current_climate_setting: existing_current_climate_setting,
     available_climate_presets: existing_climate_presets,
   } = properties
-
-  if (existing_climate_presets === undefined) {
-    throw new BadRequestException({
-      type: "climate_preset_not_found",
-      message: `Cannot find a climate preset with key ${climate_preset.climate_preset_key}`,
-    })
-  }
 
   const available_climate_presets = existing_climate_presets.filter(
     (preset) =>
@@ -80,7 +85,7 @@ export default withRouteSpec({
 
   const current_climate_setting =
     existing_current_climate_setting?.climate_preset_key ===
-    climate_preset.climate_preset_key
+      climate_preset.climate_preset_key
       ? climate_preset
       : existing_current_climate_setting
 

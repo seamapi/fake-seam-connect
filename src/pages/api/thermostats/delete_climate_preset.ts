@@ -26,7 +26,6 @@ export default withRouteSpec({
   jsonBody: z.object({
     device_id: z
       .string()
-      .uuid()
       .describe("ID of the desired thermostat device."),
     climate_preset_key: z
       .string()
@@ -78,8 +77,6 @@ export default withRouteSpec({
     device_id,
     properties: {
       ...properties,
-      current_climate_setting: undefined,
-      active_thermostat_schedule: null,
       available_climate_presets: properties.available_climate_presets.filter(
         (preset) =>
           !preset.can_edit ||
