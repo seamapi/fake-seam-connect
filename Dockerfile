@@ -1,4 +1,4 @@
-FROM node:hydrogen-alpine as base
+FROM node:20.18 as base
 
 WORKDIR /usr/src/app
 
