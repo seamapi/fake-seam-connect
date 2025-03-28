@@ -3,8 +3,8 @@ import { z } from "zod"
 import { withRouteSpec } from "lib/middleware/index.ts"
 
 import {
-  BridgeConnectedSystem,
   bridge_connected_system,
+  type BridgeConnectedSystem,
 } from "lib/zod/bridge_connected_system.ts"
 
 export default withRouteSpec({
