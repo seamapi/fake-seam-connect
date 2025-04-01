@@ -42,7 +42,7 @@ export default withRouteSpec({
 
       const acs_system = db.acs_systems.find(
         (acs_system) =>
-          acs_system.third_party_account_id ===
+          acs_system.connected_account_id ===
           connected_account.connected_account_id,
       )
 

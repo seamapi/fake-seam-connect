@@ -1257,7 +1257,7 @@ const initializer = immer<Database>((set, get) => ({
     name,
     workspace_id,
     created_at,
-    third_party_account_id,
+    connected_account_id,
     acs_system_id,
   }) {
     const new_acs_system: AcsSystem = {
@@ -1270,7 +1270,7 @@ const initializer = immer<Database>((set, get) => ({
       external_type,
       external_type_display_name:
         ACS_SYSTEM_TYPE_TO_DISPLAY_NAME[external_type],
-      third_party_account_id,
+      connected_account_id,
     }
 
     set({

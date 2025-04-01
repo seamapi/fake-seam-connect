@@ -273,7 +273,7 @@ export const seedDatabase = (db: Database): Seed => {
     external_type: "visionline_system",
     name: "Fake Visionline System",
     workspace_id: seed.seed_workspace_1,
-    third_party_account_id: seed.john_connected_account_id,
+    connected_account_id: seed.john_connected_account_id,
   })
 
   const [, short_token = "", long_token = ""] = seed.seam_at1_token.split("_")

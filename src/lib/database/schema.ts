@@ -304,7 +304,7 @@ export interface DatabaseMethods {
   addAcsSystem: (
     params: Pick<
       AcsSystem,
-      "external_type" | "name" | "workspace_id" | "third_party_account_id"
+      "external_type" | "name" | "workspace_id" | "connected_account_id"
     > &
       Partial<Pick<AcsSystem, "created_at" | "acs_system_id">>,
   ) => AcsSystem

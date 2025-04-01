@@ -160,7 +160,7 @@ export const getTestDatabase = async (
     external_type: "visionline_system",
     name: "Fake Example Inc",
     workspace_id: ws2.workspace_id,
-    third_party_account_id: ca.connected_account_id,
+    connected_account_id: ca.connected_account_id,
   })
 
   const { acs_user_id } = db.addAcsUser({
