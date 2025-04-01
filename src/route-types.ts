@@ -1200,7 +1200,7 @@ export type Routes = {
         name: string
         created_at: string
         workspace_id: string
-        third_party_account_id: string
+        connected_account_id: string
       }
       ok: boolean
     }
@@ -1240,7 +1240,7 @@ export type Routes = {
         name: string
         created_at: string
         workspace_id: string
-        third_party_account_id: string
+        connected_account_id: string
       }[]
       ok: boolean
     }
