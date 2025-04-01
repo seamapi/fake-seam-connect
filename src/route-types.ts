@@ -5000,6 +5000,47 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/thermostats/activate_climate_preset": {
+    route: "/thermostats/activate_climate_preset"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      /** ID of the desired thermostat device. */
+      device_id: string
+      /** Climate preset key of the desired climate preset. */
+      climate_preset_key: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
   "/thermostats/cool": {
     route: "/thermostats/cool"
     method: "GET" | "POST"
