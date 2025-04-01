@@ -3,7 +3,7 @@
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
-      "VARIANT": "20"
+      "VARIANT": "20.18"
     }
   },
   "hostRequirements": {

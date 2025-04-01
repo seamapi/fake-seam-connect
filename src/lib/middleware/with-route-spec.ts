@@ -5,9 +5,12 @@ import { withAccessToken } from "./with-access-token.ts"
 import { withAdminAuth } from "./with-admin-auth.ts"
 import { withApiKey } from "./with-api-key.ts"
 import { withBaseUrl } from "./with-base-url.ts"
+import { withBridgeClientSession } from "./with-bridge-client-session.ts"
+import { withCertifiedClient } from "./with-certified-client.ts"
 import { withClientSession } from "./with-client-session.ts"
 import { withCors } from "./with-cors.ts"
 import { withDb } from "./with-db.ts"
+import { withPublishableKey } from "./with-publishable-key.ts"
 import { withRequestId } from "./with-request-id.ts"
 import { withSessionAuth } from "./with-session-auth.ts"
 
@@ -43,10 +46,25 @@ export const withRouteSpec = createWithRouteSpec({
       scheme: "bearer",
       bearerFormat: "Console Session Token",
     },
+    bridge_client_session: {
+      type: "http",
+      scheme: "bearer",
+      bearerFormat: "Bridge Client Session Token",
+    },
     api_key: {
       type: "http",
       scheme: "bearer",
       bearerFormat: "API Key",
+    },
+    publishable_key: {
+      type: "apiKey",
+      in: "header",
+      name: "seam-publishable-key",
+    },
+    certified_client: {
+      type: "http",
+      scheme: "bearer",
+      bearerFormat: "Certified Client Token",
     },
   },
 
@@ -61,8 +79,11 @@ export const withRouteSpec = createWithRouteSpec({
     console_session_without_workspace: withSessionAuth({
       is_workspace_id_required: false,
     }),
+    bridge_client_session: withBridgeClientSession,
     api_key: withApiKey,
     client_session: withClientSession,
+    publishable_key: withPublishableKey,
+    certified_client: withCertifiedClient,
   },
 } as const)
 

@@ -45,4 +45,19 @@ export type AuthenticatedRequest = Request & {
         user_id: string
         user_session_id: string
       }
+    | {
+        type: "bridge_client_session"
+        bridge_client_session: {
+          bridge_client_session_id: string
+        }
+      }
+    | {
+        type: "publishable_key"
+        publishable_key: string
+        workspace_id: string
+        sandbox: boolean
+      }
+    | {
+        type: "certified_client"
+      }
 }

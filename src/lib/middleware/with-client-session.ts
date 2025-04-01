@@ -99,13 +99,6 @@ export const withClientSession: Middleware<
     })
   }
 
-  if (publishable_key == null && api_key_id == null) {
-    throw new UnauthorizedException({
-      type: "unauthorized",
-      message: "publishable key or api key must be set",
-    })
-  }
-
   req.auth = {
     type: "client_session",
     client_session_id,

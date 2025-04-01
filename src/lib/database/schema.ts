@@ -8,6 +8,8 @@ import type {
   AcsUser,
   ActionAttempt,
   ApiKey,
+  Bridge,
+  BridgeClientSession,
   ClientSession,
   ConnectedAccount,
   ConnectWebview,
@@ -49,6 +51,8 @@ export interface DatabaseState {
   enrollment_automations: EnrollmentAutomation[]
   connect_webviews: ConnectWebview[]
   client_sessions: ClientSession[]
+  bridge_client_sessions: BridgeClientSession[]
+  bridges: Bridge[]
   connected_accounts: ConnectedAccount[]
   devices: Device[]
   events: Event[]
@@ -105,6 +109,17 @@ export interface DatabaseMethods {
   addClientSession: (
     params: Pick<ClientSession, "workspace_id"> & Partial<ClientSession>,
   ) => ClientSession
+  addBridgeClientSession: (
+    params: Partial<BridgeClientSession>,
+  ) => BridgeClientSession
+  updateBridgeClientSession: (params: {
+    bridge_client_session_id: string
+    pairing_code?: string
+    pairing_code_expires_at?: string
+  }) => void
+  addBridge: (
+    params: Pick<Bridge, "workspace_id" | "bridge_client_session_id">,
+  ) => Bridge
   addUserIdentity: (params: {
     workspace_id: WorkspaceId
     user_identity_id?: string
@@ -157,6 +172,7 @@ export interface DatabaseMethods {
     account_type?: string
     automatically_manage_new_devices?: boolean
     custom_metadata?: ConnectedAccount["custom_metadata"]
+    bridge_id?: string
   }) => ConnectedAccount
   updateConnectedAccount: (params: {
     connected_account_id: string
@@ -288,7 +304,7 @@ export interface DatabaseMethods {
   addAcsSystem: (
     params: Pick<
       AcsSystem,
-      "external_type" | "name" | "workspace_id" | "connected_account_ids"
+      "external_type" | "name" | "workspace_id" | "connected_account_id"
     > &
       Partial<Pick<AcsSystem, "created_at" | "acs_system_id">>,
   ) => AcsSystem

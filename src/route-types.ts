@@ -52,6 +52,33 @@ export type Routes = {
       john_user_id: "john_user_id"
       john_user_key: "john_user_key"
       visionline_acs_system_1: "visionline_acs_system_1"
+      bridge_client_session_token: "bcs1_token"
+      ok: boolean
+    }
+  }
+  "/_fake/enter_bridge_pairing_code": {
+    route: "/_fake/enter_bridge_pairing_code"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      pairing_code: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/_fake/simulate_enter_bridge_pairing_code": {
+    route: "/_fake/simulate_enter_bridge_pairing_code"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      pairing_code: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
       ok: boolean
     }
   }
@@ -1173,7 +1200,7 @@ export type Routes = {
         name: string
         created_at: string
         workspace_id: string
-        connected_account_ids: string[]
+        connected_account_id: string
       }
       ok: boolean
     }
@@ -1213,7 +1240,7 @@ export type Routes = {
         name: string
         created_at: string
         workspace_id: string
-        connected_account_ids: string[]
+        connected_account_id: string
       }[]
       ok: boolean
     }
@@ -1542,16 +1569,11 @@ export type Routes = {
     route: "/client_sessions/create"
     method: "POST" | "PUT"
     queryParams: {}
-    jsonBody:
-      | any
-      | (
-          | {
-              connected_account_ids?: string[] | undefined
-              connect_webview_ids?: string[] | undefined
-              user_identifier_key?: string | undefined
-            }
-          | undefined
-        )
+    jsonBody: {
+      connected_account_ids?: string[] | undefined
+      connect_webview_ids?: string[] | undefined
+      user_identifier_key?: string | undefined
+    }
     commonParams: {}
     formData: {}
     jsonResponse: {
@@ -1927,6 +1949,7 @@ export type Routes = {
             }
           | undefined
         assa_abloy_credential_service_id?: string | undefined
+        bridge_id: string | null
       }
       ok: boolean
     }
@@ -1957,6 +1980,7 @@ export type Routes = {
             }
           | undefined
         assa_abloy_credential_service_id?: string | undefined
+        bridge_id: string | null
       }[]
       ok: boolean
     }
@@ -1995,6 +2019,7 @@ export type Routes = {
             }
           | undefined
         assa_abloy_credential_service_id?: string | undefined
+        bridge_id: string | null
       }
       ok: boolean
     }
@@ -2363,6 +2388,8 @@ export type Routes = {
           )[]
         | undefined
       manufacturer?: string | undefined
+      limit?: number
+      page_cursor?: (string | undefined) | null
     }
     formData: {}
     jsonResponse: {
@@ -2667,6 +2694,11 @@ export type Routes = {
         can_remotely_unlock?: boolean | undefined
         can_program_online_access_codes?: boolean | undefined
       }[]
+      pagination: {
+        has_next_page: boolean
+        next_page_cursor: string | null
+        next_page_url: string | null
+      }
       ok: boolean
     }
   }
@@ -2767,6 +2799,8 @@ export type Routes = {
           )[]
         | undefined
       manufacturer?: string | undefined
+      limit?: number
+      page_cursor?: (string | undefined) | null
     }
     formData: {}
     jsonResponse: {
@@ -3996,6 +4030,8 @@ export type Routes = {
           )[]
         | undefined
       manufacturer?: string | undefined
+      limit?: number
+      page_cursor?: (string | undefined) | null
     }
     formData: {}
     jsonResponse: {
@@ -4864,44 +4900,103 @@ export type Routes = {
       ok: boolean
     }
   }
-  "/thermostats/activate_climate_preset": {
-    route: "/thermostats/activate_climate_preset"
+  "/seam/bridge/v1/bridge_client_sessions/create": {
+    route: "/seam/bridge/v1/bridge_client_sessions/create"
     method: "POST"
     queryParams: {}
     jsonBody: {
-      /** ID of the desired thermostat device. */
-      device_id: string
-      /** Climate preset key of the desired climate preset. */
-      climate_preset_key: string
+      bridge_client_name: string
+      bridge_client_time_zone: string
+      bridge_client_machine_identifier_key: string
     }
     commonParams: {}
     formData: {}
     jsonResponse: {
-      action_attempt:
-        | {
-            status: "success"
-            action_type: string
-            action_attempt_id: string
-            result?: any
-            error: null
-          }
-        | {
-            status: "pending"
-            action_type: string
-            action_attempt_id: string
-            result: null
-            error: null
-          }
-        | {
-            status: "error"
-            action_type: string
-            action_attempt_id: string
-            result: null
-            error: {
-              type: string
-              message: string
-            }
-          }
+      bridge_client_session: {
+        created_at: string
+        bridge_client_session_id: string
+        bridge_client_session_token: string
+        _ext_tailscale_auth_key_id: string | null
+        pairing_code: string
+        pairing_code_expires_at: string
+        tailscale_hostname: string
+        tailscale_auth_key: string | null
+        _tailscale_auth_key_expires_at: string | null
+        bridge_client_name: string
+        bridge_client_time_zone: string
+        bridge_client_machine_identifier_key: string
+      }
+      ok: boolean
+    }
+  }
+  "/seam/bridge/v1/bridge_client_sessions/get": {
+    route: "/seam/bridge/v1/bridge_client_sessions/get"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      bridge_client_session: {
+        created_at: string
+        bridge_client_session_id: string
+        bridge_client_session_token: string
+        _ext_tailscale_auth_key_id: string | null
+        pairing_code: string
+        pairing_code_expires_at: string
+        tailscale_hostname: string
+        tailscale_auth_key: string | null
+        _tailscale_auth_key_expires_at: string | null
+        bridge_client_name: string
+        bridge_client_time_zone: string
+        bridge_client_machine_identifier_key: string
+      }
+      ok: boolean
+    }
+  }
+  "/seam/bridge/v1/bridge_client_sessions/regenerate_pairing_code": {
+    route: "/seam/bridge/v1/bridge_client_sessions/regenerate_pairing_code"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      bridge_client_session: {
+        created_at: string
+        bridge_client_session_id: string
+        bridge_client_session_token: string
+        _ext_tailscale_auth_key_id: string | null
+        pairing_code: string
+        pairing_code_expires_at: string
+        tailscale_hostname: string
+        tailscale_auth_key: string | null
+        _tailscale_auth_key_expires_at: string | null
+        bridge_client_name: string
+        bridge_client_time_zone: string
+        bridge_client_machine_identifier_key: string
+      }
+      ok: boolean
+    }
+  }
+  "/seam/bridge/v1/bridge_connected_systems/list": {
+    route: "/seam/bridge/v1/bridge_connected_systems/list"
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      bridge_connected_systems: {
+        bridge_id: string
+        bridge_created_at: string
+        connected_account_id: string
+        connected_account_created_at: string
+        acs_system_id: string
+        acs_system_display_name: string
+        workspace_id: string
+        workspace_display_name: string
+      }[]
       ok: boolean
     }
   }

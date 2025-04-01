@@ -24,6 +24,7 @@ export interface Seed {
   john_user_key: "john_user_key"
   visionline_acs_system_1: "visionline_acs_system_1"
   seam_at1_token: "seam_at1_longtoken"
+  bridge_client_session_token: "bcs1_token"
 }
 
 export const seed: Seed = {
@@ -48,6 +49,7 @@ export const seed: Seed = {
   john_user_id: "john_user_id",
   john_user_key: "john_user_key",
   visionline_acs_system_1: "visionline_acs_system_1",
+  bridge_client_session_token: "bcs1_token",
 } as const
 
 export const seedDatabase = (db: Database): Seed => {
@@ -190,7 +192,7 @@ export const seedDatabase = (db: Database): Seed => {
     noise_threshold_decibels: 60,
     name: "builtin_normal_hours",
     starts_daily_at: "00:00:00[America/Los_Angeles]",
-    ends_daily_at: "23:00:00[America/Los_Angeles]",
+    ends_daily_at: "23:59:59[America/Los_Angeles]",
   })
 
   db.addDevice({
@@ -244,6 +246,18 @@ export const seedDatabase = (db: Database): Seed => {
     api_key_id: api_key_1.api_key_id,
   })
 
+  db.addBridgeClientSession({
+    bridge_client_session_id: "bcs1",
+    bridge_client_session_token: "bcs1_token",
+    pairing_code: "123456",
+    pairing_code_expires_at: new Date().toISOString(),
+    tailscale_hostname: "bcs1_tailscale_host",
+    tailscale_auth_key: null,
+    bridge_client_name: "bridge_1",
+    bridge_client_time_zone: "America/Los_Angeles",
+    bridge_client_machine_identifier_key: "bcs1_machine",
+  })
+
   const connected_account = db.addConnectedAccount({
     provider: "assa_abloy_credential_service",
     workspace_id: seed.seed_workspace_1,
@@ -268,7 +282,7 @@ export const seedDatabase = (db: Database): Seed => {
     external_type: "visionline_system",
     name: "Fake Visionline System",
     workspace_id: seed.seed_workspace_1,
-    connected_account_ids: [seed.john_connected_account_id],
+    connected_account_id: seed.john_connected_account_id,
   })
 
   const [, short_token = "", long_token = ""] = seed.seam_at1_token.split("_")
