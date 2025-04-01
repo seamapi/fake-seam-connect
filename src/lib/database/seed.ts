@@ -183,7 +183,7 @@ export const seedDatabase = (db: Database): Seed => {
     noise_threshold_decibels: 60,
     name: "builtin_normal_hours",
     starts_daily_at: "00:00:00[America/Los_Angeles]",
-    ends_daily_at: "23:00:00[America/Los_Angeles]",
+    ends_daily_at: "23:59:59[America/Los_Angeles]",
   })
 
   db.addDevice({
@@ -273,7 +273,7 @@ export const seedDatabase = (db: Database): Seed => {
     external_type: "visionline_system",
     name: "Fake Visionline System",
     workspace_id: seed.seed_workspace_1,
-    connected_account_ids: [seed.john_connected_account_id],
+    connected_account_id: seed.john_connected_account_id,
   })
 
   const [, short_token = "", long_token = ""] = seed.seam_at1_token.split("_")
