@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto"
+
 import { serializeUrlSearchParams } from "@seamapi/url-search-params-serializer"
 import { z } from "zod"
 

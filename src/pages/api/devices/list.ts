@@ -10,9 +10,9 @@ import {
   pagination,
 } from "lib/zod/index.ts"
 
+import { getNextPageUrl, getPageCursorQueryHash } from "lib/api/pagination.ts"
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
-import { getNextPageUrl, getPageCursorQueryHash } from "lib/api/pagination.ts"
 
 export const common_params = z.object({
   device_ids: z.array(z.string()).optional(),
