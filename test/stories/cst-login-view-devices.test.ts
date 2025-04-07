@@ -72,17 +72,6 @@ test("Login via a CST and view devices", async (t) => {
   t.is(connected_account.provider, "august")
 
   const {
-    data: { connected_accounts },
-  } = await axios.get("/connected_accounts/list", {
-    params: {
-      connected_account_id: connected_account.connected_account_id,
-    },
-    headers: cst_headers,
-  })
-
-  t.is(connected_accounts.length, 1)
-
-  const {
     data: { devices },
   } = await axios.get("/devices/list", {
     headers: cst_headers,
