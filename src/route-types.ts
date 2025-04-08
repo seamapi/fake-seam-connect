@@ -1959,7 +1959,10 @@ export type Routes = {
     method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
-    commonParams: {}
+    commonParams: {
+      limit?: number
+      page_cursor?: (string | undefined) | null
+    }
     formData: {}
     jsonResponse: {
       connected_accounts: {
@@ -1982,6 +1985,11 @@ export type Routes = {
         assa_abloy_credential_service_id?: string | undefined
         bridge_id: string | null
       }[]
+      pagination: {
+        has_next_page: boolean
+        next_page_cursor: string | null
+        next_page_url: string | null
+      }
       ok: boolean
     }
   }
