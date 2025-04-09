@@ -3229,6 +3229,7 @@ export type Routes = {
         publishable_key: string
         created_at: string
         is_sandbox: boolean
+        is_suspended: boolean
         company_name: string
         /** deprecated: use company_name */
         connect_partner_name: string | null
@@ -5129,6 +5130,7 @@ export type Routes = {
         publishable_key: string
         created_at: string
         is_sandbox: boolean
+        is_suspended: boolean
         company_name: string
         /** deprecated: use company_name */
         connect_partner_name: string | null
@@ -5150,6 +5152,7 @@ export type Routes = {
         publishable_key: string
         created_at: string
         is_sandbox: boolean
+        is_suspended: boolean
         company_name: string
         /** deprecated: use company_name */
         connect_partner_name: string | null
@@ -5171,6 +5174,7 @@ export type Routes = {
         publishable_key: string
         created_at: string
         is_sandbox: boolean
+        is_suspended: boolean
         company_name: string
         /** deprecated: use company_name */
         connect_partner_name: string | null
