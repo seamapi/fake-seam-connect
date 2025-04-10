@@ -138,6 +138,7 @@ const initializer = immer<Database>((set, get) => ({
         params.publishable_key ?? `seam_${pk_id}_${simpleHash(pk_id)}`,
       created_at: params.created_at ?? new Date().toISOString(),
       is_sandbox: params.is_sandbox ?? false,
+      is_suspended: params.is_suspended ?? false,
       connect_partner_name: params.connect_partner_name ?? null,
       company_name:
         params.company_name ??

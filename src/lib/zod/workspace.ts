@@ -6,6 +6,7 @@ export const workspace = z.object({
   publishable_key: z.string(),
   created_at: z.string(),
   is_sandbox: z.boolean(),
+  is_suspended: z.boolean(),
   company_name: z.string(),
   connect_partner_name: z
     .string()

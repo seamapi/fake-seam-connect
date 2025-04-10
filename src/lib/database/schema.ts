@@ -88,6 +88,7 @@ export interface DatabaseMethods {
     created_at?: string
     workspace_id?: string
     is_sandbox?: boolean
+    is_suspended?: boolean
     connect_partner_name?: string
     company_name?: string
   }) => Workspace
