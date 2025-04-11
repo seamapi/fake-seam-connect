@@ -317,6 +317,7 @@ const initializer = immer<Database>((set, get) => ({
       bridge_client_name: `${bridge_client_session_id}_bridge`,
       bridge_client_time_zone: "America/Los_Angeles",
       bridge_client_machine_identifier_key: `${bridge_client_session_id}_key`,
+      _last_status_report_received_at: null,
       ...params,
     }
 

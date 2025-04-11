@@ -4484,6 +4484,7 @@ export type Routes = {
         bridge_client_name: string
         bridge_client_time_zone: string
         bridge_client_machine_identifier_key: string
+        _last_status_report_received_at: string | null
       }
       ok: boolean
     }
@@ -4509,6 +4510,7 @@ export type Routes = {
         bridge_client_name: string
         bridge_client_time_zone: string
         bridge_client_machine_identifier_key: string
+        _last_status_report_received_at: string | null
       }
       ok: boolean
     }
@@ -4534,7 +4536,22 @@ export type Routes = {
         bridge_client_name: string
         bridge_client_time_zone: string
         bridge_client_machine_identifier_key: string
+        _last_status_report_received_at: string | null
       }
+      ok: boolean
+    }
+  }
+  "/seam/bridge/v1/bridge_client_sessions/report_status": {
+    route: "/seam/bridge/v1/bridge_client_sessions/report_status"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      is_tailscale_connected: boolean | null
+      tailscale_ip_v4: string | null
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
       ok: boolean
     }
   }

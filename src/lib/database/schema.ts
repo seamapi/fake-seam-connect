@@ -117,6 +117,7 @@ export interface DatabaseMethods {
     bridge_client_session_id: string
     pairing_code?: string
     pairing_code_expires_at?: string
+    _last_status_report_received_at?: string
   }) => void
   addBridge: (
     params: Pick<Bridge, "workspace_id" | "bridge_client_session_id">,
