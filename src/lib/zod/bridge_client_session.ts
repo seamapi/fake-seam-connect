@@ -13,6 +13,7 @@ export const bridge_client_session = z.object({
   bridge_client_name: z.string(),
   bridge_client_time_zone: z.string(),
   bridge_client_machine_identifier_key: z.string(),
+  _last_status_report_received_at: z.string().datetime().nullable(),
 })
 
 export type BridgeClientSession = z.infer<typeof bridge_client_session>
