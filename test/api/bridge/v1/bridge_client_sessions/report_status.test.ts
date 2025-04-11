@@ -17,6 +17,5 @@ test("POST /bridge/v1/bridge_client_sessions/report_status", async (t: Execution
       },
     },
   )
-
   t.is(response.status, 200)
 })
