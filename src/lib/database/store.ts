@@ -43,7 +43,6 @@ import type { UserIdentity } from "lib/zod/user_identity.ts"
 import type { Webhook } from "lib/zod/webhook.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
-import _ from "lodash"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -690,7 +689,7 @@ const initializer = immer<Database>((set, get) => ({
       is_offline_access_code: false,
       ...params,
       common_code_key:
-        "common_code_key" in params ? params?.common_code_key ?? null : null,
+        "common_code_key" in params ? (params?.common_code_key ?? null) : null,
     }
 
     set({
