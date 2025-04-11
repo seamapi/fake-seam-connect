@@ -43,6 +43,7 @@ import type { UserIdentity } from "lib/zod/user_identity.ts"
 import type { Webhook } from "lib/zod/webhook.ts"
 
 import type { Database, ZustandDatabase } from "./schema.ts"
+import _ from "lodash"
 
 const encodeAssaInvitationCode = ({
   invitation_id,
@@ -317,6 +318,7 @@ const initializer = immer<Database>((set, get) => ({
       bridge_client_name: `${bridge_client_session_id}_bridge`,
       bridge_client_time_zone: "America/Los_Angeles",
       bridge_client_machine_identifier_key: `${bridge_client_session_id}_key`,
+      _last_status_report_received_at: null,
       ...params,
     }
 
@@ -688,7 +690,7 @@ const initializer = immer<Database>((set, get) => ({
       is_offline_access_code: false,
       ...params,
       common_code_key:
-        "common_code_key" in params ? (params?.common_code_key ?? null) : null,
+        "common_code_key" in params ? params?.common_code_key ?? null : null,
     }
 
     set({
