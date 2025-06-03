@@ -3233,6 +3233,13 @@ export type Routes = {
         company_name: string
         /** deprecated: use company_name */
         connect_partner_name: string | null
+        connect_webview_customization: {
+          primary_button_color?: string | undefined
+          primary_button_text_color?: string | undefined
+          success_message?: string | undefined
+          logo_shape?: ("circle" | "square") | undefined
+          inviter_logo_url?: string | undefined
+        }
       }
       ok: boolean
     }
@@ -5151,6 +5158,13 @@ export type Routes = {
         company_name: string
         /** deprecated: use company_name */
         connect_partner_name: string | null
+        connect_webview_customization: {
+          primary_button_color?: string | undefined
+          primary_button_text_color?: string | undefined
+          success_message?: string | undefined
+          logo_shape?: ("circle" | "square") | undefined
+          inviter_logo_url?: string | undefined
+        }
       }
       ok: boolean
     }
@@ -5173,6 +5187,13 @@ export type Routes = {
         company_name: string
         /** deprecated: use company_name */
         connect_partner_name: string | null
+        connect_webview_customization: {
+          primary_button_color?: string | undefined
+          primary_button_text_color?: string | undefined
+          success_message?: string | undefined
+          logo_shape?: ("circle" | "square") | undefined
+          inviter_logo_url?: string | undefined
+        }
       }
       ok: boolean
     }
@@ -5195,6 +5216,13 @@ export type Routes = {
         company_name: string
         /** deprecated: use company_name */
         connect_partner_name: string | null
+        connect_webview_customization: {
+          primary_button_color?: string | undefined
+          primary_button_text_color?: string | undefined
+          success_message?: string | undefined
+          logo_shape?: ("circle" | "square") | undefined
+          inviter_logo_url?: string | undefined
+        }
       }[]
       ok: boolean
     }
