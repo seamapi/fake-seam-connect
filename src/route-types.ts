@@ -3209,34 +3209,6 @@ export type Routes = {
     formData: {}
     jsonResponse: {}
   }
-  "/internal/workspaces/create": {
-    route: "/internal/workspaces/create"
-    method: "POST"
-    queryParams: {}
-    jsonBody: {
-      workspace_name: string
-      connect_partner_name: string
-      is_sandbox: boolean
-      webview_primary_button_color?: string | undefined
-      webview_logo_shape?: ("circle" | "square") | undefined
-    }
-    commonParams: {}
-    formData: {}
-    jsonResponse: {
-      workspace: {
-        workspace_id: string
-        name: string
-        publishable_key: string
-        created_at: string
-        is_sandbox: boolean
-        is_suspended: boolean
-        company_name: string
-        /** deprecated: use company_name */
-        connect_partner_name: string | null
-      }
-      ok: boolean
-    }
-  }
   "/locks/get": {
     route: "/locks/get"
     method: "GET" | "POST"
@@ -5151,6 +5123,13 @@ export type Routes = {
         company_name: string
         /** deprecated: use company_name */
         connect_partner_name: string | null
+        connect_webview_customization: {
+          primary_button_color?: string | undefined
+          primary_button_text_color?: string | undefined
+          success_message?: string | undefined
+          logo_shape?: ("circle" | "square") | undefined
+          inviter_logo_url?: string | undefined
+        }
       }
       ok: boolean
     }
@@ -5173,6 +5152,13 @@ export type Routes = {
         company_name: string
         /** deprecated: use company_name */
         connect_partner_name: string | null
+        connect_webview_customization: {
+          primary_button_color?: string | undefined
+          primary_button_text_color?: string | undefined
+          success_message?: string | undefined
+          logo_shape?: ("circle" | "square") | undefined
+          inviter_logo_url?: string | undefined
+        }
       }
       ok: boolean
     }
@@ -5195,6 +5181,13 @@ export type Routes = {
         company_name: string
         /** deprecated: use company_name */
         connect_partner_name: string | null
+        connect_webview_customization: {
+          primary_button_color?: string | undefined
+          primary_button_text_color?: string | undefined
+          success_message?: string | undefined
+          logo_shape?: ("circle" | "square") | undefined
+          inviter_logo_url?: string | undefined
+        }
       }[]
       ok: boolean
     }

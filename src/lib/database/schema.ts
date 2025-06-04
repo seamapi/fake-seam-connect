@@ -91,6 +91,7 @@ export interface DatabaseMethods {
     is_suspended?: boolean
     connect_partner_name?: string
     company_name?: string
+    connect_webview_customization?: Workspace["connect_webview_customization"]
   }) => Workspace
   resetSandboxWorkspace: (workspace_id: string) => void
   addApiKey: (params: {

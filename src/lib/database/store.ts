@@ -144,6 +144,7 @@ const initializer = immer<Database>((set, get) => ({
         params.company_name ??
         params.connect_partner_name ??
         "Fake Company Name",
+      connect_webview_customization: params.connect_webview_customization ?? {},
     }
     set({
       workspaces: [...get().workspaces, new_workspace],

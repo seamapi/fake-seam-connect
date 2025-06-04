@@ -1,8 +1,15 @@
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { workspace } from "lib/zod/workspace.ts"
-import { jsonBody } from "pages/api/internal/workspaces/create.ts"
+import { hex_color_code, workspace } from "lib/zod/workspace.ts"
+
+export const jsonBody = z.object({
+  workspace_name: z.string(),
+  connect_partner_name: z.string(),
+  is_sandbox: z.boolean(),
+  webview_primary_button_color: hex_color_code.optional(),
+  webview_logo_shape: z.enum(["circle", "square"]).optional(),
+})
 
 export const route_spec = {
   methods: ["POST"],
