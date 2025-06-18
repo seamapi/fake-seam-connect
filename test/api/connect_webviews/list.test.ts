@@ -16,7 +16,7 @@ test("GET /connect_webviews/list", async (t: ExecutionContext) => {
   t.is(connect_webviews.length, 1)
 
   const [connect_webview] = connect_webviews
-  if (!connect_webview) {
+  if (connect_webview == null) {
     t.fail("No connect webview found")
     return
   }
