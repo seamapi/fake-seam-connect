@@ -453,6 +453,7 @@ const initializer = immer<Database>((set, get) => ({
       automatically_manage_new_devices:
         params?.automatically_manage_new_devices ?? true,
       wait_for_device_creation: params?.wait_for_device_creation ?? false,
+      accepted_capabilities: params.accepted_capabilities ?? [],
     }
     set({
       connect_webviews: [...get().connect_webviews, new_connect_webview],
