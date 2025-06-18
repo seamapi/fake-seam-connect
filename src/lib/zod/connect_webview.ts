@@ -55,6 +55,7 @@ export const connect_webview = z.object({
   custom_metadata,
   automatically_manage_new_devices: z.boolean(),
   wait_for_device_creation: z.boolean(),
+  accepted_capabilities: z.array(z.string()),
 })
 
 export type ConnectWebview = z.infer<typeof connect_webview>

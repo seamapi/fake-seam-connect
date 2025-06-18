@@ -1758,6 +1758,7 @@ export type Routes = {
         }
         automatically_manage_new_devices: boolean
         wait_for_device_creation: boolean
+        accepted_capabilities: string[]
       }
       ok: boolean
     }
@@ -1825,6 +1826,7 @@ export type Routes = {
         }
         automatically_manage_new_devices: boolean
         wait_for_device_creation: boolean
+        accepted_capabilities: string[]
       }
       ok: boolean
     }
@@ -1890,6 +1892,7 @@ export type Routes = {
         }
         automatically_manage_new_devices: boolean
         wait_for_device_creation: boolean
+        accepted_capabilities: string[]
       }[]
       ok: boolean
     }
