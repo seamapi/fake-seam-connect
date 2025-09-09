@@ -34,4 +34,5 @@ test("GET /connected_accounts/get", async (t: ExecutionContext) => {
 
   t.is(connected_account.user_identifier.email, connected_account_email)
   t.truthy(connected_account.custom_metadata)
+  t.deepEqual(connected_account.accepted_capabilities, [])
 })
