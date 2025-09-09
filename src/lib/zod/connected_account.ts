@@ -17,6 +17,7 @@ export const connected_account = z.object({
   custom_metadata: custom_metadata.optional(),
   assa_abloy_credential_service_id: z.string().optional(),
   bridge_id: z.string().nullable(),
+  accepted_capabilities: z.array(z.string())
 })
 
 export type ConnectedAccount = z.infer<typeof connected_account>
