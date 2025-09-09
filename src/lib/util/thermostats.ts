@@ -1,119 +1,205 @@
-import { BadRequestException } from "nextlove"
-import { z } from "zod"
+import type { Device } from "@seamapi/types/connect"
+import _ from "lodash"
+import { BadRequestException, NotFoundException } from "nextlove"
 
-import type { ClimateSetting } from "lib/zod/climate_setting.ts"
-import type { Device } from "lib/zod/device.ts"
+import type { RouteSpecRequest } from "lib/middleware/with-route-spec.ts"
+import type { ClimatePreset, ClimateSetting } from "lib/zod/climate_preset.ts"
+import {
+  THERMOSTAT_DEVICE_TYPES,
+  type ThermostatDevice,
+  type ThermostatDeviceType,
+} from "lib/zod/device.ts"
 
-export type ClimateSettingMode = Pick<
-  ClimateSetting,
-  | "automatic_cooling_enabled"
-  | "automatic_heating_enabled"
-  | "hvac_mode_setting"
->
-
-export const normalizeClimateSettingMode = (
-  cs: Partial<ClimateSetting>,
-): ClimateSettingMode => {
-  return {
-    automatic_heating_enabled:
-      cs.automatic_heating_enabled ??
-      deriveAutomaticHeatingEnabledFromHvacModeSetting(cs.hvac_mode_setting),
-    automatic_cooling_enabled:
-      cs.automatic_cooling_enabled ??
-      deriveAutomaticCoolingEnabledFromHvacModeSetting(cs.hvac_mode_setting),
-    hvac_mode_setting:
-      cs.hvac_mode_setting ??
-      deriveHvacModeSettingFromFlags({
-        automatic_cooling_enabled: cs.automatic_cooling_enabled ?? false,
-        automatic_heating_enabled: cs.automatic_heating_enabled ?? false,
-      }),
+/**
+ * Derive a climate preset from a list of available climate presets and a partial climate preset.
+ * @param partial The partial climate preset.
+ * @param available_climate_presets The list of available climate presets.
+ * @returns A climate preset that is derived from the partial climate preset and the available climate presets.
+ */
+export function deriveClimateSetting(
+  partial: Partial<ClimateSetting>,
+  available_climate_presets: ClimateSetting[],
+): ClimateSetting {
+  let current_climate_setting: ClimateSetting | undefined
+  if (typeof partial.climate_preset_key === "string") {
+    current_climate_setting = available_climate_presets.find(
+      (preset) => preset.climate_preset_key === partial.climate_preset_key,
+    )
+    if (current_climate_setting !== undefined) {
+      return { ...current_climate_setting, ...partial }
+    }
   }
+  if (current_climate_setting === undefined) {
+    // Find the first preset that matches the partial preset
+    current_climate_setting = available_climate_presets.find((preset) => {
+      if (
+        partial.can_edit !== undefined &&
+        preset.can_edit !== partial.can_edit
+      )
+        return false
+      if (
+        partial.can_delete !== undefined &&
+        preset.can_delete !== partial.can_delete
+      )
+        return false
+      if (
+        partial.fan_mode_setting !== undefined &&
+        preset.fan_mode_setting !== undefined &&
+        preset.fan_mode_setting !== partial.fan_mode_setting
+      )
+        return false
+      if (
+        partial.hvac_mode_setting !== undefined &&
+        preset.hvac_mode_setting !== partial.hvac_mode_setting
+      )
+        return false
+      if (
+        partial.manual_override_allowed !== undefined &&
+        preset.manual_override_allowed !== partial.manual_override_allowed
+      )
+        return false
+      if (
+        partial.cooling_set_point_celsius !== undefined &&
+        preset.cooling_set_point_celsius !== undefined &&
+        compareTemperaturesWithinTolerance(
+          preset.cooling_set_point_celsius,
+          partial.cooling_set_point_celsius,
+        ) !== 0
+      )
+        return false
+      if (
+        partial.cooling_set_point_fahrenheit !== undefined &&
+        preset.cooling_set_point_fahrenheit !== undefined &&
+        compareTemperaturesWithinTolerance(
+          preset.cooling_set_point_fahrenheit,
+          partial.cooling_set_point_fahrenheit,
+        ) !== 0
+      )
+        return false
+      if (
+        partial.heating_set_point_celsius !== undefined &&
+        preset.heating_set_point_celsius !== undefined &&
+        compareTemperaturesWithinTolerance(
+          preset.heating_set_point_celsius,
+          partial.heating_set_point_celsius,
+        ) !== 0
+      )
+        return false
+      if (
+        partial.heating_set_point_fahrenheit !== undefined &&
+        preset.heating_set_point_fahrenheit !== undefined &&
+        compareTemperaturesWithinTolerance(
+          preset.heating_set_point_fahrenheit,
+          partial.heating_set_point_fahrenheit,
+        ) !== 0
+      )
+        return false
+
+      return true
+    })
+  }
+  if (current_climate_setting === undefined) {
+    current_climate_setting = normalizeClimateSetting({
+      ...partial,
+      display_name: "Manual Setting",
+      manual_override_allowed: true,
+    })
+  }
+  return current_climate_setting
 }
 
 /**
- * @param {ClimateSetting} cs
+ * @param {ClimateSetting} preset
  * @returns {ClimateSetting}
  * @description
  * This function takes a Partial<ClimateSetting> and returns a new ClimateSetting with all fields filled in
  *
  */
 export const normalizeClimateSetting = (
-  cs: Partial<ClimateSetting>,
-): ClimateSetting => {
-  if (cs.manual_override_allowed === undefined)
+  preset: ClimateSetting,
+): Omit<
+  ClimateSetting,
+  "cooling_set_point_fahrenheit" | "heating_set_point_fahrenheit"
+> => {
+  if (preset.manual_override_allowed === undefined)
     throw new Error("manual_override_allowed is required")
 
-  let normalized_climate_setting: ClimateSetting = {
-    ...normalizeClimateSettingMode(cs),
-    manual_override_allowed: cs.manual_override_allowed,
+  let normalized_climate_preset: ClimateSetting = {
+    climate_preset_key: preset.climate_preset_key,
+    can_edit: preset.can_edit,
+    can_delete: preset.can_delete,
+    name: preset.name,
+    display_name: preset.name ?? preset.climate_preset_key ?? "Manual Setting",
+    fan_mode_setting: preset.fan_mode_setting,
+    hvac_mode_setting: preset.hvac_mode_setting,
+    manual_override_allowed: preset.manual_override_allowed,
   }
 
   // if the climate setting calls for cooling set points, we set them
-  if (normalized_climate_setting.automatic_cooling_enabled) {
-    normalized_climate_setting = {
-      ...normalized_climate_setting,
-      ...normalizeCoolingSetPoints(cs),
+  if (
+    normalized_climate_preset.hvac_mode_setting === "cool" ||
+    normalized_climate_preset.hvac_mode_setting === "heat_cool"
+  ) {
+    normalized_climate_preset = {
+      ...normalized_climate_preset,
+      ...normalizeCoolingSetPoints(preset),
     }
   }
 
   // likewise for heating
-  if (normalized_climate_setting.automatic_heating_enabled) {
-    normalized_climate_setting = {
-      ...normalized_climate_setting,
-      ...normalizeHeatingSetPoints(cs),
+  if (
+    normalized_climate_preset.hvac_mode_setting === "heat" ||
+    normalized_climate_preset.hvac_mode_setting === "heat_cool"
+  ) {
+    normalized_climate_preset = {
+      ...normalized_climate_preset,
+      ...normalizeHeatingSetPoints(preset),
     }
   }
 
-  return normalized_climate_setting
+  // remove fahrenheit set points
+  const {
+    cooling_set_point_fahrenheit,
+    heating_set_point_fahrenheit,
+    ...normalized_and_cleaned_climate_preset
+  } = normalized_climate_preset
+
+  return normalized_and_cleaned_climate_preset
 }
 
 export const deriveAutomaticHeatingEnabledFromHvacModeSetting = (
   hvac_mode_setting?: ClimateSetting["hvac_mode_setting"],
-): boolean => hvac_mode_setting === "heat" || hvac_mode_setting === "heat_cool"
+) => hvac_mode_setting === "heat" || hvac_mode_setting === "heat_cool"
 
 export const deriveAutomaticCoolingEnabledFromHvacModeSetting = (
   hvac_mode_setting?: ClimateSetting["hvac_mode_setting"],
-): boolean => hvac_mode_setting === "cool" || hvac_mode_setting === "heat_cool"
-
-export const deriveHvacModeSettingFromFlags = ({
-  automatic_cooling_enabled,
-  automatic_heating_enabled,
-}: {
-  automatic_cooling_enabled: boolean
-  automatic_heating_enabled: boolean
-}): ClimateSetting["hvac_mode_setting"] => {
-  if (automatic_cooling_enabled && automatic_heating_enabled) return "heat_cool"
-  if (automatic_cooling_enabled) return "cool"
-  if (automatic_heating_enabled) return "heat"
-  return "off"
-}
+) => hvac_mode_setting === "cool" || hvac_mode_setting === "heat_cool"
 
 /**
  *
- * @param cs
- * @returns {Partial<ClimateSetting>}
+ * @param preset
  * This will look at what cooling set point is on the climate setting, and set the other temperature scale if neccessary.
  * For example, if a request comes in with a cooling_set_point_ceslius, we will set the cooling_set_point_fahrenheit as well.
  *
  */
 const normalizeCoolingSetPoints = (
-  cs: Partial<ClimateSetting>,
+  preset: Partial<ClimateSetting>,
 ): Partial<ClimateSetting> => {
   const setPoints: Partial<ClimateSetting> = {}
 
-  if (cs.cooling_set_point_celsius !== undefined) {
-    setPoints.cooling_set_point_celsius = cs.cooling_set_point_celsius
-  } else if (cs.cooling_set_point_fahrenheit !== undefined) {
+  if (preset.cooling_set_point_celsius !== undefined) {
+    setPoints.cooling_set_point_celsius = preset.cooling_set_point_celsius
+  } else if (preset.cooling_set_point_fahrenheit !== undefined) {
     setPoints.cooling_set_point_celsius = convertToCelsius(
-      cs.cooling_set_point_fahrenheit,
+      preset.cooling_set_point_fahrenheit,
     )
   }
 
-  if (cs.cooling_set_point_fahrenheit !== undefined) {
-    setPoints.cooling_set_point_fahrenheit = cs.cooling_set_point_fahrenheit
-  } else if (cs.cooling_set_point_celsius !== undefined) {
+  if (preset.cooling_set_point_fahrenheit !== undefined) {
+    setPoints.cooling_set_point_fahrenheit = preset.cooling_set_point_fahrenheit
+  } else if (preset.cooling_set_point_celsius !== undefined) {
     setPoints.cooling_set_point_fahrenheit = convertToFahrenheit(
-      cs.cooling_set_point_celsius,
+      preset.cooling_set_point_celsius,
     )
   }
   return setPoints
@@ -121,189 +207,120 @@ const normalizeCoolingSetPoints = (
 
 /**
  *
- * @param cs
- * @returns {Partial<ClimateSetting>}
+ * @param preset
  * This will look at what heating set point is on the climate setting, and set the other temperature scale.
  * For example, if a request comes in with a heating_set_point_ceslius, we will set the heating_set_point_fahrenheit as well.
  *
  */
 const normalizeHeatingSetPoints = (
-  cs: Partial<ClimateSetting>,
+  preset: Partial<ClimateSetting>,
 ): Partial<ClimateSetting> => {
   const setPoints: Partial<ClimateSetting> = {}
 
-  if (cs.heating_set_point_celsius !== undefined) {
-    setPoints.heating_set_point_celsius = cs.heating_set_point_celsius
-  } else if (cs.heating_set_point_fahrenheit !== undefined) {
+  if (preset.heating_set_point_celsius !== undefined) {
+    setPoints.heating_set_point_celsius = preset.heating_set_point_celsius
+  } else if (preset.heating_set_point_fahrenheit !== undefined) {
     setPoints.heating_set_point_celsius = convertToCelsius(
-      cs.heating_set_point_fahrenheit,
+      preset.heating_set_point_fahrenheit,
     )
   }
 
-  if (cs.heating_set_point_fahrenheit !== undefined) {
-    setPoints.heating_set_point_fahrenheit = cs.heating_set_point_fahrenheit
-  } else if (cs.heating_set_point_celsius !== undefined) {
+  if (preset.heating_set_point_fahrenheit !== undefined) {
+    setPoints.heating_set_point_fahrenheit = preset.heating_set_point_fahrenheit
+  } else if (preset.heating_set_point_celsius !== undefined) {
     setPoints.heating_set_point_fahrenheit = convertToFahrenheit(
-      cs.heating_set_point_celsius,
+      preset.heating_set_point_celsius,
     )
   }
 
   return setPoints
 }
 
-export const convertToFahrenheit = (celsius: number): number =>
-  (celsius * 9) / 5 + 32
+export const convertToFahrenheit = (celsius: number) => (celsius * 9) / 5 + 32
 
-export const convertToCelsius = (fahrenheit: number): number =>
+export const convertToCelsius = (fahrenheit: number) =>
   (fahrenheit - 32) * (5 / 9)
 
+export function compareTemperaturesWithinTolerance(
+  a: number,
+  b: number,
+): number {
+  if (Math.abs(a - b) < 0.01) return 0
+  return a - b
+}
+
+export const normalizeSetPoints = (setPoints: Partial<ClimateSetting>) => {
+  return {
+    ...setPoints,
+    ...normalizeCoolingSetPoints(setPoints),
+    ...normalizeHeatingSetPoints(setPoints),
+  }
+}
+
 /**
+ * Checks if the given temperature exceeds the specified thresholds.
  *
- * This checks if a Partial<ClimateSetting> can be interpreted as a valid thermostat setting
- * We run this check so that we can reject ambiguous settings.
- * We could allow partial updates to ClimateSettings, but this creates some complexity around updating the actual device
- * Ex. For Nest, you can only set `coolCelsius` is the mode is already set to `COOL`.
- * Therefore, it's easier at this time to require a mode setting and corresponding set points on every request.
- *
- * We use a superRefine here so that if one check fails, we can bail early
- * Eg. If the mode described here is invalid, we don't need to return any errors about the set points.
+ * @param temperature_celsius - The current temperature in Celsius.
+ * @param temperature_thresholds - The temperature thresholds to check against.
+ * @returns An object indicating if a threshold was exceeded and the corresponding threshold temperature.
  */
-export const refineClimateSetting = <T extends z.AnyZodObject>(
-  b: T,
-): z.ZodEffects<T, Record<string, any>, Record<string, any>> =>
-  b.superRefine(
-    (
-      {
-        automatic_heating_enabled,
-        automatic_cooling_enabled,
-        hvac_mode_setting,
-        cooling_set_point_celsius,
-        heating_set_point_celsius,
-        cooling_set_point_fahrenheit,
-        heating_set_point_fahrenheit,
-        manual_override_allowed,
-      },
-      ctx,
-    ) => {
-      if (
-        automatic_cooling_enabled === undefined &&
-        automatic_heating_enabled === undefined &&
-        hvac_mode_setting === undefined &&
-        manual_override_allowed === undefined
-      ) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message:
-            "Must provide at least one of automatic_heating_enabled, automatic_cooling_enabled, or hvac_mode_setting",
-          fatal: true,
-        })
+export function checkTemperatureThresholds(
+  temperature_celsius: number,
+  temperature_thresholds: {
+    lower_limit_celsius: number | null
+    upper_limit_celsius: number | null
+  },
+): {
+  threshold_exceeded: boolean
+  threshold_temperature: number | null
+} {
+  const { lower_limit_celsius, upper_limit_celsius } = temperature_thresholds
 
-        return z.NEVER
-      }
+  if (
+    lower_limit_celsius !== null &&
+    temperature_celsius < lower_limit_celsius
+  ) {
+    return {
+      threshold_exceeded: true,
+      threshold_temperature: lower_limit_celsius,
+    }
+  }
+  if (
+    upper_limit_celsius !== null &&
+    temperature_celsius > upper_limit_celsius
+  ) {
+    return {
+      threshold_exceeded: true,
+      threshold_temperature: upper_limit_celsius,
+    }
+  }
 
-      const is_a_flag_set =
-        automatic_heating_enabled !== undefined ||
-        automatic_cooling_enabled !== undefined
+  return {
+    threshold_exceeded: false,
+    threshold_temperature: null,
+  }
+}
 
-      if (
-        hvac_mode_setting !== undefined &&
-        is_a_flag_set &&
-        deriveHvacModeSettingFromFlags({
-          automatic_heating_enabled: Boolean(automatic_heating_enabled),
-          automatic_cooling_enabled: Boolean(automatic_cooling_enabled),
-        }) !== hvac_mode_setting
-      ) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message:
-            "hvac_mode_setting must be consistent with automatic_heating_enabled and automatic_cooling_enabled",
-          fatal: true,
-        })
+export function isSameClimateSetting(
+  currentSetting: undefined | ClimatePreset | ClimateSetting,
+  desiredSetting: ClimatePreset | ClimateSetting,
+): boolean {
+  if (currentSetting === undefined) {
+    return false
+  }
 
-        return z.NEVER
-      }
-
-      // at this stage, we know we have a valid mode
-
-      const heating_set_point_required =
-        automatic_heating_enabled ??
-        deriveAutomaticHeatingEnabledFromHvacModeSetting(
-          hvac_mode_setting as ClimateSetting["hvac_mode_setting"],
-        )
-
-      const cooling_set_point_required =
-        automatic_cooling_enabled ??
-        deriveAutomaticCoolingEnabledFromHvacModeSetting(
-          hvac_mode_setting as ClimateSetting["hvac_mode_setting"],
-        )
-
-      // now we can check the set points
-
-      // "off"
-      if (
-        heating_set_point_required === false &&
-        cooling_set_point_required === false &&
-        (heating_set_point_celsius !== undefined ||
-          heating_set_point_fahrenheit !== undefined ||
-          cooling_set_point_celsius !== undefined ||
-          cooling_set_point_fahrenheit !== undefined)
-      ) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Cannot provide set points when thermostat is off",
-          fatal: true,
-        })
-
-        return z.NEVER
-      }
-
-      // at this point, we need at least one set point
-
-      if (
-        (cooling_set_point_celsius !== undefined &&
-          cooling_set_point_fahrenheit !== undefined) ??
-        (heating_set_point_celsius !== undefined &&
-          heating_set_point_fahrenheit !== undefined)
-      ) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message:
-            "Cannot provide both celsius and fahrenheit values for the same set point",
-          fatal: true,
-        })
-
-        return z.NEVER
-      }
-
-      if (
-        heating_set_point_required === true &&
-        heating_set_point_celsius == null &&
-        heating_set_point_fahrenheit == null
-      ) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Heating set point required with this mode",
-          fatal: true,
-        })
-      }
-
-      if (
-        cooling_set_point_required === true &&
-        cooling_set_point_celsius == null &&
-        cooling_set_point_fahrenheit == null
-      ) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Cooling set point required with this mode",
-          fatal: true,
-        })
-      }
-    },
+  return (
+    currentSetting.hvac_mode_setting === desiredSetting.hvac_mode_setting &&
+    currentSetting.heating_set_point_celsius ===
+      desiredSetting.heating_set_point_celsius &&
+    currentSetting.cooling_set_point_celsius ===
+      desiredSetting.cooling_set_point_celsius
   )
+}
 
 /**
  *
- * @param climate_setting
+ * @param climate_preset
  * @param device
  *
  * Checks if the climate setting is valid for the thermostat's current properties
@@ -312,32 +329,56 @@ export const refineClimateSetting = <T extends z.AnyZodObject>(
 export const throwIfClimateSettingNotAllowed = (
   climate_setting: Partial<ClimateSetting>,
   properties: Device["properties"],
-): void => {
+) => {
   const {
+    hvac_mode_setting,
     heating_set_point_celsius,
     cooling_set_point_celsius,
-    automatic_cooling_enabled,
-    automatic_heating_enabled,
   } = climate_setting
 
-  if (!("is_heating_available" in properties)) {
+  const { available_hvac_mode_settings } = properties
+
+  const automatic_heating_enabled =
+    properties.current_climate_setting === undefined
+      ? false
+      : properties.current_climate_setting.hvac_mode_setting === "heat" ||
+        properties.current_climate_setting.hvac_mode_setting === "heat_cool"
+
+  const automatic_cooling_enabled =
+    properties.current_climate_setting === undefined
+      ? false
+      : properties.current_climate_setting.hvac_mode_setting === "cool" ||
+        properties.current_climate_setting.hvac_mode_setting === "heat_cool"
+
+  const is_heating_available =
+    properties.available_hvac_mode_settings === undefined
+      ? false
+      : properties.available_hvac_mode_settings.includes("heat") ||
+        properties.available_hvac_mode_settings.includes("heat_cool")
+  const is_cooling_available =
+    properties.available_hvac_mode_settings === undefined
+      ? false
+      : properties.available_hvac_mode_settings.includes("cool") ||
+        properties.available_hvac_mode_settings.includes("heat_cool")
+
+  // check against available modes
+
+  if (
+    hvac_mode_setting != null &&
+    !(
+      available_hvac_mode_settings != null &&
+      available_hvac_mode_settings.includes(hvac_mode_setting)
+    ) &&
+    hvac_mode_setting !== "off"
+  ) {
     throw new BadRequestException({
-      type: "device_is_not_thermostat",
-      message: `Device is not a thermostat`,
+      type: "invalid_hvac_mode",
+      message: `Invalid hvac mode for this thermostat`,
     })
   }
 
-  const { is_heating_available, is_cooling_available, manufacturer } =
-    properties
-
-  // TODO: support nest
-  if (manufacturer === "nest") return
-
   // check against heating range
-  if (
-    automatic_heating_enabled === true &&
-    heating_set_point_celsius !== undefined
-  ) {
+  if (automatic_heating_enabled && heating_set_point_celsius !== undefined) {
     if (is_heating_available) {
       const { min_heating_set_point_celsius, max_heating_set_point_celsius } =
         properties
@@ -345,12 +386,19 @@ export const throwIfClimateSettingNotAllowed = (
       if (
         min_heating_set_point_celsius !== undefined &&
         max_heating_set_point_celsius !== undefined &&
-        (heating_set_point_celsius < min_heating_set_point_celsius ||
-          heating_set_point_celsius > max_heating_set_point_celsius)
+        !_.inRange(
+          heating_set_point_celsius,
+          min_heating_set_point_celsius,
+          max_heating_set_point_celsius,
+        )
       ) {
         throw new BadRequestException({
           type: "heating_set_point_out_of_range",
-          message: `Heating set point out of range for this thermostat`,
+          message: `Heating set point out of range for this thermostat. The supported range is ${min_heating_set_point_celsius}°C/${convertToFahrenheit(
+            min_heating_set_point_celsius,
+          )}°F to ${max_heating_set_point_celsius}°C/${convertToFahrenheit(
+            max_heating_set_point_celsius,
+          )}°F`,
         })
       }
     } else {
@@ -362,10 +410,7 @@ export const throwIfClimateSettingNotAllowed = (
   }
 
   // check against cooling range
-  if (
-    automatic_cooling_enabled === true &&
-    cooling_set_point_celsius !== undefined
-  ) {
+  if (automatic_cooling_enabled && cooling_set_point_celsius !== undefined) {
     if (is_cooling_available) {
       const { min_cooling_set_point_celsius, max_cooling_set_point_celsius } =
         properties
@@ -373,12 +418,19 @@ export const throwIfClimateSettingNotAllowed = (
       if (
         min_cooling_set_point_celsius !== undefined &&
         max_cooling_set_point_celsius !== undefined &&
-        (cooling_set_point_celsius < min_cooling_set_point_celsius ||
-          cooling_set_point_celsius > max_cooling_set_point_celsius)
+        !_.inRange(
+          cooling_set_point_celsius,
+          min_cooling_set_point_celsius,
+          max_cooling_set_point_celsius,
+        )
       ) {
         throw new BadRequestException({
           type: "cooling_set_point_out_of_range",
-          message: `Cooling set point out of range for this thermostat`,
+          message: `Cooling set point out of range for this thermostat. The supported range is ${min_cooling_set_point_celsius}°C/${convertToFahrenheit(
+            min_cooling_set_point_celsius,
+          )}°F to ${max_cooling_set_point_celsius}°C/${convertToFahrenheit(
+            max_cooling_set_point_celsius,
+          )}°F`,
         })
       }
     } else {
@@ -391,8 +443,8 @@ export const throwIfClimateSettingNotAllowed = (
 
   // check against heat_cool delta
   if (
-    automatic_cooling_enabled === true &&
-    automatic_heating_enabled === true &&
+    automatic_cooling_enabled &&
+    automatic_heating_enabled &&
     heating_set_point_celsius !== undefined &&
     cooling_set_point_celsius !== undefined
   ) {
@@ -400,7 +452,7 @@ export const throwIfClimateSettingNotAllowed = (
       const { min_heating_cooling_delta_celsius } = properties
 
       if (
-        min_heating_cooling_delta_celsius !== 0 &&
+        min_heating_cooling_delta_celsius != null &&
         Math.abs(heating_set_point_celsius - cooling_set_point_celsius) <
           min_heating_cooling_delta_celsius
       ) {
@@ -418,4 +470,42 @@ export const throwIfClimateSettingNotAllowed = (
       })
     }
   }
+
+  // check against cooling_set_point_celsius < heating_set_point_celsius
+  if (
+    heating_set_point_celsius !== undefined &&
+    cooling_set_point_celsius !== undefined &&
+    !(cooling_set_point_celsius > heating_set_point_celsius)
+  ) {
+    throw new BadRequestException({
+      type: "invalid_heating_cooling_delta",
+      message: `Heating set point must be less than cooling set point for this thermostat`,
+    })
+  }
+}
+
+export const returnOrThrowIfNotThermostatDevice = (
+  req: RouteSpecRequest,
+  device_id: Device["device_id"],
+) => {
+  const device = req.db.devices.find((device) => {
+    if (
+      !THERMOSTAT_DEVICE_TYPES.includes(
+        device.device_type as ThermostatDeviceType,
+      )
+    ) {
+      return false
+    }
+
+    return device.device_id === device_id
+  })
+
+  if (device == null) {
+    throw new NotFoundException({
+      type: "device_not_found",
+      message: `Device not found`,
+    })
+  }
+
+  return device as ThermostatDevice
 }
