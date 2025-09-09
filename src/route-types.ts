@@ -1953,6 +1953,7 @@ export type Routes = {
           | undefined
         assa_abloy_credential_service_id?: string | undefined
         bridge_id: string | null
+        accepted_capabilities: string[]
       }
       ok: boolean
     }
@@ -1987,6 +1988,7 @@ export type Routes = {
           | undefined
         assa_abloy_credential_service_id?: string | undefined
         bridge_id: string | null
+        accepted_capabilities: string[]
       }[]
       pagination: {
         has_next_page: boolean
@@ -2031,6 +2033,7 @@ export type Routes = {
           | undefined
         assa_abloy_credential_service_id?: string | undefined
         bridge_id: string | null
+        accepted_capabilities: string[]
       }
       ok: boolean
     }
