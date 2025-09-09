@@ -5122,9 +5122,9 @@ export type Routes = {
       workspace: {
         workspace_id: string
         name: string
-        publishable_key?: string | undefined
         created_at: string
         is_sandbox: boolean
+        publishable_key: string
         is_publishable_key_auth_enabled: boolean
         is_suspended: boolean
         company_name: string
@@ -5152,9 +5152,9 @@ export type Routes = {
       workspace: {
         workspace_id: string
         name: string
-        publishable_key?: string | undefined
         created_at: string
         is_sandbox: boolean
+        publishable_key: string
         is_publishable_key_auth_enabled: boolean
         is_suspended: boolean
         company_name: string
@@ -5182,9 +5182,9 @@ export type Routes = {
       workspaces: {
         workspace_id: string
         name: string
-        publishable_key?: string | undefined
         created_at: string
         is_sandbox: boolean
+        publishable_key: string
         is_publishable_key_auth_enabled: boolean
         is_suspended: boolean
         company_name: string
