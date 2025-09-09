@@ -11,10 +11,9 @@ export const hex_color_code = z.string().refine((value) => {
 export const workspace = z.object({
   workspace_id: z.string(),
   name: z.string(),
-  publishable_key: z.string(),
   created_at: z.string(),
   is_sandbox: z.boolean(),
-  publishable_key: z.string().optional(),
+  publishable_key: z.string(),
   is_publishable_key_auth_enabled: z.boolean(),
   is_suspended: z.boolean(),
   company_name: z.string(),
