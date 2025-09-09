@@ -581,7 +581,7 @@ const initializer = immer<Database>((set, get) => ({
         params?.automatically_manage_new_devices ?? true,
       custom_metadata: params.custom_metadata ?? {},
       bridge_id: params.bridge_id ?? null,
-      accepted_capabilities: params.accepted_capabilities ?? []
+      accepted_capabilities: params.accepted_capabilities ?? [],
     }
 
     if (params.provider === "assa_abloy_credential_service") {
