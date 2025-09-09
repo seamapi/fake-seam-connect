@@ -17,6 +17,7 @@ test("GET /connected_accounts/list with limit", async (t: ExecutionContext) => {
   } = await axios.get("/connected_accounts/list", { params: { limit: 1 } })
 
   t.is(connected_accounts.length, 1)
+  t.deepEqual(connected_accounts[0]?.accepted_capabilities, [])
 })
 
 test("GET /connected_accounts/list with pages", async (t: ExecutionContext) => {

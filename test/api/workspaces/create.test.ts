@@ -25,4 +25,5 @@ test("POST /workspaces/create", async (t: ExecutionContext) => {
 
   t.truthy(workspace)
   t.is(workspace.connect_partner_name, "Test")
+  t.true(workspace.is_publishable_key_auth_enabled)
 })
