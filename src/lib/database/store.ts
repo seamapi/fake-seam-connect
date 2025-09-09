@@ -139,6 +139,7 @@ const initializer = immer<Database>((set, get) => ({
       created_at: params.created_at ?? new Date().toISOString(),
       is_sandbox: params.is_sandbox ?? false,
       is_suspended: params.is_suspended ?? false,
+      is_publishable_key_auth_enabled: true,
       connect_partner_name: params.connect_partner_name ?? null,
       company_name:
         params.company_name ??

@@ -14,6 +14,8 @@ export const workspace = z.object({
   publishable_key: z.string(),
   created_at: z.string(),
   is_sandbox: z.boolean(),
+  publishable_key: z.string().optional(),
+  is_publishable_key_auth_enabled: z.boolean(),
   is_suspended: z.boolean(),
   company_name: z.string(),
   connect_partner_name: z
