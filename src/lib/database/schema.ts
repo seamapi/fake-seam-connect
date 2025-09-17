@@ -201,6 +201,7 @@ export interface DatabaseMethods {
     warnings?: Device["warnings"]
     created_at?: string
     custom_metadata?: Device["custom_metadata"]
+    space_ids?: Device["space_ids"]
   }) => Device
   deleteDevice: (device_id: Device["device_id"]) => void
   updateDevice: (
