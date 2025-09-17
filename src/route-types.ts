@@ -2284,6 +2284,7 @@ export type Routes = {
         custom_metadata: {
           [x: string]: string | number | null | boolean
         }
+        space_ids: string[]
         can_remotely_lock?: boolean | undefined
         can_remotely_unlock?: boolean | undefined
         can_program_online_access_codes?: boolean | undefined
@@ -2554,6 +2555,7 @@ export type Routes = {
         custom_metadata: {
           [x: string]: string | number | null | boolean
         }
+        space_ids: string[]
         can_remotely_lock?: boolean | undefined
         can_remotely_unlock?: boolean | undefined
         can_program_online_access_codes?: boolean | undefined
@@ -3448,6 +3450,7 @@ export type Routes = {
         custom_metadata: {
           [x: string]: string | number | null | boolean
         }
+        space_ids: string[]
         can_remotely_lock?: boolean | undefined
         can_remotely_unlock?: boolean | undefined
         can_program_online_access_codes?: boolean | undefined
@@ -3674,6 +3677,7 @@ export type Routes = {
         custom_metadata: {
           [x: string]: string | number | null | boolean
         }
+        space_ids: string[]
         can_remotely_lock?: boolean | undefined
         can_remotely_unlock?: boolean | undefined
         can_program_online_access_codes?: boolean | undefined
@@ -3944,6 +3948,7 @@ export type Routes = {
         custom_metadata: {
           [x: string]: string | number | null | boolean
         }
+        space_ids: string[]
         can_remotely_lock?: boolean | undefined
         can_remotely_unlock?: boolean | undefined
         can_program_online_access_codes?: boolean | undefined
@@ -4170,6 +4175,7 @@ export type Routes = {
         custom_metadata: {
           [x: string]: string | number | null | boolean
         }
+        space_ids: string[]
         can_remotely_lock?: boolean | undefined
         can_remotely_unlock?: boolean | undefined
         can_program_online_access_codes?: boolean | undefined
@@ -4909,6 +4915,7 @@ export type Routes = {
         custom_metadata: {
           [x: string]: string | number | null | boolean
         }
+        space_ids: string[]
         can_remotely_lock?: boolean | undefined
         can_remotely_unlock?: boolean | undefined
         can_program_online_access_codes?: boolean | undefined

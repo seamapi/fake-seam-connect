@@ -18,4 +18,5 @@ test("GET /devices/get with access token auth", async (t: ExecutionContext) => {
   })
 
   t.is(device.device_id, seed.ws2.device1_id)
+  t.truthy(device.space_ids)
 })

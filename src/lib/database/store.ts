@@ -508,6 +508,7 @@ const initializer = immer<Database>((set, get) => ({
       can_remotely_lock: params.can_remotely_lock,
       can_remotely_unlock: params.can_remotely_unlock,
       can_program_online_access_codes: params.can_program_online_access_codes,
+      space_ids: params.space_ids ?? [],
     }
 
     set({

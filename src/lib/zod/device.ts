@@ -194,6 +194,7 @@ export const device = z
     ),
     created_at: z.string(),
     custom_metadata,
+    space_ids: z.array(z.string()),
   })
   .merge(
     schemas.device.pick({
