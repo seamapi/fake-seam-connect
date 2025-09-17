@@ -501,7 +501,6 @@ const initializer = immer<Database>((set, get) => ({
             noise_thresholds: get().noise_thresholds,
           }),
       },
-      location: null,
       workspace_id: params.workspace_id,
       errors: params.errors ?? [],
       warnings: params.warnings ?? [],
