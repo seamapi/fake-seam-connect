@@ -171,6 +171,7 @@ export interface DatabaseMethods {
     workspace_id: string
     user_identifier: ConnectedAccount["user_identifier"]
     connected_account_id?: string
+    display_name?: string
     created_at?: string
     account_type?: string
     automatically_manage_new_devices?: boolean
