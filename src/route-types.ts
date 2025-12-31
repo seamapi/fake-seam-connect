@@ -1943,6 +1943,7 @@ export type Routes = {
         }
         provider: string
         created_at: string
+        display_name: string
         account_type?: string | undefined
         account_type_display_name: string
         automatically_manage_new_devices: boolean
@@ -1978,6 +1979,7 @@ export type Routes = {
         }
         provider: string
         created_at: string
+        display_name: string
         account_type?: string | undefined
         account_type_display_name: string
         automatically_manage_new_devices: boolean
@@ -2023,6 +2025,7 @@ export type Routes = {
         }
         provider: string
         created_at: string
+        display_name: string
         account_type?: string | undefined
         account_type_display_name: string
         automatically_manage_new_devices: boolean
