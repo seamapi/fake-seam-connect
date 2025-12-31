@@ -569,6 +569,7 @@ const initializer = immer<Database>((set, get) => ({
   },
 
   addConnectedAccount(params) {
+    const { user_identifier = {} } = params
     // @ts-expect-error  Partially implemented
     const new_connected_account: ConnectedAccount = {
       connected_account_id:
@@ -577,6 +578,7 @@ const initializer = immer<Database>((set, get) => ({
       workspace_id: params.workspace_id,
       created_at: params.created_at ?? new Date().toISOString(),
       user_identifier: params.user_identifier ?? { email: "jane@example.com" },
+      display_name: params.display_name ?? user_identifier.email ?? "",
       account_type: params?.account_type,
       account_type_display_name: params?.account_type ?? "Unknown",
       automatically_manage_new_devices:
