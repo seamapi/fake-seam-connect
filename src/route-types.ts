@@ -2178,28 +2178,103 @@ export type Routes = {
               is_fan_running: boolean
               is_temporary_manual_override_active: boolean
               current_climate_setting: {
-                automatic_heating_enabled: boolean
-                automatic_cooling_enabled: boolean
-                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                cooling_set_point_celsius?: number | undefined
-                heating_set_point_celsius?: number | undefined
-                cooling_set_point_fahrenheit?: number | undefined
-                heating_set_point_fahrenheit?: number | undefined
-                manual_override_allowed: boolean
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key?: string | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit?: boolean | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete?: boolean | undefined
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: ((string | null) | undefined) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name?: string | undefined
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?:
+                  | (("auto" | "on" | "circulate") | undefined)
+                  | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed?: boolean | undefined
               }
               default_climate_setting?:
                 | {
-                    automatic_heating_enabled: boolean
-                    automatic_cooling_enabled: boolean
-                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                    cooling_set_point_celsius?: number | undefined
-                    heating_set_point_celsius?: number | undefined
-                    cooling_set_point_fahrenheit?: number | undefined
-                    heating_set_point_fahrenheit?: number | undefined
-                    manual_override_allowed: boolean
+                    /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    climate_preset_key?: string | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                    can_edit?: boolean | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                    can_delete?: boolean | undefined
+                    /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    name?: ((string | null) | undefined) | undefined
+                    /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    display_name?: string | undefined
+                    /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                    fan_mode_setting?:
+                      | (("auto" | "on" | "circulate") | undefined)
+                      | undefined
+                    /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                    hvac_mode_setting?:
+                      | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                     * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                    manual_override_allowed?: boolean | undefined
                   }
                 | undefined
               fan_mode_setting: "auto" | "on"
+              available_climate_presets: {
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key: string
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit: boolean
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete: boolean
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: (string | null) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name: string
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?: ("auto" | "on" | "circulate") | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | ("off" | "heat" | "cool" | "heat_cool")
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: number | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: number | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed: boolean
+              }[]
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -2449,28 +2524,103 @@ export type Routes = {
               is_fan_running: boolean
               is_temporary_manual_override_active: boolean
               current_climate_setting: {
-                automatic_heating_enabled: boolean
-                automatic_cooling_enabled: boolean
-                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                cooling_set_point_celsius?: number | undefined
-                heating_set_point_celsius?: number | undefined
-                cooling_set_point_fahrenheit?: number | undefined
-                heating_set_point_fahrenheit?: number | undefined
-                manual_override_allowed: boolean
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key?: string | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit?: boolean | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete?: boolean | undefined
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: ((string | null) | undefined) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name?: string | undefined
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?:
+                  | (("auto" | "on" | "circulate") | undefined)
+                  | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed?: boolean | undefined
               }
               default_climate_setting?:
                 | {
-                    automatic_heating_enabled: boolean
-                    automatic_cooling_enabled: boolean
-                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                    cooling_set_point_celsius?: number | undefined
-                    heating_set_point_celsius?: number | undefined
-                    cooling_set_point_fahrenheit?: number | undefined
-                    heating_set_point_fahrenheit?: number | undefined
-                    manual_override_allowed: boolean
+                    /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    climate_preset_key?: string | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                    can_edit?: boolean | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                    can_delete?: boolean | undefined
+                    /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    name?: ((string | null) | undefined) | undefined
+                    /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    display_name?: string | undefined
+                    /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                    fan_mode_setting?:
+                      | (("auto" | "on" | "circulate") | undefined)
+                      | undefined
+                    /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                    hvac_mode_setting?:
+                      | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                     * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                    manual_override_allowed?: boolean | undefined
                   }
                 | undefined
               fan_mode_setting: "auto" | "on"
+              available_climate_presets: {
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key: string
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit: boolean
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete: boolean
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: (string | null) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name: string
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?: ("auto" | "on" | "circulate") | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | ("off" | "heat" | "cool" | "heat_cool")
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: number | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: number | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed: boolean
+              }[]
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -3344,28 +3494,103 @@ export type Routes = {
               is_fan_running: boolean
               is_temporary_manual_override_active: boolean
               current_climate_setting: {
-                automatic_heating_enabled: boolean
-                automatic_cooling_enabled: boolean
-                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                cooling_set_point_celsius?: number | undefined
-                heating_set_point_celsius?: number | undefined
-                cooling_set_point_fahrenheit?: number | undefined
-                heating_set_point_fahrenheit?: number | undefined
-                manual_override_allowed: boolean
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key?: string | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit?: boolean | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete?: boolean | undefined
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: ((string | null) | undefined) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name?: string | undefined
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?:
+                  | (("auto" | "on" | "circulate") | undefined)
+                  | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed?: boolean | undefined
               }
               default_climate_setting?:
                 | {
-                    automatic_heating_enabled: boolean
-                    automatic_cooling_enabled: boolean
-                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                    cooling_set_point_celsius?: number | undefined
-                    heating_set_point_celsius?: number | undefined
-                    cooling_set_point_fahrenheit?: number | undefined
-                    heating_set_point_fahrenheit?: number | undefined
-                    manual_override_allowed: boolean
+                    /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    climate_preset_key?: string | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                    can_edit?: boolean | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                    can_delete?: boolean | undefined
+                    /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    name?: ((string | null) | undefined) | undefined
+                    /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    display_name?: string | undefined
+                    /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                    fan_mode_setting?:
+                      | (("auto" | "on" | "circulate") | undefined)
+                      | undefined
+                    /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                    hvac_mode_setting?:
+                      | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                     * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                    manual_override_allowed?: boolean | undefined
                   }
                 | undefined
               fan_mode_setting: "auto" | "on"
+              available_climate_presets: {
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key: string
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit: boolean
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete: boolean
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: (string | null) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name: string
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?: ("auto" | "on" | "circulate") | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | ("off" | "heat" | "cool" | "heat_cool")
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: number | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: number | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed: boolean
+              }[]
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -3571,28 +3796,103 @@ export type Routes = {
               is_fan_running: boolean
               is_temporary_manual_override_active: boolean
               current_climate_setting: {
-                automatic_heating_enabled: boolean
-                automatic_cooling_enabled: boolean
-                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                cooling_set_point_celsius?: number | undefined
-                heating_set_point_celsius?: number | undefined
-                cooling_set_point_fahrenheit?: number | undefined
-                heating_set_point_fahrenheit?: number | undefined
-                manual_override_allowed: boolean
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key?: string | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit?: boolean | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete?: boolean | undefined
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: ((string | null) | undefined) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name?: string | undefined
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?:
+                  | (("auto" | "on" | "circulate") | undefined)
+                  | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed?: boolean | undefined
               }
               default_climate_setting?:
                 | {
-                    automatic_heating_enabled: boolean
-                    automatic_cooling_enabled: boolean
-                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                    cooling_set_point_celsius?: number | undefined
-                    heating_set_point_celsius?: number | undefined
-                    cooling_set_point_fahrenheit?: number | undefined
-                    heating_set_point_fahrenheit?: number | undefined
-                    manual_override_allowed: boolean
+                    /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    climate_preset_key?: string | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                    can_edit?: boolean | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                    can_delete?: boolean | undefined
+                    /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    name?: ((string | null) | undefined) | undefined
+                    /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    display_name?: string | undefined
+                    /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                    fan_mode_setting?:
+                      | (("auto" | "on" | "circulate") | undefined)
+                      | undefined
+                    /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                    hvac_mode_setting?:
+                      | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                     * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                    manual_override_allowed?: boolean | undefined
                   }
                 | undefined
               fan_mode_setting: "auto" | "on"
+              available_climate_presets: {
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key: string
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit: boolean
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete: boolean
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: (string | null) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name: string
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?: ("auto" | "on" | "circulate") | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | ("off" | "heat" | "cool" | "heat_cool")
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: number | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: number | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed: boolean
+              }[]
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -3842,28 +4142,103 @@ export type Routes = {
               is_fan_running: boolean
               is_temporary_manual_override_active: boolean
               current_climate_setting: {
-                automatic_heating_enabled: boolean
-                automatic_cooling_enabled: boolean
-                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                cooling_set_point_celsius?: number | undefined
-                heating_set_point_celsius?: number | undefined
-                cooling_set_point_fahrenheit?: number | undefined
-                heating_set_point_fahrenheit?: number | undefined
-                manual_override_allowed: boolean
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key?: string | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit?: boolean | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete?: boolean | undefined
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: ((string | null) | undefined) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name?: string | undefined
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?:
+                  | (("auto" | "on" | "circulate") | undefined)
+                  | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed?: boolean | undefined
               }
               default_climate_setting?:
                 | {
-                    automatic_heating_enabled: boolean
-                    automatic_cooling_enabled: boolean
-                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                    cooling_set_point_celsius?: number | undefined
-                    heating_set_point_celsius?: number | undefined
-                    cooling_set_point_fahrenheit?: number | undefined
-                    heating_set_point_fahrenheit?: number | undefined
-                    manual_override_allowed: boolean
+                    /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    climate_preset_key?: string | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                    can_edit?: boolean | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                    can_delete?: boolean | undefined
+                    /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    name?: ((string | null) | undefined) | undefined
+                    /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    display_name?: string | undefined
+                    /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                    fan_mode_setting?:
+                      | (("auto" | "on" | "circulate") | undefined)
+                      | undefined
+                    /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                    hvac_mode_setting?:
+                      | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                     * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                    manual_override_allowed?: boolean | undefined
                   }
                 | undefined
               fan_mode_setting: "auto" | "on"
+              available_climate_presets: {
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key: string
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit: boolean
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete: boolean
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: (string | null) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name: string
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?: ("auto" | "on" | "circulate") | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | ("off" | "heat" | "cool" | "heat_cool")
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: number | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: number | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed: boolean
+              }[]
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -4069,28 +4444,103 @@ export type Routes = {
               is_fan_running: boolean
               is_temporary_manual_override_active: boolean
               current_climate_setting: {
-                automatic_heating_enabled: boolean
-                automatic_cooling_enabled: boolean
-                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                cooling_set_point_celsius?: number | undefined
-                heating_set_point_celsius?: number | undefined
-                cooling_set_point_fahrenheit?: number | undefined
-                heating_set_point_fahrenheit?: number | undefined
-                manual_override_allowed: boolean
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key?: string | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit?: boolean | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete?: boolean | undefined
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: ((string | null) | undefined) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name?: string | undefined
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?:
+                  | (("auto" | "on" | "circulate") | undefined)
+                  | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed?: boolean | undefined
               }
               default_climate_setting?:
                 | {
-                    automatic_heating_enabled: boolean
-                    automatic_cooling_enabled: boolean
-                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                    cooling_set_point_celsius?: number | undefined
-                    heating_set_point_celsius?: number | undefined
-                    cooling_set_point_fahrenheit?: number | undefined
-                    heating_set_point_fahrenheit?: number | undefined
-                    manual_override_allowed: boolean
+                    /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    climate_preset_key?: string | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                    can_edit?: boolean | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                    can_delete?: boolean | undefined
+                    /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    name?: ((string | null) | undefined) | undefined
+                    /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    display_name?: string | undefined
+                    /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                    fan_mode_setting?:
+                      | (("auto" | "on" | "circulate") | undefined)
+                      | undefined
+                    /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                    hvac_mode_setting?:
+                      | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                     * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                    manual_override_allowed?: boolean | undefined
                   }
                 | undefined
               fan_mode_setting: "auto" | "on"
+              available_climate_presets: {
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key: string
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit: boolean
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete: boolean
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: (string | null) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name: string
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?: ("auto" | "on" | "circulate") | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | ("off" | "heat" | "cool" | "heat_cool")
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: number | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: number | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed: boolean
+              }[]
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -4563,6 +5013,47 @@ export type Routes = {
       ok: boolean
     }
   }
+  "/thermostats/activate_climate_preset": {
+    route: "/thermostats/activate_climate_preset"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      /** ID of the desired thermostat device. */
+      device_id: string
+      /** Climate preset key of the desired climate preset. */
+      climate_preset_key: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      action_attempt:
+        | {
+            status: "success"
+            action_type: string
+            action_attempt_id: string
+            result?: any
+            error: null
+          }
+        | {
+            status: "pending"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: null
+          }
+        | {
+            status: "error"
+            action_type: string
+            action_attempt_id: string
+            result: null
+            error: {
+              type: string
+              message: string
+            }
+          }
+      ok: boolean
+    }
+  }
   "/thermostats/cool": {
     route: "/thermostats/cool"
     method: "GET" | "POST"
@@ -4601,6 +5092,52 @@ export type Routes = {
               message: string
             }
           }
+      ok: boolean
+    }
+  }
+  "/thermostats/create_climate_preset": {
+    route: "/thermostats/create_climate_preset"
+    method: "POST"
+    queryParams: {}
+    jsonBody: {
+      /** ID of the desired thermostat device. */
+      device_id: string
+      /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+      climate_preset_key: string
+      /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+      name?: (string | null) | undefined
+      /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+      fan_mode_setting?: ("auto" | "on" | "circulate") | undefined
+      /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+      hvac_mode_setting?: ("off" | "heat" | "cool" | "heat_cool") | undefined
+      /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+      cooling_set_point_celsius?: number | undefined
+      /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+      heating_set_point_celsius?: number | undefined
+      /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+      cooling_set_point_fahrenheit?: number | undefined
+      /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+      heating_set_point_fahrenheit?: number | undefined
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
+      ok: boolean
+    }
+  }
+  "/thermostats/delete_climate_preset": {
+    route: "/thermostats/delete_climate_preset"
+    method: "POST" | "DELETE"
+    queryParams: {}
+    jsonBody: {
+      /** ID of the desired thermostat device. */
+      device_id: string
+      /** Climate preset key of the desired climate preset. */
+      climate_preset_key: string
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
       ok: boolean
     }
   }
@@ -4809,28 +5346,103 @@ export type Routes = {
               is_fan_running: boolean
               is_temporary_manual_override_active: boolean
               current_climate_setting: {
-                automatic_heating_enabled: boolean
-                automatic_cooling_enabled: boolean
-                hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                cooling_set_point_celsius?: number | undefined
-                heating_set_point_celsius?: number | undefined
-                cooling_set_point_fahrenheit?: number | undefined
-                heating_set_point_fahrenheit?: number | undefined
-                manual_override_allowed: boolean
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key?: string | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit?: boolean | undefined
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete?: boolean | undefined
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: ((string | null) | undefined) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name?: string | undefined
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?:
+                  | (("auto" | "on" | "circulate") | undefined)
+                  | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: (number | undefined) | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed?: boolean | undefined
               }
               default_climate_setting?:
                 | {
-                    automatic_heating_enabled: boolean
-                    automatic_cooling_enabled: boolean
-                    hvac_mode_setting: "off" | "heat" | "cool" | "heat_cool"
-                    cooling_set_point_celsius?: number | undefined
-                    heating_set_point_celsius?: number | undefined
-                    cooling_set_point_fahrenheit?: number | undefined
-                    heating_set_point_fahrenheit?: number | undefined
-                    manual_override_allowed: boolean
+                    /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    climate_preset_key?: string | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                    can_edit?: boolean | undefined
+                    /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                    can_delete?: boolean | undefined
+                    /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    name?: ((string | null) | undefined) | undefined
+                    /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                    display_name?: string | undefined
+                    /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                    fan_mode_setting?:
+                      | (("auto" | "on" | "circulate") | undefined)
+                      | undefined
+                    /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                    hvac_mode_setting?:
+                      | (("off" | "heat" | "cool" | "heat_cool") | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_celsius?: (number | undefined) | undefined
+                    /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    cooling_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                    heating_set_point_fahrenheit?:
+                      | (number | undefined)
+                      | undefined
+                    /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                     * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                    manual_override_allowed?: boolean | undefined
                   }
                 | undefined
               fan_mode_setting: "auto" | "on"
+              available_climate_presets: {
+                /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                climate_preset_key: string
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be edited. */
+                can_edit: boolean
+                /** Indicates whether the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets) key can be deleted. */
+                can_delete: boolean
+                /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                name?: (string | null) | undefined
+                /** Display name for the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+                display_name: string
+                /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+                fan_mode_setting?: ("auto" | "on" | "circulate") | undefined
+                /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+                hvac_mode_setting?:
+                  | ("off" | "heat" | "cool" | "heat_cool")
+                  | undefined
+                /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_celsius?: number | undefined
+                /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                cooling_set_point_fahrenheit?: number | undefined
+                /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+                heating_set_point_fahrenheit?: number | undefined
+                /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+                 * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+                manual_override_allowed: boolean
+              }[]
               is_cooling_available: boolean
               min_cooling_set_point_celsius: number
               min_cooling_set_point_fahrenheit: number
@@ -5002,6 +5614,39 @@ export type Routes = {
               message: string
             }
           }
+      ok: boolean
+    }
+  }
+  "/thermostats/update_climate_preset": {
+    route: "/thermostats/update_climate_preset"
+    method: "POST" | "PATCH"
+    queryParams: {}
+    jsonBody: {
+      /** ID of the desired thermostat device. */
+      device_id: string
+      /** Unique key to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+      climate_preset_key: string
+      /** User-friendly name to identify the [climate preset](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-climate-presets). */
+      name?: (string | null) | undefined
+      /** Desired [fan mode setting](https://docs.seam.co/latest/capability-guides/thermostats/configure-current-climate-settings#fan-mode-settings), such as `on`, `auto`, or `circulate`. */
+      fan_mode_setting?: ("auto" | "on" | "circulate") | undefined
+      /** Desired [HVAC mode](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/hvac-mode) setting, such as `heat`, `cool`, `heat_cool`, or `off`. */
+      hvac_mode_setting?: ("off" | "heat" | "cool" | "heat_cool") | undefined
+      /** Temperature to which the thermostat should cool (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+      cooling_set_point_celsius?: number | undefined
+      /** Temperature to which the thermostat should heat (in °C). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+      heating_set_point_celsius?: number | undefined
+      /** Temperature to which the thermostat should cool (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+      cooling_set_point_fahrenheit?: number | undefined
+      /** Temperature to which the thermostat should heat (in °F). See also [Set Points](https://docs.seam.co/latest/capability-guides/thermostats/understanding-thermostat-concepts/set-points). */
+      heating_set_point_fahrenheit?: number | undefined
+      /** Indicates whether a person at the thermostat can change the thermostat's settings. See [Specifying Manual Override Permissions](https://docs.seam.co/latest/capability-guides/thermostats/creating-and-managing-thermostat-schedules#specifying-manual-override-permissions).
+       * @deprecated Use 'thermostat_schedule.is_override_allowed'*/
+      manual_override_allowed: boolean
+    }
+    commonParams: {}
+    formData: {}
+    jsonResponse: {
       ok: boolean
     }
   }

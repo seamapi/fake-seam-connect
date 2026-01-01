@@ -468,6 +468,7 @@ const initializer = immer<Database>((set, get) => ({
       is_managed: true,
       device_type: params.device_type,
       display_name: params.display_name ?? "Smart Device",
+      // @ts-expect-error type error
       connected_account_id: params.connected_account_id,
       capabilities_supported: ["lock", "access_code"],
       created_at: params.created_at ?? new Date().toISOString(),

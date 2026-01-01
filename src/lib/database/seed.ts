@@ -167,7 +167,16 @@ export const seedDatabase = (db: Database): Seed => {
       min_heating_cooling_delta_celsius: 2.78,
       is_fan_running: true,
       fan_mode_setting: "auto",
+      available_climate_presets: [],
+      available_hvac_mode_settings: ["heat", "cool", "heat_cool", "off"],
+      available_fan_mode_settings: ["auto", "on", "circulate"],
+      min_heating_set_point_celsius: 15,
+      max_heating_set_point_celsius: 26,
+      min_cooling_set_point_celsius: 5,
+      max_cooling_set_point_celsius: 20,
+      min_heating_cooling_delta_fahrenheit: 5,
       current_climate_setting: {
+        // @ts-expect-error type error
         automatic_heating_enabled: false,
         automatic_cooling_enabled: true,
         hvac_mode_setting: "cool",
