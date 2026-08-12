@@ -13,7 +13,6 @@
 !ava.config.js
 !next.config.js
 !next-env.d.ts
-!write-nsm-next-config.js
 
 # ESLint
 src/route-types.ts
