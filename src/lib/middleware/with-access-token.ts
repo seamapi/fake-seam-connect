@@ -6,7 +6,6 @@ import {
 import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
 
 import type { Database } from "lib/database/index.ts"
-
 import { hashLongToken } from "lib/tokens/generate-api-key.ts"
 
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
@@ -108,9 +107,7 @@ export const withAccessToken =
 
     // Cannot run middleware after auth middleware.
     // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return withSimulatedOutage(next as unknown as any)(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       req as unknown as any,
       res,
     )

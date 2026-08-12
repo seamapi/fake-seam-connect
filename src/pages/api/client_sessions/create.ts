@@ -2,7 +2,6 @@ import { BadRequestException, HttpException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
-
 import { client_session } from "lib/zod/client_session.ts"
 
 export default withRouteSpec({
@@ -29,7 +28,6 @@ export default withRouteSpec({
 
   if (
     req.auth.type === "publishable_key" &&
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     (connect_webview_ids != null || connected_account_ids != null)
   ) {
     throw new HttpException(403, {

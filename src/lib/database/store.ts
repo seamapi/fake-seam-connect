@@ -7,8 +7,6 @@ import { immer } from "zustand/middleware/immer"
 import { createStore, type StoreApi } from "zustand/vanilla"
 import { hoist } from "zustand-hoist"
 
-import type { Bridge, BridgeClientSession, UserSession } from "lib/zod/index.ts"
-
 import {
   ACS_ACCESS_GROUP_EXTERNAL_TYPE_TO_DISPLAY_NAME,
   ACS_SYSTEM_TYPE_TO_DISPLAY_NAME,
@@ -37,6 +35,7 @@ import type { Device } from "lib/zod/device.ts"
 import type { Endpoint } from "lib/zod/endpoints.ts"
 import type { EnrollmentAutomation } from "lib/zod/enrollment_automation.ts"
 import type { Event } from "lib/zod/event.ts"
+import type { Bridge, BridgeClientSession, UserSession } from "lib/zod/index.ts"
 import type { NoiseThreshold } from "lib/zod/noise_threshold.ts"
 import type { PhoneInvitation, PhoneSdkInstallation } from "lib/zod/phone.ts"
 import type { UserIdentity } from "lib/zod/user_identity.ts"

@@ -1,14 +1,13 @@
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
+import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import {
   action_attempt,
   fan_mode_setting,
   THERMOSTAT_DEVICE_TYPES,
   type ThermostatDeviceType,
 } from "lib/zod/index.ts"
-
-import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
   auth: [

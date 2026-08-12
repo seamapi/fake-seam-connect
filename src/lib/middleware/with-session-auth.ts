@@ -8,7 +8,6 @@ import {
 import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
 
 import type { Database } from "lib/database/index.ts"
-
 import type { UserWorkspace } from "lib/zod/user_workspace.ts"
 
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
@@ -119,9 +118,7 @@ export const withSessionAuth =
 
     // Cannot run middleware after auth middleware.
     // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return withSimulatedOutage(next as unknown as any)(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       req as unknown as any,
       res,
     )

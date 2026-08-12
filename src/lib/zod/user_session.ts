@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-const userSession = z.object({
+export const user_session = z.object({
   user_session_id: z.string(),
   user_id: z.string(),
   key: z.string(),
@@ -8,4 +8,4 @@ const userSession = z.object({
   is_admin_session: z.boolean(),
 })
 
-export type UserSession = z.infer<typeof userSession>
+export type UserSession = z.infer<typeof user_session>

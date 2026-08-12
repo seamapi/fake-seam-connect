@@ -1114,11 +1114,7 @@ export type Routes = {
         visionline_metadata: {
           door_name: string
           door_category:
-            | "entrance"
-            | "guest"
-            | "elevator reader"
-            | "common"
-            | "common (PMS)"
+            "entrance" | "guest" | "elevator reader" | "common" | "common (PMS)"
           profiles?:
             | {
                 visionline_door_profile_id: string
@@ -1169,11 +1165,7 @@ export type Routes = {
         visionline_metadata: {
           door_name: string
           door_category:
-            | "entrance"
-            | "guest"
-            | "elevator reader"
-            | "common"
-            | "common (PMS)"
+            "entrance" | "guest" | "elevator reader" | "common" | "common (PMS)"
           profiles?:
             | {
                 visionline_door_profile_id: string
@@ -2215,10 +2207,7 @@ export type Routes = {
               can_enable_automatic_heating: boolean
               can_enable_automatic_cooling: boolean
               available_hvac_mode_settings:
-                | "heat"
-                | "cool"
-                | "heat_cool"
-                | "off"
+                "heat" | "cool" | "heat_cool" | "off"
               is_heating: boolean
               is_cooling: boolean
               is_fan_running: boolean
@@ -2334,8 +2323,11 @@ export type Routes = {
           [x: string]: string | number | null | boolean
         }
         space_ids: string[]
+        /** Indicates whether the device supports remote locking. */
         can_remotely_lock?: boolean | undefined
+        /** Indicates whether the device supports remote unlocking. */
         can_remotely_unlock?: boolean | undefined
+        /** Indicates whether the device supports programming online access codes. */
         can_program_online_access_codes?: boolean | undefined
       }
       ok: boolean
@@ -2487,10 +2479,7 @@ export type Routes = {
               can_enable_automatic_heating: boolean
               can_enable_automatic_cooling: boolean
               available_hvac_mode_settings:
-                | "heat"
-                | "cool"
-                | "heat_cool"
-                | "off"
+                "heat" | "cool" | "heat_cool" | "off"
               is_heating: boolean
               is_cooling: boolean
               is_fan_running: boolean
@@ -2606,8 +2595,11 @@ export type Routes = {
           [x: string]: string | number | null | boolean
         }
         space_ids: string[]
+        /** Indicates whether the device supports remote locking. */
         can_remotely_lock?: boolean | undefined
+        /** Indicates whether the device supports remote unlocking. */
         can_remotely_unlock?: boolean | undefined
+        /** Indicates whether the device supports programming online access codes. */
         can_program_online_access_codes?: boolean | undefined
       }[]
       pagination: {
@@ -3031,8 +3023,7 @@ export type Routes = {
       custom_sdk_installation_id: string
       invitation_id: string
       invitation_type:
-        | "hid_credential_manager"
-        | "assa_abloy_credential_service"
+        "hid_credential_manager" | "assa_abloy_credential_service"
     }
     commonParams: {}
     formData: {}
@@ -3409,10 +3400,7 @@ export type Routes = {
               can_enable_automatic_heating: boolean
               can_enable_automatic_cooling: boolean
               available_hvac_mode_settings:
-                | "heat"
-                | "cool"
-                | "heat_cool"
-                | "off"
+                "heat" | "cool" | "heat_cool" | "off"
               is_heating: boolean
               is_cooling: boolean
               is_fan_running: boolean
@@ -3528,8 +3516,11 @@ export type Routes = {
           [x: string]: string | number | null | boolean
         }
         space_ids: string[]
+        /** Indicates whether the device supports remote locking. */
         can_remotely_lock?: boolean | undefined
+        /** Indicates whether the device supports remote unlocking. */
         can_remotely_unlock?: boolean | undefined
+        /** Indicates whether the device supports programming online access codes. */
         can_program_online_access_codes?: boolean | undefined
       }
       device: {
@@ -3636,10 +3627,7 @@ export type Routes = {
               can_enable_automatic_heating: boolean
               can_enable_automatic_cooling: boolean
               available_hvac_mode_settings:
-                | "heat"
-                | "cool"
-                | "heat_cool"
-                | "off"
+                "heat" | "cool" | "heat_cool" | "off"
               is_heating: boolean
               is_cooling: boolean
               is_fan_running: boolean
@@ -3755,8 +3743,11 @@ export type Routes = {
           [x: string]: string | number | null | boolean
         }
         space_ids: string[]
+        /** Indicates whether the device supports remote locking. */
         can_remotely_lock?: boolean | undefined
+        /** Indicates whether the device supports remote unlocking. */
         can_remotely_unlock?: boolean | undefined
+        /** Indicates whether the device supports programming online access codes. */
         can_program_online_access_codes?: boolean | undefined
       }
       ok: boolean
@@ -3908,10 +3899,7 @@ export type Routes = {
               can_enable_automatic_heating: boolean
               can_enable_automatic_cooling: boolean
               available_hvac_mode_settings:
-                | "heat"
-                | "cool"
-                | "heat_cool"
-                | "off"
+                "heat" | "cool" | "heat_cool" | "off"
               is_heating: boolean
               is_cooling: boolean
               is_fan_running: boolean
@@ -4027,8 +4015,11 @@ export type Routes = {
           [x: string]: string | number | null | boolean
         }
         space_ids: string[]
+        /** Indicates whether the device supports remote locking. */
         can_remotely_lock?: boolean | undefined
+        /** Indicates whether the device supports remote unlocking. */
         can_remotely_unlock?: boolean | undefined
+        /** Indicates whether the device supports programming online access codes. */
         can_program_online_access_codes?: boolean | undefined
       }[]
       devices: {
@@ -4135,10 +4126,7 @@ export type Routes = {
               can_enable_automatic_heating: boolean
               can_enable_automatic_cooling: boolean
               available_hvac_mode_settings:
-                | "heat"
-                | "cool"
-                | "heat_cool"
-                | "off"
+                "heat" | "cool" | "heat_cool" | "off"
               is_heating: boolean
               is_cooling: boolean
               is_fan_running: boolean
@@ -4254,8 +4242,11 @@ export type Routes = {
           [x: string]: string | number | null | boolean
         }
         space_ids: string[]
+        /** Indicates whether the device supports remote locking. */
         can_remotely_lock?: boolean | undefined
+        /** Indicates whether the device supports remote unlocking. */
         can_remotely_unlock?: boolean | undefined
+        /** Indicates whether the device supports programming online access codes. */
         can_program_online_access_codes?: boolean | undefined
       }[]
       ok: boolean
@@ -4891,10 +4882,7 @@ export type Routes = {
               can_enable_automatic_heating: boolean
               can_enable_automatic_cooling: boolean
               available_hvac_mode_settings:
-                | "heat"
-                | "cool"
-                | "heat_cool"
-                | "off"
+                "heat" | "cool" | "heat_cool" | "off"
               is_heating: boolean
               is_cooling: boolean
               is_fan_running: boolean
@@ -5010,8 +4998,11 @@ export type Routes = {
           [x: string]: string | number | null | boolean
         }
         space_ids: string[]
+        /** Indicates whether the device supports remote locking. */
         can_remotely_lock?: boolean | undefined
+        /** Indicates whether the device supports remote unlocking. */
         can_remotely_unlock?: boolean | undefined
+        /** Indicates whether the device supports programming online access codes. */
         can_program_online_access_codes?: boolean | undefined
       }[]
       ok: boolean

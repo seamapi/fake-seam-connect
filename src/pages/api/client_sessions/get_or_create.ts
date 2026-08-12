@@ -2,7 +2,6 @@ import { BadRequestException, HttpException } from "nextlove"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
-
 import { client_session } from "lib/zod/client_session.ts"
 
 export default withRouteSpec({
@@ -48,7 +47,6 @@ export default withRouteSpec({
 
   if (
     publishable_key != null &&
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     (connect_webview_ids != null || connected_account_ids != null)
   ) {
     throw new HttpException(403, {
@@ -61,11 +59,12 @@ export default withRouteSpec({
   const workspace = req.db.workspaces.find(
     (ws) => ws.publishable_key === publishable_key,
   )
-  if (workspace == null)
+  if (workspace == null) {
     throw new BadRequestException({
       type: "workspace_not_found",
       message: "Cannot find workspace associated with this publishable_key",
     })
+  }
 
   const { workspace_id } = workspace
 

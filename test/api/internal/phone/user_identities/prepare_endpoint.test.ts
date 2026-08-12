@@ -31,7 +31,7 @@ test("POST /internal/phone/user_identities/prepare_endpoint", async (t) => {
   } = await axios.post("/internal/phone/user_identities/get_invitation", {
     custom_sdk_installation_id: ext_sdk_installation_id,
     invitation_id: invitations[0]?.invitation_id ?? "",
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     invitation_type: invitations[0]?.invitation_type!,
   })
 
@@ -66,8 +66,9 @@ test("POST /internal/phone/user_identities/prepare_endpoint", async (t) => {
     return
   }
 
-  if (invitation.ext_assa_abloy_cs_endpoint_id == null)
+  if (invitation.ext_assa_abloy_cs_endpoint_id == null) {
     throw new Error("Expected ext_assa_abloy_cs_endpoint_id to be set")
+  }
 
   const {
     data: { endpoint: prepared_endpoint },

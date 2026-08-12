@@ -40,8 +40,9 @@ export const normalizeClimateSettingMode = (
 export const normalizeClimateSetting = (
   cs: Partial<ClimateSetting>,
 ): ClimateSetting => {
-  if (cs.manual_override_allowed === undefined)
+  if (cs.manual_override_allowed === undefined) {
     throw new Error("manual_override_allowed is required")
+  }
 
   let normalized_climate_setting: ClimateSetting = {
     ...normalizeClimateSettingMode(cs),

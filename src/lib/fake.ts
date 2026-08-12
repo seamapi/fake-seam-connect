@@ -6,7 +6,6 @@ import {
   seedDatabase,
   type ZustandDatabase,
 } from "lib/database/index.ts"
-
 import { type Server, startServer } from "lib/server.ts"
 
 export const createFake = async (): Promise<Fake> => {

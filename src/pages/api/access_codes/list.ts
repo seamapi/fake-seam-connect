@@ -1,8 +1,7 @@
 import { z } from "zod"
 
-import { access_code } from "lib/zod/index.ts"
-
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
+import { access_code } from "lib/zod/index.ts"
 
 export default withRouteSpec({
   auth: [

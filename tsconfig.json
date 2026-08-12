@@ -31,7 +31,8 @@
       "fixtures/*": ["./test/fixtures/*"],
       "lib/*": ["./src/lib/*"],
       "nsm/*": ["./.nsm/*"],
-      "pages/*": ["./src/pages/*"]
+      "pages/*": ["./src/pages/*"],
+      "src/*": ["./src/*"]
     }
   },
   "files": ["src/index.ts", "src/server.ts"],
@@ -41,6 +42,7 @@
     ".next/types/**/*.ts",
     "test/**/*",
     "examples/**/*",
-    "tsup.config.ts"
+    "tsup.config.ts",
+    "eslint.config.ts"
   ]
 }

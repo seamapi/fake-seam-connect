@@ -1,6 +1,7 @@
-import type { Routes } from "@seamapi/fake-seam-connect"
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
+
+import type { Routes } from "@seamapi/fake-seam-connect"
 
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 

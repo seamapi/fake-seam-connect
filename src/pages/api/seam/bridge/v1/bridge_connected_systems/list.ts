@@ -1,7 +1,6 @@
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"
-
 import {
   bridge_connected_system,
   type BridgeConnectedSystem,

@@ -23,6 +23,5 @@ export const withAdminAuth: Middleware<{
 
   // Cannot run middleware after auth middleware.
   // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return withSimulatedOutage(next as unknown as any)(req as unknown as any, res)
 }
