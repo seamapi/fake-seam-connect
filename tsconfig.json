@@ -3,6 +3,7 @@
   "extends": "@tsconfig/next/tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
+    "skipLibCheck": true,
     "strict": true,
     "esModuleInterop": true,
     "moduleResolution": "nodenext",
@@ -24,7 +25,7 @@
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./",
+    "types": ["node"],
     "paths": {
       "@seamapi/fake-seam-connect": ["./src/index.ts"],
       "fixtures/*": ["./test/fixtures/*"],
