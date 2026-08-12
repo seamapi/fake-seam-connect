@@ -32,10 +32,18 @@ runs:
       with:
         node-version: ${{ inputs.node_version }}
         registry-url: ${{ inputs.registry_url }}
+    # UPSTREAM: A transitive dependency runs npx in a preinstall script, which
+    # races against a concurrent install over the shared npm cache and fails.
+    # Skip install scripts, then rebuild to run the install and postinstall
+    # scripts that native modules need.
     - name: Install dependencies
       if: inputs.install_dependencies == 'true'
       shell: bash
-      run: npm ci
+      run: npm ci --ignore-scripts
+    - name: Rebuild Node.js modules
+      if: inputs.install_dependencies == 'true'
+      shell: bash
+      run: npm rebuild
     - name: Next.js cache
       uses: actions/cache@v4
       with:

@@ -32,7 +32,9 @@ jobs:
         with:
           install_dependencies: "false"
       - name: Normalize package-lock.json
-        run: npm install
+        run: npm install --ignore-scripts
+      - name: Rebuild Node.js modules
+        run: npm rebuild
       - name: Generate code
         run: npm run build:codegen
       - name: Commit
