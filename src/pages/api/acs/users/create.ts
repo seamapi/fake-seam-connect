@@ -47,11 +47,12 @@ export default withRouteSpec({
     user_identity_id,
   } = req.body
 
-  if (full_name == null)
+  if (full_name == null) {
     throw new BadRequestException({
       type: "full_name_required",
       message: "Full name field is required to create a user",
     })
+  }
 
   if (user_identity_id != null) {
     const user_identity = req.db.user_identities.find(

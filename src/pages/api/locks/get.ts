@@ -1,14 +1,13 @@
 import { HttpException, NotFoundException } from "nextlove"
 import { z } from "zod"
 
+import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
+import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
 import {
   device,
   LOCK_DEVICE_TYPES,
   type LockDeviceType,
 } from "lib/zod/index.ts"
-
-import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
 import { common_params } from "pages/api/devices/get.ts"
 
 export default withRouteSpec({

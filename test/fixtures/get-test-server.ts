@@ -1,10 +1,11 @@
 import { createFake as createFakeDevicedb } from "@seamapi/fake-devicedb"
-import type { Database, Routes } from "@seamapi/fake-seam-connect"
 import { serializeUrlSearchParams } from "@seamapi/url-search-params-serializer"
 import type { ExecutionContext } from "ava"
 import type { Axios } from "axios"
 import type { NextApiRequest } from "next"
 import type { TypedAxios } from "typed-axios-instance"
+
+import type { Database, Routes } from "@seamapi/fake-seam-connect"
 
 import getServerFixture from "nsm/get-server-fixture.ts"
 import type { NextApiHandler, NextApiResponse } from "nsm/types/nextjs.ts"
@@ -18,7 +19,10 @@ type GetServerFixture = typeof getServerFixture.default
 type ServerFixture<TSeed = true> = DatabaseFixture<TSeed> &
   Omit<Awaited<ReturnType<GetServerFixture>>, "axios"> & {
     axios: TypedAxios<Routes>
+    // Untyped escape hatches, for a route whose path carries a parameter that
+    // TypedAxios cannot match against a concrete url.
     get: Axios["get"]
+    post: Axios["post"]
   }
 
 interface ApiRequest extends NextApiRequest {
@@ -62,6 +66,8 @@ export const getTestServer = async <TSeed extends boolean>(
     ...fixture,
     // @ts-expect-error Current version of axios has upstream type issue.
     get: fixture.axios.get.bind(fixture.axios),
+    // @ts-expect-error Current version of axios has upstream type issue.
+    post: fixture.axios.post.bind(fixture.axios),
     db,
     seed: seedResult as any,
   }

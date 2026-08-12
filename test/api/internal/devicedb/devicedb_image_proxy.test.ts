@@ -1,6 +1,6 @@
 import type { RouteResponse } from "@seamapi/types/devicedb"
 import test from "ava"
-import httpClient, { type Axios } from "axios"
+import httpClient from "axios"
 
 import {
   getTestServer,
@@ -9,13 +9,13 @@ import {
 import { seedDatabase } from "lib/database/seed.ts"
 
 test("GET /internal/devicedb_image_proxy", async (t) => {
-  const { axios, db } = await getTestServer(t, { seed: false })
+  const { axios, get, db } = await getTestServer(t, { seed: false })
   const { seam_apikey1_token } = seedDatabase(db)
   axios.defaults.headers.common.Authorization = `Bearer ${seam_apikey1_token}`
 
   const {
     data: { device_models },
-  } = await (axios as Axios).get<RouteResponse<"/v1/device_models/list">>(
+  } = await get<RouteResponse<"/v1/device_models/list">>(
     "/internal/devicedb/v1/device_models/list",
   )
 

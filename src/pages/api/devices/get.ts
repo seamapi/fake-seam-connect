@@ -1,10 +1,9 @@
 import { HttpException, NotFoundException } from "nextlove"
 import { z } from "zod"
 
-import { device } from "lib/zod/index.ts"
-
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
+import { device } from "lib/zod/index.ts"
 
 export const common_params = z
   .object({

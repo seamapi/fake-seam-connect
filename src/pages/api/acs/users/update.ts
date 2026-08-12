@@ -1,4 +1,5 @@
-import { isUndefined, omitBy } from "lodash"
+import isUndefined from "lodash/isUndefined.js"
+import omitBy from "lodash/omitBy.js"
 import { z } from "zod"
 
 import { withRouteSpec } from "lib/middleware/index.ts"

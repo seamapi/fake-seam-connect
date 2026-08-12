@@ -39,7 +39,8 @@ test("withApiKey middleware - successful auth", async (t) => {
   t.is(invalidKeyErr?.status, 401)
   t.is(invalidKeyErr?.response.error.type, "unauthorized")
 
-  // Test using client session token instead of API key
+  // Test using client session token instead of API key,
+  // which defers to the client session auth method
   const clientSessionErr = await t.throwsAsync<SimpleAxiosError>(
     axios.get("/devices/list", {
       headers: {
@@ -48,12 +49,10 @@ test("withApiKey middleware - successful auth", async (t) => {
     }),
   )
   t.is(clientSessionErr?.status, 401)
-  t.is(
-    clientSessionErr?.response.error.type,
-    "client_session_token_used_for_api_key",
-  )
+  t.is(clientSessionErr?.response.error.type, "client_session_not_found")
 
-  // Test using access token instead of API key
+  // Test using access token instead of API key,
+  // which /devices/list does not accept
   const accessTokenErr = await t.throwsAsync<SimpleAxiosError>(
     axios.get("/devices/list", {
       headers: {
@@ -62,14 +61,16 @@ test("withApiKey middleware - successful auth", async (t) => {
     }),
   )
   t.is(accessTokenErr?.status, 401)
-  t.is(accessTokenErr?.response.error.type, "access_token_used_for_api_key")
+  t.is(accessTokenErr?.response.error.type, "unauthorized")
 
-  // Test using JWT instead of API key
+  // Test using JWT instead of API key,
+  // which defers to the console session auth method
   const token = jwt.sign({ some: "payload" }, "secret")
   const jwtErr = await t.throwsAsync<SimpleAxiosError>(
     axios.get("/devices/list", {
       headers: {
         Authorization: `Bearer ${token}`,
+        "seam-workspace": seed_result.seed_workspace_1,
       },
     }),
   )

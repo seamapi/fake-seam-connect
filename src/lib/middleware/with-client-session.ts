@@ -1,5 +1,6 @@
 import type { NextApiRequest } from "next"
 import {
+  AuthMethodDoesNotApplyException,
   BadRequestException,
   type Middleware,
   UnauthorizedException,
@@ -38,18 +39,12 @@ export const withClientSession: Middleware<
 > = (next) => async (req, res) => {
   const token = getCSTFromHeaders(req.headers)
 
-  if (token == null) {
-    throw new UnauthorizedException({
-      type: "unauthorized",
-      message: "Unauthorized",
-    })
-  }
-
-  if (!token.startsWith("seam_cst1")) {
-    throw new BadRequestException({
-      type: "invalid_client_session_token",
-      message: "Invalid client session token",
-    })
+  // A bearer token that is not a client session token belongs to another auth
+  // method, so defer to it instead of failing the request here. A malformed
+  // token sent in a client session token header still fails, see
+  // getCSTFromHeaders.
+  if (token == null || !token.startsWith("seam_cst1")) {
+    throw new AuthMethodDoesNotApplyException()
   }
 
   const client_session = req.db.client_sessions.find(
@@ -114,10 +109,5 @@ export const withClientSession: Middleware<
 
   // Cannot run middleware after auth middleware.
   // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  return withSimulatedOutage(next as unknown as any)(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    req as unknown as any,
-    res,
-  )
+  return withSimulatedOutage(next as unknown as any)(req as unknown as any, res)
 }

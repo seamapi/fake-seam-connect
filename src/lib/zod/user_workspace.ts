@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-const userWorkspace = z.object({
+export const user_workspace = z.object({
   user_workspace_id: z.string(),
   user_id: z.string(),
   workspace_id: z.string(),
@@ -8,4 +8,4 @@ const userWorkspace = z.object({
   is_owner: z.boolean(),
 })
 
-export type UserWorkspace = z.infer<typeof userWorkspace>
+export type UserWorkspace = z.infer<typeof user_workspace>

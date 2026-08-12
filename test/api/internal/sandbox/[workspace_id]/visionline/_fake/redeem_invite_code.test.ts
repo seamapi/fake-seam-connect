@@ -1,10 +1,15 @@
 import test from "ava"
 
+import type { Routes } from "@seamapi/fake-seam-connect"
+
 import { getTestServer } from "fixtures/get-test-server.ts"
 import { seedDatabase } from "lib/database/seed.ts"
 
+type RedeemInviteCodeResponse =
+  Routes["/internal/sandbox/[workspace_id]/visionline/_fake/redeem_invite_code"]["jsonResponse"]
+
 test("GET /internal/sandbox/[workspace_id]/visionline/_fake/redeem_invite_code", async (t) => {
-  const { axios, db } = await getTestServer(t, { seed: false })
+  const { axios, post, db } = await getTestServer(t, { seed: false })
   const { seam_cst1_token } = seedDatabase(db)
 
   const client_session = db.getClientSession(seam_cst1_token)
@@ -32,7 +37,7 @@ test("GET /internal/sandbox/[workspace_id]/visionline/_fake/redeem_invite_code",
   } = await axios.post("/internal/phone/user_identities/get_invitation", {
     custom_sdk_installation_id: ext_sdk_installation_id,
     invitation_id: invitations[0]?.invitation_id ?? "",
-    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain, @typescript-eslint/no-non-null-assertion
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     invitation_type: invitations[0]?.invitation_type!,
   })
 
@@ -43,7 +48,7 @@ test("GET /internal/sandbox/[workspace_id]/visionline/_fake/redeem_invite_code",
 
   const {
     data: { endpoint },
-  } = await axios.post(
+  } = await post<RedeemInviteCodeResponse>(
     `/internal/sandbox/test/visionline/_fake/redeem_invite_code`,
     {
       invite_code: invitation_code,

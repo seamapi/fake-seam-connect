@@ -1,7 +1,10 @@
-import { sortBy } from "lodash"
+import sortBy from "lodash/sortBy.js"
 import { BadRequestException } from "nextlove"
 import { z } from "zod"
 
+import { getNextPageUrl, getPageCursorQueryHash } from "lib/api/pagination.ts"
+import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
+import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
 import {
   device,
   device_internal_page_cursor,
@@ -9,10 +12,6 @@ import {
   device_type,
   pagination,
 } from "lib/zod/index.ts"
-
-import { getNextPageUrl, getPageCursorQueryHash } from "lib/api/pagination.ts"
-import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
-import { getManagedDevicesWithFilter } from "lib/util/devices.ts"
 
 export const common_params = z.object({
   device_ids: z.array(z.string()).optional(),

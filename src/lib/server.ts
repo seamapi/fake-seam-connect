@@ -6,9 +6,8 @@ import getPort from "get-port"
 import type { NextApiRequest } from "next"
 
 import { createDatabase, type Database } from "lib/database/index.ts"
-import * as nsm from "nsm/index.ts"
-
 import logger from "lib/logger.ts"
+import * as nsm from "nsm/index.ts"
 
 const { runServer } = nsm
 

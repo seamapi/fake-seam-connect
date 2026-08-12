@@ -1,16 +1,15 @@
-import { sortBy } from "lodash"
+import sortBy from "lodash/sortBy.js"
 import { BadRequestException } from "nextlove"
 import { z } from "zod"
 
+import { getNextPageUrl, getPageCursorQueryHash } from "lib/api/pagination.ts"
+import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import {
   connected_account,
   connected_account_internal_page_cursor,
   connected_account_page_cursor,
   pagination,
 } from "lib/zod/index.ts"
-
-import { getNextPageUrl, getPageCursorQueryHash } from "lib/api/pagination.ts"
-import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export const common_params = z.object({
   limit: z.coerce.number().int().positive().default(500),

@@ -1,12 +1,11 @@
 import { z } from "zod"
 
+import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import {
   device,
   THERMOSTAT_DEVICE_TYPES,
   type ThermostatDeviceType,
 } from "lib/zod/index.ts"
-
-import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 
 export default withRouteSpec({
   auth: [

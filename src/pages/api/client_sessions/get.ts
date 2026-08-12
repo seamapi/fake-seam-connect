@@ -1,9 +1,8 @@
 import { BadRequestException, NotFoundException } from "nextlove"
 import { z } from "zod"
 
-import { client_session } from "lib/zod/index.ts"
-
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
+import { client_session } from "lib/zod/index.ts"
 
 export default withRouteSpec({
   auth: [

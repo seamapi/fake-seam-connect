@@ -1,5 +1,5 @@
 import {
-  BadRequestException,
+  AuthMethodDoesNotApplyException,
   type Middleware,
   UnauthorizedException,
 } from "nextlove"
@@ -15,20 +15,12 @@ export const withPublishableKey: Middleware<
     db: Database
   }
 > = (next) => async (req, res) => {
+  // Token auth and a missing publishable key both belong to another auth
+  // method, so defer to it instead of failing the request here.
   const is_token_auth = req.headers.authorization != null
-  if (is_token_auth) {
-    throw new BadRequestException({
-      type: "token_auth_not_accepted",
-      message: "Token auth is not accepted for this request.",
-    })
-  }
-
   const publishable_key = req.headers["seam-publishable-key"]
-  if (publishable_key == null) {
-    throw new UnauthorizedException({
-      type: "publishable_key_header_required",
-      message: "Seam-Publishable-Key header required.",
-    })
+  if (is_token_auth || publishable_key == null) {
+    throw new AuthMethodDoesNotApplyException()
   }
 
   if (typeof publishable_key !== "string") {

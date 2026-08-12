@@ -1,6 +1,7 @@
 import type { Fake as FakeDevicedb } from "@seamapi/fake-devicedb"
-import { createDatabase, type Database } from "@seamapi/fake-seam-connect"
 import type { ExecutionContext } from "ava"
+
+import { createDatabase, type Database } from "@seamapi/fake-seam-connect"
 
 import { seed as dbSeed } from "lib/database/seed.ts"
 import { hashLongToken } from "lib/tokens/generate-api-key.ts"

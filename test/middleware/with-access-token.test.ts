@@ -20,7 +20,9 @@ test("withAccessToken middleware - pat_with_workspace auth", async (t) => {
   })
   t.is(status, 200)
 
-  // Test missing workspace header
+  // Test missing workspace header. Access token auth with a workspace does not
+  // apply without one, and this route accepts no auth method that works
+  // without a workspace, so no auth method matches.
   const missingWorkspaceErr = await t.throwsAsync<SimpleAxiosError>(
     axios.get("/devices/get", {
       params: {
@@ -31,8 +33,8 @@ test("withAccessToken middleware - pat_with_workspace auth", async (t) => {
       },
     }),
   )
-  t.is(missingWorkspaceErr?.status, 400)
-  t.is(missingWorkspaceErr?.response.error.type, "missing_workspace_id")
+  t.is(missingWorkspaceErr?.status, 401)
+  t.is(missingWorkspaceErr?.response.error.type, "unauthorized")
 
   // Test invalid workspace
   const invalidWorkspaceErr = await t.throwsAsync<SimpleAxiosError>(
@@ -63,7 +65,8 @@ test("withAccessToken middleware - pat_with_workspace auth", async (t) => {
   t.is(missingAuthErr?.status, 401)
   t.is(missingAuthErr?.response.error.type, "unauthorized")
 
-  // Test using client session token instead of access token
+  // Test using client session token instead of access token,
+  // which defers to the client session auth method
   const clientSessionErr = await t.throwsAsync<SimpleAxiosError>(
     axios.get("/devices/get", {
       params: {
@@ -76,7 +79,7 @@ test("withAccessToken middleware - pat_with_workspace auth", async (t) => {
     }),
   )
   t.is(clientSessionErr?.status, 401)
-  t.is(clientSessionErr?.response.error.type, "unauthorized")
+  t.is(clientSessionErr?.response.error.type, "client_session_not_found")
 })
 
 test("withAccessToken middleware - pat_without_workspace auth", async (t) => {

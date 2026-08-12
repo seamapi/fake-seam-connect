@@ -17,6 +17,7 @@ export const withRouteSpec = createWithRouteSpec({
   apiName: "Fake Seam Connect",
   productionServerUrl: "https://example.com",
   shouldValidateGetRequestBody: false,
+  useLegacyQueryParamsParser: false,
   globalMiddlewares: [withCors, withDb, withBaseUrl, withRequestId],
   addOkStatus: true,
   securitySchemas: {

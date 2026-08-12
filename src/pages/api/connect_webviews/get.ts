@@ -1,9 +1,8 @@
 import { NotFoundException } from "nextlove"
 import { z } from "zod"
 
-import { connect_webview } from "lib/zod/index.ts"
-
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
+import { connect_webview } from "lib/zod/index.ts"
 
 export default withRouteSpec({
   auth: [

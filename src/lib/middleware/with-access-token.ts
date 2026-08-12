@@ -1,12 +1,11 @@
 import {
-  BadRequestException,
+  AuthMethodDoesNotApplyException,
   type Middleware,
   UnauthorizedException,
 } from "nextlove"
 import type { AuthenticatedRequest } from "src/types/authenticated-request.ts"
 
 import type { Database } from "lib/database/index.ts"
-
 import { hashLongToken } from "lib/tokens/generate-api-key.ts"
 
 import { withSimulatedOutage } from "./with-simulated-outage.ts"
@@ -40,19 +39,11 @@ export const withAccessToken =
   (next) =>
   async (req, res) => {
     const token = req.headers.authorization?.split("Bearer ")?.[1]
-    if (token == null) {
-      throw new UnauthorizedException({
-        type: "unauthorized",
-        message:
-          "No token found in header (did you mean to add Authorization?)",
-      })
-    }
 
-    if (!token.startsWith("seam_at")) {
-      throw new UnauthorizedException({
-        type: "unauthorized",
-        message: "Access tokens must start with seam_at",
-      })
+    // A bearer token that is not an access token belongs to another auth
+    // method, so defer to it instead of failing the request here.
+    if (token == null || !token.startsWith("seam_at")) {
+      throw new AuthMethodDoesNotApplyException()
     }
 
     const workspace_id_from_header = req.headers["seam-workspace"]
@@ -64,12 +55,11 @@ export const withAccessToken =
     const is_workspace_id_provided =
       workspace_id != null && workspace_id.length > 0
 
+    // This auth method is the one that carries a workspace, so without the
+    // header it does not apply. Deferring lets a route that also accepts
+    // pat_without_workspace fall through to it.
     if (!is_workspace_id_provided && is_workspace_id_required) {
-      throw new BadRequestException({
-        type: "missing_workspace_id",
-        message:
-          "When using access token authentication, you must provide the Seam-Workspace header",
-      })
+      throw new AuthMethodDoesNotApplyException()
     }
     const workspace = req.db.workspaces.find(
       (w) => w.workspace_id === workspace_id,
@@ -117,9 +107,7 @@ export const withAccessToken =
 
     // Cannot run middleware after auth middleware.
     // UPSTREAM: https://github.com/seamapi/nextlove/issues/118
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return withSimulatedOutage(next as unknown as any)(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       req as unknown as any,
       res,
     )
