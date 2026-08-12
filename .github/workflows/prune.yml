@@ -21,3 +21,16 @@ jobs:
           keep-n-most-recent: 1
           account: ${{ github.repository_owner }}
           token: ${{ secrets.GH_TOKEN }}
+  branches:
+    name: Prune Branches
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 30
+    permissions:
+      pull-requests: read
+      contents: write
+    steps:
+      - name: Prune stale branches
+        uses: balvajs/delete-stale-branches@v2
+        with:
+          dry-run: false
+          days-to-delete: 7
