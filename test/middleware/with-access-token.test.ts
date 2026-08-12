@@ -63,7 +63,8 @@ test("withAccessToken middleware - pat_with_workspace auth", async (t) => {
   t.is(missingAuthErr?.status, 401)
   t.is(missingAuthErr?.response.error.type, "unauthorized")
 
-  // Test using client session token instead of access token
+  // Test using client session token instead of access token,
+  // which defers to the client session auth method
   const clientSessionErr = await t.throwsAsync<SimpleAxiosError>(
     axios.get("/devices/get", {
       params: {
@@ -76,7 +77,7 @@ test("withAccessToken middleware - pat_with_workspace auth", async (t) => {
     }),
   )
   t.is(clientSessionErr?.status, 401)
-  t.is(clientSessionErr?.response.error.type, "unauthorized")
+  t.is(clientSessionErr?.response.error.type, "client_session_not_found")
 })
 
 test("withAccessToken middleware - pat_without_workspace auth", async (t) => {

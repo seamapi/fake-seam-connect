@@ -40,7 +40,8 @@ test("withSessionAuth middleware - successful auth", async (t) => {
   t.is(missingWorkspaceErr?.status, 400)
   t.is(missingWorkspaceErr?.response.error.type, "missing_workspace_id")
 
-  // Test invalid token
+  // Test invalid token, which is not a session token
+  // and so does not match any auth method
   const invalidTokenErr = await t.throwsAsync<SimpleAxiosError>(
     axios.get("/workspaces/get", {
       headers: {
@@ -50,7 +51,8 @@ test("withSessionAuth middleware - successful auth", async (t) => {
     }),
   )
 
-  t.is(invalidTokenErr?.status, 500)
+  t.is(invalidTokenErr?.status, 401)
+  t.is(invalidTokenErr?.response.error.type, "unauthorized")
 
   // Test unauthorized workspace access
   const unauthorizedErr = await t.throwsAsync<SimpleAxiosError>(

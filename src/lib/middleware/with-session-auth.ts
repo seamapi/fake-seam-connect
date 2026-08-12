@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
 import {
+  AuthMethodDoesNotApplyException,
   BadRequestException,
   InternalServerErrorException,
   type Middleware,
@@ -37,12 +38,10 @@ export const withSessionAuth =
   async (req, res) => {
     const token = req.headers.authorization?.split("Bearer ")?.[1]
 
-    if (token == null) {
-      throw new UnauthorizedException({
-        type: "unauthorized",
-        message:
-          "No token found in header (did you mean to add Authorization?)",
-      })
+    // A bearer token that is not a JWT belongs to another auth method, so defer
+    // to it instead of failing the request here.
+    if (token == null || jwt.decode(token) == null) {
+      throw new AuthMethodDoesNotApplyException()
     }
 
     const workspace_id_from_header = req.headers["seam-workspace"]

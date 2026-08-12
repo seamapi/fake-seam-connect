@@ -11,6 +11,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/_fake/database": {
     route: "/_fake/database"
@@ -22,6 +23,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/_fake/default_seed": {
     route: "/_fake/default_seed"
@@ -55,6 +57,7 @@ export type Routes = {
       bridge_client_session_token: "bcs1_token"
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/_fake/enter_bridge_pairing_code": {
     route: "/_fake/enter_bridge_pairing_code"
@@ -68,6 +71,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/_fake/simulate_enter_bridge_pairing_code": {
     route: "/_fake/simulate_enter_bridge_pairing_code"
@@ -81,6 +85,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/_fake/simulate_workspace_outage": {
     route: "/_fake/simulate_workspace_outage"
@@ -95,6 +100,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/_fake/update_action_attempt": {
     route: "/_fake/update_action_attempt"
@@ -123,6 +129,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/access_codes/create": {
     route: "/access_codes/create"
@@ -244,6 +251,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/access_codes/create_multiple": {
     route: "/access_codes/create_multiple"
@@ -368,6 +376,7 @@ export type Routes = {
       )[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/access_codes/delete": {
     route: "/access_codes/delete"
@@ -408,6 +417,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/access_codes/generate_code": {
     route: "/access_codes/generate_code"
@@ -425,6 +435,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/access_codes/get": {
     route: "/access_codes/get"
@@ -543,6 +554,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/access_codes/list": {
     route: "/access_codes/list"
@@ -661,6 +673,7 @@ export type Routes = {
       )[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/access_codes/pull_backup_access_code": {
     route: "/access_codes/pull_backup_access_code"
@@ -777,6 +790,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/access_codes/simulate/create_unmanaged_access_code": {
     route: "/access_codes/simulate/create_unmanaged_access_code"
@@ -895,6 +909,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/access_codes/unmanaged/list": {
     route: "/access_codes/unmanaged/list"
@@ -1012,6 +1027,7 @@ export type Routes = {
       )[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/access_codes/unmanaged/update": {
     route: "/access_codes/unmanaged/update"
@@ -1028,6 +1044,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/access_codes/update": {
     route: "/access_codes/update"
@@ -1073,6 +1090,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/entrances/get": {
     route: "/acs/entrances/get"
@@ -1111,6 +1129,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/entrances/grant_access": {
     route: "/acs/entrances/grant_access"
@@ -1125,6 +1144,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/entrances/list": {
     route: "/acs/entrances/list"
@@ -1164,6 +1184,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/systems/get": {
     route: "/acs/systems/get"
@@ -1204,6 +1225,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/systems/list": {
     route: "/acs/systems/list"
@@ -1244,6 +1266,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/users/add_to_access_group": {
     route: "/acs/users/add_to_access_group"
@@ -1258,6 +1281,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/users/create": {
     route: "/acs/users/create"
@@ -1316,6 +1340,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/users/delete": {
     route: "/acs/users/delete"
@@ -1329,6 +1354,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/users/get": {
     route: "/acs/users/get"
@@ -1374,6 +1400,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/users/list": {
     route: "/acs/users/list"
@@ -1422,6 +1449,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/users/remove_from_access_group": {
     route: "/acs/users/remove_from_access_group"
@@ -1436,6 +1464,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/users/suspend": {
     route: "/acs/users/suspend"
@@ -1449,6 +1478,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/users/unsuspend": {
     route: "/acs/users/unsuspend"
@@ -1462,6 +1492,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/acs/users/update": {
     route: "/acs/users/update"
@@ -1487,6 +1518,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/action_attempts/get": {
     route: "/action_attempts/get"
@@ -1525,6 +1557,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/action_attempts/list": {
     route: "/action_attempts/list"
@@ -1564,6 +1597,7 @@ export type Routes = {
       )[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/client_sessions/create": {
     route: "/client_sessions/create"
@@ -1594,6 +1628,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/client_sessions/get": {
     route: "/client_sessions/get"
@@ -1623,6 +1658,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/client_sessions/get_or_create": {
     route: "/client_sessions/get_or_create"
@@ -1658,6 +1694,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/connect_webviews/create": {
     route: "/connect_webviews/create"
@@ -1762,6 +1799,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/connect_webviews/get": {
     route: "/connect_webviews/get"
@@ -1830,6 +1868,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/connect_webviews/list": {
     route: "/connect_webviews/list"
@@ -1896,6 +1935,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/connect_webviews/view": {
     route: "/connect_webviews/view"
@@ -1905,6 +1945,7 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: {}
+    maxDuration: undefined
   }
   "/connected_accounts/delete": {
     route: "/connected_accounts/delete"
@@ -1919,6 +1960,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/connected_accounts/get": {
     route: "/connected_accounts/get"
@@ -1958,6 +2000,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/connected_accounts/list": {
     route: "/connected_accounts/list"
@@ -1999,6 +2042,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/connected_accounts/update": {
     route: "/connected_accounts/update"
@@ -2040,6 +2084,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/devices/delete": {
     route: "/devices/delete"
@@ -2053,6 +2098,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/devices/get": {
     route: "/devices/get"
@@ -2294,6 +2340,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/devices/list": {
     route: "/devices/list"
@@ -2570,6 +2617,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/devices/list_device_providers": {
     route: "/devices/list_device_providers"
@@ -2589,6 +2637,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/devices/unmanaged/get": {
     route: "/devices/unmanaged/get"
@@ -2631,6 +2680,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/devices/unmanaged/list": {
     route: "/devices/unmanaged/list"
@@ -2703,6 +2753,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/devices/unmanaged/update": {
     route: "/devices/unmanaged/update"
@@ -2717,6 +2768,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/devices/update": {
     route: "/devices/update"
@@ -2732,6 +2784,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/events/get": {
     route: "/events/get"
@@ -2758,6 +2811,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/events/list": {
     route: "/events/list"
@@ -2765,8 +2819,8 @@ export type Routes = {
     queryParams: {}
     jsonBody: {}
     commonParams: {
-      since?: (string | Date) | undefined
-      between?: (string | Date)[] | undefined
+      since?: string | undefined
+      between?: string[] | undefined
       device_id?: string | undefined
       device_ids?: string[] | undefined
       access_code_id?: string | undefined
@@ -2790,6 +2844,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/health": {
     route: "/health"
@@ -2808,6 +2863,7 @@ export type Routes = {
         description: string
       }[]
     }
+    maxDuration: undefined
   }
   "/health/get_health": {
     route: "/health/get_health"
@@ -2826,6 +2882,7 @@ export type Routes = {
         description: string
       }[]
     }
+    maxDuration: undefined
   }
   "/internal/api_keys/create": {
     route: "/internal/api_keys/create"
@@ -2847,6 +2904,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/device_models/list": {
     route: "/internal/device_models/list"
@@ -2873,6 +2931,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/devicedb_image_proxy": {
     route: "/internal/devicedb_image_proxy"
@@ -2884,6 +2943,7 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: {}
+    maxDuration: undefined
   }
   "/internal/devicedb/[...path]": {
     route: "/internal/devicedb/[...path]"
@@ -2895,6 +2955,7 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: any
+    maxDuration: undefined
   }
   "/internal/integration_fixturing/create_user_with_pat": {
     route: "/internal/integration_fixturing/create_user_with_pat"
@@ -2913,6 +2974,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/phone/deactivate": {
     route: "/internal/phone/deactivate"
@@ -2926,6 +2988,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/phone/user_identities/create_invitations": {
     route: "/internal/phone/user_identities/create_invitations"
@@ -2958,6 +3021,7 @@ export type Routes = {
       )[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/phone/user_identities/get_invitation": {
     route: "/internal/phone/user_identities/get_invitation"
@@ -2987,6 +3051,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/phone/user_identities/list_endpoints": {
     route: "/internal/phone/user_identities/list_endpoints"
@@ -3012,6 +3077,7 @@ export type Routes = {
       )[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/phone/user_identities/load_credentials": {
     route: "/internal/phone/user_identities/load_credentials"
@@ -3037,6 +3103,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/phone/user_identities/prepare_endpoint": {
     route: "/internal/phone/user_identities/prepare_endpoint"
@@ -3065,6 +3132,7 @@ export type Routes = {
         | undefined
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/phone/visionline/list_lock_service_codes": {
     route: "/internal/phone/visionline/list_lock_service_codes"
@@ -3079,6 +3147,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/sandbox/[workspace_id]/visionline/_fake/load_credentials": {
     route: "/internal/sandbox/[workspace_id]/visionline/_fake/load_credentials"
@@ -3116,6 +3185,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/sandbox/[workspace_id]/visionline/_fake/redeem_invite_code": {
     route: "/internal/sandbox/[workspace_id]/visionline/_fake/redeem_invite_code"
@@ -3170,6 +3240,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/sandbox/[workspace_id]/visionline/_fake/simulate/readers/list_events": {
     route: "/internal/sandbox/[workspace_id]/visionline/_fake/simulate/readers/list_events"
@@ -3189,6 +3260,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/sandbox/[workspace_id]/visionline/_fake/simulate/readers/unlock": {
     route: "/internal/sandbox/[workspace_id]/visionline/_fake/simulate/readers/unlock"
@@ -3210,6 +3282,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/internal/tlmtry": {
     route: "/internal/tlmtry"
@@ -3219,6 +3292,7 @@ export type Routes = {
     commonParams: {}
     formData: {}
     jsonResponse: {}
+    maxDuration: undefined
   }
   "/locks/get": {
     route: "/locks/get"
@@ -3687,6 +3761,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/locks/list": {
     route: "/locks/list"
@@ -4185,6 +4260,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/locks/lock_door": {
     route: "/locks/lock_door"
@@ -4224,6 +4300,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/locks/unlock_door": {
     route: "/locks/unlock_door"
@@ -4263,6 +4340,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/noise_sensors/noise_thresholds/create": {
     route: "/noise_sensors/noise_thresholds/create"
@@ -4316,6 +4394,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/noise_sensors/noise_thresholds/delete": {
     route: "/noise_sensors/noise_thresholds/delete"
@@ -4356,6 +4435,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/noise_sensors/noise_thresholds/get": {
     route: "/noise_sensors/noise_thresholds/get"
@@ -4378,6 +4458,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/noise_sensors/noise_thresholds/list": {
     route: "/noise_sensors/noise_thresholds/list"
@@ -4400,6 +4481,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/noise_sensors/noise_thresholds/update": {
     route: "/noise_sensors/noise_thresholds/update"
@@ -4445,6 +4527,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/seam/bridge/v1/bridge_client_sessions/create": {
     route: "/seam/bridge/v1/bridge_client_sessions/create"
@@ -4475,6 +4558,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/seam/bridge/v1/bridge_client_sessions/get": {
     route: "/seam/bridge/v1/bridge_client_sessions/get"
@@ -4501,6 +4585,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/seam/bridge/v1/bridge_client_sessions/regenerate_pairing_code": {
     route: "/seam/bridge/v1/bridge_client_sessions/regenerate_pairing_code"
@@ -4527,6 +4612,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/seam/bridge/v1/bridge_client_sessions/report_status": {
     route: "/seam/bridge/v1/bridge_client_sessions/report_status"
@@ -4541,6 +4627,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/seam/bridge/v1/bridge_connected_systems/list": {
     route: "/seam/bridge/v1/bridge_connected_systems/list"
@@ -4562,6 +4649,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/thermostats/cool": {
     route: "/thermostats/cool"
@@ -4603,6 +4691,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/thermostats/heat": {
     route: "/thermostats/heat"
@@ -4644,6 +4733,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/thermostats/heat_cool": {
     route: "/thermostats/heat_cool"
@@ -4687,6 +4777,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/thermostats/list": {
     route: "/thermostats/list"
@@ -4925,6 +5016,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/thermostats/off": {
     route: "/thermostats/off"
@@ -4964,6 +5056,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/thermostats/set_fan_mode": {
     route: "/thermostats/set_fan_mode"
@@ -5004,6 +5097,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/user_identities/add_acs_user": {
     route: "/user_identities/add_acs_user"
@@ -5018,6 +5112,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/user_identities/create": {
     route: "/user_identities/create"
@@ -5042,6 +5137,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/webhooks/create": {
     route: "/webhooks/create"
@@ -5063,6 +5159,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/webhooks/delete": {
     route: "/webhooks/delete"
@@ -5076,6 +5173,7 @@ export type Routes = {
     jsonResponse: {
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/webhooks/get": {
     route: "/webhooks/get"
@@ -5096,6 +5194,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/webhooks/list": {
     route: "/webhooks/list"
@@ -5114,6 +5213,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/workspaces/create": {
     route: "/workspaces/create"
@@ -5150,6 +5250,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/workspaces/get": {
     route: "/workspaces/get"
@@ -5180,6 +5281,7 @@ export type Routes = {
       }
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/workspaces/list": {
     route: "/workspaces/list"
@@ -5210,6 +5312,7 @@ export type Routes = {
       }[]
       ok: boolean
     }
+    maxDuration: undefined
   }
   "/workspaces/reset_sandbox": {
     route: "/workspaces/reset_sandbox"
@@ -5246,6 +5349,7 @@ export type Routes = {
           }
       ok: boolean
     }
+    maxDuration: undefined
   }
 }
 

@@ -1,4 +1,5 @@
 import {
+  AuthMethodDoesNotApplyException,
   BadRequestException,
   type Middleware,
   UnauthorizedException,
@@ -40,19 +41,11 @@ export const withAccessToken =
   (next) =>
   async (req, res) => {
     const token = req.headers.authorization?.split("Bearer ")?.[1]
-    if (token == null) {
-      throw new UnauthorizedException({
-        type: "unauthorized",
-        message:
-          "No token found in header (did you mean to add Authorization?)",
-      })
-    }
 
-    if (!token.startsWith("seam_at")) {
-      throw new UnauthorizedException({
-        type: "unauthorized",
-        message: "Access tokens must start with seam_at",
-      })
+    // A bearer token that is not an access token belongs to another auth
+    // method, so defer to it instead of failing the request here.
+    if (token == null || !token.startsWith("seam_at")) {
+      throw new AuthMethodDoesNotApplyException()
     }
 
     const workspace_id_from_header = req.headers["seam-workspace"]

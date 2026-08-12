@@ -1,4 +1,4 @@
-import { sortBy } from "lodash"
+import sortBy from "lodash/sortBy.js"
 import { BadRequestException } from "nextlove"
 import { z } from "zod"
 

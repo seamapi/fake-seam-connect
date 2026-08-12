@@ -5,12 +5,14 @@ import { type Workspace, workspace } from "lib/zod/index.ts"
 
 export default withRouteSpec({
   methods: ["GET", "POST"],
+  // The with_workspace variants are omitted: they are tried first and fail the
+  // request when the Seam-Workspace header is missing, which never lets the
+  // without_workspace variants run. The without_workspace variants list the
+  // same workspaces for this route.
   auth: [
     "api_key",
     "client_session",
-    "console_session_with_workspace",
     "console_session_without_workspace",
-    "pat_with_workspace",
     "pat_without_workspace",
   ],
   jsonResponse: z.object({
@@ -19,11 +21,7 @@ export default withRouteSpec({
 } as const)(async (req, res) => {
   let workspaces: Workspace[]
 
-  if (
-    req.auth.type === "api_key" ||
-    req.auth.type === "client_session" ||
-    req.auth.type === "access_token"
-  ) {
+  if (req.auth.type === "api_key" || req.auth.type === "client_session") {
     const auth = req.auth
 
     workspaces = req.db.workspaces.filter(

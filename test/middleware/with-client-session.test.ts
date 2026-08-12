@@ -41,12 +41,27 @@ test("withClientSession middleware - successful auth", async (t) => {
         connected_account_id: seed_result.john_connected_account_id,
       },
       headers: {
-        Authorization: "Bearer invalid_token",
+        "seam-client-session-token": "invalid_token",
       },
     }),
   )
   t.is(invalidTokenErr?.status, 400)
   t.is(invalidTokenErr?.response.error.type, "invalid_client_session_token")
+
+  // Test a bearer token that is not a client session token,
+  // which defers to the other auth methods
+  const bearerTokenErr = await t.throwsAsync<SimpleAxiosError>(
+    axios.get("/connected_accounts/get", {
+      params: {
+        connected_account_id: seed_result.john_connected_account_id,
+      },
+      headers: {
+        Authorization: "Bearer invalid_token",
+      },
+    }),
+  )
+  t.is(bearerTokenErr?.status, 401)
+  t.is(bearerTokenErr?.response.error.type, "unauthorized")
 
   // Test expired client session
   const expired_session = db.addClientSession({
