@@ -39,7 +39,7 @@
     "prebuild:ts": "del dist",
     "postbuild:ts": "tsup --format cjs src/index.ts",
     "build:nsm": "nsm build",
-    "postbuild:nsm": "node ./scripts/write-nsm-next-config.js",
+    "postbuild:nsm": "node ./write-nsm-next-config.js",
     "build:route-types": "nextlove generate-route-types --packageDir . --outputFile ./src/route-types.ts --apiPrefix / --pathGlob '/src/pages/api/**/*.ts'",
     "postbuild:route-types": "prettier --write src/route-types.ts",
     "typecheck": "tsc",
