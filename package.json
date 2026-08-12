@@ -72,14 +72,12 @@
     }
   },
   "optionalDependencies": {
-    "@seamapi/fake-devicedb": ">=1.0.0-rc.0",
     "zustand": "^4.3.7",
     "zustand-hoist": "^2.0.0"
   },
   "devDependencies": {
     "@godaddy/terminus": "^4.12.1",
     "@js-temporal/polyfill": "^0.4.4",
-    "@seamapi/fake-devicedb": "^1.6.0",
     "@seamapi/logger": "^1.9.2",
     "@seamapi/types": "^1.1000.1",
     "@seamapi/url-search-params-serializer": "^1.2.0",

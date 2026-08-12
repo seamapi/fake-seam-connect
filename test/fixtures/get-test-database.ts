@@ -1,4 +1,3 @@
-import type { Fake as FakeDevicedb } from "@seamapi/fake-devicedb"
 import type { ExecutionContext } from "ava"
 
 import { createDatabase, type Database } from "@seamapi/fake-seam-connect"
@@ -41,20 +40,9 @@ interface Seed {
 
 export const getTestDatabase = async (
   _t: ExecutionContext,
-  {
-    seed: shouldSeed = true,
-    fakeDevicedb,
-  }: { seed?: boolean; fakeDevicedb?: FakeDevicedb } = {},
+  { seed: shouldSeed = true }: { seed?: boolean } = {},
 ): Promise<DatabaseFixture> => {
   const db = createDatabase()
-
-  if (fakeDevicedb?.serverUrl != null) {
-    db.setDevicedbConfig({
-      url: fakeDevicedb.serverUrl,
-      vercelProtectionBypassSecret:
-        fakeDevicedb.database.vercel_protection_bypass_secret,
-    })
-  }
 
   if (!shouldSeed) return { db, seed: {} as any } // NOTE: bad type, but not worth the templating
 
