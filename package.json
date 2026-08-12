@@ -81,7 +81,7 @@
     "@js-temporal/polyfill": "^0.4.4",
     "@seamapi/fake-devicedb": "^1.6.0",
     "@seamapi/logger": "^1.9.2",
-    "@seamapi/types": ">=1.200.0 <1.984.0",
+    "@seamapi/types": "^1.1000.1",
     "@seamapi/url-search-params-serializer": "^1.2.0",
     "@tsconfig/next": "^1.0.5",
     "@types/jsonwebtoken": "^9.0.6",
