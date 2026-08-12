@@ -2925,30 +2925,6 @@ export type Routes = {
     }
     maxDuration: undefined
   }
-  "/internal/devicedb_image_proxy": {
-    route: "/internal/devicedb_image_proxy"
-    method: "GET"
-    queryParams: {
-      image_id: string
-    }
-    jsonBody: {}
-    commonParams: {}
-    formData: {}
-    jsonResponse: {}
-    maxDuration: undefined
-  }
-  "/internal/devicedb/[...path]": {
-    route: "/internal/devicedb/[...path]"
-    method: "GET" | "OPTIONS"
-    queryParams: {
-      path: string[]
-    }
-    jsonBody: {}
-    commonParams: {}
-    formData: {}
-    jsonResponse: any
-    maxDuration: undefined
-  }
   "/internal/integration_fixturing/create_user_with_pat": {
     route: "/internal/integration_fixturing/create_user_with_pat"
     method: "POST" | "PUT"

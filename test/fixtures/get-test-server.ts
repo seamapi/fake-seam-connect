@@ -1,4 +1,3 @@
-import { createFake as createFakeDevicedb } from "@seamapi/fake-devicedb"
 import { serializeUrlSearchParams } from "@seamapi/url-search-params-serializer"
 import type { ExecutionContext } from "ava"
 import type { Axios } from "axios"
@@ -38,13 +37,8 @@ export const getTestServer = async <TSeed extends boolean>(
   process.env["ADMIN_USERNAME"] = "seamtest"
   process.env["ADMIN_PASSWORD"] = "seamtest"
 
-  const fakeDevicedb = await createFakeDevicedb()
-  await fakeDevicedb.seed()
-  await fakeDevicedb.startServer()
-
   const { db, seed: seedResult } = await getTestDatabase(t, {
     seed: seed ?? true,
-    fakeDevicedb,
   })
 
   let baseUrl: string | undefined

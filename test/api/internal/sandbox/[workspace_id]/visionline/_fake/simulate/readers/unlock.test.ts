@@ -9,9 +9,11 @@ type RedeemInviteCodeResponse =
   Routes["/internal/sandbox/[workspace_id]/visionline/_fake/redeem_invite_code"]["jsonResponse"]
 type LoadCredentialsResponse =
   Routes["/internal/sandbox/[workspace_id]/visionline/_fake/load_credentials"]["jsonResponse"]
+type ListReaderEventsResponse =
+  Routes["/internal/sandbox/[workspace_id]/visionline/_fake/simulate/readers/list_events"]["jsonResponse"]
 
 test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/simulate/readers/unlock", async (t) => {
-  const { axios, post, db } = await getTestServer(t, { seed: false })
+  const { axios, get, post, db } = await getTestServer(t, { seed: false })
   const { seam_cst1_token } = seedDatabase(db)
 
   const client_session = db.getClientSession(seam_cst1_token)
@@ -85,7 +87,7 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/simulate/readers
 
   const {
     data: { events: simulated_unlock_events },
-  } = await axios.get(
+  } = await get<ListReaderEventsResponse>(
     "/internal/sandbox/test/visionline/_fake/simulate/readers/list_events",
     {
       params: {
@@ -96,7 +98,7 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/simulate/readers
 
   t.is(simulated_unlock_events.length, 0)
 
-  await axios.post(
+  await post(
     "/internal/sandbox/test/visionline/_fake/simulate/readers/unlock",
     {
       reader_id: 1,
@@ -109,7 +111,7 @@ test("POST /api/internal/sandbox/:workspace_id/assa_abloy/_fake/simulate/readers
 
   const {
     data: { events: single_unlock },
-  } = await axios.get(
+  } = await get<ListReaderEventsResponse>(
     "/internal/sandbox/test/visionline/_fake/simulate/readers/list_events",
     {
       params: {

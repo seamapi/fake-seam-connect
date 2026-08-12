@@ -66,7 +66,6 @@ export const createDatabase = (): ZustandDatabase => {
 
 const initializer = immer<Database>((set, get) => ({
   _counters: {},
-  devicedbConfig: null,
   simulatedWorkspaceOutages: {},
   simulatedEvents: {},
   client_sessions: [],
@@ -105,10 +104,6 @@ const initializer = immer<Database>((set, get) => ({
 
   getNextRequestId() {
     return get()._getNextId("request")
-  },
-
-  setDevicedbConfig(devicedbConfig) {
-    set({ devicedbConfig })
   },
 
   _addAssaAbloyCredentialService(params) {
