@@ -33,6 +33,22 @@ test("GET /workspaces/list with access token auth", async (t: ExecutionContext) 
   t.is(workspaces[0]?.workspace_id, seed.ws2.workspace_id)
 })
 
+test("GET /workspaces/list with access token auth with workspace", async (t: ExecutionContext) => {
+  const { axios, seed } = await getTestServer(t)
+
+  const {
+    data: { workspaces },
+  } = await axios.get("/workspaces/list", {
+    headers: {
+      Authorization: `Bearer ${seed.ws2.seam_at1_token}`,
+      "seam-workspace": seed.ws2.workspace_id,
+    },
+  })
+
+  t.is(workspaces.length, 1)
+  t.is(workspaces[0]?.workspace_id, seed.ws2.workspace_id)
+})
+
 test("GET /workspaces/list with console session auth with workspaces", async (t: ExecutionContext) => {
   const { axios, seed } = await getTestServer(t)
   const session_token = jwt.sign(

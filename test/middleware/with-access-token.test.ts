@@ -20,7 +20,9 @@ test("withAccessToken middleware - pat_with_workspace auth", async (t) => {
   })
   t.is(status, 200)
 
-  // Test missing workspace header
+  // Test missing workspace header. Access token auth with a workspace does not
+  // apply without one, and this route accepts no auth method that works
+  // without a workspace, so no auth method matches.
   const missingWorkspaceErr = await t.throwsAsync<SimpleAxiosError>(
     axios.get("/devices/get", {
       params: {
@@ -31,8 +33,8 @@ test("withAccessToken middleware - pat_with_workspace auth", async (t) => {
       },
     }),
   )
-  t.is(missingWorkspaceErr?.status, 400)
-  t.is(missingWorkspaceErr?.response.error.type, "missing_workspace_id")
+  t.is(missingWorkspaceErr?.status, 401)
+  t.is(missingWorkspaceErr?.response.error.type, "unauthorized")
 
   // Test invalid workspace
   const invalidWorkspaceErr = await t.throwsAsync<SimpleAxiosError>(

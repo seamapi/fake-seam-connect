@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken"
 import {
   AuthMethodDoesNotApplyException,
-  BadRequestException,
   InternalServerErrorException,
   type Middleware,
   UnauthorizedException,
@@ -51,12 +50,11 @@ export const withSessionAuth =
         ? workspace_id_from_header
         : ""
 
+    // This auth method is the one that carries a workspace, so without the
+    // header it does not apply. Deferring lets a route that also accepts
+    // console_session_without_workspace fall through to it.
     if (workspace_id.length === 0 && is_workspace_id_required) {
-      throw new BadRequestException({
-        type: "missing_workspace_id",
-        message:
-          "When using user session authentication, you must provide the Seam-Workspace header",
-      })
+      throw new AuthMethodDoesNotApplyException()
     }
 
     let decodedJwt: any
