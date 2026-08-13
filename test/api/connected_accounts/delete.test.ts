@@ -43,3 +43,25 @@ test("DELETE /connected_accounts/delete", async (t: ExecutionContext) => {
 
   t.is(devices_get_res.status, 404)
 })
+
+test("POST /connected_accounts/delete", async (t: ExecutionContext) => {
+  const { axios, seed } = await getTestServer(t)
+  const { connected_account1_id: connected_account_id } = seed.ws2
+  axios.defaults.headers.common.Authorization = `Bearer ${seed.ws2.cst}`
+
+  const { status } = await axios.post("/connected_accounts/delete", {
+    connected_account_id,
+  })
+
+  t.is(status, 200)
+
+  const connected_accounts_get_res = await axios.get(
+    "/connected_accounts/get",
+    {
+      params: { connected_account_id },
+      validateStatus: () => true,
+    },
+  )
+
+  t.is(connected_accounts_get_res.status, 404)
+})

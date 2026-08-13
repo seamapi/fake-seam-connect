@@ -11,13 +11,13 @@ export default withRouteSpec({
     "api_key",
   ],
   methods: ["DELETE", "POST"],
-  jsonBody: z.object({
+  commonParams: z.object({
     connected_account_id: z.string(),
     sync: z.boolean().default(false),
   }),
   jsonResponse: z.object({}),
 } as const)(async (req, res) => {
-  const { connected_account_id } = req.body
+  const { connected_account_id } = req.commonParams
 
   const connected_account = req.db.connected_accounts.find(
     (cw) => cw.connected_account_id === connected_account_id,

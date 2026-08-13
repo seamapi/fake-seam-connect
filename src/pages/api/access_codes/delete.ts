@@ -4,7 +4,7 @@ import { z } from "zod"
 import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 import { action_attempt } from "lib/zod/action_attempt.ts"
 
-const json_body = z.object({
+const common_params = z.object({
   access_code_id: z.string(),
   device_id: z.string().optional(),
   sync: z.boolean().default(false),
@@ -18,12 +18,12 @@ export default withRouteSpec({
     "api_key",
   ],
   methods: ["POST", "DELETE"],
-  jsonBody: json_body,
+  commonParams: common_params,
   jsonResponse: z.object({
     action_attempt,
   }),
 } as const)(async (req, res) => {
-  const { access_code_id, device_id, sync } = req.body
+  const { access_code_id, device_id, sync } = req.commonParams
 
   const access_code = req.db.findAccessCode({ access_code_id, device_id })
 

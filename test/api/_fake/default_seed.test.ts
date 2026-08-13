@@ -11,3 +11,12 @@ test("GET /_fake/default_seed", async (t: ExecutionContext) => {
 
   t.deepEqual(data_without_ok, seed)
 })
+
+test("POST /_fake/default_seed", async (t: ExecutionContext) => {
+  const { axios } = await getTestServer(t)
+
+  const { data } = await axios.post("/_fake/default_seed")
+  const { ok, ...data_without_ok } = data
+
+  t.deepEqual(data_without_ok, seed)
+})

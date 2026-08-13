@@ -41,3 +41,33 @@ test("DELETE /access_codes/delete", async (t: ExecutionContext) => {
 
   t.falsy(deleted) // removed from db
 })
+
+test("POST /access_codes/delete", async (t: ExecutionContext) => {
+  const { axios, seed, db } = await getTestServer(t)
+  axios.defaults.headers.common.Authorization = `Bearer ${seed.ws2.cst}`
+
+  const {
+    data: { access_code },
+  } = await axios.post("/access_codes/create", {
+    device_id: seed.ws2.device1_id,
+    name: "Test Access Code",
+    code: "1234",
+  })
+
+  const {
+    data: { action_attempt },
+    status,
+  } = await axios.post("/access_codes/delete", {
+    access_code_id: access_code.access_code_id,
+    sync: true,
+  })
+
+  t.is(status, 200)
+  t.is(action_attempt.status, "success")
+
+  const deleted = db.findAccessCode({
+    access_code_id: access_code.access_code_id,
+  })
+
+  t.falsy(deleted)
+})

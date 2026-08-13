@@ -30,3 +30,29 @@ test("POST /acs/users/add_to_access_group", async (t: ExecutionContext) => {
   )
   t.false(access_group?._acs_user_ids.includes(acs_user_id))
 })
+
+test("DELETE /acs/users/remove_from_access_group", async (t: ExecutionContext) => {
+  const { axios, seed, db } = await getTestServer(t)
+  axios.defaults.headers.common.Authorization = `Bearer ${seed.ws2.cst}`
+  const {
+    acs_user1_id: acs_user_id,
+    acs_access_group1_id: acs_access_group_id,
+  } = seed.ws2
+
+  await axios.post("/acs/users/add_to_access_group", {
+    acs_user_id,
+    acs_access_group_id,
+  })
+
+  await axios.delete("/acs/users/remove_from_access_group", {
+    params: {
+      acs_user_id,
+      acs_access_group_id,
+    },
+  })
+
+  const access_group = db.acs_access_groups.find(
+    (ag) => ag.acs_access_group_id === acs_access_group_id,
+  )
+  t.false(access_group?._acs_user_ids.includes(acs_user_id))
+})

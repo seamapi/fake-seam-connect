@@ -27,7 +27,7 @@ export type Routes = {
   }
   "/_fake/default_seed": {
     route: "/_fake/default_seed"
-    method: "GET"
+    method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
     commonParams: {}
@@ -382,12 +382,12 @@ export type Routes = {
     route: "/access_codes/delete"
     method: "POST" | "DELETE"
     queryParams: {}
-    jsonBody: {
+    jsonBody: {}
+    commonParams: {
       access_code_id: string
       device_id?: string | undefined
       sync?: boolean
     }
-    commonParams: {}
     formData: {}
     jsonResponse: {
       action_attempt:
@@ -1447,11 +1447,11 @@ export type Routes = {
     route: "/acs/users/remove_from_access_group"
     method: "DELETE" | "POST"
     queryParams: {}
-    jsonBody: {
+    jsonBody: {}
+    commonParams: {
       acs_user_id: string
       acs_access_group_id: string
     }
-    commonParams: {}
     formData: {}
     jsonResponse: {
       ok: boolean
@@ -1931,7 +1931,7 @@ export type Routes = {
   }
   "/connect_webviews/view": {
     route: "/connect_webviews/view"
-    method: "GET"
+    method: "GET" | "POST"
     queryParams: {}
     jsonBody: {}
     commonParams: {}
@@ -1943,11 +1943,11 @@ export type Routes = {
     route: "/connected_accounts/delete"
     method: "DELETE" | "POST"
     queryParams: {}
-    jsonBody: {
+    jsonBody: {}
+    commonParams: {
       connected_account_id: string
       sync?: boolean
     }
-    commonParams: {}
     formData: {}
     jsonResponse: {
       ok: boolean
@@ -2900,15 +2900,15 @@ export type Routes = {
   }
   "/internal/device_models/list": {
     route: "/internal/device_models/list"
-    method: "GET"
-    queryParams: {
+    method: "GET" | "POST"
+    queryParams: {}
+    jsonBody: {}
+    commonParams: {
       main_category?: string | undefined
       support_level?: string | undefined
       brand?: string | undefined
       text_search?: string | undefined
     }
-    jsonBody: {}
-    commonParams: {}
     formData: {}
     jsonResponse: {
       device_models: {
@@ -2948,10 +2948,10 @@ export type Routes = {
     route: "/internal/phone/deactivate"
     method: "DELETE" | "POST"
     queryParams: {}
-    jsonBody: {
+    jsonBody: {}
+    commonParams: {
       custom_sdk_installation_id: string
     }
-    commonParams: {}
     formData: {}
     jsonResponse: {
       ok: boolean
@@ -4367,12 +4367,12 @@ export type Routes = {
     route: "/noise_sensors/noise_thresholds/delete"
     method: "DELETE" | "POST"
     queryParams: {}
-    jsonBody: {
+    jsonBody: {}
+    commonParams: {
       noise_threshold_id: string
       device_id: string
       sync?: boolean
     }
-    commonParams: {}
     formData: {}
     jsonResponse: {
       action_attempt:
@@ -4706,7 +4706,8 @@ export type Routes = {
     route: "/thermostats/heat_cool"
     method: "GET" | "POST"
     queryParams: {}
-    jsonBody: {
+    jsonBody: {}
+    commonParams: {
       device_id: string
       heating_set_point_celsius?: number | undefined
       heating_set_point_fahrenheit?: number | undefined
@@ -4714,7 +4715,6 @@ export type Routes = {
       cooling_set_point_fahrenheit?: number | undefined
       sync?: boolean
     }
-    commonParams: {}
     formData: {}
     jsonResponse: {
       action_attempt:
