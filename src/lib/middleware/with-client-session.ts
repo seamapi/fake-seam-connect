@@ -19,7 +19,7 @@ const getCSTFromHeaders = (headers: NextApiRequest["headers"]) => {
   }
   if (
     client_session_token != null &&
-    !client_session_token.startsWith("seam_cst1")
+    !client_session_token.startsWith("seam_cst")
   ) {
     throw new BadRequestException({
       type: "invalid_client_session_token",
@@ -43,7 +43,7 @@ export const withClientSession: Middleware<
   // method, so defer to it instead of failing the request here. A malformed
   // token sent in a client session token header still fails, see
   // getCSTFromHeaders.
-  if (token == null || !token.startsWith("seam_cst1")) {
+  if (token == null || !token.startsWith("seam_cst")) {
     throw new AuthMethodDoesNotApplyException()
   }
 
