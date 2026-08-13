@@ -13,8 +13,8 @@ const searchFields = [
 
 export default withRouteSpec({
   auth: "none",
-  methods: ["GET"],
-  queryParams: z.object({
+  methods: ["GET", "POST"],
+  commonParams: z.object({
     main_category: z.string().optional(),
     support_level: z.string().optional(),
     brand: z.string().optional(),
@@ -32,21 +32,21 @@ export default withRouteSpec({
   minisearch.addAll(fake_device_models)
 
   let device_models = [...fake_device_models]
-  if (req.query.text_search != null) {
-    device_models = minisearch.search(req.query.text_search) as any
+  if (req.commonParams.text_search != null) {
+    device_models = minisearch.search(req.commonParams.text_search) as any
   }
 
-  if (req.query.support_level != null) {
+  if (req.commonParams.support_level != null) {
     device_models = device_models.filter(
       (dm) =>
         dm.support_level.toLowerCase() ===
-        req.query.support_level?.toLowerCase(),
+        req.commonParams.support_level?.toLowerCase(),
     )
   }
 
-  if (req.query.brand != null) {
+  if (req.commonParams.brand != null) {
     device_models = device_models.filter(
-      (dm) => dm.brand.toLowerCase() === req.query.brand?.toLowerCase(),
+      (dm) => dm.brand.toLowerCase() === req.commonParams.brand?.toLowerCase(),
     )
   }
 

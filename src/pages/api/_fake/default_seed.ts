@@ -11,7 +11,7 @@ const seed_schema = z.object(
 
 export default withRouteSpec({
   auth: "none",
-  methods: ["GET"],
+  methods: ["GET", "POST"],
   jsonResponse: seed_schema,
 } as const)(async (_, res) => {
   res.status(200).json(seed)

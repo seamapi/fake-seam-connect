@@ -11,13 +11,13 @@ export default withRouteSpec({
     "console_session_with_workspace",
     "api_key",
   ],
-  jsonBody: z.object({
+  commonParams: z.object({
     acs_user_id: z.string(),
     acs_access_group_id: z.string(),
   }),
   jsonResponse: z.object({}),
 } as const)(async (req, res) => {
-  const { acs_user_id, acs_access_group_id } = req.body
+  const { acs_user_id, acs_access_group_id } = req.commonParams
 
   const acs_user = req.db.acs_users.find(
     (acs_user) =>

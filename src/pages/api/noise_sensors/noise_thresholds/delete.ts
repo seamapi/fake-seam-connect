@@ -17,7 +17,7 @@ export default withRouteSpec({
     "api_key",
   ],
   methods: ["DELETE", "POST"],
-  jsonBody: z.object({
+  commonParams: z.object({
     noise_threshold_id: z.string(),
     device_id: z.string(),
     sync: z.boolean().default(false),
@@ -26,7 +26,7 @@ export default withRouteSpec({
     action_attempt,
   }),
 } as const)(async (req, res) => {
-  const { device_id, sync, noise_threshold_id } = req.body
+  const { device_id, sync, noise_threshold_id } = req.commonParams
   const { workspace_id } = req.auth
 
   const device = getManagedDevicesWithFilter(req.db, {

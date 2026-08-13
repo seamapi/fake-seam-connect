@@ -17,7 +17,7 @@ export default withRouteSpec({
     "api_key",
   ],
   methods: ["GET", "POST"],
-  jsonBody: z
+  commonParams: z
     .object({
       device_id: z.string(),
       heating_set_point_celsius: z.number().optional(),
@@ -73,7 +73,7 @@ export default withRouteSpec({
     cooling_set_point_celsius,
     cooling_set_point_fahrenheit,
     sync,
-  } = req.body
+  } = req.commonParams
 
   const device = req.db.devices.find((device) => {
     if (

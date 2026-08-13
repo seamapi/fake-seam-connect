@@ -5,12 +5,12 @@ import { withRouteSpec } from "lib/middleware/with-route-spec.ts"
 export default withRouteSpec({
   auth: "client_session",
   methods: ["DELETE", "POST"],
-  jsonBody: z.object({
+  commonParams: z.object({
     custom_sdk_installation_id: z.string(),
   }),
   jsonResponse: z.object({}),
 } as const)(async (req, res) => {
-  const { custom_sdk_installation_id } = req.body
+  const { custom_sdk_installation_id } = req.commonParams
 
   const { client_session_id, workspace_id } = req.auth
 

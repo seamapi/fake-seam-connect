@@ -33,3 +33,55 @@ test("DELETE /noise_sensors/noise_thresholds/delete", async (t: ExecutionContext
 
   t.is(noise_thresholds.length, 0)
 })
+
+test("DELETE /noise_sensors/noise_thresholds/delete with query params", async (t: ExecutionContext) => {
+  const { axios, seed } = await getTestServer(t)
+  axios.defaults.headers.common.Authorization = `Bearer ${seed.ws2.cst}`
+
+  const {
+    data: { action_attempt },
+  } = await axios.delete("/noise_sensors/noise_thresholds/delete", {
+    params: {
+      device_id: seed.ws2.noise_sensor_device_id,
+      noise_threshold_id: seed.ws2.noise_threshold_id,
+      sync: true,
+    },
+  })
+
+  t.is(action_attempt.status, "success")
+
+  const {
+    data: { noise_thresholds },
+  } = await axios.get("/noise_sensors/noise_thresholds/list", {
+    params: {
+      device_id: seed.ws2.noise_sensor_device_id,
+    },
+  })
+
+  t.is(noise_thresholds.length, 0)
+})
+
+test("POST /noise_sensors/noise_thresholds/delete", async (t: ExecutionContext) => {
+  const { axios, seed } = await getTestServer(t)
+  axios.defaults.headers.common.Authorization = `Bearer ${seed.ws2.cst}`
+
+  const {
+    data: { action_attempt },
+  } = await axios.post("/noise_sensors/noise_thresholds/delete", {
+    device_id: seed.ws2.noise_sensor_device_id,
+    noise_threshold_id: seed.ws2.noise_threshold_id,
+    sync: true,
+  })
+
+  t.is(action_attempt.status, "success")
+
+  const {
+    data: { noise_thresholds },
+  } = await axios.get("/noise_sensors/noise_thresholds/list", {
+    params: {
+      device_id: seed.ws2.noise_sensor_device_id,
+    },
+  })
+
+  t.is(noise_thresholds.length, 0)
+})
