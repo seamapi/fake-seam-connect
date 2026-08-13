@@ -48,6 +48,21 @@ test("withClientSession middleware - successful auth", async (t) => {
   t.is(invalidTokenErr?.status, 400)
   t.is(invalidTokenErr?.response.error.type, "invalid_client_session_token")
 
+  // Test unknown client session token is unauthorized, even if it does not use
+  // the current seam_cst1 token version prefix.
+  const unknownClientSessionErr = await t.throwsAsync<SimpleAxiosError>(
+    axios.get("/connected_accounts/get", {
+      params: {
+        connected_account_id: seed_result.john_connected_account_id,
+      },
+      headers: {
+        "seam-client-session-token": "seam_cst_123",
+      },
+    }),
+  )
+  t.is(unknownClientSessionErr?.status, 401)
+  t.is(unknownClientSessionErr?.response.error.type, "client_session_not_found")
+
   // Test a bearer token that is not a client session token,
   // which defers to the other auth methods
   const bearerTokenErr = await t.throwsAsync<SimpleAxiosError>(
