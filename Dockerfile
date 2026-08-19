@@ -13,12 +13,14 @@ FROM base AS build
 
 COPY package-lock.json ./
 COPY package.json ./
-# UPSTREAM: A transitive dependency runs npx in a preinstall script, which
-# races against the concurrently built platform over the shared npm cache and
-# fails the install. Skip install scripts, then rebuild to run the install and
-# postinstall scripts that native modules need.
+# UPSTREAM: Some transitive dependencies run npx in a preinstall script, which
+# races against itself over the shared npx cache and fails the install with
+# "Text file busy". Skip install scripts, then rebuild only the native modules
+# whose postinstall links a platform binary. Rebuilding those by name avoids
+# re-running the offending npx preinstall scripts (which produce nothing the
+# build needs) while still linking the binaries needed under emulation.
 RUN --mount=type=cache,target=/root/.npm npm ci --ignore-scripts
-RUN npm rebuild
+RUN npm rebuild esbuild @swc/core unrs-resolver
 COPY . ./
 RUN npm run build
 RUN npm pack
@@ -30,8 +32,11 @@ ENV NODE_ENV=production
 
 COPY package-lock.json ./
 COPY package.json ./
+# See the note in the build stage: rebuild native modules by name to avoid the
+# racing npx preinstall scripts. This stage installs production dependencies
+# only, so the list is a no-op unless a native runtime dependency is added.
 RUN --mount=type=cache,target=/root/.npm npm ci --ignore-scripts
-RUN npm rebuild
+RUN npm rebuild esbuild @swc/core unrs-resolver
 RUN rm package.json package-lock.json
 
 FROM base AS app
