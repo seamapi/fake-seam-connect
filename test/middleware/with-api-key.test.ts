@@ -51,8 +51,7 @@ test("withApiKey middleware - successful auth", async (t) => {
   t.is(clientSessionErr?.status, 401)
   t.is(clientSessionErr?.response.error.type, "client_session_not_found")
 
-  // Test using access token instead of API key,
-  // which /devices/list does not accept
+  // Test using access token without the required workspace header
   const accessTokenErr = await t.throwsAsync<SimpleAxiosError>(
     axios.get("/devices/list", {
       headers: {

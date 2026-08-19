@@ -51,6 +51,21 @@ test("GET /devices/list with api key", async (t: ExecutionContext) => {
   }
 })
 
+test("GET /devices/list with personal access token", async (t: ExecutionContext) => {
+  const { axios, seed } = await getTestServer(t)
+
+  const {
+    data: { devices },
+  } = await axios.get("/devices/list", {
+    headers: {
+      Authorization: `Bearer ${seed.ws2.seam_at1_token}`,
+      "seam-workspace": seed.ws2.workspace_id,
+    },
+  })
+
+  t.true(devices.some(({ device_id }) => device_id === seed.ws2.device1_id))
+})
+
 test("GET /devices/list with limit", async (t: ExecutionContext) => {
   const { axios, db } = await getTestServer(t, { seed: false })
   const seed_result = seedDatabase(db)
