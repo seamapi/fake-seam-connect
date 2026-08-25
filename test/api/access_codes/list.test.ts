@@ -1,6 +1,9 @@
 import test, { type ExecutionContext } from "ava"
 
-import { getTestServer } from "fixtures/get-test-server.ts"
+import {
+  getTestServer,
+  type SimpleAxiosError,
+} from "fixtures/get-test-server.ts"
 
 const createAccessCodes = async (
   axios: Awaited<ReturnType<typeof getTestServer>>["axios"],
@@ -103,11 +106,16 @@ test("GET /access_codes/list rejects a cursor from different parameters", async 
     },
   } = await axios.get("/access_codes/list", { params: { device_id, limit: 2 } })
 
-  const res = await axios.get("/access_codes/list", {
-    params: { device_id, limit: 1, page_cursor: next_page_cursor },
-    validateStatus: () => true,
-  })
+  const err = await t.throwsAsync<SimpleAxiosError>(
+    async () =>
+      await axios.get("/access_codes/list", {
+        params: { device_id, limit: 1, page_cursor: next_page_cursor },
+      }),
+  )
 
-  t.is(res.status, 400)
-  t.is(res.data.error.type, "mismatched_page_parameters")
+  t.is(err?.status, 400)
+  t.regex(
+    (err?.response?.error?.message as string) ?? "",
+    /parameters identical/,
+  )
 })
