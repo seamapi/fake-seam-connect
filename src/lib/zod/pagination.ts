@@ -31,3 +31,15 @@ export const connected_account_internal_page_cursor = z.tuple([
 export const connected_account_page_cursor = createPageCursorSchema(
   connected_account_internal_page_cursor,
 )
+
+export const access_code_internal_page_cursor = z.tuple([
+  z.string(),
+  z.object({
+    created_at: z.coerce.date(),
+    access_code_id: z.string(),
+  }),
+])
+
+export const access_code_page_cursor = createPageCursorSchema(
+  access_code_internal_page_cursor,
+)

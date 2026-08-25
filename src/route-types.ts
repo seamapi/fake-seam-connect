@@ -564,6 +564,8 @@ export type Routes = {
     commonParams: {
       device_id?: string | undefined
       access_code_ids?: string[] | undefined
+      limit?: number
+      page_cursor?: (string | undefined) | null
     }
     formData: {}
     jsonResponse: {
@@ -671,6 +673,11 @@ export type Routes = {
             ends_at: string
           }
       )[]
+      pagination: {
+        has_next_page: boolean
+        next_page_cursor: string | null
+        next_page_url: string | null
+      }
       ok: boolean
     }
     maxDuration: undefined
