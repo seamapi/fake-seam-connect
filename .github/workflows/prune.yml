@@ -9,7 +9,7 @@ on:
 jobs:
   ghcr:
     name: GitHub Container Registry
-    runs-on: ubuntu-latest
+    runs-on: namespace-profile-mini
     timeout-minutes: 30
     steps:
       - name: Prune smoke test images
@@ -23,7 +23,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
   branches:
     name: Prune Branches
-    runs-on: "ubuntu-latest"
+    runs-on: "namespace-profile-mini"
     timeout-minutes: 30
     permissions:
       pull-requests: read
