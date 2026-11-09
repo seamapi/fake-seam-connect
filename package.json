@@ -124,5 +124,10 @@
     "zoned-time": "^1.1.2",
     "zustand": "^4.3.7",
     "zustand-hoist": "^2.0.0"
+  },
+  "overrides": {
+    "nextjs-server-modules": {
+      "next": "$next"
+    }
   }
 }

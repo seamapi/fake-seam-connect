@@ -39,7 +39,6 @@
   "include": [
     "src/**/*",
     "next-env.d.ts",
-    ".next/types/**/*.ts",
     "test/**/*",
     "examples/**/*",
     "tsup.config.ts",
