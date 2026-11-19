@@ -99,6 +99,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unused-imports": "^4.1.4",
     "get-port": "^5.1.1",
+    "glob": "^13.0.7",
     "immer": "^9.0.21",
     "isomorphic-fetch": "^3.0.0",
     "jiti": "^2.4.2",
@@ -130,10 +131,7 @@
       "next": "$next",
       "cookie": "^0.7.0",
       "esbuild": "^0.25.12",
-      "glob": {
-        ".": "^13.0.7",
-        "minimatch": "^11.0.1"
-      }
+      "glob": "$glob"
     },
     "ava": {
       "supertap": {
@@ -153,7 +151,6 @@
     "@typescript-eslint/typescript-estree": {
       "minimatch": "^11.0.1"
     },
-    "glob@^10": "^13.0.7",
-    "minimatch@^10": "^11.0.1"
+    "minimatch@^10.2.2": "^11.0.1"
   }
 }
