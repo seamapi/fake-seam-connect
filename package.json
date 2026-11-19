@@ -152,6 +152,8 @@
     },
     "@typescript-eslint/typescript-estree": {
       "minimatch": "^11.0.1"
-    }
+    },
+    "glob@^10": "^13.0.7",
+    "minimatch@^10": "^11.0.1"
   }
 }
