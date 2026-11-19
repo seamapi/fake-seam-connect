@@ -129,7 +129,11 @@
     "nextjs-server-modules": {
       "next": "$next",
       "cookie": "^0.7.0",
-      "esbuild": "^0.25.12"
+      "esbuild": "^0.25.12",
+      "glob": {
+        ".": "^13.0.7",
+        "minimatch": "^11.0.1"
+      }
     },
     "ava": {
       "supertap": {
